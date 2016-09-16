@@ -1,0 +1,139 @@
+<md-content class="md-padding full-width">
+    <md-settings>
+        <md-settings-header class="">
+            <md-settings-avatar>
+                <img class="md-user-avatar" ng-src="{{::vm.student.avatar}}" />
+            </md-settings-avatar>
+            <md-settings-header-text>
+                <span class="md-title">{{::vm.student.displayName}}</span>
+                <span class="md-subhead">{{vm.student.username}}</span>
+                <span class="md-subhead margin-top">°{{::vm.student.birthday | date:'dd MMMM yyyy'}}</span>
+                <span class="md-subhead">Nu in klas <a ui-sref="triangular.manage.groups.group({groupId:classGroup.id})" 
+                    ng-repeat="classGroup in vm.student.activeGroups">{{classGroup.name}} <span ng-if="!$last"></span></a>
+                </span>
+            </md-settings-header-text>
+            <md-settings-actions>
+                <md-button class="md-icon-button" ng-click="vm.closeStudent()" aria-label="sluiten">
+                    <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                </md-button>
+            </md-settings-actions>
+        </md-settings-header>
+        <md-settings-list>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Redicodi</div>
+                    <div class="md-subhead">Redicodi-modules van {{::vm.student.displayName}} weergeven en beheren.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Redicodi</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="end center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.addRedicodi($event)">redicodi toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Periode</th>
+                                        <th md-column>Vak</th>
+                                        <th md-column>Module</th>
+                                        <th md-column>Inhoud</th>
+                                        <th md-column></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="redicodi in vm.redicodi">
+                                        <td md-cell flex="33">
+                                            {{ redicodi.start | ntDate }} - {{ redicodi.end | ntDate }}
+                                        </td>
+                                        <td md-cell>
+                                            {{ redicodi.branch.major.name }} - {{ redicodi.branch.name }}
+                                        </td>
+                                        <td md-cell>
+                                            <md-icon md-font-icon="notos notos-{{redicodi.icon}}"></md-icon>
+                                        </td>
+                                        <td md-cell>
+                                            {{ redicodi.content }}
+                                        </td>
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" ng-click="vm.addRedicodi($event, redicodi)">
+                                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                                <md-tooltip>Bewerken</md-tooltip>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Indivuele leerlijnen</div>
+                    <div class="md-subhead">Individuele leerlijnen van {{::vm.student.displayName}} weergeven en beheren.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Individuele leerlijnen</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="start center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.openIac($event)">leerlijn toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Periode</th>
+                                        <th md-column>Vak</th>
+                                        <th md-column>Evaluaties</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row>
+                                        <td md-cell flex="33">
+                                            1 september 2016 - 31 december 2016
+                                        </td>
+                                        <td md-cell>
+                                            Wiskunde
+                                        </td>
+                                        <td md-cell>
+                                            12/32
+                                        </td>
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" ng-click="vm.openIac($event, 'this')">
+                                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                                <md-tooltip>Bewerken</md-tooltip>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item ng-if="vm.hasDiff('curr')">
+                <md-settings-item-header>
+                    <div class="md-title">Aangepaste leerlijn</div>
+                    <div class="md-subhead">Een leerlijn op maat van {{::vm.student.displayName}} toevoegen of bewerken.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Aangepaste leerlijn</div>
+                    </md-item-header>
+                    <div layout="row" layout-align="end center">
+                        <md-button ng-click="vm.revert()">Annuleren</md-button>
+                        <md-button ng-click="vm.save()" class="md-primary">Opslaan</md-button>
+                    </div>
+                </md-settings-item-content>
+            </md-settings-item>
+        </md-settings-list>
+    </md-settings>
+</md-content>

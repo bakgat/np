@@ -1,0 +1,54 @@
+<md-content class="md-padding full-width">
+    <md-card>
+        <md-card-header class="mb-bg-25 cover">
+            <md-card-header-text>
+                <span class="md-title">Aangepaste leerlijn</span>
+                <span class="md-subhead margin-top">Wiskunde</span>
+                <span class="md-subhead">01 september 2016 - 31 december 2016</span>
+            </md-card-header-text>
+            <md-card-icon-actions>
+                <md-button ng-click="vm.editEvaluation($event)">
+                    <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                    bewerk
+                </md-button>
+                <md-button ng-click="vm.closeEvaluation()">
+                    <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                    sluiten
+                </md-button>
+            </md-card-icon-actions>
+        </md-card-header>
+        <md-divider></md-divider>
+        <md-card-content>
+            <md-table-container>
+                <table md-table class="md-primary md-data-table">
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                        <tr md-row>
+                            <th md-column>Doel</th>
+                            <th md-column>Behaald</th>
+                            <th md-column>Nog te oefenen</th>
+                            <th md-column>Commentaar</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-auto-select ng-repeat="goal in vm.iac.goals">
+                            <td md-cell >
+                                {{::goal.text}}
+                            </td>
+                            <td md-cell>
+                                <md-icon ng-class="vm.isAchieved(goal)" class="zmdi-hc-2x" style="color:#4caf50;"> </md-icon>
+                            </td>
+                            <td md-cell>
+                                <md-icon ng-class="vm.isPractice(goal)" class="zmdi-hc-2x" style="color:#f44336;"></md-icon>
+                            </td>
+                            <td md-cell >
+                                {{::goal.comment}}
+                            </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+        </md-card-content>
+    </md-card>
+</md-content>

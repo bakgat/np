@@ -1,0 +1,64 @@
+/* noTos Icon Font uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+
+$notos-var-monster: '\e001' !default;
+$notos-var-mini-sunflower: '\e002' !default;
+$notos-var-sunflower: '\e003' !default;
+$notos-var-support-heart: '\e004' !default;
+$notos-var-lamp: '\e005' !default;
+$notos-var-settings: '\e006' !default;
+$notos-var-arrows-center: '\e007' !default;
+$notos-var-abc-train: '\e008' !default;
+$notos-var-math-train: '\e009' !default;
+$notos-var-curly-arrow-up: '\e010' !default;
+
+.#{$notos-icon-prefix}-monster {
+  &:before {
+    content: $notos-var-monster;
+  }
+}
+.#{$notos-icon-prefix}-mini-sunflower {
+  &:before {
+    content: $notos-var-mini-sunflower;
+  }
+}
+.#{$notos-icon-prefix}-sunflower {
+  &:before {
+    content: $notos-var-sunflower;
+  }
+}
+.#{$notos-icon-prefix}-support-heart {
+  &:before {
+    content: $notos-var-support-heart;
+  }
+}
+.#{$notos-icon-prefix}-lamp {
+  &:before {
+    content: $notos-var-lamp;
+  }
+}
+.#{$notos-icon-prefix}-settings {
+  &:before {
+    content: $notos-var-settings;
+  }
+}
+.#{$notos-icon-prefix}-arrows-center {
+  &:before {
+    content: $notos-var-arrows-center;
+  }
+}
+.#{$notos-icon-prefix}-abc-train {
+  &:before {
+    content: $notos-var-abc-train;
+  }
+}
+.#{$notos-icon-prefix}-math-train {
+  &:before {
+    content: $notos-var-math-train;
+  }
+}
+.#{$notos-icon-prefix}-curly-arrow-up {
+  &:before {
+    content: $notos-var-curly-arrow-up;
+  }
+}

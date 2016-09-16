@@ -1,0 +1,31 @@
+// Spinning Icons
+// --------------------------
+
+.#{$notos-css-prefix}-spin {
+   animation: notos-spin 1.5s infinite linear;
+}
+
+.#{$notos-css-prefix}-spin-reverse {
+  animation: notos-spin-reverse 1.5s infinite linear;
+}
+
+// Spin
+@keyframes notos-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+// Spin Reverse
+@keyframes notos-spin-reverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-359deg);
+  }
+}
+

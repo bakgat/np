@@ -1,0 +1,99 @@
+<md-dialog class="mobile-fullwidth-dialog compose-person-wizard">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Nieuwe leerling toevoegen
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="student-compose-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.results.length > 0 ? 2 : 0">
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="profile">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Profiel</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="profile" novalidate>
+                            <div class="row">
+                                <md-input-container flex>
+                                    <label>Voornaam</label>
+                                    <input type="text" name="firstName" ng-model="vm.person.firstName" required>
+                                    <div ng-messages="profile.firstName.$error" md-auto-hide="false" ng-show="profile.firstName.$touched">
+                                        <div ng-message="required">
+                                            Vul een voornaam in.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Naam</label>
+                                    <input type="text" name="lastName" ng-model="vm.person.lastName" required>
+                                    <div ng-messages="profile.lastName.$error" md-auto-hide="false" ng-show="profile.lastName.$touched">
+                                        <div ng-message="required">
+                                            Vul een familienaam in.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Stamboeknummer</label>
+                                <input type="text" name="schoolId" ng-model="vm.person.schoolId" required>
+                                <div ng-messages="profile.schoolId.$error" md-auto-hide="false" ng-show="profile.schoolId.$touched">
+                                    <div ng-message="required">
+                                        Vul een stamboeknummer in.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Geslacht</label>
+                                <md-select name="gender" ng-model="vm.person.gender">
+                                    <md-option value="F">
+                                        <md-icon class="zmdi zmdi-female"></md-icon> Vrouwelijk</md-option>
+                                    <md-option value="M">
+                                        <md-icon class="zmdi zmdi-male"></md-icon> Mannelijk</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div class="md-block">
+                                <md-datepicker name="birthday" ng-model="vm.person.birthday" md-placeholder="Geboortedatum" flex>
+                                </md-datepicker>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="group" ng-disabled="profile.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Klas</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <form name="group" novalidate>
+                        <div layout="row" class="md-padding">
+                            <md-input-container class="md-block" flex>
+                                <label>Klas</label>
+                                <md-select name="group" ng-model="vm.person.group" ng-model-options="{trackBy: '$value.id'}">
+                                    <md-option ng-repeat="group in vm.groups" ng-value="group">{{::group.name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <label>Klasnummer</label>
+                                <input type="number" ng-model="vm.person.groupnumber" required>
+                            </md-input-container>
+                        </div>
+                    </form>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 1" ng-disabled="profile.$invalid" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 1" aria-label="opslaan" ng-disabled="profile.$invalid || group.$invalid">Toevoegen</md-button>
+    </md-dialog-actions>
+</md-dialog>

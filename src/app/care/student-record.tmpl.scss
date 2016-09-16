@@ -1,0 +1,23 @@
+.iac-dialog {
+    min-width: 700px;
+    max-width: 700px;
+    .md-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .md-button-group.super-narrow {
+        display: inline-flex;
+        height: 36px;
+        margin: auto;
+        > .md-button {
+            min-width: 32px;
+            height: 30px;
+            margin: auto;
+            &.active {
+                background-color: rgba(0, 0, 0, .12);
+            }
+        }
+    }
+}

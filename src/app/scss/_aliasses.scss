@@ -1,0 +1,25 @@
+.#{$notos-icon-prefix}-filosofy {
+  &:before {
+    content: $notos-var-lamp;
+  }
+}
+.#{$notos-icon-prefix}-base, .#{$notos-icon-prefix}-basic, .#{$notos-icon-prefix}-B {
+  &:before {
+    content: $notos-var-arrows-center;
+  }
+}
+.#{$notos-icon-prefix}-challenge, .#{$notos-icon-prefix}-C {
+  &:before {
+    content: $notos-var-curly-arrow-up;
+  }
+}
+.#{$notos-icon-prefix}-tools, .#{$notos-icon-prefix}-T {
+  &:before {
+    content: $notos-var-settings;
+  }
+}
+.#{$notos-icon-prefix}-support, .#{$notos-icon-prefix}-S {
+  &:before {
+    content: $notos-var-support-heart;
+  }
+}

@@ -1,0 +1,30 @@
+<div flex layout="row">
+    <md-content flex="30">
+        <md-list class="person-list">
+            <div ng-repeat="group in vm.memberGroups">
+                <md-subheader class="md-primary" ng-show="group.staff.length > 0">{{::group.name}}</md-subheader>
+                <md-list-item class="person-list person-list--animated md-2-line" ng-repeat="member in group.staff | orderBy:'-date'" ng-click="vm.openMember(member)" ng-class="{ 'person-list--active': vm.selectedMember === member.id, 'person-list--unread': member.unread }">
+                    <img class="md-avatar" ng-src="{{::member.avatar}}" alt="{{member.displayName}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h3><span class="md-caption">°{{member.birthday|ntDate}}</span>{{member.displayName}}</h3>
+                        <h4>{{member.email}}</h4>
+                        <p></p>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+
+            </div>
+        </md-list>
+    </md-content>
+    <div class="md-whiteframe-z1 animate-wrapper" layout="column" layout-align="start center" flex>
+        <div flex id="ui-admin-person" ui-view layout="column" layout-align="start center" class="overflow-auto full-width">
+            <div flex class="person-none-selected" layout="column" layout-align="center">
+                <h2 hide-xs translate>Geen medewerker geselecteerd</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<md-button ng-click="vm.composeClick($event)" class="md-fab md-accent md-fab-bottom-right" aria-label="{{'EMAIL.COMPOSE_EMAIL' | triTranslate}}" ng-show="!vm.selectedMember">
+    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+</md-button>

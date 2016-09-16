@@ -1,0 +1,12 @@
+// Font path
+// --------------------------
+
+@font-face {
+  font-family: '#{$notos-font-name}';
+  src:
+      url('#{$notos-font-path}/Notos-Icon-Font.woff2?v=#{$notos-version}') format('woff2'),
+      url('#{$notos-font-path}/Notos-Icon-Font.woff?v=#{$notos-version}') format('woff'),
+      url('#{$notos-font-path}/Notos-Icon-Font.ttf?v=#{$notos-version}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

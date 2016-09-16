@@ -1,0 +1,88 @@
+<md-content class="md-padding full-width">
+    <md-card>
+        <md-card-header class="{{vm.headerBg()}} cover">
+            <md-card-header-text>
+                <span class="md-title">{{vm.evaluation.title}}</span>
+                <span class="md-subhead margin-top">{{vm.evaluation.branchForGroup.branch.major.name}} — {{vm.evaluation.branchForGroup.branch.name}}</span>
+                <span class="md-subhead">{{vm.evaluation.date | date:'dd MMMM yyyy'}}</span>
+            </md-card-header-text>
+            <md-card-icon-actions>
+                <md-menu>
+                    <md-button class="widget-button md-icon-button" ng-click="$mdOpenMenu()" aria-label="open menu">
+                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="vm.editEvaluation($event)">
+                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                bewerk
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button class="md-warn" ng-click="vm.removeEvaluation()">
+                                <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
+                                verwijder
+                            </md-button>
+                        </md-menu-item>
+                        <md-divider></md-divider>
+                        <md-menu-item>
+                            <md-button ng-click="vm.closeEvaluation()">
+                                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                                sluiten
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-card-icon-actions>
+        </md-card-header>
+        <md-divider></md-divider>
+        <md-card-content>
+            <md-table-container>
+                <table md-table class="md-primary md-data-table">
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                        <tr md-row>
+                            <th md-column>Naam</th>
+                            <th md-column>Ruwe score</th>
+                            <th md-column md-numberic md-order-by="id">Procent</th>
+                            <th md-column>Aangepast</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.results" 
+                            ng-if="!result.block && result.score">
+                            <td md-cell>
+                                {{::result.student.displayName}}
+                            </td>
+                            <td md-cell>
+                                <span class="score">{{result.score | number:1 }}</span>/{{vm.evaluation.max}}
+                            </td>
+                            <td md-cell>
+                                {{((result.score/vm.evaluation.max)*100)|number:2}}%
+                            </td>
+                            <td md-cell>
+                                <span ng-repeat="redicodi in result.redicodi | orderBy:'toString()'" '>
+                                <i class="diff-icon notos {{'notos- ' + redicodi}}"></i>
+                            </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-divider></md-divider>
+
+            <md-content>
+                <tri-widget chart-results-widget title="{{vm.evaluation.title}}" subtitle="gemiddelde: {{vm.evaluation.average|round:1}}/{{vm.evaluation.max}}- mediaan: {{vm.evaluation.median|round:1}}/{{vm.evaluation.max}}" content-layout="row" 
+                content-padding >
+                  <canvas class="chart-bar" chart-data="vm.barChart.data" chart-labels="vm.barChart.labels" chart-legend="false" chart-options="vm.barChart.options" chart-series="vm.barChart.series" chart-max="100" chart-min="0"></canvas>
+                </tri-widget>
+            </md-content>
+            <md-divider></md-divider>
+            <md-content>
+              <tri-widget chart-profile-widget title="Klasprofiel" subtitle="" content-layout="row" content-padding>
+                <canvas class="chart-doughnut" chart-data="vm.profileChart.data" chart-labels="vm.profileChart.labels" chart-legend="true" ></canvas>
+              </tri-widget>
+            </md-content>
+        </md-card-content>
+    </md-card>
+</md-content>

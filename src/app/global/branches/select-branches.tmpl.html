@@ -1,0 +1,12 @@
+<md-input-container>
+    <label translate>Vak</label>
+    <md-select ng-change="change()" name="branch" ng-model="ngModel" ng-model-options="{trackBy: '$value.id'}" required ng-multiple="multiple" >
+        <md-optgroup label="{{::bg.major.name}}" ng-repeat="bg in branchGroups" ng-if="branchGroups">
+            <md-option ng-value="bfg" ng-repeat="bfg in bg.branchForGroup">{{::bfg.branch.name}}</md-option>
+        </md-optgroup>
+
+        <md-optgroup label="{{::m.name}}" ng-repeat="m in majors" ng-if="majors">
+            <md-option ng-value="b" ng-repeat="b in m.branches">{{::b.name}}</md-option>
+        </md-optgroup>
+    </md-select>
+</md-input-container>

@@ -1,0 +1,21 @@
+// List Icons
+// -------------------------
+
+.#{$notos-css-prefix}-ul {
+  padding-left: 0;
+  margin-left: $notos-li-width;
+  list-style-type: none;
+  > li {
+    position: relative;
+  }
+}
+.#{$notos-css-prefix}-li {
+  position: absolute;
+  left: -$notos-li-width;
+  width: $notos-li-width;
+  top: (2em / 14);
+  text-align: center;
+  &.#{$notos-css-prefix}-lg {
+    left: (-$notos-li-width + (4em / 14));
+  }
+}

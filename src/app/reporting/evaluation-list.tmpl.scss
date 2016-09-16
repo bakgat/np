@@ -1,0 +1,72 @@
+.evaluation-list {
+    background: white;
+}
+
+.evaluation-list__evaluation.md-2-line.md-long-text {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.evaluation-list__evaluation h3 .md-caption {
+    float: right;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.evaluation-list__evaluation .md-list-item-text h4 {
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+// selected evaluation
+.evaluation-list__evaluation--active {
+    background: rgba(0, 0, 0, .05);
+    .md-avatar {
+        display: block;
+        animation: swing 1s;
+    }
+}
+
+// unread evaluation
+.evaluation-list__evaluation--unread h3 {
+    font-weight: 700 !important;
+}
+
+// - No evaluation selected
+.evaluation-no-evaluation-selected {
+    text-align: center;
+    opacity: 0.5;
+    h2 {
+        font-weight: lighter;
+    }
+}
+
+// search filter animations
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter,
+.evaluation-list__evaluation--animated.ng-leave {
+    transition: all linear 0.8s;
+    width: 100%;
+    position: relative;
+}
+
+.evaluation-list__evaluation--animated.ng-leave.ng-leave-active,
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter {
+    opacity: 0;
+    max-height: 0;
+}
+
+.evaluation-list__evaluation--animated.ng-leave,
+.evaluation-list__evaluation--animated.ng-move.ng-move-active,
+.evaluation-list__evaluation--animated.ng-enter.ng-enter-active {
+    opacity: 1;
+    max-height: 500px;
+}
+
+#ui-reporting-evaluation {
+    &.ng-enter {
+        @include slideInRight();
+    }
+    &.ng-leave {
+        @include slideOutRight();
+    }
+}

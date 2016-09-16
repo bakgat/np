@@ -1,0 +1,105 @@
+md-settings md-settings-list md-settings-item {
+    .md-result {
+        .md-headline {
+            display: block;
+            font-weight: 400;
+            font-size: 25px;
+            color: rgba(0, 0, 0, .87);
+        }
+        .md-subtitle {
+            display: block;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 12px;
+            color: rgba(0, 0, 0, .54);
+        }
+    }
+}
+
+md-card.md-user-card {
+    padding: 0;
+    md-card-header {
+        background-size: cover;
+        md-card-avatar {
+            width: 100px;
+            height: 100px;
+            img {
+                border: solid 1px rgba(0, 0, 0, .32);
+                background: rgba(255, 255, 255, .32);
+            }
+            + md-card-header-text {
+                .md-title {
+                    line-height: 20px;
+                    margin-top: 10px;
+                    font-size: 30px;
+                    color: #FFFFFF;
+                }
+                .md-subhead {
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: rgba(255, 255, 255, 100);
+                    &.birthday {
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
+    md-card-content {
+        padding: 0;
+        .md-result {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            .md-result-block {
+                .md-headline {
+                    display: block;
+                    font-weight: 400;
+                    font-size: 25px;
+                    color: rgba(0, 0, 0, .87);
+                }
+                .md-subtitle {
+                    display: block;
+                    font-weight: 300;
+                    font-size: 12px;
+                    line-height: 12px;
+                    color: rgba(0, 0, 0, .54);
+                }
+            }
+        }
+        .collapsible {
+            padding: 14px;
+            .md-title {
+                font-size: 1.6rem;
+            }
+            h3.md-title {
+                padding-bottom: 1rem;
+                border-bottom: solid 1px rgba(0, 0, 0, .12);
+            }
+            .md-subhead {
+                font-size: 1.1rem;
+                color: rgba(0, 0, 0, .54);
+                font-weight: 400;
+            }
+            .header {
+                display: block;
+                @include not-selectable();
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+.compose-person-wizard md-tabs {
+    md-tabs-wrapper {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        height: 48px;
+        width: 100%;
+        z-index: 900;
+    }
+    md-tab-content {
+        padding-top: 44px;
+    }
+}

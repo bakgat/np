@@ -1,0 +1,72 @@
+.person-list {
+    background: white;
+}
+
+.person-list.md-2-line.md-long-text {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.person-list h3 .md-caption {
+    float: right;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.person-list .md-list-item-text h4 {
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+// selected student
+.person-list--active {
+    background: rgba(0, 0, 0, .05);
+    .md-avatar {
+        display: block;
+        animation: swing 1s;
+    }
+}
+
+// unread student
+.person-list--unread h3 {
+    font-weight: 700 !important;
+}
+
+// - No student selected
+.person-none-selected {
+    text-align: center;
+    opacity: 0.5;
+    h2 {
+        font-weight: lighter;
+    }
+}
+
+// search filter animations
+.person-list--animated.ng-move,
+.person-list--animated.ng-enter,
+.person-list--animated.ng-leave {
+    transition: all linear 0.8s;
+    width: 100%;
+    position: relative;
+}
+
+.person-list--animated.ng-leave.ng-leave-active,
+.person-list--animated.ng-move,
+.person-list--animated.ng-enter {
+    opacity: 0;
+    max-height: 0;
+}
+
+.person-list--animated.ng-leave,
+.person-list--animated.ng-move.ng-move-active,
+.person-list--animated.ng-enter.ng-enter-active {
+    opacity: 1;
+    max-height: 500px;
+}
+
+#ui-admin-person {
+    &.ng-enter {
+        @include slideInRight();
+    }
+    &.ng-leave {
+        @include slideOutRight();
+    }
+}

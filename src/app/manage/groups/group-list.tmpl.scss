@@ -1,0 +1,72 @@
+.person-list {
+    background: white;
+}
+
+.person-list__group.md-2-line.md-long-text {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.person-list__group h3 .md-caption {
+    float: right;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.person-list__group .md-list-item-text h4 {
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+// selected group
+.person-list__group--active {
+    background: rgba(0, 0, 0, .05);
+    .md-avatar {
+        display: block;
+        animation: swing 1s;
+    }
+}
+
+// unread group
+.person-list__group--unread h3 {
+    font-weight: 700 !important;
+}
+
+// - No group selected
+.person-no-group-selected {
+    text-align: center;
+    opacity: 0.5;
+    h2 {
+        font-weight: lighter;
+    }
+}
+
+// search filter animations
+.person-list__group--animated.ng-move,
+.person-list__group--animated.ng-enter,
+.person-list__group--animated.ng-leave {
+    transition: all linear 0.8s;
+    width: 100%;
+    position: relative;
+}
+
+.person-list__group--animated.ng-leave.ng-leave-active,
+.person-list__group--animated.ng-move,
+.person-list__group--animated.ng-enter {
+    opacity: 0;
+    max-height: 0;
+}
+
+.person-list__group--animated.ng-leave,
+.person-list__group--animated.ng-move.ng-move-active,
+.person-list__group--animated.ng-enter.ng-enter-active {
+    opacity: 1;
+    max-height: 500px;
+}
+
+#ui-admin-group {
+    &.ng-enter {
+        @include slideInRight();
+    }
+    &.ng-leave {
+        @include slideOutRight();
+    }
+}

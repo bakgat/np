@@ -1,0 +1,26 @@
+// Stacked Icons
+// -------------------------
+
+.#{$notos-css-prefix}-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+}
+.#{$notos-css-prefix}-stack-1x, .#{$notos-css-prefix}-stack-2x {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.#{$notos-css-prefix}-stack-1x {
+  line-height: inherit;
+}
+.#{$notos-css-prefix}-stack-2x {
+  font-size: 2em;
+}
+.#{$notos-css-prefix}-inverse {
+  color: $notos-inverse;
+}

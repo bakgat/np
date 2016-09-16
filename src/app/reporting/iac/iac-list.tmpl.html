@@ -1,0 +1,31 @@
+<div flex layout="row">
+    <md-content flex="30">
+        <md-list class="evaluation-list">
+            <md-list-item class="evaluation-list__evaluation evaluation-list__evaluation--animated md-2-line" ng-click="vm.openIAC(iac)">
+                <div class="md-list-item-text" layout="column">
+                    <h3><span class="md-caption">01/09/2016 - 31/12/2016</span>
+                        Marina Wally</h3>
+                    <h4>
+                          Aangepast curriculum wiskunde
+                        </h4>
+                </div>
+            </md-list-item>
+            <md-list-item class="evaluation-list__evaluation evaluation-list__evaluation--animated md-2-line" ng-click="vm.openIAC(iac)">
+                <div class="md-list-item-text" layout="column">
+                    <h3><span class="md-caption">01/09/2016 - 31/12/2016</span>
+                        Louis Wally</h3>
+                    <h4>
+                          Aangepast curriculum wiskunde
+                        </h4>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <div class="md-whiteframe-z1 animate-wrapper" layout="column" layout-align="start center" flex>
+        <div flex id="ui-reporting-evaluation" ui-view layout="column" layout-align="start center" class="overflow-auto full-width">
+            <div flex class="evaluation-no-evaluation-selected" layout="column" layout-align="center">
+                <h2 hide-xs translate>Geen aangepast curriculum geselecteerd</h2>
+            </div>
+        </div>
+    </div>
+</div>

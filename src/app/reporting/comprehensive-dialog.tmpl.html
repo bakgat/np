@@ -1,0 +1,83 @@
+<md-dialog class="mobile-fullwidth-dialog evaluation-wizard">
+    <md-toolbar class="mb-bg-09 cover">
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                <span ng-if="vm.evaluation.course">{{vm.evaluation.course.name}}: </span>
+                {{vm.evaluation.title || 'Nieuwe brede evaluatie toevoegen'}}
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+        <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="evaluation-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.results.length > 0 ? 2 : 0">
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="settings">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Instellingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="settingsForm" tri-wizard-form novalidate>
+                            <div layout="row" layout-align="center center">
+                                <md-input-container class="md-block" flex>
+                                    <label>Titel</label>
+                                    <input ng-model="vm.evaluation.title" name="title" required>
+                                </md-input-container>
+                            </div>
+                            <div layout="row" layout-align="space-around center">
+                                <div layout="column" flex>
+                                    <label class="md-caption ">Datum</label>
+                                    <md-datepicker name="date" ng-model="vm.evaluation.date" md-placeholder="Datum" md-date-format="longDate" required flex></md-datepicker>
+                                    <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                        <div ng-message when="required">
+                                            <span translate>Datum is een verplicht veld</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups>
+                                </select-branches>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="students" ng-disabled="settingsForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Leerlingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="studentsForm" tri-wizard-form layout="row" layout-align="space-around">
+                            <div layout="column" flex="35">
+                                <md-button style="text-align:left;" class="md-raised md-accent" aria-label="Volledige klas" ng-click="vm.selectAllStudents()">
+                                    <md-icon class="zmdi zmdi-select-all"></md-icon> Volledige klas
+                                </md-button>
+                            </div>
+                            <div layout="column" flex="65">
+                                <md-list>
+                                    <md-list-item ng-repeat="student in vm.students">
+                                        <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
+                                        <img class="md-avatar" ng-src="{{student.avatar}}">
+                                        <div class="md-list-item-text">
+                                            <p>{{::student.displayName}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 1" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 1" translate="Opslaan" aria-label="opslaan"></md-button>
+    </md-dialog-actions>
+</md-dialog>

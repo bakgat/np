@@ -1,0 +1,38 @@
+<md-dialog class="mobile-fullwidth-dialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Nieuwe groep toevoegen
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="group-compose-dialog md-padding">
+        <form name="profile" novalidate>
+            <md-input-container class="md-block">
+                <label>Naam</label>
+                <input type="text" name="name" ng-model="vm.group.name" groupname="vm.group.id" required>
+                <div ng-messages="profile.name.$error" md-auto-hide="false" ng-show="profile.name.$touched">
+                    <div ng-message="required">
+                        Vul een groepsnaam in.
+                    </div>
+                    <div ng-message="groupname">
+                        Deze groepsnaam wordt al gebruikt.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <md-checkbox ng-model="vm.group.active" name="active" aria-label="actief">
+                    groep is actief
+                </md-checkbox>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="vm.cancel()">Annuleren</md-button>
+        <md-button class="md-primary" ng-click="vm.save()" ng-disabled="profile.$invalid">Toevoegen</md-button>
+    </md-dialog-actions>
+</md-dialog>

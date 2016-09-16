@@ -1,0 +1,17 @@
+@mixin raise-2 {
+  -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.18824);
+  -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.18824);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.18824);
+  z-index: 200;
+}
+
+md-item {
+  background: #fff;
+  padding: 8px;
+}
+md-item.pop-out {
+    @include raise-2();
+    margin: 1rem -2rem;
+    display: block;
+}
+

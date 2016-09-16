@@ -1,0 +1,139 @@
+<md-dialog class="mobile-fullwidth-dialog evaluation-wizard">
+    <md-toolbar class="{{vm.headerBg()}} cover">
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                <span ng-if="vm.evaluation.course">{{vm.evaluation.course.name}}: </span>
+                {{vm.evaluation.title || 'Nieuwe evaluatie toevoegen'}}
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+        <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="evaluation-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.results.length > 0 ? 2 : 0">
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="settings">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Instellingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="settingsForm" tri-wizard-form novalidate>
+                            <div layout="row" layout-align="center center">
+                                <md-input-container class="md-block" flex>
+                                    <label>Titel</label>
+                                    <input ng-model="vm.evaluation.title" name="title" required>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex>
+                                    <label>Maximum</label>
+                                    <input type="number" ng-model="vm.evaluation.max" name="max" required ng-pattern="/^[0-9]\d*([,.][0-9]\d*)?$/">
+                                </md-input-container>
+                            </div>
+                            <div layout="row" layout-align="space-around center">
+                                <div layout="column" flex>
+                                    <label class="md-caption ">Datum</label>
+                                    <md-datepicker name="date" ng-model="vm.evaluation.date" md-placeholder="Datum" md-date-format="longDate" required flex></md-datepicker>
+                                    <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                        <div ng-message when="required">
+                                            <span translate>Datum is een verplicht veld</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups>
+                                </select-branches>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="students" ng-disabled="settingsForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Leerlingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="studentsForm" tri-wizard-form layout="row" layout-align="space-around">
+                            <div layout="column" flex="35">
+                                <h6>Kies één of meerdere groepen</h6>
+                                <md-button style="text-align:left;" class="md-raised md-accent" aria-label="Volledige klas" ng-click="vm.selectStudents()">
+                                    <md-icon class="zmdi zmdi-select-all"></md-icon> Volledige klas
+                                </md-button>
+                                <md-button style="text-align:left;" class="md-raised md-default" aria-label="Basis" ng-click="vm.selectStudents('basic')">
+                                    <md-icon class="notos notos-basic"></md-icon> Basis
+                                </md-button>
+                                <md-button style="text-align:left;" class="md-raised md-default" aria-label="Volledige klas" ng-click="vm.selectStudents('challenge')">
+                                    <md-icon class="notos notos-challenge"></md-icon> Uitdaging
+                                </md-button>
+                            </div>
+                            <div layout="column" flex="65">
+                                <h6>Of kies één of meerdere leerlingen</h6>
+                                <md-list>
+                                    <md-list-item ng-repeat="student in vm.students">
+                                        <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
+                                        <img class="md-avatar" ng-src="{{student.avatar}}">
+                                        <div class="md-list-item-text">
+                                            <p>{{::student.displayName}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="results" ng-disabled="studentsForm.$invalid" md-selected="true" md-on-select="vm.prepareInput()">
+                <md-tab-label>
+                    <span class="oxy-step-label">3</span>
+                    <span translate>Resultaten</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content layout="row" layout-align="space-around center">
+                        <div class="md-padding">
+                            <form name="resultsForm" tri-wizard-form>
+                                <div layout="row" flex ng-repeat="result in vm.evaluation.results" ng-if="!result.block">
+                                    <md-input-container class="md-icon-float md-block" flex>
+                                        <label>{{::result.student.displayName}}</label>
+                                        <input ng-model="result.score" name="score_{{$index}}" ng-pattern="/^[0-9]\d*([,.][0-9]\d*)?$/" score enter-as-tab max="vm.evaluation.max">
+                                        <md-icon md-font-set="regular-font" class="md-caption">/{{vm.evaluation.max}}</md-icon>
+                                        <div ng-messages="resultsForm['score_' + $index].$error" md-auto-hide="false" ng-show="resultsForm['score_' + $index].$error">
+                                            <div ng-message="max">
+                                                Meer dan het maximum.
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <div class="margin-left-10 md-button-group super-narrow" ng-class="{'md-whiteframe-z1' : vm.hasRedicodi(result)}">
+                                        <md-button ng-class="{'active': vm.hasRedicodi(result, 'B')}" ng-click="vm.toggleRedicodi(result, 'B')" tabindex="-1" aria-label="basis">
+                                            <md-icon class="notos notos-basic"></md-icon>
+                                        </md-button>
+                                        <md-button ng-class="{'active': vm.hasRedicodi(result, 'C')}" ng-click="vm.toggleRedicodi(result, 'C')" tabindex="-1" aria-label="uitdaging">
+                                            <md-icon class="notos notos-challenge"></md-icon>
+                                        </md-button>
+                                        <md-button ng-class="{'active': vm.hasRedicodi(result, 'S')}" ng-click="vm.toggleRedicodi(result, 'S')" tabindex="-1" aria-label="met ondersteuning">
+                                            <md-icon class="notos notos-support"></md-icon>
+                                        </md-button>
+                                        <md-button ng-class="{'active': vm.hasRedicodi(result, 'T')}" ng-click="vm.toggleRedicodi(result, 'T')" tabindex="-1" aria-label="met hulpmiddelen">
+                                            <md-icon class="notos notos-tools"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span class="md-caption" ng-if="triWizard.currentStep == 2">
+            Gemiddelde: {{vm.evaluation.average|number:1}}% | Mediaan: {{vm.evaluation.median|number:1}}%
+        </span>
+        <span flex></span>
+        <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 2" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 2" translate="Opslaan" aria-label="opslaan"></md-button>
+    </md-dialog-actions>
+</md-dialog>

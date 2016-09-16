@@ -1,0 +1,17 @@
+[{
+    "id": "B",
+    "name": "basis",
+    "icon": "notos notos-basic"
+}, {
+    "id": "C",
+    "name": "uitdaging",
+    "icon": "notos notos-challenge"
+}, {
+    "id": "S",
+    "name": "ondersteuning",
+    "icon": "notos notos-support"
+}, {
+    "id": "T",
+    "name": "hulpmiddelen",
+    "icon": "notos notos-tools"
+}]

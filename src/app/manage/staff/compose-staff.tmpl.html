@@ -1,0 +1,66 @@
+<md-dialog class="mobile-fullwidth-dialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Nieuw personeelslid toevoegen
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="group-compose-dialog md-padding">
+        <form name="profile" novalidate>
+            <div class="row">
+                <md-input-container flex>
+                    <label>Voornaam</label>
+                    <input type="text" name="firstName" ng-model="vm.person.firstName" required>
+                    <div ng-messages="profile.firstName.$error" md-auto-hide="false" ng-show="profile.firstName.$touched">
+                        <div ng-message="required">
+                            Vul een voornaam in.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Naam</label>
+                    <input type="text" name="lastName" ng-model="vm.person.lastName" required>
+                    <div ng-messages="profile.lastName.$error" md-auto-hide="false" ng-show="profile.lastName.$touched">
+                        <div ng-message="required">
+                            Vul een familienaam in.
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" name="email" ng-model="vm.person.email" required>
+                <div ng-messages="profile.email.$error" md-auto-hide="false" ng-show="profile.email.$touched">
+                    <div ng-message="required">
+                        Vul een email in.
+                    </div>
+                    <div ng-message="email">
+                        Vul een geldig email adres in.
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Geslacht</label>
+                <md-select name="gender" ng-model="vm.person.gender">
+                    <md-option value="F">
+                        <md-icon class="zmdi zmdi-female"></md-icon> Vrouwelijk</md-option>
+                    <md-option value="M">
+                        <md-icon class="zmdi zmdi-male"></md-icon> Mannelijk</md-option>
+                </md-select>
+            </md-input-container>
+            <div class="md-block">
+                <md-datepicker name="birthday" ng-model="vm.person.birthday" md-placeholder="Geboortedatum" flex>
+                </md-datepicker>
+            </div>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="vm.cancel()">Annuleren</md-button>
+        <md-button class="md-primary" ng-click="vm.save()" ng-disabled="profile.$invalid">Toevoegen</md-button>
+    </md-dialog-actions>
+</md-dialog>

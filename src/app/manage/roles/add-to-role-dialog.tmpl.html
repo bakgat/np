@@ -1,0 +1,37 @@
+<md-dialog class="mobile-fullwidth-dialog ">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">Recht toekennen</h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content>
+        <div layout="row" class="md-padding">
+            <md-input-container layout="column" flex>
+                <label>Rol</label>
+                <md-select name="role" ng-model="vm.roleperiod.role" ng-model-options="{trackBy: '$value.id'}">
+                    <md-option ng-repeat="role in vm.roles" ng-value="role">{{::role.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" class="md-padding">
+            <div layout="column" flex>
+                <label class="md-caption ">Start op</label>
+                <md-datepicker name="start" ng-model="vm.roleperiod.start" md-placeholder="Start op" required>
+                </md-datepicker>
+            </div>
+            <div layout="column" flex>
+                <label class="md-caption ">Eindigt op</label>
+                <md-datepicker name="end" ng-model="vm.roleperiod.end" md-placeholder="Eindigt op" required>
+                </md-datepicker>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="vm.cancel()" aria-label="annuleren">annuleren</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" aria-label="opslaan">opslaan</md-button>
+    </md-dialog-actions>
+</md-dialog>

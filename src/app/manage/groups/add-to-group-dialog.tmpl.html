@@ -1,0 +1,49 @@
+<md-dialog class="mobile-fullwidth-dialog ">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">Toevoegen aan klas</h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content>
+        <div layout="row" class="md-padding">
+            <md-input-container class="md-block" flex>
+                <label>Klas</label>
+                <md-select name="group" ng-model="vm.groupperiod.group" ng-model-options="{trackBy: '$value.id'}">
+                    <md-option ng-repeat="group in vm.groups" ng-value="group">{{::group.name}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex ng-if="vm.fromStudent">
+                <label>Klasnummer</label>
+                <input type="number" ng-model="vm.groupperiod.number" required>
+            </md-input-container>
+        </div>
+        <div layout="row" class="md-padding">
+            <div layout="column" flex>
+                <label class="md-caption ">Start op</label>
+                <md-datepicker name="start" ng-model="vm.groupperiod.start" md-placeholder="Start op" required>
+                </md-datepicker>
+            </div>
+            <div layout="column" flex>
+                <label class="md-caption ">Eindigt op</label>
+                <md-datepicker name="end" ng-model="vm.groupperiod.end" md-placeholder="Eindigt op" required>
+                </md-datepicker>
+            </div>
+        </div>
+        <div layout="row" class="md-padding" ng-if="vm.fromStaff">
+            <md-input-container layout="column" flex>
+                <label>Type</label>
+                <md-select name="type" ng-model="vm.groupperiod.type" ng-model-options="{trackBy: '$value'}">
+                    <md-option ng-repeat="type in vm.staffTypes" ng-value="type.key">{{::type.value}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row ">
+        <md-button class="md-primary " ng-click="vm.cancel() " aria-label="annuleren ">annuleren</md-button>
+        <md-button class="md-accent md-raised " ng-click="vm.save() " aria-label="opslaan ">opslaan</md-button>
+    </md-dialog-actions>
+</md-dialog>

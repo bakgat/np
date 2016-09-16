@@ -1,0 +1,19 @@
+// Rotated & Flipped icons
+// -------------------------
+
+.#{$notos-css-prefix}-rotate-90  {
+  transform: rotate(90deg);
+}
+.#{$notos-css-prefix}-rotate-180 {
+  transform: rotate(180deg);
+}
+.#{$notos-css-prefix}-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.#{$notos-css-prefix}-flip-horizontal {
+  transform: scale(-1, 1);
+}
+.#{$notos-css-prefix}-flip-vertical {
+  transform: scale(1, -1);
+}

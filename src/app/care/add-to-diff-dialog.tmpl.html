@@ -1,0 +1,45 @@
+<md-dialog class="mobile-fullwidth-dialog ">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">Redicodi toevoegen</h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content>
+        <form name="diff" class="md-padding">
+            <div layout="row">
+                <md-input-container layout="column" class="margin-right-10" flex>
+                    <label>Redicodi</label>
+                    <md-select name="redicodi" ng-model="vm.diffmodule.redicodi" ng-model-options="{trackBy: '$value.id'}">
+                        <md-option ng-repeat="module in vm.modules" ng-value="module">
+                            <md-icon ng-class="module.icon"></md-icon> {{::module.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <select-branches layout="column" flex ng-model="vm.diffmodule.branch"></select-branches>
+            </div>
+            <div layout="row">
+                <div layout="column" flex>
+                    <label class="md-caption date-label">Start op</label>
+                    <md-datepicker name="start" ng-model="vm.diffmodule.start" md-placeholder="Start op" required>
+                    </md-datepicker>
+                </div>
+                <div layout="column" flex>
+                    <label class="md-caption date-label">Eindigt op</label>
+                    <md-datepicker name="end" ng-model="vm.diffmodule.end" md-placeholder="Eindigt op" required>
+                    </md-datepicker>
+                </div>
+            </div>
+            <md-input-container class="md-block">
+                <label>Inhoud</label>
+                <input type="text" name="content" ng-model="vm.diffmodule.content" required>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-primary" ng-click="vm.cancel()" aria-label="annuleren">annuleren</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" aria-label="opslaan">opslaan</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,82 @@
+<md-dialog class="mobile-fullwidth-dialog evaluation-wizard">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Individuele leerlijn
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+        <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="iac-dialog" tri-wizard>
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="settings">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Instellingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="settingsForm" tri-wizard-form novalidate>
+                            <div layout="row" layout-align="center center">
+                                <select-courses layout="column" flex ng-model="vm.iac.course" multiple>
+                                </select-courses>
+                            </div>
+                            <div layout="row" layout-align="space-around center">
+                                <div layout="column" flex>
+                                    <label class="md-caption date-label">Start op:</label>
+                                    <md-datepicker name="date" ng-model="vm.iac.start" md-placeholder="Datum" required flex></md-datepicker>
+                                    <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                        <div ng-message when="required">
+                                            <span translate>Datum is een verplicht veld</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div layout="column" flex>
+                                    <label class="md-caption date-label">Eindigt op:</label>
+                                    <md-datepicker name="date" ng-model="vm.iac.end" md-placeholder="Datum" flex></md-datepicker>
+                                    <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                        <div ng-message when="required">
+                                            <span translate>Datum is een verplicht veld</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="results" ng-disabled="studentsForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Doelen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="goalsForm" tri-wizard-form>
+                            <md-list flex>
+                                <md-list-item ng-repeat="objective in vm.objectives">
+                                    <md-checkbox checklist-model="vm.selectedObjectives" checklist-value="objective"></md-checkbox>
+                                    <div class="md-list-item-text">{{::objective.text}}</div>
+                                    <md-divider ng-if="!$last"></md-divider>
+                                </md-list-item>
+                            </md-list>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span class="md-caption" ng-if="triWizard.currentStep == 2">
+            Gemiddelde: {{vm.average|number:1}}% | Mediaan: {{vm.median|number:1}}%
+        </span>
+        <span flex></span>
+        <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 2" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 2" translate="Opslaan" aria-label="opslaan"></md-button>
+    </md-dialog-actions>
+</md-dialog>

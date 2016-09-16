@@ -1,0 +1,23 @@
+<div flex layout="row">
+    <md-content flex="30">
+        <md-list class="person-list">
+            <md-list-item class="person-list__group md-2-line" ng-repeat="group in vm.groups | orderBy:'name'" ng-click="vm.openGroup(group)" ng-class="{ 'person-list__group--active': vm.selectedGroup === group.id, 'person-list__group-unread': group.unread }">
+                <img class="md-avatar" ng-src="{{::group.avatar}}" alt="{{group.name}}">
+                <div class="md-list-item-text" layout="column">
+                    <h4>{{group.name}}</h4>
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <div class="md-whiteframe-z1 animate-wrapper" layout="column" layout-align="start center" flex>
+        <div flex id="ui-admin-group" ui-view layout="column" layout-align="start center" class="overflow-auto full-width">
+            <div flex class="person-no-group-selected" layout="column" layout-align="center">
+                <h2 hide-xs translate>Geen groep geselecteerd</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<md-button ng-click="vm.composeGroup($event)" class="md-fab md-accent md-fab-bottom-right" aria-label="Nieuwe groep" ng-show="!vm.selectedGroup">
+    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+</md-button>

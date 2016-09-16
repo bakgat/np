@@ -1,0 +1,80 @@
+md-card {
+    md-card-header md-card-header-text {
+        .md-title {
+            font-size: 30px;
+            color: #fff;
+            text-transform: capitalize;
+        }
+        .md-subhead {
+            color: rgba(255, 255, 255, .87) !important;
+        }
+    }
+    md-card-icon-actions md-menu button md-icon:first-child {
+        color: rgba(255, 255, 255, 1);
+    }
+    md-card-content {
+        padding: 0;
+    }
+}
+
+.md-toolbar-tools {
+    .md-title {
+        color: #fff;
+        text-transform: capitalize;
+    }
+    .md-button > md-icon {
+        color: #fff;
+    }
+}
+
+.score {
+    font-size: 1.8rem;
+}
+
+.notos.diff-icon {
+    color: rgba(0, 0, 0, .54);
+    font-size: 20px;
+    margin: 4px;
+}
+
+.doughnut-legend li {
+    font-size: 10px;
+}
+
+.evaluation-wizard md-tabs {
+    md-tabs-wrapper {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        height: 48px;
+        width: 100%;
+        z-index: 900;
+    }
+    md-tab-content {
+        padding-top: 44px;
+    }
+}
+
+.evaluation-dialog {
+    min-width: 700px;
+    max-width: 700px;
+    .md-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .md-button-group.super-narrow {
+        display: inline-flex;
+        height: 36px;
+        margin: auto;
+        > .md-button {
+            min-width: 32px;
+            height: 30px;
+            margin: auto;
+            &.active {
+                background-color: rgba(0, 0, 0, .12);
+            }
+        }
+    }
+}

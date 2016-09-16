@@ -1,0 +1,183 @@
+<md-content class="md-padding full-width">
+    <md-settings>
+        <md-settings-header class="">
+            <md-settings-avatar>
+                <img class="md-user-avatar" ng-src="{{::vm.member.avatar}}" />
+            </md-settings-avatar>
+            <md-settings-header-text>
+                <span class="md-title">{{::vm.member.displayName}}</span>
+                <span class="md-subhead">{{vm.member.username}}</span>
+                <span class="md-subhead margin-top">°{{::vm.member.birthday | date:'dd MMMM yyyy'}}</span>
+                <span class="md-subhead" ng-show="vm.member.activeGroups.length > 0">Nu in klas <a ui-sref="triangular.manage.groups.group({groupId:classGroup.id})" ng-repeat="classGroup in vm.member.activeGroups">{{classGroup.name}} <span ng-if="!$last"></span></a>
+                </span>
+            </md-settings-header-text>
+            <md-settings-actions>
+                <md-menu>
+                    <md-button class="widget-button md-icon-button" ng-click="$mdOpenMenu()" aria-label="open menu">
+                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="vm.closeMember()">
+                                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                                sluiten
+                            </md-button>
+                        </md-menu-item>
+                        <md-divider></md-divider>
+                        <md-menu-item>
+                            <md-button class="md-warn" ng-click="vm.unsubscribeStudent()">
+                                <md-icon md-font-icon="zmdi zmdi-square-right"></md-icon>
+                                beheerderstaken
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-settings-actions>
+        </md-settings-header>
+        <md-settings-list>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Profiel</div>
+                    <div class="md-subhead">Naam, adres, stamboeknummer, ... weergeven en beheren.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Profiel</div>
+                    </md-item-header>
+                    <md-item>
+                        <md-input-container class="md-block">
+                            <label>Voornaam</label>
+                            <input type="text" ng-model="vm.member.firstName">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Naam</label>
+                            <input type="text" ng-model="vm.member.lastName">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Gebruikersnaam</label>
+                            <input type="text" ng-model="vm.member.email">
+                        </md-input-container>
+                        <div layout="row">
+                            <div layout="column" flex>
+                                <label class="md-caption ">Geboortedatum</label>
+                                <md-datepicker name="birthday" ng-model="vm.member.birthday" md-placeholder="Geboortedatum" required>
+                                </md-datepicker>
+                            </div>
+                            <md-input-container layout="column" flex>
+                                <label>Geslacht</label>
+                                <md-select name="gender" ng-model="vm.member.gender">
+                                    <md-option value="F">
+                                        <md-icon class="zmdi zmdi-female"></md-icon> Vrouwelijk</md-option>
+                                    <md-option value="M">
+                                        <md-icon class="zmdi zmdi-male"></md-icon> Mannelijk</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="end center">
+                            <md-button ng-click="vm.revert()">Annuleren</md-button>
+                            <md-button ng-click="vm.save()" class="md-primary">Opslaan</md-button>
+                        </div>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Rechten</div>
+                    <div class="md-subhead">Rechten instellen voor {{ vm.member.displayName }}</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Rechten</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="end center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.addToRole($event)">recht toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Periode</th>
+                                        <th md-column>Rol</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="sr in vm.staffRoles | orderBy:['-end', '-start']">
+                                        <td md-cell flex="33">
+                                            {{::sr.start | ntDate:'d MMMM yyyy'}} - {{::sr.end | ntDate:'d MMMM yyyy'}}
+                                        </td>
+                                        <td md-cell>
+                                            <a ui-sref="triangular.manage.roles.role({roleId:sr.role.id})">{{::sr.role.name}}</a>
+                                        </td>
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" ng-click="vm.openRole($event, sr)">
+                                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                                <md-tooltip>Bewerken</md-tooltip>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                        <div layout="row" layout-align="end center">
+                            <md-button ng-click="vm.collapseAll()" class="md-primary">Sluiten</md-button>
+                        </div>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Groepen</div>
+                    <div class="md-subhead">Klasgroep toevoegen of bewerken.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Groepen</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="end center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.addToGroup($event)">toevoegen aan groep</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Periode</th>
+                                        <th md-column>Klas</th>
+                                        <th md-column></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="sig in vm.staffInGroups | orderBy:'-end'">
+                                        <td md-cell flex="33">
+                                            {{sig.start | ntDate:'d MMMM yyyy'}} - {{sig.end | ntDate:'d MMMM yyyy'}}
+                                        </td>
+                                        <td md-cell>
+                                            <a ui-sref="triangular.manage.groups.group({groupId:sig.group.id})">{{sig.group.name}}</a>
+                                        </td>
+                                        <td md-cell flex="10">
+                                            {{sig.type | staffType}}
+                                        </td>
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" ng-click="vm.openGroup($event, sig)">
+                                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                                <md-tooltip>Bewerken</md-tooltip>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                        <div layout="row" layout-align="end center">
+                            <md-button ng-click="vm.collapseAll()" class="md-primary">Sluiten</md-button>
+                        </div>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+        </md-settings-list>
+    </md-settings>
+</md-content>

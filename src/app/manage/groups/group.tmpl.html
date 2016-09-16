@@ -1,0 +1,158 @@
+<md-content class="md-padding full-width">
+    <md-settings>
+        <md-settings-header>
+            <md-settings-avatar>
+                <img class="md-user-avatar" ng-src="{{::vm.group.avatar}}" />
+            </md-settings-avatar>
+            <md-settings-header-text class="md-warn">
+                <span class="md-title">{{vm.group.name}}</span>
+                <span class="md-subhead">{{vm.group.active ? 'actief' : 'geblokkeerd'}}</span>
+            </md-settings-header-text>
+            <md-settings-actions>
+                <md-menu>
+                    <md-button class="widget-button md-icon-button" ng-click="$mdOpenMenu()" aria-label="open menu">
+                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="vm.closeGroup()">
+                                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                                sluiten
+                            </md-button>
+                        </md-menu-item>
+                        <md-divider></md-divider>
+                        <md-menu-item>
+                            <md-button ng-class="{'md-warn md-hue-1':vm.group.active}" ng-click="vm.toggleActive()">
+                                <md-icon md-font-icon="zmdi zmdi-check" ng-if="!vm.group.active"></md-icon>
+                                <md-icon md-font-icon="zmdi zmdi-block" ng-if="vm.group.active"></md-icon>
+                                {{vm.group.active ? 'blokkeren' : 'activeer'}}
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button class="md-warn md-hue-2" ng-click="vm.remove()">
+                                <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
+                                verwijderen
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-settings-actions>
+        </md-settings-header>
+        <md-settings-list>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Profiel</div>
+                    <div class="md-subhead">Naam, status, ... weergeven en beheren.</div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Profiel</div>
+                    </md-item-header>
+                    <md-item>
+                        <form name="profile" novalidate>
+                            <md-input-container class="md-block">
+                                <label>Naam</label>
+                                <input type="text" name="name" ng-model="vm.group.name" groupname="vm.group.id" required>
+                                <div ng-messages="profile.name.$error" md-auto-hide="false" ng-show="profile.name.$touched">
+                                    <div ng-message="required">
+                                        Vul een groepsnaam in.
+                                    </div>
+                                    <div ng-message="groupname">
+                                        Deze groepsnaam wordt al gebruikt.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <md-checkbox ng-model="vm.group.active" name="active" aria-label="actief">
+                                    groep is actief
+                                </md-checkbox>
+                            </md-input-container>
+                            <div layout="row" layout-align="end center">
+                                <md-button ng-click="vm.revert()">Annuleren</md-button>
+                                <md-button ng-click="vm.save()" class="md-primary" ng-disabled="profile.$invalid">Opslaan</md-button>
+                            </div>
+                        </form>
+                    </md-item>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Leerlingen</div>
+                    <div class="md-subhead">Leerlingen toevoegen en verwijderen </div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Leerlingen</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="end center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.addStudent($event)">leerling toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Leerling</th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="sig in vm.students">
+                                        <td md-cell>
+                                            <a ui-sref="triangular.manage.students.student({studentId:sig.id})">{{sig.displayName}}</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-item>
+                    <div layout="row" layout-align="end center">
+                        <md-button ng-click="vm.revert()">Annuleren</md-button>
+                        <md-button ng-click="vm.save()" class="md-primary">Opslaan</md-button>
+                    </div>
+                </md-settings-item-content>
+            </md-settings-item>
+            <md-settings-item>
+                <md-settings-item-header>
+                    <div class="md-title">Vakken</div>
+                    <div class="md-subhead">Vakken toevoegen en verwijderen </div>
+                </md-settings-item-header>
+                <md-settings-item-content>
+                    <md-item-header ng-click="vm.revert()">
+                        <div class="md-title">Vakken</div>
+                    </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="end center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.addBranch($event)">vak toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-table-container>
+                            <table md-table class="md-primary md-data-table">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Vak</th>
+                                        <th md-column>Evaluatievormen</th>
+                                        <th md-column>Maximum</th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="bfg in vm.group.branchForGroups | orderBy:'-start'">
+                                        <td md-cell flex="33">
+                                        </td>
+                                        <td md-cell>
+                                            {{sig.student.displayName}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-item>
+                    <div layout="row" layout-align="end center">
+                        <md-button ng-click="vm.revert()">Annuleren</md-button>
+                        <md-button ng-click="vm.save()" class="md-primary">Opslaan</md-button>
+                    </div>
+                </md-settings-item-content>
+            </md-settings-item>
+        </md-settings-list>
+    </md-settings>
+</md-content>

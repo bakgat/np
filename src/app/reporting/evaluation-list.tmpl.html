@@ -1,0 +1,60 @@
+<div layout="row" layout-align="end end" ng-cloak class="md-padding">
+    <md-fab-speed-dial md-direction="up" class="md-fling" ng-show="!vm.selectedEvaluation">
+        <md-fab-trigger>
+            <md-button aria-label="share this post" class="md-fab md-warn" aria-label="nieuwe evaluatie">
+                <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="puntenevaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('points', $event)">
+                <md-icon md-font-icon="zmdi zmdi-collection-item-9-plus"></md-icon>
+                <md-tooltip>Puntenevaluatie</md-tooltip>
+            </md-button>
+            <md-button aria-label="meerkeuze evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('multiple', $event)" permission="" permission-only="'addMultipleEvaluation'">
+                <md-icon md-font-icon="zmdi zmdi-format-list-numbered"></md-icon>
+                <md-tooltip>Meerkeuze evaluatie</md-tooltip>
+            </md-button>
+            <md-button aria-label="brede evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('comprehensive', $event)">
+                <md-icon md-font-icon="zmdi zmdi-collection-text"></md-icon>
+                <md-tooltip>Brede evaluatie</md-tooltip>
+            </md-button>
+            <md-button aria-label="zonnebloemklas" class="md-fab md-raised md-mini" ng-click="vm.composeClick('sunflower', $event)" permission permission-only="'addSunflowerEvaluation'">
+                <md-icon md-font-icon="notos notos-sunflower"></md-icon>
+                <md-tooltip>Zonnebloemklas</md-tooltip>
+            </md-button>
+            <md-button aria-label="feedback" class="md-fab md-raised md-mini" ng-click="vm.composeClick('feedback', $event)">
+                <md-icon md-font-icon="zmdi zmdi-comment-edit"></md-icon>
+                <md-tooltip>Feedback</md-tooltip>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>
+<div flex layout="row">
+    <md-content flex="30">
+        <md-list class="evaluation-list">
+            <div ng-repeat="group in vm.evaluationGroups">
+                <md-subheader class="md-primary" ng-show="group.evaluations.length > 0">
+                    {{group.major.name}}
+                </md-subheader>
+                <md-list-item class="evaluation-list__evaluation evaluation-list__evaluation--animated md-2-line" ng-repeat="evaluation in group.evaluations | orderBy: '-date'" ng-click="vm.openEvaluation(evaluation)" ng-class="{'evaluation-list__evaluation--active': vm.selectedEvaluation === evaluation.id}">
+                    <img class="md-avatar course-avatar" ng-src="assets/images/icons/courses/{{evaluation.course.avatar}}.png" alt="{{evaluation.course.name}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h3><span class="md-caption">{{::evaluation.date | date : 'dd/MM/yyyy'}}</span>
+                          {{::evaluation.title}}</h3>
+                        <h4>
+                          gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
+                        </h4>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </div>
+        </md-list>
+    </md-content>
+    <div class="md-whiteframe-z1 animate-wrapper" layout="column" layout-align="start center" flex>
+        <div flex id="ui-reporting-evaluation" ui-view layout="column" layout-align="start center" class="overflow-auto full-width">
+            <div flex class="evaluation-no-evaluation-selected" layout="column" layout-align="center">
+                <h2 hide-xs translate>Geen evaluatie geselecteerd</h2>
+            </div>
+        </div>
+    </div>
+</div>
