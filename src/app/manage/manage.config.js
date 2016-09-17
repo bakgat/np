@@ -16,10 +16,10 @@
                     layout: {
                         contentClass: 'triangular-non-scrolling',
                         footer: false
-                    } //,
-                    /*permissions: {
-                        only: ['manageStudents']
-                    }*/
+                    },
+                    permissions: {
+                        only: ['manage']
+                    }
                 }
             })
             .state('triangular.manage.students', {
@@ -48,6 +48,11 @@
                         return ProfileService.activeGroup().then(function(response) {
                             return response;
                         });
+                    }
+                },
+                data: {
+                    permissions: {
+                        only: ['manageStudents']
                     }
                 }
             })
@@ -89,6 +94,11 @@
                     staff: function(StaffService) {
                         return StaffService.getList();
                     }
+                },
+                data: {
+                    permissions: {
+                        only: ['manageStaff']
+                    }
                 }
             })
             .state('triangular.manage.staff.member', {
@@ -123,6 +133,11 @@
                     groups: function(GroupService) {
                         return GroupService.getList();
                     }
+                },
+                data: {
+                    permissions: {
+                        only: ['manageGroups']
+                    }
                 }
             })
             .state('triangular.manage.groups.group', {
@@ -152,21 +167,25 @@
             icon: 'zmdi zmdi-settings',
             type: 'dropdown',
             priority: 3,
+            permission: 'manage',
             children: [{
                 name: 'Leerlingen',
                 state: 'triangular.manage.students',
                 icon: 'zmdi zmdi-accounts-alt',
-                type: 'link'
+                type: 'link',
+                permission: 'manageStudents'
             }, {
                 name: 'Groepen',
                 state: 'triangular.manage.groups',
                 icon: 'zmdi zmdi-accounts-alt',
-                type: 'link'
+                type: 'link',
+                permission: 'manageGroups'
             }, {
                 name: 'Personeel',
                 state: 'triangular.manage.staff',
                 icon: 'zmdi zmdi-accounts-alt',
-                type: 'link'
+                type: 'link',
+                permission: 'manageStaff'
             }]
         });
     }

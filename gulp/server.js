@@ -38,7 +38,7 @@ gulp.task('serve', ['watch'], function () {
     paths.src
   ], [
     paths.tmp + '/serve/app/**/*.css',
-    paths.src + '/app/**/*.js',
+    paths.src + 'app/**/*.js',
     paths.src + 'src/assets/images/**/*',
     paths.tmp + '/serve/*.html',
     paths.tmp + '/serve/app/**/*.html',

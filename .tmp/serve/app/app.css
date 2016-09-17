@@ -20700,6 +20700,26 @@ md-menu-item {
       min-width: 260px;
       max-width: 260px; }
 
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -20734,26 +20754,6 @@ md-menu-item {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
 
 /* view change animation */
 .triangular-content.ng-enter, .triangular-content.ng-leave {
@@ -20926,9 +20926,6 @@ md-card md-card-content {
       margin: auto; }
       .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
         background-color: rgba(0, 0, 0, 0.12); }
-
-.seed-list {
-  list-style: lower-greek; }
 
 @font-face {
   font-family: "Notos Icons";
@@ -21129,6 +21126,25 @@ md-card md-card-content {
 .notos-support:before, .notos-S:before {
   content: ""; }
 
+.seed-list {
+  list-style: lower-greek; }
+
+.login-frame md-card {
+  max-width: 400px;
+  margin: auto; }
+
+.login-frame md-checkbox {
+  margin: 0; }
+
+.login-frame img {
+  max-height: 100px;
+  width: auto; }
+
+.login-frame md-toolbar {
+  min-height: 170px; }
+  .login-frame md-toolbar .md-headline {
+    margin: 0; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -21163,28 +21179,6 @@ md-card md-card-content {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.dashboard-container .layout-margin {
-  margin: 0px; }
-
-.dashboard-container .layout-margin > .widget {
-  margin: 8px; }
-
-.dashboard-fullwidth-chart .chart-container {
-  position: relative;
-  left: -5px;
-  bottom: -5px;
-  width: calc(100% + 10px); }
-
-.dashboard-no-bar-tabs md-tabs-wrapper {
-  display: none; }
-
-.google-chart {
-  height: 100%;
-  width: 100%; }
-
-.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
-  height: 72px; }
 
 .calendar-page {
   padding: 0px 120px; }
@@ -21279,87 +21273,33 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .calendar-color-select md-option {
   text-transform: capitalize; }
 
-.elements-button-examples md-card-content {
-  min-height: 100px; }
-
-.elements-buttons-raised-usage {
-  width: 400px; }
-  .elements-buttons-raised-usage .elements-raised-content {
-    padding: 16px; }
-  .elements-buttons-raised-usage .elements-raised-buttons {
-    padding: 16px; }
-    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
-      margin-left: 5px; }
-
-.elements-buttons-fab-usage {
-  position: relative; }
-  .elements-buttons-fab-usage .md-fab {
-    position: absolute;
-    bottom: 26px;
-    right: 26px; }
-
-.elements-icons md-content {
-  min-width: 400px;
-  height: 500px; }
-  .elements-icons md-content .md-font {
-    font-size: 24px; }
-
-.elements-icon-size-1 {
-  width: 16px;
-  height: 16px; }
-  .elements-icon-size-1 span {
-    font-size: 16px; }
-
-.elements-icon-size-2 {
-  width: 24px;
-  height: 24px; }
-  .elements-icon-size-2 span {
-    font-size: 24px; }
-
-.elements-icon-size-3 {
-  width: 32px;
-  height: 32px; }
-  .elements-icon-size-3 span {
-    font-size: 32px; }
-
-.elements-icon-size-4 {
-  width: 48px;
-  height: 48px; }
-  .elements-icon-size-4 span {
-    font-size: 48px; }
-
-.elements-icons-preview .md-button md-icon {
-  font-size: 24px; }
-
-.elements-icons-preview .elements-icon-small {
-  font-size: 16px;
-  width: 16px;
-  height: 16px; }
-
-.elements-radio-avatar img {
-  width: 150px; }
-
-.example-tabs-content md-content {
-  background: none !important; }
-
-.elements-grids-example md-grid-tile {
-  background-size: 100%; }
-
-.elements-sidebar-example md-sidenav md-content {
-  background: none; }
-
-.elements-sidebar-example .md-button {
-  margin: 0px 20px; }
-
-.elements-whiteframe-example md-whiteframe {
-  min-width: 500px;
-  background-color: white; }
-
 .google-example-chart {
   padding: 24px; }
 
 .chartjs-example-chart {
   padding: 24px; }
+
+.dashboard-container .layout-margin {
+  margin: 0px; }
+
+.dashboard-container .layout-margin > .widget {
+  margin: 8px; }
+
+.dashboard-fullwidth-chart .chart-container {
+  position: relative;
+  left: -5px;
+  bottom: -5px;
+  width: calc(100% + 10px); }
+
+.dashboard-no-bar-tabs md-tabs-wrapper {
+  display: none; }
+
+.google-chart {
+  height: 100%;
+  width: 100%; }
+
+.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
+  height: 72px; }
 
 .email-dialog {
   min-width: 800px;
@@ -21481,6 +21421,82 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   animation-fill-mode: both;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
+
+.elements-button-examples md-card-content {
+  min-height: 100px; }
+
+.elements-buttons-raised-usage {
+  width: 400px; }
+  .elements-buttons-raised-usage .elements-raised-content {
+    padding: 16px; }
+  .elements-buttons-raised-usage .elements-raised-buttons {
+    padding: 16px; }
+    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
+      margin-left: 5px; }
+
+.elements-buttons-fab-usage {
+  position: relative; }
+  .elements-buttons-fab-usage .md-fab {
+    position: absolute;
+    bottom: 26px;
+    right: 26px; }
+
+.elements-icons md-content {
+  min-width: 400px;
+  height: 500px; }
+  .elements-icons md-content .md-font {
+    font-size: 24px; }
+
+.elements-icon-size-1 {
+  width: 16px;
+  height: 16px; }
+  .elements-icon-size-1 span {
+    font-size: 16px; }
+
+.elements-icon-size-2 {
+  width: 24px;
+  height: 24px; }
+  .elements-icon-size-2 span {
+    font-size: 24px; }
+
+.elements-icon-size-3 {
+  width: 32px;
+  height: 32px; }
+  .elements-icon-size-3 span {
+    font-size: 32px; }
+
+.elements-icon-size-4 {
+  width: 48px;
+  height: 48px; }
+  .elements-icon-size-4 span {
+    font-size: 48px; }
+
+.elements-icons-preview .md-button md-icon {
+  font-size: 24px; }
+
+.elements-icons-preview .elements-icon-small {
+  font-size: 16px;
+  width: 16px;
+  height: 16px; }
+
+.elements-radio-avatar img {
+  width: 150px; }
+
+.example-tabs-content md-content {
+  background: none !important; }
+
+.elements-grids-example md-grid-tile {
+  background-size: 100%; }
+
+.elements-sidebar-example md-sidenav md-content {
+  background: none; }
+
+.elements-sidebar-example .md-button {
+  margin: 0px 20px; }
+
+.elements-whiteframe-example md-whiteframe {
+  min-width: 500px;
+  background-color: white; }
 
 .extras-gallery-container {
   height: 100%; }
@@ -21614,6 +21630,58 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .github-user-dropdown span {
   margin-left: 16px; }
 
+.maps-example .angular-google-map-container {
+  height: 550px; }
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px; }
+  #map_canvas .angular-google-map-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; }
+
+.todo-container .slide.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.todo-container .slide.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+@media (max-width: 600px) {
+  .todo-container {
+    padding: 0px; }
+    .todo-container md-card {
+      margin: 0px; } }
+
 .ui-color-grid md-grid-tile {
   cursor: pointer; }
 
@@ -21692,74 +21760,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
-
-.maps-example .angular-google-map-container {
-  height: 550px; }
-
-#map_canvas {
-  height: 100%;
-  width: 100%;
-  margin: 0px; }
-  #map_canvas .angular-google-map-container {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px; }
-
-.todo-container .slide.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.todo-container .slide.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-@media (max-width: 600px) {
-  .todo-container {
-    padding: 0px; }
-    .todo-container md-card {
-      margin: 0px; } }
-
-.login-frame md-card {
-  max-width: 400px;
-  margin: auto; }
-
-.login-frame md-checkbox {
-  margin: 0; }
-
-.login-frame img {
-  max-height: 100px;
-  width: auto; }
-
-.login-frame md-toolbar {
-  min-height: 170px; }
-  .login-frame md-toolbar .md-headline {
-    margin: 0; }
 
 .triangular-loader {
   background: rgba(255, 255, 255, 0.8); }

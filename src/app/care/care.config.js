@@ -25,6 +25,9 @@
                             contentClass: 'triangular-non-scrolling',
                             footer: false,
                             sideMenuSize: 'icon'
+                        },
+                        permissions: {
+                            only: ['care']
                         }
                     }
                 })
@@ -69,7 +72,8 @@
                 icon: 'zmdi zmdi-favorite',
                 type: 'link',
                 priority: 1,
-                state: 'triangular.care.records'
+                state: 'triangular.care.records',
+                permission: 'care'
             });
         }
     })();

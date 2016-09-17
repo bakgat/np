@@ -48,7 +48,7 @@
             controllerAs: 'vm'
         });
 
-        triMenuProvider.addMenu({
+        /*triMenuProvider.addMenu({
             name: 'Authentication',
             icon: 'zmdi zmdi-account',
             type: 'dropdown',
@@ -74,6 +74,6 @@
                 state: 'triangular.profile',
                 type: 'link'
             }]
-        });
+        });*/
     }
 })();

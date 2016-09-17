@@ -23,6 +23,9 @@
                         layout: {
                             contentClass: 'triangular-non-scrolling',
                             footer: false
+                        },
+                        permissions: {
+                            only: ['reporting']
                         }
                     }
                 })
@@ -35,6 +38,11 @@
                             controller: 'IacListController',
                             controllerAs: 'vm'
                         }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['reportingIAC']
+                        }
                     }
                 })
                 .state('triangular.reporting.iac.student', {
@@ -45,10 +53,10 @@
                     resolve: {
                         iac: function() {
                             return [
-                                {text: 'Optellen tot 10 zonder brug', isAchieved: true, isPractice: false, comment: 'Prima gedaan!'},
-                                {text: 'Optellen tot 20 zonder brug', isAchieved: true, isPractice: false, comment: ''},
-                                {text: 'Optellen tot 20 met brug', isAchieved: null, isPractice: null, comment: null},
-                                {text: 'Aftrekken tot 10 zonder brug', isAchieved: false, isPractice: true, comment: 'Nog veel werk, Marina!'},
+                                { text: 'Optellen tot 10 zonder brug', isAchieved: true, isPractice: false, comment: 'Prima gedaan!' },
+                                { text: 'Optellen tot 20 zonder brug', isAchieved: true, isPractice: false, comment: '' },
+                                { text: 'Optellen tot 20 met brug', isAchieved: null, isPractice: null, comment: null },
+                                { text: 'Aftrekken tot 10 zonder brug', isAchieved: false, isPractice: true, comment: 'Nog veel werk, Marina!' },
                             ];
                         }
                     }
@@ -73,6 +81,11 @@
                             return ProfileService.activeGroup().then(function(response) {
                                 return BranchService.getList({ 'group': response.id });
                             });
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['reportingEvaluations']
                         }
                     }
 
@@ -101,22 +114,26 @@
                 icon: 'zmdi zmdi-collection-text',
                 type: 'dropdown',
                 priority: 2,
+                permission: 'reporting',
                 children: [{
-                    name: 'Evaluaties',
-                    state: 'triangular.reporting.evaluations',
-                    icon: 'zmdi zmdi-keyboard',
-                    type: 'link'
-                }, {
-                    name: 'Aangepaste leerlijnen',
-                    state: 'triangular.reporting.iac',
-                    icon: 'zmdi zmdi-arrow-split',
-                    type: 'link'
-                }, {
-                    name: 'Rapporten',
-                    state: 'triangular.reporting.reports',
-                    icon: 'zmdi zmdi-print',
-                    type: 'link'
-                }]
+                        name: 'Evaluaties',
+                        state: 'triangular.reporting.evaluations',
+                        icon: 'zmdi zmdi-keyboard',
+                        type: 'link',
+                        permission: 'reportingEvaluations'
+                    }
+                    /*, {
+                        name: 'Aangepaste leerlijnen',
+                        state: 'triangular.reporting.iac',
+                        icon: 'zmdi zmdi-arrow-split',
+                        type: 'link'
+                    }, {
+                        name: 'Rapporten',
+                        state: 'triangular.reporting.reports',
+                        icon: 'zmdi zmdi-print',
+                        type: 'link'
+                    }*/
+                ]
             });
         }
     })();

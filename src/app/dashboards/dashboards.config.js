@@ -22,7 +22,7 @@
                     contentClass: 'layout-column'
                 },
                 permissions: {
-                    only: ['SUPERADMIN', 'ADMIN', 'TEACHER', 'SECRETARY', 'MANAGER']
+                    only: ['dashboards']
                 }
             }
         });

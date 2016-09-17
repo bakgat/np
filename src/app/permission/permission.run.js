@@ -10,7 +10,13 @@
        
 
         // create permissions and add check function verify all permissions
-        var permissions = ['viewAll','manageStudents', 'addSunflowerEvaluation', 'addMultipleEvaluation'];
+        var permissions = [
+            'dashboards',
+            'care',
+            'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports',
+            'manage', 'manageStudents', 'manageGroups', 'manageStaff',
+            'addSunflowerEvaluation', 'addMultipleEvaluation'
+            ];
         PermPermissionStore.defineManyPermissions(permissions, function (permissionName) {
             return UserService.hasPermission(permissionName);
         });
@@ -18,10 +24,11 @@
         // create roles for app
         PermRoleStore.defineManyRoles({
             'SUPERADMIN': permissions, //ALLOW ALL FOR SA
-            'ADMIN': ['viewAll'],
-            'TEACHER': ['viewAll'],
-            'SECRETARY': ['viewAll'],
-            'MANAGER': ['viewAll'],
+            'ADMIN': ['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports', 'manage', 'manageStudents', 'manageGroups', 'manageStaff'],
+            'TEACHER': ['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports'],
+            'SECRETARY': ['dashboards', 'manage', 'manageStudents', 'manageGroups', 'manageStaff'],
+            'MANAGER': ['dashboards', 'care', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports'],
+            'CAREMANAGER': ['dashboards', 'care','reporting', 'reportingEvaluations'],
             'ANONYMOUS': []
         });
 

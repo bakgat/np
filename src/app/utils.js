@@ -26,5 +26,7 @@ function median(arr) {
 }
 
 String.prototype.capitalizeFirstLetter = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
+    if (typeof this.charAt === "function") {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+};
