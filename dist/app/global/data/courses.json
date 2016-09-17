@@ -1,0 +1,58 @@
+[{
+    "id": 1,
+    "name": "wiskunde",
+    "courses": [
+        { "id": 1, "name": "Getallenkennis", "avatar":"gk" },
+        { "id": 2, "name": "Hoofdrekenen", "avatar":"hr" },
+        { "id": 3, "name": "Cijferen", "avatar":"c" },
+        { "id": 4, "name": "Meetkunde", "avatar":"mk" },
+        { "id": 5, "name": "Meten en metend rekenen", "avatar":"mr" },
+        { "id": 6, "name": "Toepassingen", "avatar":"t" }
+    ]
+}, {
+    "id": 2,
+    "name": "taal",
+    "courses": [
+        { "id": 7, "name": "Taalbeschouwing" },
+        { "id": 8, "name": "Spelling" },
+        { "id": 9, "name": "Begrijpend lezen" },
+        { "id": 10, "name": "Technisch lezen" },
+        { "id": 11, "name": "Luisteren" },
+        { "id": 12, "name": "Spreken" },
+        { "id": 13, "name": "Schrijven" }
+    ]
+}, {
+    "id": 3,
+    "name": "wereldoriëntatie",
+    "courses": [
+        { "id": 14, "name": "Kennis" },
+        { "id": 15, "name": "Vaardigheden" },
+        { "id": 16, "name": "Attitudes" }
+    ]
+}, {
+    "id": 4,
+    "name": "godsdienst",
+    "courses": [
+        { "id": 17, "name": "Kennis" },
+        { "id": 18, "name": "Vaardigheden" },
+        { "id": 19, "name": "Attitudes" }
+    ]
+}, {
+    "id": 5,
+    "name": "Frans",
+    "courses": [
+        { "id": 20, "name": "Spreken" },
+        { "id": 21, "name": "Schrijven" },
+        { "id": 22, "name": "Interactieve communicatie" },
+        { "id": 23, "name": "Luisteren" }
+    ]
+}, {
+    "id": 6,
+    "name": "Muzische vorming",
+    "courses": [
+        { "id": 24, "name": "Dramatische expressie" },
+        { "id": 25, "name": "Beeldende vorming" },
+        { "id": 26, "name": "Bewegingsexpressie" },
+        { "id": 27, "name": "Muzisch taalgebruik" }
+    ]
+}]
