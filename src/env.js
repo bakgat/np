@@ -14,5 +14,8 @@
   //GOOGLE API Credentials
   window.__env.googleClientId = '349632514154-qh4289snusgvkrvd4vlkj7g7m7sohaio.apps.googleusercontent.com';
   window.__env.googleSecret = 'uDK7a6809WyVyBAsTtU5mtCJ';
+  window.__env.scopes = 'profile email',
+  window.__env.domain = ''
+
 
 }(this));

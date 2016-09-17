@@ -5,7 +5,7 @@
         .factory('googleService', GoogleService);
 
     /* @ngInject */
-    function GoogleService($http, $rootScope, $q, UserService) {
+    function GoogleService($http, $rootScope, $q, UserService, _env) {
         var deferred = $q.defer();
 
         var service = {
@@ -13,12 +13,7 @@
             handleClientLoad: handleClientLoad,
             checkAuth: checkAuth,
             handleAuthResult: handleAuthResult,
-            handleAuthClick: handleAuthClick,
-
-            clientId: '790747751237-7umr4fnen0kvt1avk96uo7r30vptm71f.apps.googleusercontent.com',
-            apiKey: 'AIzaSyAnSbvlhrnzybVDYM3ziI-2IhvVYhhtLVw',
-            scopes: 'profile email',
-            domain: ''
+            handleAuthClick: handleAuthClick
         }
         return service;
 
@@ -27,27 +22,27 @@
 
         function login() {
             gapi.auth.authorize({
-                client_id: service.clientId,
-                scope: service.scopes,
+                client_id: _env.googleClientId,
+                scope: _env.scopes,
                 immediate: false,
-                hd: service.domain
+                hd: _env.domain
             }, handleAuthResult);
 
             return deferred.promise;
         }
 
         function handleClientLoad() {
-            gapi.client.setApiKey(service.apiKey);
+            gapi.client.setApiKey(_env.googleSecret);
             gapi.auth.init(function() {});
             window.setTimeout(checkAuth, 1);
         };
 
         function checkAuth() {
             gapi.auth.authorize({
-                client_id: service.clientId,
-                scope: service.scopes,
-                immediate: true,
-                hd: service.domain
+                client_id: _env.googleClientId,
+                scope: _env.scopes,
+                immediate: false,
+                hd: _env.domain
             }, handleAuthResult);
         };
 
@@ -76,10 +71,10 @@
 
         function handleAuthClick(event) {
             gapi.auth.authorize({
-                client_id: service.clientId,
-                scope: service.scopes,
+                client_id: _env.googleClientId,
+                scope: _env.scopes,
                 immediate: false,
-                hd: service.domain
+                hd: _env.domain
             }, handleAuthResult);
             return false;
         };
