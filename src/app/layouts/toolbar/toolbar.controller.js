@@ -3,25 +3,34 @@
 
     angular
         .module('triangular.components')
-        .controller('ToolbarController', DefaultToolbarController);
+        .controller('ToolbarController', ToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout, UserService) {
+    function ToolbarController($scope, $injector, $rootScope, $mdMedia,
+        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
+        triBreadcrumbsService, triSettings, triLayout, UserService) {
+
         var vm = this;
+
+        vm.user = UserService.getCurrentUser();
+        
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        vm.emailNew = false;
-        vm.languages = triSettings.languages;
+        
         vm.openSideNav = openSideNav;
         vm.hideMenuButton = hideMenuButton;
-        vm.switchLanguage = switchLanguage;
+
         vm.toggleNotificationsTab = toggleNotificationsTab;
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
-        vm.currentUser = UserService.getCurrentUser();
-        vm.logOut = logOut;
+
+        initToolbar();
 
         ////////////////
+        function initToolbar() {
+
+        }
+
 
         function openSideNav(navID) {
             $mdUtil.debounce(function() {
@@ -29,34 +38,8 @@
             }, 300)();
         }
 
-        function switchLanguage(languageCode) {
-            if ($injector.has('$translate')) {
-                var $translate = $injector.get('$translate');
-                $translate.use(languageCode)
-                    .then(function() {
-                        $mdToast.show(
-                            $mdToast.simple()
-                            .content($filter('triTranslate')('Language Changed'))
-                            .position('bottom right')
-                            .hideDelay(500)
-                        );
-                        $rootScope.$emit('changeTitle');
-                    });
-            }
-        }
-
         function hideMenuButton() {
-            switch (triLayout.layout.sideMenuSize) {
-                case 'hidden':
-                    // always show button if menu is hidden
-                    return false;
-                case 'off':
-                    // never show button if menu is turned off
-                    return true;
-                default:
-                    // show the menu button when screen is mobile and menu is hidden
-                    return $mdMedia('gt-sm');
-            }
+            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
 
         function toggleNotificationsTab(tab) {
@@ -92,10 +75,7 @@
             }
         }
 
-        function logOut() {
-            UserService.logout();
-            $state.go('authentication.login');
-        }
+
 
         $scope.$on('newMailNotification', function() {
             vm.emailNew = true;

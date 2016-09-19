@@ -1,10 +1,10 @@
 <md-menu ng-show="vm.groups.length > 0">
-        <md-button ng-click="$mdOpenMenu()" aria-label="wissel klasgroep">
-            {{vm.selectedGroup.name}}
-        </md-button>
-        <md-menu-content width="3">
-            <md-menu-item ng-repeat="group in ::vm.groups | orderBy: 'name'">
-                <md-button ng-click="vm.switchGroup(group)" aria-label="{{::group.name}}">{{::group.name}}</md-button>
-            </md-menu-item>
-        </md-menu-content>
-    </md-menu>
+    <md-button ng-click="$mdOpenMenu()" aria-label="wissel klasgroep">
+        {{vm.selectedGroup.name}}
+    </md-button>
+    <md-menu-content width="3">
+        <md-menu-item ng-repeat="group in ::vm.groups | orderBy: 'name'">
+            <md-button ng-click="vm.switchGroup(group)" aria-label="{{::group.name}}">{{::group.name}}</md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

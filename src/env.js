@@ -2,7 +2,7 @@
   window.__env = window.__env || {};
 
   // API url
-  window.__env.api = 'http://api.klimtoren.be';
+  window.__env.api = 'http://localhost:4000';
 
   // Base url
   window.__env.baseUrl = '/';
