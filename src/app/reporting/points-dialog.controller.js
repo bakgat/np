@@ -6,7 +6,7 @@
         .controller('PointsDialogController', PointsDialogController);
 
     /* @ngInject */
-    function PointsDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation,
+    function PointsDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation, 
         EvaluationService, StudentService, ProfileService) {
 
         var vm = this;
@@ -28,15 +28,13 @@
         vm.prepareInput = prepareInput;
 
         vm.toggleRedicodi = toggleRedicodi;
-        vm.headerBg = headerBg;
-
-
+     
         init();
         ///////////////
 
         $scope.$watch('vm.evaluation.results', function() {
-            //average();
-            //median();
+            average();
+            median();
         }, true);
 
 
@@ -46,7 +44,8 @@
             } else {
                 vm.evaluation.date = new Date();
             }
-            //vm.evaluation.date = new Date(vm.evaluation.date);
+
+            vm.edit = vm.evaluation.results;
 
             ProfileService.activeGroup().then(function(profile) {
                 StudentService.getList({ 'group': profile.id })
@@ -63,14 +62,18 @@
                                     block: false
                                 })
                             });
+
                         } else {
+                            vm.selectedStudents = [];
                             angular.forEach(vm.evaluation.results, function(result) {
                                 var student = _.find(vm.students, function(s) {
                                     return result.student.id == s.id;
                                 });
                                 vm.selectedStudents.push(student);
                             });
+                            
                             prepareInput();
+
                         }
                     });
             });
@@ -78,10 +81,12 @@
         }
 
         function cancel() {
+            vm.selectedStudents = [];
             $mdDialog.cancel();
         }
 
         function save() {
+            vm.selectedStudents = [];
             $mdDialog.hide(vm.evaluation);
         }
 
@@ -111,36 +116,7 @@
             }
         }
 
-        function headerBg() {
-            var id = '40';
-            if (vm.evaluation.course) {
-                var avatar = vm.evaluation.course.avatar;
-                switch (avatar) {
-                    case 'mk':
-                        id = '01';
-                        break;
-                    case 'c':
-                        id = '05';
-                        break;
-                    case 'hr':
-                        id = '10';
-                        break;
-                    case 'mr':
-                        id = '12';
-                        break;
-                    case 't':
-                        id = '17';
-                        break;
-                    case 'gk':
-                        id = '08';
-                        break;
-                }
-
-            }
-            return 'mb-bg-' + id;
-        }
-
-
+     
         function prepareInput() {
 
             /*
@@ -167,13 +143,15 @@
 
                 result.block = isBlocked;
             });
+
+            vm.selectedStep = 2;
         }
 
 
         function selectStudents(type) {
+
             if (type == null ||  type == 'all') {
                 vm.selectedStudents = angular.copy(vm.students);
-
 
             } else {
                 vm.selectedStudents = _.filter(vm.students, function(student) {
@@ -182,7 +160,6 @@
                     }
                 });
             }
-
             prepareInput();
         }
 

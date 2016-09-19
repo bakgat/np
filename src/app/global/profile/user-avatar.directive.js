@@ -51,7 +51,6 @@
             source += '.JPG';
 
             vm.style = 'url(' + source + ')';
-            console.log(vm.style);
         }
     }
 

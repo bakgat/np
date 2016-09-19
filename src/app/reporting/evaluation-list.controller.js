@@ -14,6 +14,7 @@
         vm.composeClick = composeClick;
 
         vm.openEvaluation = openEvaluation;
+        vm.makeBranchIcon = makeBranchIcon;
 
         vm.selectedEvaluation = null;
         var evaluationGroupsBackup = null;
@@ -106,6 +107,33 @@
             $state.go(vm.baseState);
         }
 
+        function makeBranchIcon(branch) {
+            var icon = '';
+            switch (branch.name) {
+                case 'getallenkennis':
+                    icon = 'gk';
+                    break;
+                case 'hoofdrekenen':
+                    icon = 'hr';
+                    break;
+                case 'cijferen':
+                    icon = 'c';
+                    break;
+                case 'meetkunde':
+                    icon = 'mk';
+                    break;
+                case 'meten en metend rekenen':
+                    icon = 'mr';
+                    break;
+                case 'toepassingen':
+                    icon = 't';
+                    break;
+                default:
+                    icon = 'branch';
+                    break;
+            }
+            return 'assets/images/icons/branches/' + icon + '.png';
+        }
 
         //watches
         $scope.$on('closeEvaluation', function() {

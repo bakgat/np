@@ -6,8 +6,11 @@
         .controller('AnalyticsController', AnalyticsController);
 
     /* @ngInject */
-    function AnalyticsController() {
+    function AnalyticsController(UserService) {
         var vm = this;
-        vm.testData = ['triangular', 'is', 'great'];
+
+        vm.user = UserService.getCurrentUser();
+        //////////////////////////////
+
     }
 })();

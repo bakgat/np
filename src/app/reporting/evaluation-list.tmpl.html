@@ -37,7 +37,7 @@
                     {{group.major.name}}
                 </md-subheader>
                 <md-list-item class="evaluation-list__evaluation evaluation-list__evaluation--animated md-2-line" ng-repeat="evaluation in group.evaluations | orderBy: '-date'" ng-click="vm.openEvaluation(evaluation)" ng-class="{'evaluation-list__evaluation--active': vm.selectedEvaluation === evaluation.id}">
-                    <img class="md-avatar course-avatar" ng-src="assets/images/icons/courses/{{evaluation.course.avatar}}.png" alt="{{evaluation.course.name}}">
+                    <img class="md-avatar course-avatar" ng-src="{{vm.makeBranchIcon(evaluation.branchForGroup.branch)}}" alt="{{evaluation.course.name}}">
                     <div class="md-list-item-text" layout="column">
                         <h3><span class="md-caption">{{::evaluation.date | date : 'dd/MM/yyyy'}}</span>
                           {{::evaluation.title}}</h3>

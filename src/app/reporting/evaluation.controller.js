@@ -10,7 +10,7 @@
         $mdToast, $mdDialog, _, evaluation) {
         var vm = this;
 
-
+        
         vm.closeEvaluation = closeEvaluation;
         vm.editEvaluation = editEvaluation;
         vm.headerBg = headerBg;

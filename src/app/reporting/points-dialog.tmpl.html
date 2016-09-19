@@ -130,7 +130,7 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span class="md-caption" ng-if="triWizard.currentStep == 2">
-            Gemiddelde: {{vm.evaluation.average|number:1}}% | Mediaan: {{vm.evaluation.median|number:1}}%
+            Gemiddelde: {{vm.average|number:1}}% | Mediaan: {{vm.median|number:1}}%
         </span>
         <span flex></span>
         <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
