@@ -85,7 +85,7 @@
                     </md-content>
                 </md-tab-body>
             </md-tab>
-            <md-tab id="results" ng-disabled="studentsForm.$invalid" md-selected="true" md-on-select="vm.prepareInput()">
+            <md-tab id="results" ng-disabled="vm.selectedStudents.length == 0" md-selected="true" md-on-select="vm.prepareInput()">
                 <md-tab-label>
                     <span class="oxy-step-label">3</span>
                     <span translate>Resultaten</span>
