@@ -29,7 +29,7 @@
 
         triMenuProvider.addMenu({
             name: 'Dashboard',
-            icon: 'fa fa-tree',
+            icon: 'fa fa-home',
             type: 'link',
             priority: 0,
             state: 'triangular.analytics'
