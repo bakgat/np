@@ -2,11 +2,11 @@
     <md-settings>
         <md-settings-header class="">
             <md-settings-avatar>
-                <user-avatar ng-model="student" class="md-user-avatar"></user-avatar>
+                <user-avatar ng-model="::vm.student" class="md-user-avatar"></user-avatar>
             </md-settings-avatar>
             <md-settings-header-text>
                 <span class="md-title">{{::vm.student.displayName}}</span>
-                <span class="md-subhead">{{vm.student.username}}</span>
+                <span class="md-subhead">{{::vm.student.username}}</span>
                 <span class="md-subhead margin-top">°{{::vm.student.birthday | date:'dd MMMM yyyy'}}</span>
                 <span class="md-subhead">Nu in klas <a ui-sref="triangular.manage.groups.group({groupId:classGroup.id})" 
                     ng-repeat="classGroup in vm.student.activeGroups">{{classGroup.name}} <span ng-if="!$last"></span></a>
