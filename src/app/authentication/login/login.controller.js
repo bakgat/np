@@ -6,11 +6,11 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($rootScope, $state, googleService, UserService) {
+    function LoginController($rootScope, $state, googleService, triSettings, UserService) {
         var vm = this;
         vm.loginClick = loginClick;
 
-        
+        vm.triSettings = triSettings;
         init();
         ////////////////    
         function init() {
