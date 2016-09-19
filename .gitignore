@@ -4,4 +4,4 @@
 /.idea
 /composer.lock
 /storage/cache
-/src/env.jswq
+/src/env.js
