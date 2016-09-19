@@ -20,7 +20,6 @@
 
         vm.hasRedicodi = hasRedicodi;
 
-
         //actions
         vm.save = save;
         vm.close = close;
@@ -86,11 +85,19 @@
             $mdDialog.hide(vm.evaluation);
         }
 
+
+
         function hasRedicodi(result, type) {
+
             if (!result.redicodi) return false;
 
             if (type == null) {
-                return result.redicodi.length > 0;
+                //TODO: how comes that a submitted evaluation has redicodi[0] = '' by default
+                if (result.redicodi.length == 1 && result.redicodi[0] == '') {
+                    return false;
+                } else {
+                    return result.redicodi.length > 0;
+                }
             }
             return _.indexOf(result.redicodi, type) > -1;
         }

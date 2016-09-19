@@ -1,38 +1,21 @@
 <md-content class="md-padding full-width">
     <md-card>
-        <md-card-header class="{{vm.headerBg()}} cover">
+        <md-card-header >
             <md-card-header-text>
                 <span class="md-title">{{vm.evaluation.title}}</span>
                 <span class="md-subhead margin-top">{{vm.evaluation.branchForGroup.branch.major.name}} — {{vm.evaluation.branchForGroup.branch.name}}</span>
                 <span class="md-subhead">{{vm.evaluation.date | date:'dd MMMM yyyy'}}</span>
             </md-card-header-text>
             <md-card-icon-actions>
-                <md-menu>
-                    <md-button class="widget-button md-icon-button" ng-click="$mdOpenMenu()" aria-label="open menu">
-                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
-                    </md-button>
-                    <md-menu-content>
-                        <md-menu-item>
-                            <md-button ng-click="vm.editEvaluation($event)">
-                                <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
-                                bewerk
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button class="md-warn" ng-click="vm.removeEvaluation()">
-                                <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
-                                verwijder
-                            </md-button>
-                        </md-menu-item>
-                        <md-divider></md-divider>
-                        <md-menu-item>
-                            <md-button ng-click="vm.closeEvaluation()">
-                                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
-                                sluiten
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+                <md-button class="md-icon-button" ng-click="vm.editEvaluation($event)">
+                    <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                </md-button>
+                <md-button class="md-warn md-icon-button" ng-click="vm.removeEvaluation()">
+                    <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="vm.closeEvaluation()">
+                    <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                </md-button>
             </md-card-icon-actions>
         </md-card-header>
         <md-divider></md-divider>

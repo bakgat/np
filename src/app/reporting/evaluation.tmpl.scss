@@ -2,16 +2,11 @@ md-card {
     md-card-header md-card-header-text {
         .md-title {
             font-size: 30px;
-            color: #fff;
             text-transform: capitalize;
         }
-        .md-subhead {
-            color: rgba(255, 255, 255, .87) !important;
-        }
+        
     }
-    md-card-icon-actions md-menu button md-icon:first-child {
-        color: rgba(255, 255, 255, 1);
-    }
+    
     md-card-content {
         padding: 0;
     }
@@ -19,11 +14,9 @@ md-card {
 
 .md-toolbar-tools {
     .md-title {
-        color: #fff;
         text-transform: capitalize;
     }
     .md-button > md-icon {
-        color: #fff;
     }
 }
 
