@@ -42,8 +42,11 @@
                         }
                     },
                     resolve: {
-                        students: function(StudentService) {
-                            return StudentService.getList();
+                        students: function(ProfileService, StudentService) {
+                            return ProfileService.activeGroup().then(function(response) {
+                                return StudentService.getList({ 'group': response.id });
+                            });
+
                         }
                     }
                 })
