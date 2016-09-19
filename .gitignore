@@ -5,3 +5,4 @@
 /composer.lock
 /storage/cache
 /src/env.js
+/dist/env.js
