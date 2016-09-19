@@ -15,7 +15,7 @@
         // set current version of app (shown in footer)
         triSettingsProvider.setVersion('0.0.1');
         // set the document title that appears on the browser tab
-        triRouteProvider.setTitle('noTos+');
+        triRouteProvider.setTitle('Mijn Klimtoren');
         triRouteProvider.setSeparator('|');
     }
 })();
