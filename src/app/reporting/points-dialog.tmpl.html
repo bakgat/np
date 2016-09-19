@@ -74,7 +74,8 @@
                                 <md-list>
                                     <md-list-item ng-repeat="student in vm.students">
                                         <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
-                                        <img class="md-avatar" ng-src="{{student.avatar}}">
+                                        <!--http://schkt.volglvs.be/PIX/StaelensLaurens07.08.2011.JPG-->
+                                        <img class="md-avatar" ng-src="http://schkt.volglvs.be/PIX/{{student.lastName}}{{student.firstName}}{{student.birthday | date:'dd.MM.yyyy'}}.JPG">
                                         <div class="md-list-item-text">
                                             <p>{{::student.displayName}}</p>
                                         </div>
