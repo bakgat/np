@@ -20723,26 +20723,6 @@ md-menu-item {
       min-width: 260px;
       max-width: 260px; }
 
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -20777,6 +20757,26 @@ md-menu-item {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
+
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
 
 /* view change animation */
 .triangular-content.ng-enter, .triangular-content.ng-leave {
@@ -21168,6 +21168,41 @@ md-card md-card-content {
   .login-frame md-toolbar .md-headline {
     margin: 0; }
 
+#ui-login.ng-enter {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+#ui-login.ng-leave {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+md-input-container ng-messages, md-input-container data-ng-messages {
+  display: block; }
+
 .calendar-page {
   padding: 0px 120px; }
   .calendar-page .triangular-calendar:focus, .calendar-page .fc-view-container:focus {
@@ -21260,41 +21295,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .calendar-color-select md-option {
   text-transform: capitalize; }
-
-#ui-login.ng-enter {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-#ui-login.ng-leave {
-  -webkit-animation-name: fadeOut;
-  animation-name: fadeOut;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-md-input-container ng-messages, md-input-container data-ng-messages {
-  display: block; }
 
 .google-example-chart {
   padding: 24px; }
