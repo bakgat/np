@@ -19,7 +19,7 @@
 // selected student
 .person-list--active {
     background: rgba(0, 0, 0, .05);
-    .md-avatar {
+    user-avatar .md-avatar {
         display: block;
         animation: swing 1s;
     }

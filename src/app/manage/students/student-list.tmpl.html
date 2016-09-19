@@ -4,7 +4,7 @@
             <div ng-repeat="group in vm.studentGroups">
                 <md-subheader class="md-primary" ng-show="group.students.length > 0">{{::group.name}}</md-subheader>
                 <md-list-item class="person-list person-list--animated md-2-line" ng-repeat="student in group.students | orderBy:'-date'" ng-click="vm.openStudent(student)" ng-class="{ 'person-list--active': vm.selectedStudent === student.id, 'person-list--unread': student.unread }">
-                    <img class="md-avatar" ng-src="{{::student.avatar}}" alt="{{student.displayName}}">
+                    <user-avatar class="md-avatar" ng-model="student"></user-avatar>
                     <div class="md-list-item-text" layout="column">
                         <h3><span class="md-caption">°{{student.birthday|ntDate}}</span>{{student.displayName}}</h3>
                     </div>
