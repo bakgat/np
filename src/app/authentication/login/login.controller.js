@@ -18,7 +18,7 @@
         function loginClick() {
             googleService.login().then(function(user) {
                 Restangular.setDefaultRequestParams({
-                    auth_token: user.id
+                    auth_token: user.auth_token
                 });
                 //console.log($rootScope.$previousState);
                 $state.go('triangular.analytics');

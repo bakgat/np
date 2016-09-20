@@ -27,8 +27,9 @@
         function getRoles(user) {
             return Restangular.all('staff/login').post(user)
                 .then(function(response) {
+                    user.auth_token  = response.auth_token;
                     user.roles = [];
-                    angular.forEach(response, function(role) {
+                    angular.forEach(response.roles, function(role) {
                         user.roles.push(role.name);
                     });
 
