@@ -40,7 +40,7 @@
         .constant('_env', env)
 
     .config(function(RestangularProvider, $mdDateLocaleProvider) {
-        //RestangularProvider.setDefaultHttpFields({cache: true});
+        RestangularProvider.setDefaultHttpFields({cache: true});
         RestangularProvider.setBaseUrl(env.api);
     });
 

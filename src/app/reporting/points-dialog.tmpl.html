@@ -29,7 +29,7 @@
                                 </md-input-container>
                                 <md-input-container class="md-block" flex>
                                     <label>Maximum</label>
-                                    <input type="number" ng-model="vm.evaluation.max" name="max" required ng-pattern="/^[0-9]\d*([,.][0-9]\d*)?$/">
+                                    <input type="number" ng-model="vm.evaluation.max" name="max" required >
                                 </md-input-container>
                             </div>
                             <div layout="row" layout-align="space-around center">
@@ -46,7 +46,11 @@
                                 </select-branches>
                             </div>
                             <div layout="row">
-                                
+                                <md-input-container class="md-block">
+                                    <md-checkbox ng-model="vm.evaluation.permanent" name="permanent" aria-label="permanent">
+                                        permanent
+                                    </md-checkbox>
+                                </md-input-container>
                             </div>
                         </form>
                     </md-content>
@@ -101,7 +105,8 @@
                                 <div layout="row" flex ng-repeat="result in vm.evaluation.results" ng-if="!result.block">
                                     <md-input-container class="md-icon-float md-block" flex>
                                         <label>{{::result.student.displayName}}</label>
-                                        <input ng-model="result.score" name="score_{{$index}}" ng-pattern="/^[0-9]\d*([,.][0-9]\d*)?$/" score enter-as-tab max="vm.evaluation.max">
+
+                                        <input type="number" ng-model="result.score" name="score_{{$index}}" score enter-as-tab max="vm.evaluation.max">
                                         <md-icon md-font-set="regular-font" class="md-caption">/{{vm.evaluation.max}}</md-icon>
                                         <div ng-messages="resultsForm['score_' + $index].$error" md-auto-hide="false" ng-show="resultsForm['score_' + $index].$error">
                                             <div ng-message="max">
@@ -112,15 +117,19 @@
                                     <div class="margin-left-10 md-button-group super-narrow" ng-class="{'md-whiteframe-z1' : vm.hasRedicodi(result)}">
                                         <md-button ng-class="{'active': vm.hasRedicodi(result, 'B')}" ng-click="vm.toggleRedicodi(result, 'B')" tabindex="-1" aria-label="basis">
                                             <md-icon class="notos notos-basic"></md-icon>
+                                            <md-tooltip>basis</md-tooltip>
                                         </md-button>
                                         <md-button ng-class="{'active': vm.hasRedicodi(result, 'C')}" ng-click="vm.toggleRedicodi(result, 'C')" tabindex="-1" aria-label="uitdaging">
                                             <md-icon class="notos notos-challenge"></md-icon>
+                                            <md-tooltip>uitbreiding</md-tooltip>
                                         </md-button>
                                         <md-button ng-class="{'active': vm.hasRedicodi(result, 'S')}" ng-click="vm.toggleRedicodi(result, 'S')" tabindex="-1" aria-label="met ondersteuning">
                                             <md-icon class="notos notos-support"></md-icon>
+                                            <md-tooltip>met ondersteuning</md-tooltip>
                                         </md-button>
                                         <md-button ng-class="{'active': vm.hasRedicodi(result, 'T')}" ng-click="vm.toggleRedicodi(result, 'T')" tabindex="-1" aria-label="met hulpmiddelen">
                                             <md-icon class="notos notos-tools"></md-icon>
+                                            <md-tooltip>met hulpmiddelen</md-tooltip>
                                         </md-button>
                                     </div>
                                 </div>

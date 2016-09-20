@@ -58,7 +58,9 @@
                     templateUrl: templateUrl,
                     targetEvent: $event,
                     locals: {
-                        evaluation: {}
+                        evaluation: {
+                            permanent: true
+                        }
                     },
                     focusOnOpen: false,
                     fullscreen: action === 'feedback'
