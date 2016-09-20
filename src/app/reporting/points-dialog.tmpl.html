@@ -48,7 +48,7 @@
                             <div layout="row">
                                 <md-input-container class="md-block">
                                     <md-checkbox ng-model="vm.evaluation.permanent" name="permanent" aria-label="permanent">
-                                        permanent
+                                        {{vm.evaluation.permanent ? 'permanente evaluatie' : 'eindevaluatie'}}
                                     </md-checkbox>
                                 </md-input-container>
                             </div>

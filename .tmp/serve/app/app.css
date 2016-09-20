@@ -20949,9 +20949,6 @@ md-card md-card-content {
       .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
         background-color: rgba(0, 0, 0, 0.12); }
 
-.seed-list {
-  list-style: lower-greek; }
-
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -21150,6 +21147,9 @@ md-card md-card-content {
 
 .notos-support:before, .notos-S:before {
   content: ""; }
+
+.seed-list {
+  list-style: lower-greek; }
 
 .login-frame md-card {
   max-width: 400px;
