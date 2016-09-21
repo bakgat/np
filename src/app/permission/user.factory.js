@@ -28,6 +28,7 @@
             return Restangular.all('staff/login').post(user)
                 .then(function(response) {
                     user.auth_token  = response.auth_token;
+                    user.given_name = response.given_name;
                     user.roles = [];
                     angular.forEach(response.roles, function(role) {
                         user.roles.push(role.name);
@@ -78,10 +79,10 @@
         function login(userinfo) {
             var deferred = $q.defer();
 
-            currentUser = userinfo;
-
+           
             getRoles(userinfo).then(function(user) {
-                deferred.resolve(user);
+                currentUser = user;
+                deferred.resolve(currentUser);
             });
 
             return deferred.promise;

@@ -36,7 +36,7 @@
 
         // default redirect if access is denied
         function accessDenied() {
-            $state.go('401');
+            $state.go('authentication.login');
         }
 
         // watches
