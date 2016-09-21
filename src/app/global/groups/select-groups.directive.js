@@ -19,7 +19,8 @@
             restrict: 'E',
             scope: {
                 'reloadState': '=',
-                'active': '='
+                'active': '=',
+                'owner': '='
             },
             templateUrl: 'app/global/groups/select-groups.tmpl.html',
             controller: SelectGroupsController,
@@ -43,8 +44,17 @@
         ////////////////////
 
         function init() {
-           
-            GroupService.getList({active: vm.active}).then(function(response) {
+
+            if (vm.owner) {
+                //Based on auth_token !!!
+                GroupService.getList({ owner: vm.owner }).then(function(response) {
+                    vm.groups = response;
+                    ProfileService.activeGroup().then(function(response) {
+                        vm.selectedGroup = response;
+                    });
+                });
+            }
+            GroupService.getList({ active: vm.active }).then(function(response) {
                 vm.groups = response;
                 ProfileService.activeGroup().then(function(response) {
                     vm.selectedGroup = response;
