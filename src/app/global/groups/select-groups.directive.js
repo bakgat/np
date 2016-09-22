@@ -6,7 +6,7 @@
         .directive('selectGroups', selectGroups);
 
     /* @ngInject */
-    function selectGroups($timeout, GroupService, ProfileService) {
+    function selectGroups() {
         // Usage:
         //
         // ```html
@@ -20,7 +20,7 @@
             scope: {
                 'reloadState': '=',
                 'active': '=',
-                'owner': '='
+                'onlyOwned': '='
             },
             templateUrl: 'app/global/groups/select-groups.tmpl.html',
             controller: SelectGroupsController,
@@ -34,7 +34,7 @@
     }
 
     /* @ngInject */
-    function SelectGroupsController($state, ProfileService, GroupService) {
+    function SelectGroupsController($state, UserService) {
         var vm = this;
 
         vm.selectedGroup = null;
@@ -44,28 +44,16 @@
         ////////////////////
 
         function init() {
-
-            if (vm.owner) {
-                //Based on auth_token !!!
-                GroupService.getList({ owner: vm.owner }).then(function(response) {
-                    vm.groups = response;
-                    ProfileService.activeGroup().then(function(response) {
-                        vm.selectedGroup = response;
-                    });
-                });
-            }
-            GroupService.getList({ active: vm.active }).then(function(response) {
-                vm.groups = response;
-                ProfileService.activeGroup().then(function(response) {
-                    vm.selectedGroup = response;
+            UserService.allowedGroups().then(function(groups) {
+                vm.groups = groups;
+                UserService.getActiveGroup().then(function(group) {
+                    vm.selectedGroup = group;
                 });
             });
-
         }
 
         function switchGroup(group) {
-            vm.selectedGroup = group;
-            ProfileService.setActiveGroup(group);
+            UserService.setActiveGroup(group);
             $state.go(vm.reloadState, {}, { reload: true });
         }
     }

@@ -6,14 +6,26 @@
         .factory('UserService', UserService);
 
     /* @ngInject */
-    function UserService($q, $http, $mdToast, Restangular, PermRoleStore, PermPermissionStore) {
+    function UserService($q, $http, $mdToast, $rootScope, Restangular, _,
+        PermRoleStore, PermPermissionStore,
+        GroupService, StaffService) {
+
         var currentUser = {};
+        var activeGroup = null;
+        var groups;
+
+        var viewAllGroups = ['SUPERADMIN', 'ADMIN', 'CARE', 'CAREMANAGER', 'SECRETARY', 'MANAGER'];
+
 
         var service = {
             getCurrentUser: getCurrentUser,
+            hasAllGroupsPermission: hasAllGroupsPermission,
             hasPermission: hasPermission,
             login: login,
-            logout: logout
+            logout: logout,
+            allowedGroups: allowedGroups,
+            getActiveGroup: getActiveGroup,
+            setActiveGroup: setActiveGroup
         };
 
         return service;
@@ -27,7 +39,7 @@
         function getRoles(user) {
             return Restangular.all('staff/login').post(user)
                 .then(function(response) {
-                    user.auth_token  = response.auth_token;
+                    user.auth_token = response.auth_token;
                     user.given_name = response.given_name;
                     user.roles = [];
                     angular.forEach(response.roles, function(role) {
@@ -43,6 +55,11 @@
                         .hideDelay(3000)
                     );
                 });
+        }
+
+        function hasAllGroupsPermission(role) {
+
+            return _.intersection(getCurrentUser().roles, viewAllGroups).length > 0;
         }
 
         function hasPermission(permission) {
@@ -79,7 +96,6 @@
         function login(userinfo) {
             var deferred = $q.defer();
 
-           
             getRoles(userinfo).then(function(user) {
                 currentUser = user;
                 deferred.resolve(currentUser);
@@ -92,6 +108,55 @@
         function logout() {
             PermPermissionStore.clearStore();
             PermRoleStore.clearStore();
+        }
+
+
+        function allowedGroups() {
+            var user = getCurrentUser();
+
+            var defer = $q.defer();
+
+            if (groups == null) {
+                //TODO: for now group selection only for staff users
+                if (!hasAllGroupsPermission()) {
+                    StaffService.one(user.auth_token).getList('groups').then(function(response) {
+                        var mappedGroups = _.map(response, function(sig) {
+                            return sig.group;
+                        });
+                        groups = mappedGroups;
+                        defer.resolve(groups);
+                    });
+
+                } else {
+                    GroupService.getList({ active: true }).then(function(response) {
+                        groups = response;
+                        defer.resolve(response);
+                    });
+                }
+            } else {
+                defer.resolve(groups);
+            }
+
+            return defer.promise;
+            
+        }
+
+        function getActiveGroup() {
+            var defer = $q.defer();
+
+            if (activeGroup === null) {
+                allowedGroups().then(function(response) {
+                    defer.resolve(response[0]);
+                });
+            } else {
+                defer.resolve(activeGroup);
+            }
+            return defer.promise;
+        }
+
+        function setActiveGroup(group) {
+            activeGroup = group;
+            $rootScope.$broadcast('activeGroupChanged', group);
         }
     }
 })();

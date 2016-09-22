@@ -42,8 +42,8 @@
                         }
                     },
                     resolve: {
-                        students: function(ProfileService, StudentService) {
-                            return ProfileService.activeGroup().then(function(response) {
+                        students: function(UserService, StudentService) {
+                            return UserService.getActiveGroup().then(function(response) {
                                 return StudentService.getList({ 'group': response.id });
                             });
 

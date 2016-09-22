@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function PointsDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation, 
-        EvaluationService, StudentService, ProfileService) {
+        EvaluationService, StudentService, UserService) {
 
         var vm = this;
         vm.cancel = cancel;
@@ -47,7 +47,7 @@
 
             vm.edit = vm.evaluation.results;
 
-            ProfileService.activeGroup().then(function(profile) {
+            UserService.getActiveGroup().then(function(profile) {
                 StudentService.getList({ 'group': profile.id })
                     .then(function(response) {
                         vm.students = response;

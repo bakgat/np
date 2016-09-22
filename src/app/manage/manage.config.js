@@ -39,13 +39,13 @@
                 },
 
                 resolve: {
-                    students: function(StudentService, ProfileService) {
-                        return ProfileService.activeGroup().then(function(response) {
+                    students: function(StudentService, UserService) {
+                        return UserService.getActiveGroup().then(function(response) {
                             return StudentService.getList({ 'group': response.id });
                         });
                     },
-                    activeGroup: function(ProfileService) {
-                        return ProfileService.activeGroup().then(function(response) {
+                    activeGroup: function(UserService) {
+                        return UserService.getActiveGroup().then(function(response) {
                             return response;
                         });
                     }

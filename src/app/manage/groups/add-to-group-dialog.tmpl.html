@@ -13,7 +13,7 @@
             <md-input-container class="md-block" flex>
                 <label>Klas</label>
                 <md-select name="group" ng-model="vm.groupperiod.group" ng-model-options="{trackBy: '$value.id'}">
-                    <md-option ng-repeat="group in ::vm.groups | orderBy: 'name'" ng-value="group">{{::group.name}}</md-option>
+                    <md-option ng-repeat="group in vm.groups | orderBy: 'name'" ng-value="group">{{::group.name}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container class="md-block" flex ng-if="vm.fromStudent">

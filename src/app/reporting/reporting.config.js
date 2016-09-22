@@ -72,13 +72,13 @@
                         }
                     },
                     resolve: {
-                        evaluations: function(EvaluationService, ProfileService) {
-                            return ProfileService.activeGroup().then(function(response) {
+                        evaluations: function(EvaluationService, UserService) {
+                            return UserService.getActiveGroup().then(function(response) {
                                 return EvaluationService.getList({ 'group': response.id });
                             });
                         },
-                        branches: function(BranchService, ProfileService) {
-                            return ProfileService.activeGroup().then(function(response) {
+                        branches: function(BranchService, UserService) {
+                            return UserService.getActiveGroup().then(function(response) {
                                 return BranchService.getList({ 'group': response.id });
                             });
                         }

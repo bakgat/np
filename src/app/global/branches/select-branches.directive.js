@@ -6,7 +6,7 @@
         .directive('selectBranches', selectBranches);
 
     /* @ngInject */
-    function selectBranches($timeout, $filter, BranchService, ProfileService) {
+    function selectBranches($timeout, $filter, BranchService, UserService) {
         // Usage:
         //
         // ```html
@@ -37,7 +37,7 @@
 
 
             if (attrs.hasOwnProperty('byGroups')) {
-                ProfileService.activeGroup().then(function(group) {
+                UserService.getActiveGroup().then(function(group) {
                     var result = [];
                     group.getList('branches').then(function(branchGroups) {
                         BranchService.getList({ 'group': group.id }).then(function(majors) {
@@ -58,7 +58,7 @@
                     });
                 });
             } else {
-                ProfileService.activeGroup().then(function(group) {
+                UserService.getActiveGroup().then(function(group) {
                     BranchService.getList({ 'group': group.id }).then(function(majors) {
                         $scope.majors = majors;
                     });

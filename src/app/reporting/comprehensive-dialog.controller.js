@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function ComprehensiveDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation,
-        EvaluationService, StudentService, ProfileService) {
+        EvaluationService, StudentService, UserService) {
 
         var vm = this;
         vm.cancel = cancel;
@@ -25,7 +25,7 @@
         ///////////////
 
         function init() {
-               ProfileService.activeGroup().then(function(profile) {
+               UserService.getActiveGroup().then(function(profile) {
                 StudentService.getList({ 'group': profile.id })
                     .then(function(response) {
                         vm.students = response;
