@@ -6,7 +6,7 @@
         .directive('selectBranches', selectBranches);
 
     /* @ngInject */
-    function selectBranches($timeout, $filter, BranchService, UserService) {
+    function selectBranches($timeout, $filter, BranchService, UserService, GroupService) {
         // Usage:
         //
         // ```html
@@ -39,7 +39,7 @@
             if (attrs.hasOwnProperty('byGroups')) {
                 UserService.getActiveGroup().then(function(group) {
                     var result = [];
-                    group.getList('branches').then(function(branchGroups) {
+                    GroupService.one(group.id).getList('branches').then(function(branchGroups) {
                         BranchService.getList({ 'group': group.id }).then(function(majors) {
                             angular.forEach(majors, function(major) {
                                 result.push({

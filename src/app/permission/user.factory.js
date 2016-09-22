@@ -14,7 +14,8 @@
         var activeGroup = null;
         var groups;
 
-        var viewAllGroups = ['SUPERADMIN', 'ADMIN', 'CARE', 'CAREMANAGER', 'SECRETARY', 'MANAGER'];
+//'SUPERADMIN', 'ADMIN', 'CARE', 'CAREMANAGER', 
+        var viewAllGroups = ['SECRETARY', 'MANAGER'];
 
 
         var service = {
@@ -58,7 +59,6 @@
         }
 
         function hasAllGroupsPermission(role) {
-
             return _.intersection(getCurrentUser().roles, viewAllGroups).length > 0;
         }
 
