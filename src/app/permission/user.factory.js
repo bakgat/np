@@ -14,8 +14,7 @@
         var activeGroup = null;
         var groups;
 
-//'SUPERADMIN', 'ADMIN', 'CARE', 'CAREMANAGER', 
-        var viewAllGroups = ['SECRETARY', 'MANAGER'];
+        var viewAllGroups = ['SUPERADMIN', 'ADMIN', 'CARE', 'CAREMANAGER', 'SECRETARY', 'MANAGER'];
 
 
         var service = {
