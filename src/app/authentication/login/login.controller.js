@@ -17,7 +17,7 @@
 
         function loginClick() {
             googleService.login().then(function(user) {
-                HTTPCache.setDefaultRequestParams({auth: user.auth_token});
+                HTTPCache.setDefaultRequestParams({auth_token: user.auth_token});
                 
                 $state.go('triangular.analytics');
             }, function(err) {
