@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($rootScope, $state, googleService, triSettings, UserService, Restangular) {
+    function LoginController($rootScope, $state, googleService, triSettings, UserService, HTTPCache) {
         var vm = this;
         vm.loginClick = loginClick;
 
@@ -17,10 +17,8 @@
 
         function loginClick() {
             googleService.login().then(function(user) {
-                Restangular.setDefaultRequestParams({
-                    auth_token: user.auth_token
-                });
-                //console.log($rootScope.$previousState);
+                HTTPCache.setDefaultRequestParams({auth: user.auth_token});
+                
                 $state.go('triangular.analytics');
             }, function(err) {
                 console.log('Failed: ' + err);

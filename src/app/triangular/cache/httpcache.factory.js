@@ -6,15 +6,17 @@
         .factory('HTTPCache', HTTPCache);
 
     /* @ngInject */
-    function HTTPCache(Restangular, $cacheFactory) {
+    function HTTPCache(Restangular, $cacheFactory, $rootScope) {
         var cache;
         cache = $cacheFactory('http');
 
         return Restangular.withConfig(function(RestangularConfigurer) {
-            //RestangularConfigurer.setDefaultHttpFields({ cache: cache });
+            RestangularConfigurer.setDefaultHttpFields({ cache: cache });
+            
+
             RestangularConfigurer.setResponseInterceptor(function(response, operation, model, url) {
                 if (operation === 'put' || operation === 'post' || operation === 'delete') {
-                    cache.remove(url);
+                    cache.removeAll();
                 }
                 return response;
             });

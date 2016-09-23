@@ -1,4 +1,3 @@
-
 (function() {
     'use strict';
 
@@ -8,8 +7,8 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state) {
-        
+    function runFunction($rootScope, $state, Restangular) {
+
 
         // default redirect if access is denied
         function redirectError() {
