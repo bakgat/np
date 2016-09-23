@@ -54,14 +54,7 @@
 
                         if (!vm.evaluation.results) {
                             vm.evaluation.results = [];
-                            angular.forEach(vm.students, function(student) {
-                                vm.evaluation.results.push({
-                                    student: student,
-                                    score: null,
-                                    redicodi: [], //TODO init redicodi based on student profile 
-                                    block: false
-                                })
-                            });
+                            
 
                         } else {
                             vm.selectedStudents = [];

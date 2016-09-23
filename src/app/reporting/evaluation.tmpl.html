@@ -7,13 +7,13 @@
                 <span class="md-subhead">{{vm.evaluation.date | date:'dd MMMM yyyy'}}</span>
             </md-card-header-text>
             <md-card-icon-actions>
-                <md-button class="md-icon-button" ng-click="vm.editEvaluation($event)">
+                <md-button class="md-icon-button" ng-click="vm.editEvaluation($event)" aria-label="bewerken">
                     <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
                 </md-button>
-                <md-button class="md-warn md-icon-button" ng-click="vm.removeEvaluation()">
+                <md-button class="md-warn md-icon-button" ng-click="vm.removeEvaluation()" aria-label="verwijderen">
                     <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
                 </md-button>
-                <md-button class="md-icon-button" ng-click="vm.closeEvaluation()">
+                <md-button class="md-icon-button" ng-click="vm.closeEvaluation()" aria-label="sluiten">
                     <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
                 </md-button>
             </md-card-icon-actions>
