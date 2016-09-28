@@ -7,8 +7,9 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state, Restangular) {
+    function runFunction($rootScope, $state, Restangular, amMoment) {
 
+        amMoment.changeLocale('nl');
 
         // default redirect if access is denied
         function redirectError() {

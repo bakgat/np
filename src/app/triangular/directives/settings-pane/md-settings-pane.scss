@@ -18,12 +18,12 @@
             outline: none;
             &:first-child {
                 md-settings-avatar {
-                    @include rtl-prop(margin-right, margin-left, 12px);
+                    @include rtl-prop(margin-right, margin-left, 12px, auto);
                 }
             }
             &:last-child {
                 md-settings-avatar {
-                    @include rtl-prop(margin-left, margin-right, 12px);
+                    @include rtl-prop(margin-left, margin-right, 12px, auto);
                 }
             }
             md-settings-avatar {
@@ -254,20 +254,20 @@
                 &:not(.md-icon-button) {
                     margin: 0 $baseline-grid * .5;
                     &:first-of-type {
-                        @include rtl-prop(margin-left, margin-right, 0);
+                        @include rtl-prop(margin-left, margin-right, 0, auto);
                     }
                     &:last-of-type {
-                        @include rtl-prop(margin-right, margin-left, 0);
+                        @include rtl-prop(margin-right, margin-left, 0, auto);
                     }
                 }
                 &.md-icon-button {
                     margin-left: 3 * $baseline-grid / 4;
                     margin-right: 3 * $baseline-grid / 4;
                     &:first-of-type {
-                        @include rtl-prop(margin-left, margin-right, 3 * $baseline-grid / 2);
+                        @include rtl-prop(margin-left, margin-right, 3 * $baseline-grid / 2, 0);
                     }
                     &:last-of-type {
-                        @include rtl-prop(margin-right, margin-left, 3 * $baseline-grid / 2);
+                        @include rtl-prop(margin-right, margin-left, 3 * $baseline-grid / 2, 0);
                     }
                 }
                 & + md-card-icon-actions {

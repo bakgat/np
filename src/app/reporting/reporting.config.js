@@ -72,9 +72,12 @@
                         }
                     },
                     resolve: {
-                        evaluations: function(EvaluationService, UserService) {
+                        evaluations: function(EvaluationService, UserService, DateRangeService) {
                             return UserService.getActiveGroup().then(function(response) {
-                                return EvaluationService.getList({ 'group': response.id });
+                                var range = DateRangeService.range(),
+                                    start = range.start.format('YYYY-MM-DD'),
+                                    end = range.end.format('YYYY-MM-DD');
+                                return EvaluationService.getList({ group: response.id, start: start, end: end });
                             });
                         },
                         branches: function(BranchService, UserService) {

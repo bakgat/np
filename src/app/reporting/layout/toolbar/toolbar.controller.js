@@ -8,12 +8,12 @@
     /* @ngInject */
     function ReportingToolbarController($scope, $injector, $rootScope, $mdMedia,
         $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
-        triBreadcrumbsService, triSettings, triLayout, UserService) {
+        triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache, DateRangeService) {
 
         var vm = this;
 
         vm.baseState = 'triangular.reporting.evaluations';
-        
+
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;
@@ -25,11 +25,17 @@
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
 
+        vm.range = DateRangeService.range();
+        vm.daterangeChanged = daterangeChanged;
+
         initToolbar();
 
         ////////////////
         function initToolbar() {
             vm.user = UserService.getCurrentUser();
+        }
+        function daterangeChanged() {
+            $state.go(vm.baseState, {}, {reload: true});
         }
 
 
@@ -47,6 +53,7 @@
             $rootScope.$broadcast('triSwitchNotificationTab', tab);
             vm.openSideNav('notifications');
         }
+
 
         function toggleFullScreen() {
             vm.isFullScreen = !vm.isFullScreen;
@@ -77,7 +84,7 @@
         }
 
         
-        
+
         $scope.$on('newMailNotification', function() {
             vm.emailNew = true;
         });

@@ -8,14 +8,14 @@
     /* @ngInject */
     function ToolbarController($scope, $injector, $rootScope, $mdMedia,
         $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
-        triBreadcrumbsService, triSettings, triLayout, UserService) {
+        triBreadcrumbsService, triSettings, triLayout, UserService, DateRangeService) {
 
         var vm = this;
 
         vm.user = UserService.getCurrentUser();
-        
+
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        
+
         vm.openSideNav = openSideNav;
         vm.hideMenuButton = hideMenuButton;
 
@@ -28,7 +28,7 @@
 
         ////////////////
         function initToolbar() {
-
+            
         }
 
 

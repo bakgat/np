@@ -91,6 +91,8 @@
     <script src="../bower_components/restangular/dist/restangular.js"></script>
     <!-- endbower -->
     <script src="../bower_components/angular-i18n/angular-locale_nl-be.js"></script>
+    <script src="../bower_components/moment/locale/nl.js"></script>
+    <script src="assets/plugins/moment.easter.js"></script>
 
     <!-- enqueue all translations for calendar (remove if you dont need multilanguage) -->
     <script src="../bower_components/fullcalendar/dist/lang-all.js"></script>
@@ -196,12 +198,6 @@
     <script src="app/triangular/profiler/profiler.module.js"></script>
     <script src="app/triangular/profiler/profiler.config.js"></script>
     <script src="app/triangular/layouts/layouts.provider.js"></script>
-    <script src="app/triangular/directives/theme-background.directive.js"></script>
-    <script src="app/triangular/directives/same-password.directive.js"></script>
-    <script src="app/triangular/directives/palette-background.directive.js"></script>
-    <script src="app/triangular/directives/follow.directive.js"></script>
-    <script src="app/triangular/directives/enter-as-tab.directive.js"></script>
-    <script src="app/triangular/directives/countupto.directive.js"></script>
     <script src="app/triangular/filters/filters.module.js"></script>
     <script src="app/triangular/filters/round.filter.js"></script>
     <script src="app/triangular/filters/percent.filter.js"></script>
@@ -209,6 +205,12 @@
     <script src="app/triangular/filters/date.filter.js"></script>
     <script src="app/triangular/filters/average.filter.js"></script>
     <script src="app/triangular/filters/average-by.filter.js"></script>
+    <script src="app/triangular/directives/theme-background.directive.js"></script>
+    <script src="app/triangular/directives/same-password.directive.js"></script>
+    <script src="app/triangular/directives/palette-background.directive.js"></script>
+    <script src="app/triangular/directives/follow.directive.js"></script>
+    <script src="app/triangular/directives/enter-as-tab.directive.js"></script>
+    <script src="app/triangular/directives/countupto.directive.js"></script>
     <script src="app/triangular/cache/cache.module.js"></script>
     <script src="app/triangular/cache/httpcache.factory.js"></script>
     <script src="app/reporting/widgets/widget-group-profile.directive.js"></script>
@@ -223,13 +225,13 @@
     <script src="app/permission/permission.module.js"></script>
     <script src="app/permission/pages/permission.controller.js"></script>
     <script src="app/manage/manage.module.js"></script>
+    <script src="app/manage/validators/groupnames.validator.js"></script>
+    <script src="app/manage/validators/email.unique.validator.js"></script>
     <script src="app/manage/students/student.factory.js"></script>
     <script src="app/manage/students/student.controller.js"></script>
     <script src="app/manage/students/student-search.filter.js"></script>
     <script src="app/manage/students/student-list.controller.js"></script>
     <script src="app/manage/students/compose-student.controller.js"></script>
-    <script src="app/manage/validators/groupnames.validator.js"></script>
-    <script src="app/manage/validators/email.unique.validator.js"></script>
     <script src="app/manage/staff/staff.factory.js"></script>
     <script src="app/manage/staff/staff-list.controller.js"></script>
     <script src="app/manage/staff/member.controller.js"></script>
@@ -252,15 +254,12 @@
     <script src="app/global/profile/user-avatar.directive.js"></script>
     <script src="app/global/profile/profile.factory.js"></script>
     <script src="app/global/groups/select-groups.directive.js"></script>
+    <script src="app/global/daterange/daterange.factory.js"></script>
+    <script src="app/global/daterange/daterange.directive.js"></script>
     <script src="app/global/care/iac.factory.js"></script>
     <script src="app/global/care/diff.factory.js"></script>
     <script src="app/global/branches/select-branches.directive.js"></script>
     <script src="app/global/branches/branch.factory.js"></script>
-    <script src="app/examples/todo/todo.module.js"></script>
-    <script src="app/examples/todo/todo.controller.js"></script>
-    <script src="app/examples/todo/todo.config.js"></script>
-    <script src="app/examples/todo/fab-button.controller.js"></script>
-    <script src="app/examples/todo/dialog.controller.js"></script>
     <script src="app/examples/ui/webfont-loader-module.js"></script>
     <script src="app/examples/ui/ui.module.js"></script>
     <script src="app/examples/ui/weather-icons.controller.js"></script>
@@ -273,6 +272,11 @@
     <script src="app/examples/ui/fa-icons.controller.js"></script>
     <script src="app/examples/ui/colors.controller.js"></script>
     <script src="app/examples/ui/color-dialog.controller.js"></script>
+    <script src="app/examples/todo/todo.module.js"></script>
+    <script src="app/examples/todo/todo.controller.js"></script>
+    <script src="app/examples/todo/todo.config.js"></script>
+    <script src="app/examples/todo/fab-button.controller.js"></script>
+    <script src="app/examples/todo/dialog.controller.js"></script>
     <script src="app/examples/menu/menu.config.js"></script>
     <script src="app/examples/menu/level.controller.js"></script>
     <script src="app/examples/menu/dynamicMenu.service.js"></script>
@@ -294,10 +298,6 @@
     <script src="app/examples/extras/extras.config.js"></script>
     <script src="app/examples/extras/avatars.controller.js"></script>
     <script src="app/examples/extras/animate-element.directive.js"></script>
-    <script src="app/examples/elements/progress.controller.js"></script>
-    <script src="app/examples/elements/icons.controller.js"></script>
-    <script src="app/examples/elements/elements.config.js"></script>
-    <script src="app/examples/elements/buttons.controller.js"></script>
     <script src="app/examples/email/inbox.controller.js"></script>
     <script src="app/examples/email/emailgroup.filter.js"></script>
     <script src="app/examples/email/email.controller.js"></script>
@@ -306,15 +306,19 @@
     <script src="app/examples/email/email-search.filter.js"></script>
     <script src="app/examples/email/email-dialog.controller.js"></script>
     <script src="app/examples/email/cut.filter.js"></script>
+    <script src="app/examples/elements/progress.controller.js"></script>
+    <script src="app/examples/elements/icons.controller.js"></script>
+    <script src="app/examples/elements/elements.config.js"></script>
+    <script src="app/examples/elements/buttons.controller.js"></script>
     <script src="app/examples/dashboards/dashboards.config.js"></script>
     <script src="app/examples/dashboards/dashboard-draggable-controller.js"></script>
     <script src="app/examples/charts/charts.config.js"></script>
-    <script src="app/examples/authentication/authentication.config.js"></script>
     <script src="app/examples/calendar/padding.filter.js"></script>
     <script src="app/examples/calendar/event-dialog.controller.js"></script>
     <script src="app/examples/calendar/calendar.controller.js"></script>
     <script src="app/examples/calendar/calendar.config.js"></script>
     <script src="app/examples/calendar/calendar-fabs.controller.js"></script>
+    <script src="app/examples/authentication/authentication.config.js"></script>
     <script src="app/authentication/authentication.module.js"></script>
     <script src="app/authentication/signup/signup.controller.js"></script>
     <script src="app/authentication/profile/profile.controller.js"></script>
