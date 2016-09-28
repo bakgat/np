@@ -18,7 +18,8 @@
             link: link,
             restrict: 'E',
             scope: {
-                'ngModel': '='
+                'ngModel': '=',
+                'required': '='
             },
             templateUrl: 'app/global/branches/select-branches.tmpl.html'
         };
@@ -33,6 +34,11 @@
                 $scope.multiple = true;
             } else {
                 $scope.multiple = false;
+            }
+            if(attrs.hasOwnProperty('required')) {
+                $scope.required = true;
+            } else {
+                $scope.required = false;
             }
 
 

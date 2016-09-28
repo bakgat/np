@@ -50,7 +50,7 @@
                                             {{ redicodi.start | ntDate }} - {{ redicodi.end | ntDate }}
                                         </td>
                                         <td md-cell>
-                                            {{ redicodi.branch.major.name }} - {{ redicodi.branch.name }}
+                                            <span ng-if="redicodi.branch">{{ redicodi.branch.major.name }} - {{ redicodi.branch.name }}</span>
                                         </td>
                                         <td md-cell>
                                             <md-icon md-font-icon="notos notos-{{redicodi.icon}}"></md-icon>
