@@ -1,0 +1,30 @@
+<div class="daterange-picker md-whiteframe-z2 white" aria-label="Kies een datum bereik" role="listbox">
+    <div class="default-list" ng-if="!vm.isCustom">
+        <div class="picker-item" role="option" tabindex="-1" ng-click="vm.select('week')">
+            <md-button>deze week</md-button>
+        </div>
+        <div class="picker-item" role="option" tabindex="-1" ng-click="vm.select('month')">
+            <md-button>deze maand</md-button>
+        </div>
+        <div class="picker-item" role="option" tabindex="-1" ng-click="vm.select('quarter')">
+            <md-button>dit trimester</md-button>
+        </div>
+        
+        <div class="picker-item" role="option" tabindex="-1" ng-click="vm.select('schoolyear')">
+            <md-button>dit schooljaar</md-button>
+        </div>
+        <div class="picker-item" role="option" tabindex="-1" ng-click="vm.isCustom=true">
+            <md-button>aangepast bereik</md-button>
+        </div>
+    </div>
+    <div class="custom-range" ng-if="vm.isCustom">
+        <md-tabs md-stretch-tabs="always" md-selected="vm.selectedTab">
+            <md-tab label="Begin" md-selected="true">
+                <md-calendar ng-model="vm.start" ng-click="vm.selectCustomStart()"></md-calendar>
+            </md-tab>
+            <md-tab label="Einde">
+                <md-calendar ng-model="vm.end" ng-click="vm.selectCustomEnd()"></md-calendar>
+            </md-tab>
+        </md-tabs>
+    </div>
+</div>

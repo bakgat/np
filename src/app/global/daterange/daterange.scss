@@ -1,0 +1,22 @@
+.daterange-button {
+    color: rgba(0, 0, 0, .84);
+}
+
+.daterange-picker {
+    width: 340px;
+    
+    background: #fff;
+
+    .md-calendar-day-header {
+      display: none;
+    }
+    
+    > .default-list {
+        > .picker-item {
+            > .md-button {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
+}

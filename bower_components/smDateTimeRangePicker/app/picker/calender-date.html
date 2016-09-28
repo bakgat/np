@@ -1,0 +1,74 @@
+		<div  class="date-picker">
+			<div ng-show="vm.view==='YEAR_MONTH'" ng-class="{'year-container' : vm.view==='YEAR_MONTH'}"> 
+				<md-virtual-repeat-container id="year-container" class="year-md-repeat" md-top-index="vm.yearTopIndex">
+				      <div md-virtual-repeat="yr in vm.yearItems"  md-on-demand  class="repeated-item">
+							<span 
+								class="year" 
+								ng-class="{'md-accent': yr === vm.currentDate.year(),
+											'selected-year md-primary':vm.initialDate.year()===yr}">
+											{{yr}}
+							</span>
+	 						<div class="month-row" >
+								<span ng-click="vm.changeYear(yr,0)" class="month">{{vm.monthList[0]}}</span>
+								<span ng-click="vm.changeYear(yr,1)" class="month">{{vm.monthList[1]}}</span>
+								<span ng-click="vm.changeYear(yr,2)" class="month">{{vm.monthList[2]}}</span>
+								<span ng-click="vm.changeYear(yr,3)" class="month">{{vm.monthList[3]}}</span>
+								<span ng-click="vm.changeYear(yr,4)" class="month">{{vm.monthList[4]}}</span>
+								<span ng-click="vm.changeYear(yr,5)" class="month">{{vm.monthList[5]}}</span>
+							</div>
+							<div  class="month-row">
+								<span ng-click="vm.changeYear(yr,6)" class="month">{{vm.monthList[6]}}</span>
+								<span ng-click="vm.changeYear(yr,7)" class="month">{{vm.monthList[7]}}</span>
+								<span ng-click="vm.changeYear(yr,8)" class="month">{{vm.monthList[8]}}</span>
+								<span ng-click="vm.changeYear(yr,9)" class="month">{{vm.monthList[9]}}</span>
+								<span ng-click="vm.changeYear(yr,10)" class="month">{{vm.monthList[10]}}</span>
+								<span ng-click="vm.changeYear(yr,11)" class="month">{{vm.monthList[11]}}</span>
+							</div>
+				      </div>
+				</md-virtual-repeat-container>		     
+			</div>				
+			<div ng-show="vm.view==='DATE'" ng-class="{'date-container' : vm.view==='DATE'}">
+				<div layout="row" class="navigation" layout-align="space-between center">
+					<md-button  ng-disabled="vm.stopScrollPrevious" class="md-icon-button scroll-button"  aria-label="previous"  ng-click="vm.changePeriod('p')">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
+					</md-button>
+ 					<md-button
+ 						md-no-ink
+						aria-label="Change Year"
+ 						class="md-button" 
+ 						ng-class="vm.moveCalenderAnimation" 
+ 						ng-click="vm.changeView('YEAR_MONTH')">
+						{{vm.monthList[vm.initialDate.month()]}}{{' '}}{{vm.initialDate.year()}}
+					</md-button>
+
+					<md-button ng-disabled="vm.stopScrollNext"  class="md-icon-button scroll-button" aria-label="next" ng-click="vm.changePeriod('n')">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>							
+					</md-button>				
+				</div>			
+				<div class="date-cell-header">
+					<md-button class="md-icon-button" md-autofocus ng-disabled="true" ng-repeat="dHead in vm.dateCellHeader">
+						{{dHead[vm.dayHeader]}}
+					</md-button>
+				</div>		
+				<div 
+					md-swipe-right="vm.changePeriod('p')" 
+					class="date-cell-row" 
+					md-swipe-left="vm.changePeriod('n')" 
+					ng-class="vm.moveCalenderAnimation">
+					<div layout="row" ng-repeat="w in vm.dateCells" >
+						<md-button
+							ng-repeat="d in w"
+							aria-label="vm.currentDate"
+							class="md-icon-button"
+							ng-click="vm.selectDate(d.date,d.isDisabledDate)"
+							ng-disabled="d.isDisabledDate"
+							ng-class="{'md-primary sm-today' : d.today,
+								'active':d.isCurrentMonth,
+								'md-primary md-raised selected' :d.date.isSame(vm.currentDate),
+								'disabled':d.isDisabledDate}">
+							<span>{{d.dayNum}}</span>
+						</md-button>
+					</div>
+				</div>
+			</div>
+		</div>
