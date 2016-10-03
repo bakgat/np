@@ -6,7 +6,7 @@
         .controller('StudentRecordController', StudentRecordController);
 
     /* @ngInject */
-    function StudentRecordController($scope, $state, $mdDialog, $mdToast, $filter, student) {
+    function StudentRecordController($scope, $state, $mdDialog, $mdToast, $filter, student, modules, _) {
         var vm = this;
 
         vm.student = student;
@@ -25,33 +25,37 @@
 
         function init() {
             loadRedicodi();
+
         }
 
-        function setIcon(item) {
-            var icon = '';
-            switch (item.redicodi) {
-                case 'T':
-                    icon = 'tools';
-                    break;
-                case 'S':
-                    icon = 'support';
-                    break;
-                case 'C':
-                    icon = 'challenge';
-                    break;
-                case 'B':
-                    icon = 'basic';
-                    break;
-            }
-            item.icon = icon;
-            return item;
+        /* function getIcon(item) {
+             var module =
+                 return module.icon;
+         }
+
+         function getRedicodiName(item) {
+             var module = _.filter(modules, function(module) {
+                 return module.id == item.redicodi;
+             });
+             return module.name;
+         }*/
+        function getFullRedicodiItem(item) {
+            return _.find(modules, function(module) {
+                return module.id == item.redicodi;
+            });
         }
 
         function loadRedicodi() {
             student.getList('redicodi').then(function(response) {
                 angular.forEach(response, function(item) {
-                    item = setIcon(item);
+                    var module = getFullRedicodiItem(item);
+                    item.module = {
+                        id: module.id,
+                        name: module.name,
+                        icon: module.icon
+                    }
                 });
+
                 vm.redicodi = response;
             });
         }
@@ -80,7 +84,7 @@
                 redicodiPeriod = {
                     start: new Date(),
                     end: null,
-                    redicodi: null,
+                    module: null,
                     branch: null
                 }
             }
@@ -111,7 +115,12 @@
                     var i = 0;
                     for (i = 0; i < vm.redicodi.length; i++) {
                         if (vm.redicodi[i].id == redicodiPeriod.id) {
-                            redicodiPeriod = setIcon(redicodiPeriod);
+                            var module = getFullRedicodiItem(redicodiPeriod);
+                            redicodiPeriod.module = {
+                                id: module.id,
+                                name: module.name,
+                                icon: module.icon
+                            }
                             vm.redicodi.splice(i, 1, redicodiPeriod);
                             foundRedicodi = true;
                         }

@@ -1,4 +1,9 @@
-.#{$notos-icon-prefix}-filosofy {
+
+
+
+
+
+.#{$notos-icon-prefix}-philosofy, .#{$notos-icon-prefix}-P {
   &:before {
     content: $notos-var-lamp;
   }
@@ -21,5 +26,10 @@
 .#{$notos-icon-prefix}-support, .#{$notos-icon-prefix}-S {
   &:before {
     content: $notos-var-support-heart;
+  }
+}
+.#{$notos-icon-prefix}-SF {
+  &:before {
+    content: $notos-var-sunflower;
   }
 }

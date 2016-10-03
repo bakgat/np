@@ -19,7 +19,7 @@
             restrict: 'E',
             scope: {
                 'ngModel': '=',
-                'required': '='
+                'required': '=?'
             },
             templateUrl: 'app/global/branches/select-branches.tmpl.html'
         };
@@ -27,6 +27,7 @@
         ////////////////////////
 
         function link($scope, $element, attrs) {
+           
             $scope.majors = null;
             $scope.branchGroups = null;
             

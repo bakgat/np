@@ -71,3 +71,26 @@ md-card {
         }
     }
 }
+
+
+.pf-placeholder {
+    float: right;
+    width: 12px;
+    height: 12px;
+
+    margin: 0 1px;
+
+    border-radius: 50%;
+    border: solid 1px rgba(0, 0, 0, .12);
+}
+
+.is-permanent,
+.is-final {
+    
+
+    background: #009688;
+   
+}
+.is-final {
+    background: #ff5722;
+}

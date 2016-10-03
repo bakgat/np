@@ -46,11 +46,11 @@
                                 </select-branches>
                             </div>
                             <div layout="row">
-                                <md-input-container class="md-block">
-                                    <md-radio-group ng-model="vm.evaluation.permanent">
-                                        <md-radio-button ng-value="true">Permanente evaluatie</md-radio-button>
-                                        <md-radio-button ng-value="false">Eindevaluatie</md-radio-button>
-                                    </md-radio-group>
+                                <md-input-container class="md-block" flex>
+                                    <md-checkbox aria-label="Permanente evaluatie" ng-model="vm.evaluation.permanent">Permanente evaluatie</md-checkbox>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex>
+                                    <md-checkbox aria-label="Eindevaluatie" ng-model="vm.evaluation.final">Eindevaluatie</md-checkbox>
                                 </md-input-container>
                             </div>
                         </form>

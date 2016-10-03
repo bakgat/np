@@ -70,7 +70,7 @@
 
         function link(scope, iElem, iAttrs) {
             iElem.on('click', function() {
-                if (!iElem.hasClass('readonly') || iElem.parent().hasClass('readonly')) { 
+                if (!(iElem.hasClass('readonly') || iElem.parent().hasClass('readonly'))) { 
                     scope.$emit('toggleItem', iElem);
                 }
             });

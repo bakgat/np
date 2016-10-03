@@ -13,7 +13,7 @@
         triSettingsProvider.setCopyright('&copy;' + now.getFullYear() + ' klimtoren.be');
         triSettingsProvider.setLogo('assets/images/logo/my_logo_120.png');
         // set current version of app (shown in footer)
-        triSettingsProvider.setVersion('0.1.0');
+        triSettingsProvider.setVersion('0.1.1');
         // set the document title that appears on the browser tab
         triRouteProvider.setTitle('Mijn Klimtoren');
         triRouteProvider.setSeparator('|');

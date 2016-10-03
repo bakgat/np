@@ -39,10 +39,16 @@
                 <md-list-item class="evaluation-list__evaluation evaluation-list__evaluation--animated md-2-line" ng-repeat="evaluation in group.evaluations | orderBy: '-date'" ng-click="vm.openEvaluation(evaluation)" ng-class="{'evaluation-list__evaluation--active': vm.selectedEvaluation === evaluation.id}">
                     <img class="md-avatar course-avatar" ng-src="{{vm.makeBranchIcon(evaluation.branchForGroup.branch)}}" alt="{{evaluation.course.name}}">
                     <div class="md-list-item-text" layout="column">
-                        <h3><span class="md-caption">{{::evaluation.date | date : 'dd/MM/yyyy'}}</span>
-                          {{::evaluation.title}}</h3>
+                        <h3>
+                            <span class="md-caption">{{::evaluation.date | date : 'dd/MM/yyyy'}}</span>
+                              {{::evaluation.title}}
+                        </h3>
                         <h4>
                           gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
+                          <div ng-class="{'is-permanent': evaluation.permanent}" class="pf-placeholder"></div>
+                          <md-tooltip ng-if="evaluation.permanent">permanent evaluatie</md-tooltip>
+                          <div ng-class="{'is-final': evaluation.final}" class="pf-placeholder"></div>
+                          <md-tooltip ng-if="evaluation.final">eindevaluatie</md-tooltip>
                         </h4>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>

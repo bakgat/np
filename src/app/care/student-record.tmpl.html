@@ -19,6 +19,14 @@
             </md-settings-actions>
         </md-settings-header>
         <md-settings-list>
+            <md-settings-item class="diff-modules readonly" >
+                <md-settings-item-header  layout="row" layout-align="start center">
+                    <span ng-repeat="redicodi in vm.redicodi | unique: 'module.id'" md-padding>
+                        <md-icon md-font-icon="{{redicodi.module.icon}}"></md-icon>
+                        <md-tooltip>{{redicodi.module.name}} sinds {{redicodi.start | ntDate}}</md-tooltip>
+                    </span>
+                </md-settings-item-header>
+            </md-settings-item>
             <md-settings-item>
                 <md-settings-item-header>
                     <div class="md-title">Redicodi</div>
@@ -53,7 +61,8 @@
                                             <span ng-if="redicodi.branch">{{ redicodi.branch.major.name }} - {{ redicodi.branch.name }}</span>
                                         </td>
                                         <td md-cell>
-                                            <md-icon md-font-icon="notos notos-{{redicodi.icon}}"></md-icon>
+                                            <md-icon md-font-icon="{{redicodi.module.icon}}"></md-icon>
+                                            <md-tooltip>{{redicodi.module.name}}</md-tooltip>
                                         </td>
                                         <td md-cell>
                                             {{ redicodi.content }}

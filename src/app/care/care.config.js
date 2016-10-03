@@ -66,6 +66,12 @@
                                 }
                             }
                             return foundStudent.get();
+                        },
+                        modules: function(DiffService) {
+                            return DiffService.getModules()
+                                .then(function(modules) {
+                                    return modules.data;
+                                });
                         }
                     }
                 });

@@ -59,7 +59,8 @@
                     targetEvent: $event,
                     locals: {
                         evaluation: {
-                            permanent: true
+                            permanent: true,
+                            final: true
                         }
                     },
                     focusOnOpen: false,

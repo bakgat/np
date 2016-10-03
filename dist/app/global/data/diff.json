@@ -14,4 +14,32 @@
     "id": "T",
     "name": "hulpmiddelen",
     "icon": "notos notos-tools"
+}, {
+    "id": "P",
+    "name": "filosofie",
+    "icon": "notos notos-lamp"
+}, {
+    "id": "SF",
+    "name": "zonnebloemklas",
+    "icon": "notos notos-sunflower"
+}, {
+    "id": "MSF",
+    "name": "mini-zonnebloemklas",
+    "icon": "notos notos-mini-sunflower"
+}, {
+    "id": "M",
+    "name": "rekenmonster",
+    "icon": "notos notos-monster"
+}, {
+    "id": "BF",
+    "name": "vlinderklas",
+    "icon": "notos notos-butterfly"
+}, {
+    "id": "RT",
+    "name": "leestrein",
+    "icon": "notos notos-abc-train"
+}, {
+    "id": "MT",
+    "name": "rekentrein",
+    "icon": "notos notos-math-train"
 }]

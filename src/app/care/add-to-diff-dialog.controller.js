@@ -24,15 +24,14 @@
         ///////////////
 
         function init() { 
-            redicodiPeriod.redicodi = {
-                id: redicodiPeriod.redicodi
-            };
+            //TODO: stop renaming !!
+            vm.diffmodule.redicodi = redicodiPeriod.module;
             DiffService.getModules()
                 .then(function(modules) {
                     if (modules.status === 200) {
                         vm.modules = modules.data;
                     }
-                })
+                });
         }
 
         function cancel() {
