@@ -29073,6 +29073,33 @@ md-menu-item {
       min-width: 260px;
       max-width: 260px; }
 
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29107,33 +29134,6 @@ md-menu-item {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
 
 /* view change animation */
 .triangular-content {
@@ -29287,20 +29287,15 @@ md-card md-card-content {
       .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
         background-color: rgba(0, 0, 0, 0.12); }
 
-.pf-placeholder {
+md-icon.pf-placeholder {
   float: right;
   width: 12px;
   height: 12px;
-  margin: 0 1px;
-  border-radius: 50%;
-  border: solid 1px rgba(0, 0, 0, 0.12); }
-
-.is-permanent,
-.is-final {
-  background: #009688; }
-
-.is-final {
-  background: #ff5722; }
+  margin: 0px; }
+  md-icon.pf-placeholder.is-permanent {
+    color: #009688; }
+  md-icon.pf-placeholder.is-final {
+    color: #ff5722; }
 
 @font-face {
   font-family: "Notos Icons";
@@ -29992,6 +29987,13 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
       -webkit-transform: rotate(90deg) translateX(0%) !important;
               transform: rotate(90deg) translateX(0%) !important; } }
 
+.md-select-form {
+  display: inline-block;
+  margin-top: 2px;
+  width: 100%; }
+  .md-select-form span {
+    width: 100%; }
+
 .github-user-dropdown img {
   width: 40px;
   height: 40px;
@@ -30000,13 +30002,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .github-user-dropdown span {
   margin-left: 16px; }
-
-.md-select-form {
-  display: inline-block;
-  margin-top: 2px;
-  width: 100%; }
-  .md-select-form span {
-    width: 100%; }
 
 .maps-example .angular-google-map-container {
   height: 550px; }

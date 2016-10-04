@@ -4,9 +4,7 @@ md-card {
             font-size: 30px;
             text-transform: capitalize;
         }
-        
     }
-    
     md-card-content {
         padding: 0;
     }
@@ -16,8 +14,7 @@ md-card {
     .md-title {
         text-transform: capitalize;
     }
-    .md-button > md-icon {
-    }
+    .md-button > md-icon {}
 }
 
 .score {
@@ -56,7 +53,6 @@ md-card {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
-
     .md-button-group.super-narrow {
         display: inline-flex;
         height: 36px;
@@ -72,25 +68,15 @@ md-card {
     }
 }
 
-
-.pf-placeholder {
+md-icon.pf-placeholder {
     float: right;
     width: 12px;
     height: 12px;
-
-    margin: 0 1px;
-
-    border-radius: 50%;
-    border: solid 1px rgba(0, 0, 0, .12);
-}
-
-.is-permanent,
-.is-final {
-    
-
-    background: #009688;
-   
-}
-.is-final {
-    background: #ff5722;
+    margin: 0px;
+    &.is-permanent {
+        color: #009688;
+    }
+    &.is-final {
+        color: #ff5722;
+    }
 }
