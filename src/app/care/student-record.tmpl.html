@@ -58,6 +58,7 @@
                                             {{ redicodi.start | ntDate }} - {{ redicodi.end | ntDate }}
                                         </td>
                                         <td md-cell>
+                                            <span ng-if="redicodi.major">{{redicodi.major.name}}</span>
                                             <span ng-if="redicodi.branch">{{ redicodi.branch.major.name }} - {{ redicodi.branch.name }}</span>
                                         </td>
                                         <td md-cell>

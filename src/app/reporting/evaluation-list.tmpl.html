@@ -45,10 +45,10 @@
                         </h3>
                         <h4>
                           gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
-                          <div ng-class="{'is-permanent': evaluation.permanent}" class="pf-placeholder"></div>
-                          <md-tooltip ng-if="evaluation.permanent">permanent evaluatie</md-tooltip>
                           <div ng-class="{'is-final': evaluation.final}" class="pf-placeholder"></div>
                           <md-tooltip ng-if="evaluation.final">eindevaluatie</md-tooltip>
+                          <div ng-class="{'is-permanent': evaluation.permanent}" class="pf-placeholder"></div>
+                          <md-tooltip ng-if="evaluation.permanent">permanent evaluatie</md-tooltip>
                         </h4>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>

@@ -1,5 +1,5 @@
 <md-input-container>
-    <label translate>Vak</label>
+    <label>Vak</label>
     <md-select ng-change="change()" name="branch" ng-model="ngModel" ng-model-options="{trackBy: '$value.id'}" ng-required="required" ng-multiple="multiple" >
         <md-optgroup label="{{::bg.major.name}}" ng-repeat="bg in branchGroups" ng-if="branchGroups">
             <md-option ng-value="bfg" ng-repeat="bfg in bg.branchForGroup">{{::bfg.branch.name}}</md-option>
