@@ -29,6 +29,7 @@
             'SECRETARY': ['dashboards', 'manage', 'manageStudents', 'manageGroups', 'manageStaff'],
             'MANAGER': ['dashboards', 'care', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports'],
             'CAREMANAGER': ['dashboards', 'care','reporting', 'reportingEvaluations'],
+            'CARE': ['dashboards', 'care','reporting', 'reportingEvaluations'],
             'ANONYMOUS': []
         });
 

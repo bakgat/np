@@ -17,6 +17,7 @@
 
         function link($scope, $element, attrs) {
             $element.on('focus', function() {
+                //TODO: if input in screen don't scroll
                 $element.parent()[0].scrollIntoView(false);
             });
         }
