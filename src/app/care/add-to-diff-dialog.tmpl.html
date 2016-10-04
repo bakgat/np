@@ -20,8 +20,8 @@
                 </md-input-container>
             </div>
             <div layout="row">
-                <select-majors layout="column" flex ng-model="vm.diffmodule.major"></select-majors>
-                <select-branches layout="column" flex ng-model="vm.diffmodule.branch"></select-branches>
+                <select-majors layout="column" flex ng-model="vm.diffmodule.major" ng-disabled="{{vm.diffmodule.major}}"></select-majors>
+                <select-branches layout="column" flex ng-model="vm.diffmodule.branch" ng-disabled="{{vm.diffmodule.branch}}"></select-branches>
             </div>
             <div layout="row">
                 <div layout="column" flex>

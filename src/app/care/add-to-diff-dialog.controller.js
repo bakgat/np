@@ -38,6 +38,17 @@
             $mdDialog.cancel();
         }
 
+        $scope.$watch('vm.diffmodule.branch', function(b) {
+             if (b == '') {
+                vm.diffmodule.branch = null;
+            }
+        });
+        $scope.$watch('vm.diffmodule.major', function(m) {
+            if (m == '') {
+                vm.diffmodule.major = null;
+            }
+        });
+
         function save() {
             $mdDialog.hide(vm.diffmodule);
         }
