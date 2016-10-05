@@ -25,12 +25,19 @@
         ///////////////
 
         function init() {
-               UserService.getActiveGroup().then(function(profile) {
+            if (vm.evaluation.date) {
+                vm.evaluation.date = new Date(vm.evaluation.date);
+            } else {
+                vm.evaluation.date = new Date();
+            }
+
+
+            UserService.getActiveGroup().then(function(profile) {
                 StudentService.getList({ 'group': profile.id })
                     .then(function(response) {
                         vm.students = response;
                     });
-            }); 
+            });
         }
 
         function cancel() {
@@ -43,13 +50,6 @@
 
         function selectAllStudents() {
             vm.selectedStudents = angular.copy(vm.students);
-
-            vm.evaluation.results = [];
-            angular.forEach(vm.selectedStudents, function(ss) {
-                vm.evaluation.results.push({
-                    student: ss
-                })
-            });
         }
     }
 })();

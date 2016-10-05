@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="P">
                                 </select-branches>
                             </div>
                             <div layout="row">
@@ -102,11 +102,11 @@
                 <md-tab-body>
                     <md-content layout="row" layout-align="space-around center">
                         <div class="md-padding">
-                            <form name="resultsForm" tri-wizard-form>
+                            <form name="resultsForm" tri-wizard-form viewport>
                                 <div layout="row" flex ng-repeat="result in vm.evaluation.results" ng-if="!result.block">
                                     <md-input-container class="md-icon-float md-block" flex>
                                         <label>{{::result.student.displayName}}</label>
-                                        <input type="number" ng-model="result.score" name="score_{{$index}}" score enter-as-tab max="vm.evaluation.max">
+                                        <input type="number" ng-model="result.score" name="score_{{$index}}" score enter-as-tab max="vm.evaluation.max" >
                                         <md-icon md-font-set="regular-font" class="md-caption">/{{vm.evaluation.max}}</md-icon>
                                         <div ng-messages="resultsForm['score_' + $index].$error" md-auto-hide="false" ng-show="resultsForm['score_' + $index].$error">
                                             <div ng-message="max">

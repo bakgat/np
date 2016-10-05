@@ -27,16 +27,16 @@
         ////////////////////////
 
         function link($scope, $element, attrs) {
-           
+
             $scope.majors = null;
             $scope.branchGroups = null;
-            
+
             if (attrs.hasOwnProperty('multiple')) {
                 $scope.multiple = true;
             } else {
                 $scope.multiple = false;
             }
-            if(attrs.hasOwnProperty('required')) {
+            if (attrs.hasOwnProperty('required')) {
                 $scope.required = true;
             } else {
                 $scope.required = false;
@@ -44,9 +44,10 @@
 
 
             if (attrs.hasOwnProperty('byGroups')) {
+                var type = attrs.hasOwnProperty('byType') ? { evaluationtype: attrs.byType } : {}; 
                 UserService.getActiveGroup().then(function(group) {
                     var result = [];
-                    GroupService.one(group.id).getList('branches').then(function(branchGroups) {
+                    GroupService.one(group.id).getList('branches', type).then(function(branchGroups) {
                         BranchService.getList({ 'group': group.id }).then(function(majors) {
                             angular.forEach(majors, function(major) {
                                 result.push({

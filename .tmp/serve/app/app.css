@@ -29073,33 +29073,6 @@ md-menu-item {
       min-width: 260px;
       max-width: 260px; }
 
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29134,6 +29107,33 @@ md-settings-item .widget {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
+
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
 
 /* view change animation */
 .triangular-content {
@@ -30134,6 +30134,16 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   border-radius: 50%;
   z-index: 5; }
 
+.footer h2 {
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.54); }
+
+.triangular-loader {
+  background: rgba(255, 255, 255, 0.8); }
+
+.app-loader md-progress-linear {
+  width: 80%; }
+
 .daterange-button {
   color: rgba(0, 0, 0, 0.84); }
 
@@ -30145,16 +30155,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .daterange-picker > .default-list > .picker-item > .md-button {
     width: 100%;
     margin: 0; }
-
-.footer h2 {
-  font-size: 1.4rem;
-  color: rgba(0, 0, 0, 0.54); }
-
-.triangular-loader {
-  background: rgba(255, 255, 255, 0.8); }
-
-.app-loader md-progress-linear {
-  width: 80%; }
 
 .triangular-toolbar {
   /*&.ng-enter {

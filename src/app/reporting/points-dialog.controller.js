@@ -38,7 +38,7 @@
         }, true);
 
 
-        function init() {
+        function init() {            
             if (vm.evaluation.date) {
                 vm.evaluation.date = new Date(vm.evaluation.date);
             } else {

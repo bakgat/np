@@ -1,9 +1,9 @@
 <md-dialog class="mobile-fullwidth-dialog evaluation-wizard">
-    <md-toolbar class="mb-bg-09 cover">
+    <md-toolbar>
         <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
             <h2 class="md-title">
                 <span ng-if="vm.evaluation.course">{{vm.evaluation.course.name}}: </span>
-                {{vm.evaluation.title || 'Nieuwe brede evaluatie toevoegen'}}
+                {{vm.evaluation.title || 'Nieuwe evaluatie toevoegen'}}
             </h2>
             <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
@@ -22,7 +22,7 @@
                 <md-tab-body>
                     <md-content class="md-padding">
                         <form name="settingsForm" tri-wizard-form novalidate>
-                            <div layout="row" layout-align="center center">
+                            <div layout="row">
                                 <md-input-container class="md-block" flex>
                                     <label>Titel</label>
                                     <input ng-model="vm.evaluation.title" name="title" required>
@@ -38,8 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups>
-                                </select-branches>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="C" required></select-branches>
                             </div>
                         </form>
                     </md-content>
@@ -54,15 +53,17 @@
                     <md-content class="md-padding">
                         <form name="studentsForm" tri-wizard-form layout="row" layout-align="space-around">
                             <div layout="column" flex="35">
+                                <h6>Kies één of meerdere groepen</h6>
                                 <md-button style="text-align:left;" class="md-raised md-accent" aria-label="Volledige klas" ng-click="vm.selectAllStudents()">
                                     <md-icon class="zmdi zmdi-select-all"></md-icon> Volledige klas
                                 </md-button>
                             </div>
                             <div layout="column" flex="65">
+                                <h6>Of kies één of meerdere leerlingen</h6>
                                 <md-list>
                                     <md-list-item ng-repeat="student in vm.students">
                                         <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
-                                        <img class="md-avatar" ng-src="{{student.avatar}}">
+                                        <user-avatar ng-model="student" class="md-avatar"></user-avatar>
                                         <div class="md-list-item-text">
                                             <p>{{::student.displayName}}</p>
                                         </div>
@@ -73,6 +74,7 @@
                     </md-content>
                 </md-tab-body>
             </md-tab>
+            
         </md-tabs>
     </md-dialog-content>
     <md-dialog-actions layout="row">
