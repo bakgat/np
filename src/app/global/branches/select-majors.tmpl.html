@@ -1,0 +1,7 @@
+<md-input-container>
+    <label>Hoofdvak</label>
+    <md-select name="major" ng-model="ngModel" ng-model-options="{trackBy: '$value.id'}" ng-required="required">
+        <md-option value=""></md-option>
+        <md-option ng-value="m" ng-repeat="m in majors">{{::m.name}}</md-option>
+    </md-select>
+</md-input-container>

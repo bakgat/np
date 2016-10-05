@@ -1,0 +1,39 @@
+{
+  "name": "angular-in-viewport",
+  "version": "1.0.1",
+  "description": "Directives to check if a DOM element is in a specified viewport",
+  "main": "dist/in-viewport.js",
+  "scripts": {
+    "test": "gulp karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/showpad/angular-in-viewport.git"
+  },
+  "keywords": [
+    "DOM",
+    "viewport"
+  ],
+  "author": "Klaas Cuvelier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/showpad/angular-in-viewport/issues"
+  },
+  "homepage": "https://github.com/showpad/angularin-viewport",
+  "devDependencies": {
+    "bower": "1.7.x",
+    "gulp": "3.9.x",
+    "gulp-concat": "2.4.2",
+    "gulp-jshint": "1.6.x",
+    "gulp-uglify": "1.0.x",
+    "jasmine-core": "2.4.1",
+    "jshint-stylish": "0.2.x",
+    "karma": "0.13.19",
+    "karma-chrome-launcher": "0.1.x",
+    "karma-coverage": "0.5.3",
+    "karma-jasmine": "0.3.6",
+    "karma-junit-reporter": "0.3.8",
+    "karma-phantomjs-launcher": "0.2.3",
+    "phantomjs": "2.1.3"
+  }
+}
