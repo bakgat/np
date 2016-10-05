@@ -29153,150 +29153,6 @@ md-settings-item .widget {
       opacity: 0;
     }*/ }
 
-.evaluation-list {
-  background: white; }
-
-.evaluation-list__evaluation.md-2-line.md-long-text {
-  margin-top: 0px;
-  margin-bottom: 0px; }
-
-.evaluation-list__evaluation h3 .md-caption {
-  float: right;
-  color: rgba(0, 0, 0, 0.54) !important; }
-
-.evaluation-list__evaluation .md-list-item-text h4 {
-  color: rgba(0, 0, 0, 0.54) !important; }
-
-.evaluation-list__evaluation--active {
-  background: rgba(0, 0, 0, 0.05); }
-  .evaluation-list__evaluation--active .md-avatar {
-    display: block;
-    -webkit-animation: swing 1s;
-            animation: swing 1s; }
-
-.evaluation-list__evaluation--unread h3 {
-  font-weight: 700 !important; }
-
-.evaluation-no-evaluation-selected {
-  text-align: center;
-  opacity: 0.5; }
-  .evaluation-no-evaluation-selected h2 {
-    font-weight: lighter; }
-
-.evaluation-list__evaluation--animated.ng-move,
-.evaluation-list__evaluation--animated.ng-enter,
-.evaluation-list__evaluation--animated.ng-leave {
-  -webkit-transition: all linear 0.8s;
-  transition: all linear 0.8s;
-  width: 100%;
-  position: relative; }
-
-.evaluation-list__evaluation--animated.ng-leave.ng-leave-active,
-.evaluation-list__evaluation--animated.ng-move,
-.evaluation-list__evaluation--animated.ng-enter {
-  opacity: 0;
-  max-height: 0; }
-
-.evaluation-list__evaluation--animated.ng-leave,
-.evaluation-list__evaluation--animated.ng-move.ng-move-active,
-.evaluation-list__evaluation--animated.ng-enter.ng-enter-active {
-  opacity: 1;
-  max-height: 500px; }
-
-#ui-reporting-evaluation.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-#ui-reporting-evaluation.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-md-card md-card-header md-card-header-text .md-title {
-  font-size: 30px;
-  text-transform: capitalize; }
-
-md-card md-card-content {
-  padding: 0; }
-
-.md-toolbar-tools .md-title {
-  text-transform: capitalize; }
-
-.score {
-  font-size: 1.8rem; }
-
-.notos.diff-icon {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 20px;
-  margin: 4px; }
-
-.doughnut-legend li {
-  font-size: 10px; }
-
-.evaluation-wizard md-tabs md-tabs-wrapper {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  height: 48px;
-  width: 100%;
-  z-index: 900; }
-
-.evaluation-wizard md-tabs md-tab-content {
-  padding-top: 44px; }
-
-.evaluation-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .evaluation-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .evaluation-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .evaluation-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-icon.pf-placeholder {
-  float: right;
-  width: 12px;
-  height: 12px;
-  margin: 0px; }
-  md-icon.pf-placeholder.is-permanent {
-    color: #009688; }
-  md-icon.pf-placeholder.is-final {
-    color: #ff5722; }
-
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29502,6 +29358,150 @@ md-icon.pf-placeholder {
 .seed-list {
   list-style: lower-greek; }
 
+.evaluation-list {
+  background: white; }
+
+.evaluation-list__evaluation.md-2-line.md-long-text {
+  margin-top: 0px;
+  margin-bottom: 0px; }
+
+.evaluation-list__evaluation h3 .md-caption {
+  float: right;
+  color: rgba(0, 0, 0, 0.54) !important; }
+
+.evaluation-list__evaluation .md-list-item-text h4 {
+  color: rgba(0, 0, 0, 0.54) !important; }
+
+.evaluation-list__evaluation--active {
+  background: rgba(0, 0, 0, 0.05); }
+  .evaluation-list__evaluation--active .md-avatar {
+    display: block;
+    -webkit-animation: swing 1s;
+            animation: swing 1s; }
+
+.evaluation-list__evaluation--unread h3 {
+  font-weight: 700 !important; }
+
+.evaluation-no-evaluation-selected {
+  text-align: center;
+  opacity: 0.5; }
+  .evaluation-no-evaluation-selected h2 {
+    font-weight: lighter; }
+
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter,
+.evaluation-list__evaluation--animated.ng-leave {
+  -webkit-transition: all linear 0.8s;
+  transition: all linear 0.8s;
+  width: 100%;
+  position: relative; }
+
+.evaluation-list__evaluation--animated.ng-leave.ng-leave-active,
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter {
+  opacity: 0;
+  max-height: 0; }
+
+.evaluation-list__evaluation--animated.ng-leave,
+.evaluation-list__evaluation--animated.ng-move.ng-move-active,
+.evaluation-list__evaluation--animated.ng-enter.ng-enter-active {
+  opacity: 1;
+  max-height: 500px; }
+
+#ui-reporting-evaluation.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+#ui-reporting-evaluation.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+md-card md-card-header md-card-header-text .md-title {
+  font-size: 30px;
+  text-transform: capitalize; }
+
+md-card md-card-content {
+  padding: 0; }
+
+.md-toolbar-tools .md-title {
+  text-transform: capitalize; }
+
+.score {
+  font-size: 1.8rem; }
+
+.notos.diff-icon {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 20px;
+  margin: 4px; }
+
+.doughnut-legend li {
+  font-size: 10px; }
+
+.evaluation-wizard md-tabs md-tabs-wrapper {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: 48px;
+  width: 100%;
+  z-index: 900; }
+
+.evaluation-wizard md-tabs md-tab-content {
+  padding-top: 44px; }
+
+.evaluation-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .evaluation-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .evaluation-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .evaluation-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-icon.pf-placeholder {
+  float: right;
+  width: 12px;
+  height: 12px;
+  margin: 0px; }
+  md-icon.pf-placeholder.is-permanent {
+    color: #009688; }
+  md-icon.pf-placeholder.is-final {
+    color: #ff5722; }
+
 .login-frame md-card {
   max-width: 400px;
   margin: auto; }
@@ -29673,82 +29673,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
   height: 72px; }
-
-.elements-button-examples md-card-content {
-  min-height: 100px; }
-
-.elements-buttons-raised-usage {
-  width: 400px; }
-  .elements-buttons-raised-usage .elements-raised-content {
-    padding: 16px; }
-  .elements-buttons-raised-usage .elements-raised-buttons {
-    padding: 16px; }
-    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
-      margin-left: 5px; }
-
-.elements-buttons-fab-usage {
-  position: relative; }
-  .elements-buttons-fab-usage .md-fab {
-    position: absolute;
-    bottom: 26px;
-    right: 26px; }
-
-.elements-icons md-content {
-  min-width: 400px;
-  height: 500px; }
-  .elements-icons md-content .md-font {
-    font-size: 24px; }
-
-.elements-icon-size-1 {
-  width: 16px;
-  height: 16px; }
-  .elements-icon-size-1 span {
-    font-size: 16px; }
-
-.elements-icon-size-2 {
-  width: 24px;
-  height: 24px; }
-  .elements-icon-size-2 span {
-    font-size: 24px; }
-
-.elements-icon-size-3 {
-  width: 32px;
-  height: 32px; }
-  .elements-icon-size-3 span {
-    font-size: 32px; }
-
-.elements-icon-size-4 {
-  width: 48px;
-  height: 48px; }
-  .elements-icon-size-4 span {
-    font-size: 48px; }
-
-.elements-icons-preview .md-button md-icon {
-  font-size: 24px; }
-
-.elements-icons-preview .elements-icon-small {
-  font-size: 16px;
-  width: 16px;
-  height: 16px; }
-
-.elements-radio-avatar img {
-  width: 150px; }
-
-.example-tabs-content md-content {
-  background: none !important; }
-
-.elements-grids-example md-grid-tile {
-  background-size: 100%; }
-
-.elements-sidebar-example md-sidenav md-content {
-  background: none; }
-
-.elements-sidebar-example .md-button {
-  margin: 0px 20px; }
-
-.elements-whiteframe-example md-whiteframe {
-  min-width: 500px;
-  background-color: white; }
 
 .email-dialog {
   min-width: 800px;
@@ -29994,6 +29918,82 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .md-select-form span {
     width: 100%; }
 
+.elements-button-examples md-card-content {
+  min-height: 100px; }
+
+.elements-buttons-raised-usage {
+  width: 400px; }
+  .elements-buttons-raised-usage .elements-raised-content {
+    padding: 16px; }
+  .elements-buttons-raised-usage .elements-raised-buttons {
+    padding: 16px; }
+    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
+      margin-left: 5px; }
+
+.elements-buttons-fab-usage {
+  position: relative; }
+  .elements-buttons-fab-usage .md-fab {
+    position: absolute;
+    bottom: 26px;
+    right: 26px; }
+
+.elements-icons md-content {
+  min-width: 400px;
+  height: 500px; }
+  .elements-icons md-content .md-font {
+    font-size: 24px; }
+
+.elements-icon-size-1 {
+  width: 16px;
+  height: 16px; }
+  .elements-icon-size-1 span {
+    font-size: 16px; }
+
+.elements-icon-size-2 {
+  width: 24px;
+  height: 24px; }
+  .elements-icon-size-2 span {
+    font-size: 24px; }
+
+.elements-icon-size-3 {
+  width: 32px;
+  height: 32px; }
+  .elements-icon-size-3 span {
+    font-size: 32px; }
+
+.elements-icon-size-4 {
+  width: 48px;
+  height: 48px; }
+  .elements-icon-size-4 span {
+    font-size: 48px; }
+
+.elements-icons-preview .md-button md-icon {
+  font-size: 24px; }
+
+.elements-icons-preview .elements-icon-small {
+  font-size: 16px;
+  width: 16px;
+  height: 16px; }
+
+.elements-radio-avatar img {
+  width: 150px; }
+
+.example-tabs-content md-content {
+  background: none !important; }
+
+.elements-grids-example md-grid-tile {
+  background-size: 100%; }
+
+.elements-sidebar-example md-sidenav md-content {
+  background: none; }
+
+.elements-sidebar-example .md-button {
+  margin: 0px 20px; }
+
+.elements-whiteframe-example md-whiteframe {
+  min-width: 500px;
+  background-color: white; }
+
 .github-user-dropdown img {
   width: 40px;
   height: 40px;
@@ -30134,16 +30134,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   border-radius: 50%;
   z-index: 5; }
 
-.footer h2 {
-  font-size: 1.4rem;
-  color: rgba(0, 0, 0, 0.54); }
-
-.triangular-loader {
-  background: rgba(255, 255, 255, 0.8); }
-
-.app-loader md-progress-linear {
-  width: 80%; }
-
 .daterange-button {
   color: rgba(0, 0, 0, 0.84); }
 
@@ -30155,6 +30145,16 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .daterange-picker > .default-list > .picker-item > .md-button {
     width: 100%;
     margin: 0; }
+
+.footer h2 {
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.54); }
+
+.triangular-loader {
+  background: rgba(255, 255, 255, 0.8); }
+
+.app-loader md-progress-linear {
+  width: 80%; }
 
 .triangular-toolbar {
   /*&.ng-enter {
