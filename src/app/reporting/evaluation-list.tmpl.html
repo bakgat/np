@@ -45,7 +45,7 @@
                         </h3>
                         <h4>
                           gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
-                          <md-icon class="pf-placeholder {{evaluation.final ? 'is-final' : 'is-permanent'}}" md-font-icon="zmdi zmdi-collection-item-9-plus" ></md-icon>
+                          <md-icon class="pf-placeholder {{evaluation.final ? 'is-final' : 'is-permanent'}}" md-font-icon="{{vm.setTypeIcon(evaluation.type)}}" ></md-icon>
                         </h4>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>

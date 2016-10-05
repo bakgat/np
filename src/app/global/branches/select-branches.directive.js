@@ -47,7 +47,9 @@
                 var type = attrs.hasOwnProperty('byType') ? { evaluationtype: attrs.byType } : {}; 
                 UserService.getActiveGroup().then(function(group) {
                     var result = [];
+                    //i.e. /groups/{id}/branches?evaluationtype=C
                     GroupService.one(group.id).getList('branches', type).then(function(branchGroups) {
+                        // /branches?group={id}
                         BranchService.getList({ 'group': group.id }).then(function(majors) {
                             angular.forEach(majors, function(major) {
                                 result.push({

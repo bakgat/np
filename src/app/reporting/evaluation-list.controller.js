@@ -15,6 +15,7 @@
 
         vm.openEvaluation = openEvaluation;
         vm.makeBranchIcon = makeBranchIcon;
+        vm.setTypeIcon = setTypeIcon;
 
         vm.selectedEvaluation = null;
         var evaluationGroupsBackup = null;
@@ -136,6 +137,22 @@
                     break;
             }
             return 'assets/images/icons/branches/' + icon + '.png';
+        }
+
+        function setTypeIcon(type) {
+            var icon = '';
+            switch (type) {
+                case 'P':
+                    icon = 'zmdi-collection-item-9-plus';
+                    break;
+                case 'C':
+                    icon = 'zmdi-collection-text';
+                    break;
+                default:
+                    icon = 'zmdi-circle';
+                    break;
+            }
+            return 'zmdi ' + icon;
         }
 
         //watches
