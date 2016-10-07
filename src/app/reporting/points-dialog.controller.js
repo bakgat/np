@@ -32,7 +32,7 @@
         init();
         ///////////////
 
-        $scope.$watch('vm.evaluation.results', function() {
+        $scope.$watch('vm.evaluation.pointResults', function() {
             average();
             median();
         }, true);
@@ -45,20 +45,20 @@
                 vm.evaluation.date = new Date();
             }
 
-            vm.edit = vm.evaluation.results;
+            vm.edit = vm.evaluation.pointResults;
 
             UserService.getActiveGroup().then(function(profile) {
                 StudentService.getList({ 'group': profile.id })
                     .then(function(response) {
                         vm.students = response;
 
-                        if (!vm.evaluation.results) {
-                            vm.evaluation.results = [];
+                        if (!vm.evaluation.pointResults) {
+                            vm.evaluation.pointResults = [];
                             
 
                         } else {
                             vm.selectedStudents = [];
-                            angular.forEach(vm.evaluation.results, function(result) {
+                            angular.forEach(vm.evaluation.pointResults, function(result) {
                                 var student = _.find(vm.students, function(s) {
                                     return result.student.id == s.id;
                                 });
@@ -118,18 +118,18 @@
                 => when edit => selection is available results
             */
             angular.forEach(vm.selectedStudents, function(student) {
-                var found = _.findIndex(vm.evaluation.results, function(result) {
+                var found = _.findIndex(vm.evaluation.pointResults, function(result) {
                     return result.student.id == student.id
                 }) >= 0;
                 if (!found) {
-                    vm.evaluation.results.push({
+                    vm.evaluation.pointResults.push({
                         student: student,
                         score: null,
                         redicodi: []
                     });
                 }
             });
-            angular.forEach(vm.evaluation.results, function(result) {
+            angular.forEach(vm.evaluation.pointResults, function(result) {
                 var isBlocked = _.findIndex(vm.selectedStudents, function(ss) {
                     return result.student.id == ss.id
                 }) == -1;
@@ -159,11 +159,11 @@
 
 
         function average() {
-            vm.average = $filter('averageByPercent')(vm.evaluation.results, 'score', vm.evaluation.max, 2);
+            vm.average = $filter('averageByPercent')(vm.evaluation.pointResults, 'score', vm.evaluation.max, 2);
         }
 
         function median() {
-            vm.median = $filter('medianByPercent')(vm.evaluation.results, 'score', vm.evaluation.max, 2);
+            vm.median = $filter('medianByPercent')(vm.evaluation.pointResults, 'score', vm.evaluation.max, 2);
         }
 
 

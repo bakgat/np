@@ -12,7 +12,7 @@
         <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
     </md-toolbar>
     <md-divider></md-divider>
-    <md-dialog-content class="evaluation-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.results.length > 0 ? 2 : 0">
+    <md-dialog-content class="evaluation-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.pointResults.length > 0 ? 2 : 0">
         <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
             <md-tab id="settings">
                 <md-tab-label>
@@ -102,7 +102,7 @@
                     <md-content layout="row" layout-align="space-around center">
                         <div class="md-padding">
                             <form name="resultsForm" tri-wizard-form viewport>
-                                <div layout="row" flex ng-repeat="result in vm.evaluation.results" ng-if="!result.block">
+                                <div layout="row" flex ng-repeat="result in vm.evaluation.pointResults" ng-if="!result.block">
                                     <md-input-container class="md-icon-float md-block" flex>
                                         <label>{{::result.student.displayName}}</label>
                                         <input type="number" ng-model="result.score" name="score_{{$index}}" score enter-as-tab max="vm.evaluation.max">

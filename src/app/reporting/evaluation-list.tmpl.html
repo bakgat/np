@@ -44,14 +44,15 @@
                               {{::evaluation.title}}
                         </h3>
                         <h4>
-                          gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
+                          <span ng-if="evaluation.type=='P'">
+                              gem: {{(evaluation.average/evaluation.max)*100 | round: 1}}% - med: {{(evaluation.median/evaluation.max)*100 | round: 1}}%
+                          </span>
                           <md-icon class="pf-placeholder {{evaluation.final ? 'is-final' : 'is-permanent'}}" md-font-icon="{{vm.setTypeIcon(evaluation.type)}}" ></md-icon>
                         </h4>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </div>
-
         </md-list>
     </md-content>
     <div class="md-whiteframe-z1 animate-wrapper" layout="column" layout-align="start center" flex>

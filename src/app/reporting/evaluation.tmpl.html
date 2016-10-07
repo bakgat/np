@@ -1,6 +1,6 @@
 <md-content class="md-padding full-width">
     <md-card>
-        <md-card-header >
+        <md-card-header>
             <md-card-header-text>
                 <span class="md-title">{{vm.evaluation.title}}</span>
                 <span class="md-subhead margin-top">{{vm.evaluation.branchForGroup.branch.major.name}} — {{vm.evaluation.branchForGroup.branch.name}}</span>
@@ -19,7 +19,7 @@
             </md-card-icon-actions>
         </md-card-header>
         <md-divider></md-divider>
-        <md-card-content>
+        <md-card-content ng-if="vm.evaluation.type == 'P'">
             <md-table-container>
                 <table md-table class="md-primary md-data-table">
                     <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.results" ng-if="!result.block && result.score">
+                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.pointResults" ng-if="!result.block && result.score">
                             <td md-cell>
                                 {{::result.student.displayName}}
                             </td>
@@ -43,7 +43,7 @@
                             </td>
                             <td md-cell>
                                 <span ng-repeat="redicodi in result.redicodi | orderBy:'toString()'" '>
-                                <i class="diff-icon notos {{'notos-' + redicodi}}"></i>
+                                <i class="diff-icon notos {{'notos- ' + redicodi}}"></i>
                             </span>
                             </td>
                         </tr>
@@ -65,6 +65,23 @@
                 <canvas class="chart-doughnut" chart-data="vm.profileChart.data" chart-labels="vm.profileChart.labels" chart-legend="true" ></canvas>
               </tri-widget>
             </md-content>
+        </md-card-content>
+
+        <md-card-content ng-if="vm.evaluation.type == 'C'">
+            <table md-table class="md-primary md-data-table">
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                        <tr md-row>
+                            <th md-column>Naam</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.comprehensiveResults" ng-if="!result.block">
+                            <td md-cell>
+                                {{::result.student.displayName}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
         </md-card-content>
     </md-card>
 </md-content>

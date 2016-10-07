@@ -6,11 +6,11 @@
         .controller('EvaluationController', EvaluationController);
 
     /* @ngInject */
-    function EvaluationController($scope, $stateParams, $timeout, $filter, 
+    function EvaluationController($scope, $stateParams, $timeout, $filter,
         $mdToast, $mdDialog, _, evaluation) {
         var vm = this;
 
-        
+
         vm.closeEvaluation = closeEvaluation;
         vm.editEvaluation = editEvaluation;
         vm.headerBg = headerBg;
@@ -49,7 +49,7 @@
                 vm.profileChart.labels[i] = (((i + 1) * 10) - 10) + '-' + ((i + 1) * 10) + '%';
             }
             $timeout(function() {
-                angular.forEach(evaluation.results, function(result) {
+                angular.forEach(evaluation.pointResults, function(result) {
                     var percent = (result.score / evaluation.max) * 100;
                     var roundedPercent = Math.round(percent, 2);
 
@@ -63,7 +63,7 @@
 
         function calculate() {
 
-            var scores = _.flatMap(vm.evaluation.results, function(result) {
+            var scores = _.flatMap(vm.evaluation.pointResults, function(result) {
                 return parseFloat(result.score);
             });
 
@@ -91,7 +91,7 @@
 
         }
 
-        $scope.$watch('vm.evaluation.results', function() {
+        $scope.$watch('vm.evaluation.pointResults', function() {
             //calculate();
         }, true);
 
@@ -100,10 +100,16 @@
         }
 
         function editEvaluation($event) {
+            var templateUrl = 'app/reporting/points-dialog.tmpl.html';
+            var controller = 'PointsDialogController'
+            if (vm.evaluation.type == 'C') {
+                templateUrl = 'app/reporting/comprehensive-dialog.tmpl.html';
+                controller = 'ComprehensiveDialogController'
+            }
             $mdDialog.show({
-                    controller: 'PointsDialogController',
+                    controller: controller,
                     controllerAs: 'vm',
-                    templateUrl: 'app/reporting/points-dialog.tmpl.html',
+                    templateUrl: templateUrl,
                     targetEvent: $event,
                     locals: {
                         evaluation: vm.evaluation
@@ -113,17 +119,17 @@
                 .then(function(evaluation) {
                     evaluation.date = $filter('date')(evaluation.date, 'yyyy-MM-dd');
 
-                    if(evaluation.id) {
+                    if (evaluation.id) {
                         //save this evaluation object and notify list controller
                         evaluation.save().then(function(evaluation) {
-                            $scope.$emit ('evaluationSaved', evaluation);   
+                            $scope.$emit('evaluationSaved', evaluation);
                         }, cancelEvaluation);
-                        
+
                     } else {
                         //list controller take care of this
                         $scope.$emit('saveEvaluation', evaluation);
                     }
-                    
+
                 }, cancelEvaluation);
 
             function cancelEvaluation() {

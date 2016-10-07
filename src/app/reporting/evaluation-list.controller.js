@@ -61,7 +61,7 @@
                     locals: {
                         evaluation: {
                             permanent: true,
-                            final: true
+                            final: false
                         }
                     },
                     focusOnOpen: false,
