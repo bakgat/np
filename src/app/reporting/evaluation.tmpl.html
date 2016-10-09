@@ -83,5 +83,26 @@
                     </tbody>
                 </table>
         </md-card-content>
+
+        <md-card-content ng-if="vm.evaluation.type == 'S'">
+            <table md-table class="md-primary md-data-table">
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                        <tr md-row>
+                            <th md-column>Naam</th>
+                            <th md-column>Samenvatting</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.spokenResults" ng-if="!result.block">
+                            <td md-cell>
+                                {{::result.student.displayName}}
+                            </td>
+                            <td md-cell>
+                                {{::result.summary}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </md-card-content>
     </md-card>
 </md-content>

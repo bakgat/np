@@ -105,6 +105,9 @@
             if (vm.evaluation.type == 'C') {
                 templateUrl = 'app/reporting/comprehensive-dialog.tmpl.html';
                 controller = 'ComprehensiveDialogController'
+            } else if(vm.evaluation.type == 'S') {
+                templateUrl = 'app/reporting/evaluations/spoken/spoken-dialog.tmpl.html';
+                controller = 'SpokenDialogController'
             }
             $mdDialog.show({
                     controller: controller,

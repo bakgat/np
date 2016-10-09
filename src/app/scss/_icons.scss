@@ -11,6 +11,9 @@ $notos-var-arrows-center: '\e007' !default;
 $notos-var-abc-train: '\e008' !default;
 $notos-var-math-train: '\e009' !default;
 $notos-var-curly-arrow-up: '\e010' !default;
+$notos-var-butterfly: '\e00A' !default;
+$notos-var-spoken: '\e00B' !default;
+$notos-var-tiger: '\e00C' !default;
 
 .#{$notos-icon-prefix}-monster {
   &:before {
@@ -60,5 +63,20 @@ $notos-var-curly-arrow-up: '\e010' !default;
 .#{$notos-icon-prefix}-curly-arrow-up {
   &:before {
     content: $notos-var-curly-arrow-up;
+  }
+}
+.#{$notos-icon-prefix}-butterfly {
+  &:before {
+    content: $notos-var-butterfly;
+  }
+}
+.#{$notos-icon-prefix}-spoken {
+  &:before {
+    content: $notos-var-spoken;
+  }
+}
+.#{$notos-icon-prefix}-tiger {
+  &:before {
+    content: $notos-var-tiger;
   }
 }

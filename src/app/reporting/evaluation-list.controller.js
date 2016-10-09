@@ -51,7 +51,7 @@
 
         function composeClick(action, $event) {
             var controller = action.capitalizeFirstLetter() + 'DialogController';
-            var templateUrl = 'app/reporting/' + action + '-dialog.tmpl.html';
+            var templateUrl = 'app/reporting/evaluations/' + action + '/' + action + '-dialog.tmpl.html';
 
             $mdDialog.show({
                     controller: controller,
@@ -147,6 +147,9 @@
                     break;
                 case 'C':
                     icon = 'zmdi-collection-text';
+                    break;
+                case 'S':
+                    icon = 'notos notos-spoken';
                     break;
                 default:
                     icon = 'zmdi-circle';

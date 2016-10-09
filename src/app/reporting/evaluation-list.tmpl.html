@@ -10,13 +10,17 @@
                 <md-icon md-font-icon="zmdi zmdi-collection-item-9-plus"></md-icon>
                 <md-tooltip>Puntenevaluatie</md-tooltip>
             </md-button>
-            <md-button aria-label="meerkeuze evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('multiple', $event)" permission="" permission-only="'addMultipleEvaluation'">
-                <md-icon md-font-icon="zmdi zmdi-format-list-numbered"></md-icon>
-                <md-tooltip>Meerkeuze evaluatie</md-tooltip>
-            </md-button>
             <md-button aria-label="brede evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('comprehensive', $event)">
                 <md-icon md-font-icon="zmdi zmdi-collection-text"></md-icon>
                 <md-tooltip>Brede evaluatie</md-tooltip>
+            </md-button>
+            <md-button aria-label="mondelinge evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('spoken', $event)">
+                <md-icon md-font-icon="notos notos-spoken"></md-icon>
+                <md-tooltip>Mondeligne evaluatie</md-tooltip>
+            </md-button>
+            <md-button aria-label="meerkeuze evaluatie" class="md-fab md-raised md-mini" ng-click="vm.composeClick('multiple', $event)" permission="" permission-only="'addMultipleEvaluation'">
+                <md-icon md-font-icon="zmdi zmdi-format-list-numbered"></md-icon>
+                <md-tooltip>Meerkeuze evaluatie</md-tooltip>
             </md-button>
             <md-button aria-label="zonnebloemklas" class="md-fab md-raised md-mini" ng-click="vm.composeClick('sunflower', $event)" permission permission-only="'addSunflowerEvaluation'">
                 <md-icon md-font-icon="notos notos-sunflower"></md-icon>
