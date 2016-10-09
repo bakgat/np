@@ -42,4 +42,8 @@
     "id": "MT",
     "name": "rekentrein",
     "icon": "notos notos-math-train"
+}, {
+    "id": "TGR",
+    "name": "rekentijger",
+    "icon": "notos notos-tiger"
 }]
