@@ -1,0 +1,13 @@
+[
+    { id: 'NtUid:1234', branch: { id: 'NtUid:12345', 'Schrijven', major: { 'NtUid:123', name: 'Taal' } }, type: 'mc', settings: { type: 'pre-post', pre: 'Je kan', post: 'schrijven.', multiple: false, printOhters: true, styleSelected: 'bold', styleNotSelected: null, options: ['lelijk', 'behoorlijk', 'netjes'] } },
+    /*
+=> results in
+Je kan lelijk - *behoorlijk* - netjes schrijven.
+*/
+    { id: 'NtUid:1234', branch: { id: 'NtUid:12345', 'Schrijven', major: { 'NtUid:123', name: 'Taal' } }, type: 'mc', settings: { type: 'pre', pre: 'Met de rode letters heb je nog wat problemen.', post: null, multiple: true, printOhters: true, styleSelected: 'color:#ff000O', styleNotSelected: 'color:#OOCCFF', options: ['a', 'br', 'sch', 'aa', 'ee'] } },
+    /*
+=> results in
+Met de rode letters heb je nog problemen.
+*'a'*, 'br', *'sch'*, 'aa', 'ee'
+*/
+]

@@ -100,14 +100,17 @@
         }
 
         function editEvaluation($event) {
-            var templateUrl = 'app/reporting/points-dialog.tmpl.html';
-            var controller = 'PointsDialogController'
+            var templateUrl = 'app/reporting/evaluations/points/points-dialog.tmpl.html';
+            var controller = 'PointsDialogController';
             if (vm.evaluation.type == 'C') {
-                templateUrl = 'app/reporting/comprehensive-dialog.tmpl.html';
-                controller = 'ComprehensiveDialogController'
+                templateUrl = 'app/reporting/evaluations/comprehensive/comprehensive-dialog.tmpl.html';
+                controller = 'ComprehensiveDialogController';
             } else if(vm.evaluation.type == 'S') {
                 templateUrl = 'app/reporting/evaluations/spoken/spoken-dialog.tmpl.html';
-                controller = 'SpokenDialogController'
+                controller = 'SpokenDialogController';
+            } else if(vm.evaluation.type == 'MC') {
+                templateUrl = 'app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html';
+                controller = 'MultiplechoiceDialogController';
             }
             $mdDialog.show({
                     controller: controller,

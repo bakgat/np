@@ -151,6 +151,9 @@
                 case 'S':
                     icon = 'notos notos-spoken';
                     break;
+                case 'MC':
+                    icon=  'zmdi zmdi-format-list-numbered';
+                    break;
                 default:
                     icon = 'zmdi-circle';
                     break;

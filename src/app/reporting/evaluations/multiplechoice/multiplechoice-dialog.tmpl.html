@@ -1,0 +1,175 @@
+<md-dialog class="mobile-fullwidth-dialog evaluation-wizard">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                <span ng-if="vm.evaluation.course">{{vm.evaluation.course.name}}: </span>
+                {{vm.evaluation.title || 'Nieuwe evaluatie toevoegen'}}
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+        <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="evaluation-dialog" tri-wizard ng-init="triWizard.currentStep = vm.evaluation.pointResults.length > 0 ? 2 : 0">
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="settings">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Instellingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="settingsForm" tri-wizard-form novalidate>
+                            <div layout="row" layout-align="center center">
+                                <md-input-container class="md-block" flex>
+                                    <label>Titel</label>
+                                    <input ng-model="vm.evaluation.title" name="title" required>
+                                </md-input-container>
+                            </div>
+                            <div layout="row" layout-align="space-around center">
+                                <div layout="column" flex>
+                                    <label class="md-caption ">Datum</label>
+                                    <md-datepicker name="date" ng-model="vm.evaluation.date" md-placeholder="Datum" md-date-format="longDate" required flex></md-datepicker>
+                                    <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                        <div ng-message when="required">
+                                            <span translate>Datum is een verplicht veld</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="P" required></select-branches>
+                            </div>
+                            <div layout="row">
+                                <md-input-container class="md-block" flex>
+                                    <md-checkbox aria-label="Permanente evaluatie" ng-model="vm.evaluation.permanent">Permanente evaluatie</md-checkbox>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex>
+                                    <md-checkbox aria-label="Eindevaluatie" ng-model="vm.evaluation.final">Eindevaluatie</md-checkbox>
+                                </md-input-container>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="creator" md-selected="true" md-on-select="vm.prepareInput()">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Opties</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <div layout="row">
+                            <md-input-container class="md-block" flex>
+                                <label>Soort meerkeuze</label>
+                                <md-select placeholder="Soort meerkeuze" ng-model="vm.evaluation.settings.type" flex>
+                                    <md-option value="pmc">Meerkeuze <em>na</em> een zin.</md-option>
+                                    <md-option value="pmcp">Meerkeuze <em>ingesloten</em> in zin.</md-option>
+                                    <md-option value="mc">Enkel meerkeuze</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container class="md-block" flex ng-hide="vm.evaluation.settings.type == 'mc'">
+                                <label>Tekst voor de meerkeuze</label>
+                                <input ng-model="vm.evaluation.settings.pre" name="pre" required>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex ng-show="vm.evaluation.settings.type == 'pmcp'">
+                                <label>Tekst na de meerkeuze</label>
+                                <input ng-model="vm.evaluation.settings.post" name="post" required>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="space-between center">
+                            <md-checkbox ng-model="vm.evaluation.settings.multiple" aria-label="Selecteer meerdere"> Selecteer meerdere</md-checkbox>
+                            <md-checkbox ng-model="vm.evaluation.settings.printOthers" aria-label="Andere weergeven"> Alle mogelijkheden weergeven</md-checkbox>
+                        </div>
+                        <div layout="row" ng-if="vm.evaluation.settings.printOthers">
+                            <md-input-container class="md-block" flex>
+                                <label>Stijl voor selectie</label>
+                                <md-select ng-model="vm.evaluation.settings.selected">
+                                    <md-option value="bold"><b>Vet</b></md-option>
+                                    <md-option value="color:green"><span style="color:green;">Groen</span></md-option>
+                                    <md-option value="color:red"><span style="color:red;">Rood</span></md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <label>Stijl voor niet geselecteerde</label>
+                                <md-select ng-model="vm.evaluation.settings.notSelected">
+                                    <md-option value=""><em>niets doen</em></md-option>
+                                    <md-option value="small"><span style="font-size: 0.7rem;">Klein</span></md-option>
+                                    <md-option value="line-through"><span style="text-decoration:line-through">Doorstreept</span></md-option>
+                                    <md-option value="color:red"><span style="color:red;">Rood</span></md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-chips ng-model="vm.evaluation.settings.options" name="options" placeholder="Voeg een optie toe" delete-button-label="Verwijder Optie" delete-hint="Druk op delete op een optie te verwijderen." secondary-placeholder="+Optie" flex></md-chips>
+                        </div>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="students" ng-disabled="settingsForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">3</span>
+                    <span translate>Leerlingen</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="studentsForm" tri-wizard-form layout="row" layout-align="space-around">
+                            <div layout="column" flex="35">
+                                <h6>Kies één of meerdere groepen</h6>
+                                <md-button style="text-align:left;" class="md-raised md-accent" aria-label="Volledige klas" ng-click="vm.selectStudents()">
+                                    <md-icon class="zmdi zmdi-select-all"></md-icon> Volledige klas
+                                </md-button>
+                                <md-button style="text-align:left;" class="md-raised md-default" aria-label="Basis" ng-click="vm.selectStudents('basic')">
+                                    <md-icon class="notos notos-basic"></md-icon> Basis
+                                </md-button>
+                                <md-button style="text-align:left;" class="md-raised md-default" aria-label="Volledige klas" ng-click="vm.selectStudents('challenge')">
+                                    <md-icon class="notos notos-challenge"></md-icon> Uitdaging
+                                </md-button>
+                            </div>
+                            <div layout="column" flex="65">
+                                <h6>Of kies één of meerdere leerlingen</h6>
+                                <md-list>
+                                    <md-list-item ng-repeat="student in vm.students">
+                                        <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
+                                        <user-avatar ng-model="student" class="md-avatar"></user-avatar>
+                                        <div class="md-list-item-text">
+                                            <p>{{::student.displayName}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="results" ng-disabled="vm.selectedStudents.length == 0" md-selected="true" md-on-select="vm.prepareInput()">
+                <md-tab-label>
+                    <span class="oxy-step-label">4</span>
+                    <span translate>Resultaten</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="resultsForm" tri-wizard-form>
+                            <div layout="row" ng-repeat="result in vm.evaluation.multiplechoiceResults " ng-if="!result.block ">
+                                <md-input-container class="md-block" flex>
+                                    <label>{{::result.student.displayName}}</label>
+                                    <md-select ng-multiple="vm.evaluation.settings.multipl " ng-model="result.selected ">
+                                        <md-option ng-repeat="option in vm.evaluation.settings.options track by $index " ng-value="option">{{option}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row ">
+        <span flex></span>
+        <md-button class="md-primary md-raised " ng-click="triWizard.prevStep() " ng-hide="triWizard.currentStep==0 " ng-disabled="triWizard.prevStepDisabled() " translate="Vorige " aria-label="vorige "></md-button>
+        <md-button class="md-primary md-raised " ng-click="triWizard.nextStep() " ng-hide="triWizard.currentStep==3 " ng-disabled="triWizard.nextStepDisabled() " translate="Volgende " aria-label="volgende "></md-button>
+        <md-button class="md-accent md-raised " ng-click="vm.save() " ng-show="triWizard.currentStep===3 " translate="Opslaan " aria-label="opslaan "></md-button>
+    </md-dialog-actions>
+</md-dialog>
