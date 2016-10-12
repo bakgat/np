@@ -222,13 +222,13 @@
     <script src="app/reporting/widgets/widget-group-profile.directive.js"></script>
     <script src="app/reporting/widgets/widget-chart-results.directive.js"></script>
     <script src="app/reporting/widgets/iac-dialog.controller.js"></script>
+    <script src="app/reporting/directives/score.directive.js"></script>
     <script src="app/reporting/validators/max.validator.js"></script>
     <script src="app/reporting/iac/student-iac.controller.js"></script>
     <script src="app/reporting/iac/iac-list.controller.js"></script>
     <script src="app/reporting/filters/score.directive.js"></script>
     <script src="app/reporting/filters/decimal2comma.js"></script>
     <script src="app/reporting/filters/comma2decimal.js"></script>
-    <script src="app/reporting/directives/score.directive.js"></script>
     <script src="app/permission/permission.module.js"></script>
     <script src="app/permission/pages/permission.controller.js"></script>
     <script src="app/manage/manage.module.js"></script>
@@ -251,9 +251,9 @@
     <script src="app/manage/groups/compose-group.controller.js"></script>
     <script src="app/manage/groups/add-to-group-dialog.controller.js"></script>
     <script src="app/layouts/toolbar/toolbar.controller.js"></script>
-    <script src="app/layouts/rightsidenav/rightsidenav.controller.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/layouts/loader/loader.controller.js"></script>
+    <script src="app/layouts/rightsidenav/rightsidenav.controller.js"></script>
     <script src="app/layouts/leftsidenav/leftsidenav.controller.js"></script>
     <script src="app/layouts/footer/footer.controller.js"></script>
     <script src="app/global/global.module.js"></script>
@@ -263,11 +263,11 @@
     <script src="app/global/groups/select-groups.directive.js"></script>
     <script src="app/global/daterange/daterange.factory.js"></script>
     <script src="app/global/daterange/daterange.directive.js"></script>
-    <script src="app/global/care/iac.factory.js"></script>
-    <script src="app/global/care/diff.factory.js"></script>
     <script src="app/global/branches/select-majors.directive.js"></script>
     <script src="app/global/branches/select-branches.directive.js"></script>
     <script src="app/global/branches/branch.factory.js"></script>
+    <script src="app/global/care/iac.factory.js"></script>
+    <script src="app/global/care/diff.factory.js"></script>
     <script src="app/examples/ui/webfont-loader-module.js"></script>
     <script src="app/examples/ui/ui.module.js"></script>
     <script src="app/examples/ui/weather-icons.controller.js"></script>
@@ -298,6 +298,10 @@
     <script src="app/examples/github/github.config.js"></script>
     <script src="app/examples/forms/forms.config.js"></script>
     <script src="app/examples/forms/form-wizard.controller.js"></script>
+    <script src="app/examples/elements/progress.controller.js"></script>
+    <script src="app/examples/elements/icons.controller.js"></script>
+    <script src="app/examples/elements/elements.config.js"></script>
+    <script src="app/examples/elements/buttons.controller.js"></script>
     <script src="app/examples/extras/extras.module.js"></script>
     <script src="app/examples/extras/timeline.controller.js"></script>
     <script src="app/examples/extras/replace-with.directive.js"></script>
@@ -314,19 +318,15 @@
     <script src="app/examples/email/email-search.filter.js"></script>
     <script src="app/examples/email/email-dialog.controller.js"></script>
     <script src="app/examples/email/cut.filter.js"></script>
-    <script src="app/examples/elements/progress.controller.js"></script>
-    <script src="app/examples/elements/icons.controller.js"></script>
-    <script src="app/examples/elements/elements.config.js"></script>
-    <script src="app/examples/elements/buttons.controller.js"></script>
     <script src="app/examples/dashboards/dashboards.config.js"></script>
     <script src="app/examples/dashboards/dashboard-draggable-controller.js"></script>
     <script src="app/examples/charts/charts.config.js"></script>
+    <script src="app/examples/authentication/authentication.config.js"></script>
     <script src="app/examples/calendar/padding.filter.js"></script>
     <script src="app/examples/calendar/event-dialog.controller.js"></script>
     <script src="app/examples/calendar/calendar.controller.js"></script>
     <script src="app/examples/calendar/calendar.config.js"></script>
     <script src="app/examples/calendar/calendar-fabs.controller.js"></script>
-    <script src="app/examples/authentication/authentication.config.js"></script>
     <script src="app/authentication/authentication.module.js"></script>
     <script src="app/authentication/signup/signup.controller.js"></script>
     <script src="app/authentication/profile/profile.controller.js"></script>
@@ -383,7 +383,7 @@
 
     <script type="text/javascript">
 // 
-var colour="#00baff";
+var colour="#ff23c0";
 var sparkles=120;
 
 /****************************
