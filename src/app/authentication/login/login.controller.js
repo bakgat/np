@@ -17,12 +17,19 @@
 
         function loginClick() {
             googleService.login().then(function(user) {
-                HTTPCache.setDefaultHeaders({Auth: user.auth_token});
-                
+                HTTPCache.setDefaultHeaders({ Auth: user.auth_token });
+
                 $state.go('triangular.analytics');
             }, function(err) {
                 console.log('Failed: ' + err);
             });
         }
+
+        angular.element(document).on('mousemove', function(e) {
+            angular.element('#follow').css({
+                left: e.pageX,
+                top: e.pageY
+            });
+        });
     }
 })();
