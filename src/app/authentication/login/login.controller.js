@@ -25,11 +25,5 @@
             });
         }
 
-        angular.element(document).on('mousemove', function(e) {
-            angular.element('#follow').css({
-                left: e.pageX,
-                top: e.pageY
-            });
-        });
     }
 })();

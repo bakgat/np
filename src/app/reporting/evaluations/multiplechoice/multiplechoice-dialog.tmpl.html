@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="P" required></select-branches>
+                                <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="MC" required></select-branches>
                             </div>
                             <div layout="row">
                                 <md-input-container class="md-block" flex>
@@ -155,7 +155,7 @@
                             <div layout="row" ng-repeat="result in vm.evaluation.multiplechoiceResults " ng-if="!result.block ">
                                 <md-input-container class="md-block" flex>
                                     <label>{{::result.student.displayName}}</label>
-                                    <md-select ng-multiple="vm.evaluation.settings.multipl " ng-model="result.selected ">
+                                    <md-select ng-multiple="vm.evaluation.settings.multiple" ng-model="result.selected ">
                                         <md-option ng-repeat="option in vm.evaluation.settings.options track by $index " ng-value="option">{{option}}</md-option>
                                     </md-select>
                                 </md-input-container>

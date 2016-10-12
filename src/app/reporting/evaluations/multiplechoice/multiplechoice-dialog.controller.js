@@ -37,7 +37,10 @@
 
         function init() {
             if (vm.evaluation.settings) {
-                vm.evaluation.settings = eval(vm.evaluation.settings);
+                vm.evaluation.settings = JSON.parse(vm.evaluation.settings);
+                angular.forEach(vm.evaluation.multiplechoiceResults, function(result) {
+                    result.selected = JSON.parse(result.selected);
+                });
             } else {
                 vm.evaluation.settings = {
                     options: [],
@@ -90,6 +93,9 @@
 
         function save() {
             vm.evaluation.settings = JSON.stringify(vm.evaluation.settings);
+            angular.forEach(vm.evaluation.multiplechoiceResults, function(result) {
+                result.selected = JSON.stringify(result.selected);
+            });
             vm.selectedStudents = [];
             $mdDialog.hide(vm.evaluation);
         }
