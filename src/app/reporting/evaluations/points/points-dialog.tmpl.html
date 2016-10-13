@@ -45,13 +45,12 @@
                                 <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="P" required></select-branches>
                             </div>
                             <div layout="row">
-                                <md-input-container class="md-block" flex>
-                                    <md-checkbox aria-label="Permanente evaluatie" ng-model="vm.evaluation.permanent">Permanente evaluatie</md-checkbox>
+                            <!-- TODO: check this out ! -->
+                                <md-radio-group ng-model="vm.evaluation.permanent">
+                                    <md-radio-button value="true">Permanente evaluatie</md-radio-button>
+                                    <md-radio-button value="false">Eindevaluatie</md-radio-button>
+                                </md-radio-group>
                                 </md-input-container>
-                                <md-input-container class="md-block" flex>
-                                    <md-checkbox aria-label="Eindevaluatie" ng-model="vm.evaluation.final">Eindevaluatie</md-checkbox>
-                                </md-input-container>
-                            </div>
                         </form>
                     </md-content>
                 </md-tab-body>
