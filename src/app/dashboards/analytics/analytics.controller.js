@@ -34,6 +34,7 @@
             //createFakeData(vm.start, vm.end, vm.activeTimeSpan.value);
             AnalyticsService.one('events').one('report').get().then(function(response) {
                 vm.data = response;
+                console.log(vm.data);
             });
 
             // pop a toast telling users about datepicker
