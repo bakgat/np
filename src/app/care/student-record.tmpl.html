@@ -101,23 +101,23 @@
                                     <tr md-row>
                                         <th md-column>Periode</th>
                                         <th md-column>Vak</th>
-                                        <th md-column>Evaluaties</th>
+                                        <th md-column>Aantal doelen</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row>
+                                    <tr md-row ng-repeat="iac in vm.iacs">
                                         <td md-cell flex="33">
-                                            1 september 2016 - 31 december 2016
+                                            {{iac.start | ntDate }} - {{iac.end | ntDate }}
                                         </td>
                                         <td md-cell>
-                                            Wiskunde
+                                            {{iac.branch.name}}
                                         </td>
                                         <td md-cell>
-                                            12/32
+                                            {{iac.iacGoals.length}}
                                         </td>
                                         <td md-cell>
-                                            <md-button class="md-icon-button" ng-click="vm.openIac($event, 'this')">
+                                            <md-button class="md-icon-button" ng-click="vm.openIac($event, iac)">
                                                 <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
                                                 <md-tooltip>Bewerken</md-tooltip>
                                             </md-button>

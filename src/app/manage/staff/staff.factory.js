@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function StaffService(HTTPCache) {
-        return HTTPCache.all('staff');
+        return HTTPCache.service('staff');
     }
 })();

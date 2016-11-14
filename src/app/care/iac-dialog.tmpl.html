@@ -22,8 +22,8 @@
                     <md-content class="md-padding">
                         <form name="settingsForm" tri-wizard-form novalidate>
                             <div layout="row" layout-align="center center">
-                                <select-courses layout="column" flex ng-model="vm.iac.course" multiple>
-                                </select-courses>
+                                <select-branches layout="column" flex ng-model="vm.iac.branch">
+                                </select-branches>
                             </div>
                             <div layout="row" layout-align="space-around center">
                                 <div layout="column" flex>
@@ -57,13 +57,16 @@
                 <md-tab-body>
                     <md-content class="md-padding">
                         <form name="goalsForm" tri-wizard-form>
-                            <md-list flex>
-                                <md-list-item ng-repeat="objective in vm.objectives">
-                                    <md-checkbox checklist-model="vm.selectedObjectives" checklist-value="objective"></md-checkbox>
-                                    <div class="md-list-item-text">{{::objective.text}}</div>
-                                    <md-divider ng-if="!$last"></md-divider>
-                                </md-list-item>
-                            </md-list>
+                            <div ng-repeat="major in vm.majors">
+                                <md-list flex ng-repeat="branch in major.branches">
+                                    <md-subheader class="md-no-sticky">{{::branch.name}}</md-subheader>
+                                    <md-list-item ng-repeat="goal in branch.goals">
+                                        <md-checkbox checklist-model="vm.iac.iacGoals" checklist-value="goal" checklist-comparator="vm.compareIacGoal" aria-label="{{goal.text}}"></md-checkbox>
+                                        <div class="md-list-item-text">{{::goal.text}}</div>
+                                        <md-divider ng-if="!$last"></md-divider>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
                         </form>
                     </md-content>
                 </md-tab-body>
@@ -71,12 +74,9 @@
         </md-tabs>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-        <span class="md-caption" ng-if="triWizard.currentStep == 2">
-            Gemiddelde: {{vm.average|number:1}}% | Mediaan: {{vm.median|number:1}}%
-        </span>
         <span flex></span>
         <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
-        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 2" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
-        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 2" translate="Opslaan" aria-label="opslaan"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 1" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" ng-show="triWizard.currentStep === 1" translate="Opslaan" aria-label="opslaan"></md-button>
     </md-dialog-actions>
 </md-dialog>

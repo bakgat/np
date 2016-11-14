@@ -6,10 +6,11 @@
         .controller('StudentRecordController', StudentRecordController);
 
     /* @ngInject */
-    function StudentRecordController($scope, $state, $mdDialog, $mdToast, $filter, student, modules, _) {
+    function StudentRecordController($scope, $state, $mdDialog, $mdToast, $filter, student, modules, _, IacService) {
         var vm = this;
 
         vm.student = student;
+        vm.convertedIacs = [];
 
         //actions
 
@@ -25,7 +26,7 @@
 
         function init() {
             loadRedicodi();
-
+            loadIacs();
         }
 
         /* function getIcon(item) {
@@ -58,6 +59,15 @@
 
                 vm.redicodi = response;
             });
+        }
+
+        function loadIacs() {
+
+            student.getList('iac').then(function(response) {
+                vm.iacs = response;
+                return vm.iacs
+            });
+
         }
 
         function closeStudent() {
@@ -142,29 +152,42 @@
             })
         }
 
-        function openDiff($event) {
-            $mdDialog.show({
-                    controller: 'AddToDiffDialogController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/care/add-to-diff-dialog.tmpl.html',
-                    targetEvent: $event,
-                    focusOnOpen: false
-                })
-                .then(function(diffmodule) {
-                    console.info(diffmodule);
-                }, cancelDiff);
+        /*     function openDiff($event) {
+                 $mdDialog.show({
+                         controller: 'AddToDiffDialogController',
+                         controllerAs: 'vm',
+                         templateUrl: 'app/care/add-to-diff-dialog.tmpl.html',
+                         targetEvent: $event,
+                         focusOnOpen: false
+                     })
+                     .then(function(diffmodule) {
+                         console.info(diffmodule);
+                     }, cancelDiff);
 
-            function cancelDiff() {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content('Geannuleerd.')
-                    .position('bottom right')
-                    .hideDelay(3000)
-                );
-            }
-        }
+                 function cancelDiff() {
+                     $mdToast.show(
+                         $mdToast.simple()
+                         .content('Geannuleerd.')
+                         .position('bottom right')
+                         .hideDelay(3000)
+                     );
+                 }
+             }*/
 
         function openIac($event, iac) {
+            //TODO: this iac is an converted iac not the original Restangular object
+            //Get it again by it's id
+
+            if (iac) {
+                iac.start = $filter('fromNtDate')(iac.start);
+                iac.end = $filter('fromNtDate')(iac.end);
+            } else {
+                iac = {
+                    start: new Date(),
+                    end: null,
+                    goals: []
+                }
+            }
             $mdDialog.show({
                     controller: 'CareIacDialogController',
                     controllerAs: 'vm',
@@ -176,7 +199,23 @@
                     }
                 })
                 .then(function(iac) {
-                    console.info(iac);
+                    //Convert date to string to override UTC timezone conversion
+                    iac.start = $filter('date')(iac.start, 'yyyy-MM-dd');
+                    iac.end = $filter('date')(iac.end, 'yyyy-MM-dd');
+
+                    if (iac.id) {
+                        iac.save().then(insertIac, cancelIac);
+                    } else {
+                        vm.iacs.post(iac).then(insertIac, cancelAddedIac);
+                    }
+
+                    function insertIac(iac) {
+                        console.log(iac);
+                    }
+
+                    function cancelAddedIac() {
+                        console.log('cancel added');
+                    }
                 }, cancelIac);
 
             function cancelIac() {
@@ -187,6 +226,7 @@
                     .hideDelay(3000)
                 );
             }
+
         }
     }
 })();

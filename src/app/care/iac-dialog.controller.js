@@ -6,40 +6,31 @@
         .controller('CareIacDialogController', CareIacDialogController);
 
     /* @ngInject */
-    function CareIacDialogController($scope, $timeout, $mdDialog, $filter, _, CourseService, IacService) {
+    function CareIacDialogController($scope, $timeout, $mdDialog, $filter, _, iac, IacService) {
 
         var vm = this;
 
-        vm.iac = {
-            course: null,
-            start: new Date(),
-            end: null,
-            objectives: []
-        }
-        
-        vm.courses = [];
-        vm.objectives = [];
+        vm.majors = [];
+        vm.iac = iac;
 
         //actions
-
         vm.cancel = cancel;
         vm.save = save;
 
+        vm.compareIacGoal = compareIacGoal;
 
 
         init();
         ///////////////
 
         function init() { 
-            CourseService.getCourses().then(coursesLoaded);
-            IacService.getObjectives().then(objectivesLoaded);
+            loadGoals();
+        }
 
-            function coursesLoaded(courses) {
-                vm.courses = courses.data;
-            }
-            function objectivesLoaded(objectives) {
-                vm.objectives = objectives.data;
-            }
+        function loadGoals() {
+            IacService.one('goals').getList().then(function(response) {
+                vm.majors = response;
+            });
         }
 
         function cancel() {
@@ -47,8 +38,20 @@
         }
 
         function save() {
-            $mdDialog.hide(vm.diffmodule);
+            console.log(vm.iac);
+            $mdDialog.hide(vm.iac);
         }
+
+        function compareIacGoal(obj1, obj2) {
+            console.log(obj1, obj2);
+            if (obj1.goal) {
+                return obj1.goal.id === obj2.id;
+            } else if(obj2.goals) {
+                return obj1.id === obj2.goal.id;
+            } else {
+                return obj1.id === obj2.id;
+            }
+        };
 
     }
 })();
