@@ -38,12 +38,10 @@
         }
 
         function save() {
-            console.log(vm.iac);
             $mdDialog.hide(vm.iac);
         }
 
         function compareIacGoal(obj1, obj2) {
-            console.log(obj1, obj2);
             if (obj1.goal) {
                 return obj1.goal.id === obj2.id;
             } else if(obj2.goals) {

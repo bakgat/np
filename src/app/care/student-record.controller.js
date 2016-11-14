@@ -62,7 +62,6 @@
         }
 
         function loadIacs() {
-
             student.getList('iac').then(function(response) {
                 vm.iacs = response;
                 return vm.iacs
