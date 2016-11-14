@@ -29,39 +29,28 @@ $layout-breakpoint-lg:     1920px !default;
     min-height: 100%;
   }
 }
-.fullwidth-dialog {
-  max-width: none;
-  max-height: none;
-  width: 100%;
-  height: 100%;
-}
 // Overrides
+
 a {
-    color: #00BCD4;
+  color: #00BCD4;
 }
 
 body[md-theme="dark"] {
-    background-color: #3a3a3a;
+  background-color: #3a3a3a;
 }
-
 .md-dark-theme {
-    color: rgba(255, 255, 255, .7) !important;
-    a {
-        color: #ffffff;
-    }
+  color: rgba(255, 255, 255, .7) !important;
+  a {
+    color: #ffffff;
+  }
 }
-
-.md-open-menu-container {
-    background: #ffffff;
- }
 md-list {
-    padding-top: 0px;
-    padding-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-
 .md-list-item-inner {
-    max-width: 100%;
-    box-sizing: border-box;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 md-list-item ._md-list-item-inner .md-avatar.course-avatar {
@@ -69,18 +58,46 @@ md-list-item ._md-list-item-inner .md-avatar.course-avatar {
     height: 30px;
 }
 
-.thumb1 {
-    background: url(blah.jpg) 50% 50% no-repeat;
-    /* 50% 50% centers image in div */
-    width: 250px;
-    height: 250px;
+.email-inbox-list-item p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.thumb a {
-    display: block;
-    width: 250px;
-    height: 250px;
+md-card md-card-content {
+  display: block;
 }
+
+ui-gmap-google-map img {
+  max-width: none;
+}
+
+#footer .md-toolbar-tools h2 {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+}
+
+// datepicker background
+md-datepicker, md-datepicker .md-datepicker-input {
+  background: none !important;
+}
+.md-calendar-day-header th {
+  vertical-align: middle;
+}
+
+// md-data-table stop transition on toolbars
+
+.md-table-toolbar {
+  transition: none;
+}
+
+// Fix for ie11 dashboards table-layout
+@media screen and (max-width: $layout-breakpoint-xs) {
+  .os-windows .layout-column > .flex, .layout-xs-column > .flex {
+      flex-basis: auto;
+  }
+}
+
 
 user-avatar.md-avatar,
 user-avatar.md-user-avatar {
@@ -107,45 +124,11 @@ user-avatar.md-user-avatar {
     }
 }
 
-
-.email-inbox-list-item p {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-md-card md-card-content {
-    display: block;
-}
-
-ui-gmap-google-map img {
-    max-width: none;
-}
-
-#footer .md-toolbar-tools h2 {
-    font-size: 1.8rem;
-    line-height: 2.2rem;
-}
-
 // datepicker background
 md-datepicker,
 md-datepicker .md-datepicker-input {
     background: none !important;
 }
-
-// md-data-table stop transition on toolbars
-.md-table-toolbar {
-    transition: none;
-}
-
-.cover {
-    background-size: cover;
-}
-
-md-input-container.narrow {
-    margin: 0;
-}
-
 label.md-caption {
     &.date-label {
         visibility: hidden;
@@ -157,6 +140,11 @@ label.md-caption {
         visibility: visible;
     }
 }
+
+md-input-container.narrow {
+    margin: 0;
+}
+
 
 // Rules for media Print
 @media print {
@@ -1085,7 +1073,7 @@ tri-menu {
 // Side menu shrink/grow icon
 .sidebar-left-icon {
   display: none;
-  ._md-locked-open & {
+  .md-locked-open & {
     display: block;
   }
 }
@@ -1239,7 +1227,7 @@ $submenu-overlay: #999999;
 }
 
 // Collapsible Menu
-.admin-sidebar-collapsed._md-locked-open {
+.admin-sidebar-collapsed.md-locked-open {
   .sidebar-left-title, .sidebar-left-icon {
     opacity: 0;
     transition: all .2s;
@@ -1419,12 +1407,11 @@ $submenu-overlay: #999999;
   font-size: 0.8em;
   transition: max-width .5s, opacity 0.3s .3s;
   display: block !important;
-  max-width: 300px;
+  max-width: 200px;
   opacity: 1;
   text-indent: 1em;
-  border-bottom: solid 1px rgba(0, 0, 0, .12);
   &::placeholder {
-    
+    color: inherit;
   }
   &.ng-show {
     @include fadeIn();
@@ -1480,7 +1467,6 @@ $tri-badge-size: 2.2rem;
     width: 50px;
   }
   .widget-title {
-    
     .md-subhead, .md-body-1, .md-body-2 {
       margin: 0;
     }
@@ -1550,8 +1536,10 @@ $tri-badge-size: 2.2rem;
     }
   }
   .chart-container {
-    flex: 1 1;
-    max-width: 100%;
+    flex: 1;
+    canvas {
+      height: auto !important;
+    }
   }
   .widget-loading {
     position: absolute;
@@ -1568,6 +1556,11 @@ $tri-badge-size: 2.2rem;
       @include fadeOut();
     }
   }
+}
+
+// Ie fix for widgets
+.os-windows .widget.layout-column .widget-content {
+  display: block;
 }
 
 .widget[background] {
@@ -1590,7 +1583,7 @@ chart-legend ul {
     md-fab-speed-dial {
       position: absolute;
       top: -190px;
-      right: 42px;
+      right: 16px;
     }
   }
 }
@@ -1731,20 +1724,6 @@ $shadow-ambient-shadow-opacity: 0.12;
   opacity: 0;
 }
 
-
-md-menu-item.divider {
-      height: 3px;
-      min-height: 3px;
-    }
-    md-menu-item {
-      height: 40px;
-      min-height: 40px;
-      .md-button {
-        line-height: 24px;
-        height: 24px;
-      }
-    }
-
 [tri-wizard] {
   .md-tab {
     .oxy-step-label {
@@ -1786,14 +1765,14 @@ md-menu-item.divider {
 }
 
 // Side menu Bar
-.admin-sidebar-left {
+.admin-sidebar-left, .triangular-sidenav-left {
   overflow-x:hidden;
   md-content {
-    height: 100%;
+    min-height: 100%;
     overflow-x:hidden;
   }
 }
-.admin-sidebar-left._md-locked-open {
+.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
   width: 260px;
   min-width: 260px;
   max-width: 260px;
@@ -1843,10 +1822,10 @@ md-menu-item.divider {
   left: 0px;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 30;
 }
 
-.triangular-sidenav-left._md-locked-open {
+.triangular-sidenav-left.md-locked-open {
   width: 260px;
   min-width: 260px;
   max-width: 260px;

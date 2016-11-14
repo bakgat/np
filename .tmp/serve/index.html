@@ -1,11 +1,10 @@
 <!doctype html>
-<html class="no-js" ng-app="app" lang="nl-BE">
+<html class="no-js" ng-app="app">
   <head>
     <meta charset="utf-8">
     <title>Mijn Klimtoren</title>
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-    <meta name="height" content="device-height">
     <script src="https://apis.google.com/js/client.js"></script>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:100,100italic,300,300italic,400,500,700,900,400italic">
     <!-- Place favicon.png in the root directory -->
@@ -21,6 +20,7 @@
     <link rel="stylesheet" href="../bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" />
     <link rel="stylesheet" href="../bower_components/textAngular/dist/textAngular.css" />
     <link rel="stylesheet" href="../bower_components/weather-icons/css/weather-icons.css" />
+    <link rel="stylesheet" href="../bower_components/nvd3/build/nv.d3.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -70,7 +70,6 @@
     <script src="../bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
     <script src="../bower_components/fullcalendar/dist/fullcalendar.js"></script>
     <script src="../bower_components/angular-ui-calendar/src/calendar.js"></script>
-    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/countUp.js/dist/countUp.min.js"></script>
     <script src="../bower_components/rangy/rangy-core.js"></script>
     <script src="../bower_components/rangy/rangy-classapplier.js"></script>
@@ -86,11 +85,13 @@
     <script src="../bower_components/angular-permission/dist/angular-permission.js"></script>
     <script src="../bower_components/angular-permission/dist/angular-permission-ui.js"></script>
     <script src="../bower_components/angular-permission/dist/angular-permission-ng.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../bower_components/d3/d3.js"></script>
+    <script src="../bower_components/nvd3/build/nv.d3.js"></script>
+    <script src="../bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
     <script src="../bower_components/checklist-model/checklist-model.js"></script>
-    <script src="../bower_components/angular-locale/app/scripts/Locale.js"></script>
     <script src="../bower_components/restangular/dist/restangular.js"></script>
     <script src="../bower_components/angular-filter/dist/angular-filter.js"></script>
-    <script src="../bower_components/angular-in-viewport/dist/in-viewport.js"></script>
     <!-- endbower -->
     <script src="../bower_components/angular-i18n/angular-locale_nl-be.js"></script>
     <script src="../bower_components/moment/locale/nl.js"></script>
@@ -103,12 +104,26 @@
     <script src="env.js"></script>
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
+    <script src="app/examples/dashboards/dashboards.module.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/tabs-widget/tabs-widget.component.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/stat-chart-widget/stat-chart-widget.component.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.component.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/map-widget/map-widget.component.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.component.js"></script>
+    <script src="app/examples/dashboards/analytics/widgets/counter-widget/counter-widget.component.js"></script>
     <script src="app/triangular/layouts/layouts.module.js"></script>
     <script src="app/triangular/layouts/states/triangular/triangular.controller.js"></script>
     <script src="app/examples/email/email.module.js"></script>
     <script src="app/examples/email/layout/toolbar/toolbar.controller.js"></script>
     <script src="app/examples/calendar/calendar.module.js"></script>
     <script src="app/examples/calendar/layouts/toolbar/toolbar.controller.js"></script>
+    <script src="app/dashboards/dashboards.module.js"></script>
+    <script src="app/dashboards/analytics/widgets/tabs-widget/tabs-widget.component.js"></script>
+    <script src="app/dashboards/analytics/widgets/stat-chart-widget/stat-chart-widget.component.js"></script>
+    <script src="app/dashboards/analytics/widgets/map-widget/map-widget.component.js"></script>
+    <script src="app/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.component.js"></script>
+    <script src="app/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.component.js"></script>
+    <script src="app/dashboards/analytics/widgets/counter-widget/counter-widget.component.js"></script>
     <script src="app/triangular/layouts/default/default-layout.controller.js"></script>
     <script src="app/triangular/layouts/default/default-content.directive.js"></script>
     <script src="app/triangular/directives/directives.module.js"></script>
@@ -118,10 +133,10 @@
     <script src="app/triangular/components/wizard/wizard-form.directive.js"></script>
     <script src="app/triangular/components/widget/widget.directive.js"></script>
     <script src="app/triangular/components/toolbars/toolbar.controller.js"></script>
-    <script src="app/triangular/components/notifications-panel/notifications-panel.controller.js"></script>
     <script src="app/triangular/components/table/table.directive.js"></script>
     <script src="app/triangular/components/table/table-start-from.filter.js"></script>
     <script src="app/triangular/components/table/table-cell-image.filter.js"></script>
+    <script src="app/triangular/components/notifications-panel/notifications-panel.controller.js"></script>
     <script src="app/triangular/components/menu/menu.provider.js"></script>
     <script src="app/triangular/components/menu/menu.directive.js"></script>
     <script src="app/triangular/components/menu/menu-item.directive.js"></script>
@@ -133,8 +148,8 @@
     <script src="app/reporting/layout/toolbar/toolbar.controller.js"></script>
     <script src="app/reporting/evaluations/spoken/spoken-dialog.controller.js"></script>
     <script src="app/reporting/evaluations/points/points-dialog.controller.js"></script>
-    <script src="app/reporting/evaluations/comprehensive/comprehensive-dialog.controller.js"></script>
     <script src="app/reporting/evaluations/multiplechoice/multiplechoice-dialog.controller.js"></script>
+    <script src="app/reporting/evaluations/comprehensive/comprehensive-dialog.controller.js"></script>
     <script src="app/manage/layout/toolbar/student.toolbar.controller.js"></script>
     <script src="app/manage/layout/toolbar/staff.toolbar.controller.js"></script>
     <script src="app/examples/menu/menu.module.js"></script>
@@ -157,7 +172,6 @@
     <script src="app/examples/elements/examples/fab-speed-1.controller.js"></script>
     <script src="app/examples/elements/examples/dialog-1.controller.js"></script>
     <script src="app/examples/elements/examples/chips.controller.js"></script>
-    <script src="app/examples/dashboards/dashboards.module.js"></script>
     <script src="app/examples/dashboards/widgets/widget-weather.directive.js"></script>
     <script src="app/examples/dashboards/widgets/widget-twitter.directive.js"></script>
     <script src="app/examples/dashboards/widgets/widget-todo.directive.js"></script>
@@ -169,6 +183,7 @@
     <script src="app/examples/dashboards/widgets/widget-chartjs-ticker.directive.js"></script>
     <script src="app/examples/dashboards/widgets/widget-chartjs-pie.directive.js"></script>
     <script src="app/examples/dashboards/widgets/widget-chartjs-line.directive.js"></script>
+    <script src="app/examples/dashboards/widgets/widget-chartjs-bar.directive.js"></script>
     <script src="app/examples/dashboards/widgets/widget-calendar.directive.js"></script>
     <script src="app/examples/dashboards/social/dashboard-social.controller.js"></script>
     <script src="app/examples/dashboards/server/dashboard-server.controller.js"></script>
@@ -177,11 +192,19 @@
     <script src="app/examples/dashboards/sales/fab-button.controller.js"></script>
     <script src="app/examples/dashboards/sales/date-change-dialog.controller.js"></script>
     <script src="app/examples/dashboards/sales/dashboard-sales.controller.js"></script>
-    <script src="app/examples/dashboards/analytics/dashboard-analytics.controller.js"></script>
+    <script src="app/examples/dashboards/classic/classic.controller.js"></script>
+    <script src="app/examples/dashboards/analytics/seconds-to-date.filter.js"></script>
+    <script src="app/examples/dashboards/analytics/fab-button.controller.js"></script>
+    <script src="app/examples/dashboards/analytics/date-change-dialog.controller.js"></script>
+    <script src="app/examples/dashboards/analytics/analytics.factory.js"></script>
+    <script src="app/examples/dashboards/analytics/analytics.controller.js"></script>
     <script src="app/examples/charts/charts.module.js"></script>
     <script src="app/examples/charts/examples/google-scatter.controller.js"></script>
     <script src="app/examples/charts/examples/google-line.controller.js"></script>
     <script src="app/examples/charts/examples/google-bar.controller.js"></script>
+    <script src="app/examples/charts/examples/d3-scatter.controller.js"></script>
+    <script src="app/examples/charts/examples/d3-multiline.controller.js"></script>
+    <script src="app/examples/charts/examples/d3-bar.controller.js"></script>
     <script src="app/examples/charts/examples/chartjs-ticker.controller.js"></script>
     <script src="app/examples/charts/examples/chartjs-pie.controller.js"></script>
     <script src="app/examples/charts/examples/chartjs-line.controller.js"></script>
@@ -189,8 +212,8 @@
     <script src="app/examples/authentication/authentication.module.js"></script>
     <script src="app/examples/authentication/signup/signup.controller.js"></script>
     <script src="app/examples/authentication/profile/profile.controller.js"></script>
-    <script src="app/examples/authentication/login/login.controller.js"></script>
     <script src="app/examples/authentication/lock/lock.controller.js"></script>
+    <script src="app/examples/authentication/login/login.controller.js"></script>
     <script src="app/examples/authentication/forgot/forgot.controller.js"></script>
     <script src="app/care/care.module.js"></script>
     <script src="app/care/layout/toolbar/toolbar.controller.js"></script>
@@ -203,6 +226,7 @@
     <script src="app/triangular/router/router.module.js"></script>
     <script src="app/triangular/profiler/profiler.module.js"></script>
     <script src="app/triangular/profiler/profiler.config.js"></script>
+    <script src="app/triangular/layouts/layouts.provider.js"></script>
     <script src="app/triangular/filters/filters.module.js"></script>
     <script src="app/triangular/filters/round.filter.js"></script>
     <script src="app/triangular/filters/percent.filter.js"></script>
@@ -210,7 +234,6 @@
     <script src="app/triangular/filters/date.filter.js"></script>
     <script src="app/triangular/filters/average.filter.js"></script>
     <script src="app/triangular/filters/average-by.filter.js"></script>
-    <script src="app/triangular/layouts/layouts.provider.js"></script>
     <script src="app/triangular/directives/theme-background.directive.js"></script>
     <script src="app/triangular/directives/same-password.directive.js"></script>
     <script src="app/triangular/directives/palette-background.directive.js"></script>
@@ -223,11 +246,11 @@
     <script src="app/reporting/widgets/widget-chart-results.directive.js"></script>
     <script src="app/reporting/widgets/iac-dialog.controller.js"></script>
     <script src="app/reporting/validators/max.validator.js"></script>
+    <script src="app/reporting/iac/student-iac.controller.js"></script>
+    <script src="app/reporting/iac/iac-list.controller.js"></script>
     <script src="app/reporting/filters/score.directive.js"></script>
     <script src="app/reporting/filters/decimal2comma.js"></script>
     <script src="app/reporting/filters/comma2decimal.js"></script>
-    <script src="app/reporting/iac/student-iac.controller.js"></script>
-    <script src="app/reporting/iac/iac-list.controller.js"></script>
     <script src="app/reporting/directives/score.directive.js"></script>
     <script src="app/manage/manage.module.js"></script>
     <script src="app/manage/validators/groupnames.validator.js"></script>
@@ -248,26 +271,12 @@
     <script src="app/manage/groups/group-list.controller.js"></script>
     <script src="app/manage/groups/compose-group.controller.js"></script>
     <script src="app/manage/groups/add-to-group-dialog.controller.js"></script>
-    <script src="app/permission/permission.module.js"></script>
-    <script src="app/permission/pages/permission.controller.js"></script>
     <script src="app/layouts/toolbar/toolbar.controller.js"></script>
     <script src="app/layouts/rightsidenav/rightsidenav.controller.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/layouts/loader/loader.controller.js"></script>
     <script src="app/layouts/leftsidenav/leftsidenav.controller.js"></script>
     <script src="app/layouts/footer/footer.controller.js"></script>
-    <script src="app/global/global.module.js"></script>
-    <script src="app/global/staff/staff-type.directive.js"></script>
-    <script src="app/global/profile/user-avatar.directive.js"></script>
-    <script src="app/global/profile/profile.factory.js"></script>
-    <script src="app/global/groups/select-groups.directive.js"></script>
-    <script src="app/global/daterange/daterange.factory.js"></script>
-    <script src="app/global/daterange/daterange.directive.js"></script>
-    <script src="app/global/branches/select-majors.directive.js"></script>
-    <script src="app/global/branches/select-branches.directive.js"></script>
-    <script src="app/global/branches/branch.factory.js"></script>
-    <script src="app/global/care/iac.factory.js"></script>
-    <script src="app/global/care/diff.factory.js"></script>
     <script src="app/examples/ui/webfont-loader-module.js"></script>
     <script src="app/examples/ui/ui.module.js"></script>
     <script src="app/examples/ui/weather-icons.controller.js"></script>
@@ -277,10 +286,13 @@
     <script src="app/examples/ui/typography-switcher.service.js"></script>
     <script src="app/examples/ui/skins.controller.js"></script>
     <script src="app/examples/ui/material-icons.controller.js"></script>
+    <script src="app/examples/ui/icon-dialog.controller.js"></script>
     <script src="app/examples/ui/fa-icons.controller.js"></script>
     <script src="app/examples/ui/colors.controller.js"></script>
     <script src="app/examples/ui/color-dialog.controller.js"></script>
     <script src="app/examples/todo/todo.module.js"></script>
+    <script src="app/examples/todo/todo.run.js"></script>
+    <script src="app/examples/todo/todo.factory.js"></script>
     <script src="app/examples/todo/todo.controller.js"></script>
     <script src="app/examples/todo/todo.config.js"></script>
     <script src="app/examples/todo/fab-button.controller.js"></script>
@@ -327,6 +339,44 @@
     <script src="app/examples/calendar/calendar.config.js"></script>
     <script src="app/examples/calendar/calendar-fabs.controller.js"></script>
     <script src="app/examples/authentication/authentication.config.js"></script>
+    <script src="app/global/global.module.js"></script>
+    <script src="app/global/staff/staff-type.directive.js"></script>
+    <script src="app/global/profile/user-avatar.directive.js"></script>
+    <script src="app/global/profile/profile.factory.js"></script>
+    <script src="app/global/groups/select-groups.directive.js"></script>
+    <script src="app/global/daterange/daterange.factory.js"></script>
+    <script src="app/global/daterange/daterange.directive.js"></script>
+    <script src="app/global/care/iac.factory.js"></script>
+    <script src="app/global/care/diff.factory.js"></script>
+    <script src="app/global/branches/select-majors.directive.js"></script>
+    <script src="app/global/branches/select-branches.directive.js"></script>
+    <script src="app/global/branches/branch.factory.js"></script>
+    <script src="app/dashboards/widgets/widget-weather.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-twitter.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-todo.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-server.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-load-data.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-google-geochart.js"></script>
+    <script src="app/dashboards/widgets/widget-contacts.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-chat.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-chartjs-ticker.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-chartjs-pie.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-chartjs-line.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-chartjs-bar.directive.js"></script>
+    <script src="app/dashboards/widgets/widget-calendar.directive.js"></script>
+    <script src="app/dashboards/social/dashboard-social.controller.js"></script>
+    <script src="app/dashboards/server/dashboard-server.controller.js"></script>
+    <script src="app/dashboards/sales/sales.service.js"></script>
+    <script src="app/dashboards/sales/order-dialog.controller.js"></script>
+    <script src="app/dashboards/sales/fab-button.controller.js"></script>
+    <script src="app/dashboards/sales/date-change-dialog.controller.js"></script>
+    <script src="app/dashboards/sales/dashboard-sales.controller.js"></script>
+    <script src="app/dashboards/classic/classic.controller.js"></script>
+    <script src="app/dashboards/analytics/seconds-to-date.filter.js"></script>
+    <script src="app/dashboards/analytics/fab-button.controller.js"></script>
+    <script src="app/dashboards/analytics/date-change-dialog.controller.js"></script>
+    <script src="app/dashboards/analytics/analytics.factory.js"></script>
+    <script src="app/dashboards/analytics/analytics.controller.js"></script>
     <script src="app/authentication/authentication.module.js"></script>
     <script src="app/authentication/signup/signup.controller.js"></script>
     <script src="app/authentication/profile/profile.controller.js"></script>
@@ -341,6 +391,10 @@
     <script src="app/seed-module/seed.module.js"></script>
     <script src="app/seed-module/seed.config.js"></script>
     <script src="app/seed-module/seed-page.controller.js"></script>
+    <script src="app/permission/permission.module.js"></script>
+    <script src="app/permission/user.factory.js"></script>
+    <script src="app/permission/permission.run.js"></script>
+    <script src="app/permission/gapi.js"></script>
     <script src="app/reporting/reporting.config.js"></script>
     <script src="app/reporting/majorgroup.filter.js"></script>
     <script src="app/reporting/feedback-dialog.controller.js"></script>
@@ -349,14 +403,9 @@
     <script src="app/reporting/evaluation-list.controller.js"></script>
     <script src="app/manage/persongroup.filter.js"></script>
     <script src="app/manage/manage.config.js"></script>
-    <script src="app/permission/user.factory.js"></script>
-    <script src="app/permission/permission.run.js"></script>
-    <script src="app/permission/permission.config.js"></script>
-    <script src="app/permission/gapi.js"></script>
     <script src="app/examples/examples.module.js"></script>
-    <script src="app/dashboards/dashboards.module.js"></script>
     <script src="app/dashboards/dashboards.config.js"></script>
-    <script src="app/dashboards/analytics.controller.js"></script>
+    <script src="app/dashboards/dashboard-draggable-controller.js"></script>
     <script src="app/care/student-record.controller.js"></script>
     <script src="app/care/student-list.controller.js"></script>
     <script src="app/care/iac-dialog.controller.js"></script>
@@ -371,6 +420,7 @@
     <script src="app/config.triangular.settings.js"></script>
     <script src="app/config.triangular.layout.js"></script>
     <script src="app/config.route.js"></script>
+    <script src="app/config.restangular.js"></script>
     <script src="app/config.chartjs.js"></script>
     <script src="app/app.run.js"></script>
     <!-- endinject -->
@@ -379,8 +429,5 @@
     <!-- angular templates will be automatically converted in js and inserted here -->
     <!-- endinject -->
     <!-- endbuild -->
-
-
-    
   </body>
 </html>
