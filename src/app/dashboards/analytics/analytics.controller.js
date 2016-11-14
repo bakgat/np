@@ -31,10 +31,13 @@
             vm.activeTimeSpan = vm.timeSpans[1];
 
             // create some fake data
-            createFakeData(vm.start, vm.end, vm.activeTimeSpan.value);
+            //createFakeData(vm.start, vm.end, vm.activeTimeSpan.value);
+            AnalyticsService.one('events').one('report').get().then(function(response) {
+                vm.data = response;
+            });
 
             // pop a toast telling users about datepicker
-            $timeout(popAToast, 3000);
+            //$timeout(popAToast, 3000);
         }
 
         function changeDate($event) {

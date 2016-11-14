@@ -1,10 +1,12 @@
-<div class="md-content md-padding">
+<div class="md-content md-padding full-height">
     <div layout="row" layout-xs="column" layout-wrap>
-        <counter-widget flex flex-sm="50" title="Comments" count="vm.data.social.comments" icon="fa fa-comments" background="red-400" color="white"></counter-widget>
-        <counter-widget flex flex-sm="50" title="Tweets" count="vm.data.social.tweets" icon="fa fa-twitter"  background="blue-A100" color="white"></counter-widget>
-        <counter-widget flex flex-sm="50" title="Likes" count="vm.data.social.likes" icon="fa fa-facebook"  background="blue-900" color="white"></counter-widget>
+        <counter-widget flex flex-sm="50" title="Personeelsleden" count="vm.data.staff.count" icon="zmdi zmdi-accounts-alt" background="red-400" color="white"></counter-widget>
+        <counter-widget flex flex-sm="50" title="Leerlingen" count="vm.data.students.count" icon="zmdi zmdi-accounts-alt"  background="blue-A100" color="white"></counter-widget>
+        <counter-widget flex flex-sm="50" title="Evaluaties" count="vm.data.evaluations.count" icon="zmdi zmdi-keyboard"  background="blue-900" color="white"></counter-widget>
         <counter-widget flex flex-sm="50" title="Pageviews" count="vm.data.social.pageviews" icon="fa fa-eye"  background="green-500" color="white"></counter-widget>
     </div>
+
+    <!--
     <div layout="row">
         <line-chart-widget flex start="vm.start" end="vm.end" time-spans="vm.timeSpans" on-time-change="vm.timeSpanChanged(span)" data="vm.data.sessionsLineChartData" options="vm.overviewLineChartOptions"></line-chart-widget>
     </div>
@@ -32,5 +34,5 @@
         <div flex flex-xs="100" layout="column">
             <map-widget></map-widget>
         </div>
-    </div>
+    </div>-->
 </div>
