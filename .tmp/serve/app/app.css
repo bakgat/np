@@ -29300,9 +29300,6 @@ md-icon.pf-placeholder {
   md-icon.pf-placeholder.is-final {
     color: #ff5722; }
 
-.seed-list {
-  list-style: lower-greek; }
-
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29514,6 +29511,31 @@ md-icon.pf-placeholder {
 .notos-SF:before {
   content: ""; }
 
+.seed-list {
+  list-style: lower-greek; }
+
+.login-frame md-card {
+  max-width: 400px;
+  margin: auto; }
+
+.login-frame md-checkbox {
+  margin: 0; }
+
+.login-frame img {
+  max-height: 100px;
+  width: auto; }
+
+.login-frame md-toolbar {
+  min-height: 170px; }
+  .login-frame md-toolbar .md-headline {
+    margin: 0; }
+
+#follow {
+  position: absolute;
+  z-index: 999999;
+  background: #FF0000;
+  color: #fff; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29641,6 +29663,12 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .calendar-color-select md-option {
   text-transform: capitalize; }
+
+.google-example-chart {
+  padding: 24px; }
+
+.chartjs-example-chart {
+  padding: 24px; }
 
 .dashboard-container .layout-margin {
   margin: 0px; }
@@ -29984,12 +30012,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .md-select-form span {
     width: 100%; }
 
-.google-example-chart {
-  padding: 24px; }
-
-.chartjs-example-chart {
-  padding: 24px; }
-
 .github-user-dropdown img {
   width: 40px;
   height: 40px;
@@ -29998,6 +30020,58 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .github-user-dropdown span {
   margin-left: 16px; }
+
+.maps-example .angular-google-map-container {
+  height: 550px; }
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px; }
+  #map_canvas .angular-google-map-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; }
+
+.todo-container .slide.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.todo-container .slide.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+@media (max-width: 600px) {
+  .todo-container {
+    padding: 0px; }
+    .todo-container md-card {
+      margin: 0px; } }
 
 .ui-color-grid md-grid-tile {
   cursor: pointer; }
@@ -30078,80 +30152,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   border-radius: 50%;
   z-index: 5; }
 
-.todo-container .slide.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.todo-container .slide.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-@media (max-width: 600px) {
-  .todo-container {
-    padding: 0px; }
-    .todo-container md-card {
-      margin: 0px; } }
-
-.maps-example .angular-google-map-container {
-  height: 550px; }
-
-#map_canvas {
-  height: 100%;
-  width: 100%;
-  margin: 0px; }
-  #map_canvas .angular-google-map-container {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px; }
-
-.login-frame md-card {
-  max-width: 400px;
-  margin: auto; }
-
-.login-frame md-checkbox {
-  margin: 0; }
-
-.login-frame img {
-  max-height: 100px;
-  width: auto; }
-
-.login-frame md-toolbar {
-  min-height: 170px; }
-  .login-frame md-toolbar .md-headline {
-    margin: 0; }
-
-#follow {
-  position: absolute;
-  z-index: 999999;
-  background: #FF0000;
-  color: #fff; }
-
 .daterange-button {
   color: rgba(0, 0, 0, 0.84); }
 
@@ -30168,6 +30168,12 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   font-size: 1.4rem;
   color: rgba(0, 0, 0, 0.54); }
 
+.triangular-loader {
+  background: rgba(255, 255, 255, 0.8); }
+
+.app-loader md-progress-linear {
+  width: 80%; }
+
 .triangular-toolbar {
   /*&.ng-enter {
         transition: .5s;
@@ -30180,12 +30186,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
     &.ng-leave {
       display: none;
     }*/ }
-
-.triangular-loader {
-  background: rgba(255, 255, 255, 0.8); }
-
-.app-loader md-progress-linear {
-  width: 80%; }
 
 .person-list {
   background: white; }
