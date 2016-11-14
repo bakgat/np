@@ -29951,6 +29951,20 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .github-user-dropdown span {
   margin-left: 16px; }
 
+.maps-example .angular-google-map-container {
+  height: 550px; }
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px; }
+  #map_canvas .angular-google-map-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; }
+
 .elements-button-examples md-card-content {
   min-height: 100px; }
 
@@ -30026,20 +30040,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .elements-whiteframe-example md-whiteframe {
   min-width: 500px;
   background-color: white; }
-
-.maps-example .angular-google-map-container {
-  height: 550px; }
-
-#map_canvas {
-  height: 100%;
-  width: 100%;
-  margin: 0px; }
-  #map_canvas .angular-google-map-container {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px; }
 
 .todo-container .slide.ng-enter {
   -webkit-animation-name: slideInRight;

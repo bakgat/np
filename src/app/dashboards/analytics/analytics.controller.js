@@ -7,7 +7,7 @@
         .controller('DashboardAnalyticsController', DashboardAnalyticsController);
 
     /* @ngInject */
-    function DashboardAnalyticsController($scope, $timeout, $mdToast, $filter, $mdDialog, AnalyticsService) {
+    function DashboardAnalyticsController($scope, $timeout, $mdToast, $filter, $mdDialog, analytics, AnalyticsService) {
         var vm = this;
         vm.timeSpans = [{
             name: 'Hourly',
@@ -23,7 +23,7 @@
             value: 'months'
         }];
         vm.timeSpanChanged = timeSpanChanged;
-        vm.data = [];
+        vm.data = analytics;
         /////////////////////
 
         function init() {
@@ -33,9 +33,7 @@
 
             // create some fake data
             //createFakeData(vm.start, vm.end, vm.activeTimeSpan.value);
-            AnalyticsService.one('events').one('report').get().then(function(response) {
-                vm.data = response;
-            });
+            
 
             // pop a toast telling users about datepicker
             //$timeout(popAToast, 3000);
