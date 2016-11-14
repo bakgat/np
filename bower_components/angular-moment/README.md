@@ -19,7 +19,7 @@ You can choose your preferred method of installation:
 * Through bower: `bower install angular-moment --save`
 * Through npm: `npm install angular-moment moment --save`
 * Through NuGet: `Install-Package angular-moment Moment.js`
-* From a CDN: [jsDelivr](https://cdn.jsdelivr.net/angular.moment/1.0.0-beta.6/angular-moment.min.js) or [CDNJS](https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.6/angular-moment.min.js)
+* From a CDN: [jsDelivr](https://cdn.jsdelivr.net/angular.moment/1.0.0/angular-moment.min.js) or [CDNJS](https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0/angular-moment.min.js)
 * Download from github: [angular-moment.min.js](https://raw.github.com/urish/angular-moment/master/angular-moment.min.js)
 
 
@@ -66,6 +66,17 @@ Then call the `amMoment.changeLocale()` method (e.g. inside your app's run() cal
 myapp.run(function(amMoment) {
 	amMoment.changeLocale('de');
 });
+```
+
+
+### Use in controller/service/factory
+Inject the `moment`-constant into your dependency injection. For example:
+ 
+```js
+angular.module('fooApp')
+    .controller('FooCtrl', ['$scope', 'moment', function ($scope, moment) {
+        $scope.exampleDate = moment().hour(8).minute(0).second(0).toDate();
+    }]);
 ```
 
 ### am-time-ago directive

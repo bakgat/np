@@ -13,11 +13,8 @@
                 <md-icon md-font-icon="{{::vm.menu.icon}}"></md-icon>
             </md-button>
             <md-menu-content>
-                <md-menu-item ng-repeat="item in ::vm.menu.items"
-                    ng-class="{'divider':item.type=='divider'}">
-                    <md-divider ng-if="item.type=='divider'"></md-divider>
-
-                    <md-button ng-if="!item.type || item.type!='divider'" ng-click="item.click($event)">
+                <md-menu-item ng-repeat="item in ::vm.menu.items">
+                    <md-button ng-click="item.click($event)">
                         <md-icon ng-if="::item.icon" md-font-icon="{{::item.icon}}"></md-icon>
                         <span translate>{{::item.title}}</span>
                     </md-button>

@@ -8,8 +8,14 @@
     /* @ngInject */
     function ButtonsController($interval) {
         var vm = this;
-        vm.buttonClass = 'md-primary';
-        vm.buttonHue = 'md-default';
+        vm.buttonClass1 = 'md-primary';
+        vm.buttonHue1 = 'md-default';
+
+        vm.buttonClass2 = 'md-primary';
+        vm.buttonHue2 = 'md-default';
+
+        vm.buttonClass3 = 'md-primary';
+        vm.buttonHue3 = 'md-default';
 
         vm.buttonDisabled = false;
         vm.determinateValue = 30;

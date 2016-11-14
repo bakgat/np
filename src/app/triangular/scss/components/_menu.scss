@@ -24,7 +24,7 @@ tri-menu {
 // Side menu shrink/grow icon
 .sidebar-left-icon {
   display: none;
-  ._md-locked-open & {
+  .md-locked-open & {
     display: block;
   }
 }
@@ -178,7 +178,7 @@ $submenu-overlay: #999999;
 }
 
 // Collapsible Menu
-.admin-sidebar-collapsed._md-locked-open {
+.admin-sidebar-collapsed.md-locked-open {
   .sidebar-left-title, .sidebar-left-icon {
     opacity: 0;
     transition: all .2s;

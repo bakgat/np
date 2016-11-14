@@ -1,6 +1,6 @@
 {
   "name": "highlightjs",
-  "version": "9.6.0",
+  "version": "9.8.0",
   "main": [
     "highlight.pack.js",
     "styles/default.css"
@@ -12,11 +12,11 @@
     "components"
   ],
   "homepage": "https://github.com/components/highlightjs",
-  "_release": "9.6.0",
+  "_release": "9.8.0",
   "_resolution": {
     "type": "version",
-    "tag": "9.6.0",
-    "commit": "a8b825e9efa12b0a6b5b45c2697c2487a3de5bc1"
+    "tag": "9.8.0",
+    "commit": "9f84fba3626a35c1482653b3f339aa49feba4c8a"
   },
   "_source": "https://github.com/components/highlightjs.git",
   "_target": "^9.2.0",

@@ -1,4 +1,4 @@
-/* angular-moment.js / v1.0.0-beta.6 / (c) 2013, 2014, 2015, 2016 Uri Shaked / MIT Licence */
+/* angular-moment.js / v1.0.0 / (c) 2013, 2014, 2015, 2016 Uri Shaked / MIT Licence */
 
 'format amd';
 /* global define */
@@ -35,7 +35,7 @@
 		 * @description
 		 * angularMoment module provides moment.js functionality for angular.js apps.
 		 */
-		return angular.module('angularMoment', [])
+		angular.module('angularMoment', [])
 
 		/**
 		 * @ngdoc object
@@ -722,13 +722,14 @@
 
 				return amEndOfFilter;
  			}]);
+
+		return 'angularMoment';
 	}
 
 	if (typeof define === 'function' && define.amd) {
 		define(['angular', 'moment'], angularMoment);
-	} else if (typeof module !== 'undefined' && module && module.exports) {
-		angularMoment(require('angular'), require('moment'));
-		module.exports = 'angularMoment';
+	} else if (typeof module !== 'undefined' && module && module.exports && (typeof require === 'function')) {
+		module.exports = angularMoment(require('angular'), require('moment'));
 	} else {
 		angularMoment(angular, (typeof global !== 'undefined' ? global : window).moment);
 	}

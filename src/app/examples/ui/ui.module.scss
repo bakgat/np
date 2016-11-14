@@ -27,6 +27,9 @@
 // Icons Pages
 .ui-icons-box-icon {
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
 
 // Toolbar page

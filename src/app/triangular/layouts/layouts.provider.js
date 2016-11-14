@@ -18,7 +18,7 @@
             showToolbar: true,
             footer: true,
             contentTemplateUrl: 'app/triangular/layouts/default/default-content.tmpl.html',
-            sidebarLeftTemplateUrl: 'app/triangular/components/menu/menu.tmpl.html',
+            sidebarLeftTemplateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
             sidebarLeftController: 'MenuController',
             sidebarRightTemplateUrl: 'app/triangular/components/notifications-panel/notifications-panel.tmpl.html',
             sidebarRightController: 'NotificationsPanelController',

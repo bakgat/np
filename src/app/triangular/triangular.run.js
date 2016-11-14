@@ -11,6 +11,5 @@
         if($window.navigator.platform.indexOf('Win') !== -1) {
             $rootScope.bodyClasses = ['os-windows'];
         }
-
     }
 })();

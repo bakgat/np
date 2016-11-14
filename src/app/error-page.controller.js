@@ -8,15 +8,11 @@
         var vm = this;
 
         vm.goHome = goHome;
-        vm.goLogin = goLogin;
 
         /////////
 
         function goHome() {
-            $state.go('triangular.analytics');
-        }
-        function goLogin() {
-            $state.go('authentication.login');
+            $state.go('triangular.dashboard-analytics');
         }
     }
 })();

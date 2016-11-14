@@ -21,6 +21,7 @@
             toolbarBackgrounds: {
             },
             sideMenuSizes: {
+                'off': 'Off',
                 'hidden': 'Hidden',
                 'icon': 'Icons',
                 'full': 'Full Size'

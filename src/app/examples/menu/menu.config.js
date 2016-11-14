@@ -51,7 +51,24 @@
                 type: 'link',
                 state: 'triangular.menu-dynamic'
             },{
-                name: 'Level 1-1',
+                name: 'On Click Menu',
+                type: 'link',
+                click: ['$mdDialog', function($mdDialog) {
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Menu Item Clicked')
+                        .htmlContent('You can now set menu item click events when you configure your menu as well as routes!.  See <code>app/examples/menu/menu.config.js</code> to learn how.')
+                        .ok('Got it Thanks.')
+                    );
+                }]
+            },{
+                name: 'Open in new tab',
+                type: 'link',
+                state: 'triangular.dashboard-general',
+                openInNewTab: true
+            },{
+                name: 'Unlimited Levels',
                 type: 'dropdown',
                 children: [{
                     name: 'Level 2-1',

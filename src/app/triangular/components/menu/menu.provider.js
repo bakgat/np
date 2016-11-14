@@ -19,6 +19,10 @@
             menuArray.push(item);
         }
 
+        function getMenu(id) {
+            return findMenu(menuArray, id);
+        }
+
         function removeMenu(state, params) {
             findAndDestroyMenu(menuArray, state, params);
         }
@@ -27,6 +31,25 @@
             for (var i = menuArray.length - 1; i >= 0 ; i--) {
                 menuArray.splice(i, 1);
             }
+        }
+
+        function findMenu(menu, id) {
+            var found;
+            if (menu instanceof Array) {
+                for (var i = 0; i < menu.length; i++) {
+                    if(menu[i].id === id) {
+                        found = menu[i];
+                        break;
+                    }
+                    else if(angular.isDefined(menu[i].children)) {
+                        found = findMenu(menu[i].children, id);
+                        if(angular.isDefined(found)) {
+                            break;
+                        }
+                    }
+                }
+            }
+            return found;
         }
 
         function findAndDestroyMenu(menu, state, params, isChildren) {
@@ -51,6 +74,7 @@
             return {
                 menu: menuArray,
                 addMenu: addMenu,
+                getMenu: getMenu,
                 removeMenu: removeMenu,
                 removeAllMenu: removeAllMenu
             };

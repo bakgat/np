@@ -8,6 +8,10 @@
     /* @ngInject */
     function FormWizardController() {
         var vm = this;
-        vm.data = {};
+        vm.data = {
+            account: {
+                username: 'Oxygenna'
+            }
+        };
     }
 })();

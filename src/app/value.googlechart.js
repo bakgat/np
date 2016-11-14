@@ -8,7 +8,7 @@
             version: '1.1',
             optionalSettings: {
                 packages: ['line', 'bar', 'geochart', 'scatter'],
-                language: 'nl'
+                language: 'en'
             }
         });
 })();

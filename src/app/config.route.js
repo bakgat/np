@@ -12,6 +12,7 @@
         // 404 & 500 pages
         $stateProvider
         .state('404', {
+            url: '/404',
             views: {
                 'root': {
                     templateUrl: '404.tmpl.html',
@@ -49,8 +50,6 @@
         $urlRouterProvider.when('/', '/dashboards/analytics');
 
         // always goto 404 if route not found
-        $urlRouterProvider.otherwise(function ($injector) {
-          $injector.get('$state').go('404', {}, {location: false});
-        });
+        $urlRouterProvider.otherwise('/404');
     }
 })();

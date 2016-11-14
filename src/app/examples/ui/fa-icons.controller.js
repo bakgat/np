@@ -24,15 +24,27 @@
         }
 
         function selectIcon($event, icon) {
-            var dialogContent = $compile('<div hljs language="html"><md-icon md-font-icon="'+ icon.className +'"></md-icon></div>')($scope);
-            $mdDialog.show(
-                $mdDialog.alert()
-                .parent(angular.element($document.body))
-                .title('Here\'s the code for that icon')
-                .htmlContent(dialogContent[0].innerHTML)
-                .ok('Thanks')
-                .targetEvent($event)
-            );
+            $mdDialog.show({
+                title: '',
+                template:
+                    '<md-dialog>' +
+                    '  <md-toolbar>' +
+                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
+                    '  </md-toolbar>' +
+                    '  <md-dialog-content>' +
+                    '    <div hljs language="html"><md-icon md-font-icon="' + icon.className + '"></md-icon></div>' +
+                    '  </md-dialog-content>' +
+                    '  <md-dialog-actions>' +
+                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
+                    '      Close' +
+                    '    </md-button>' +
+                    '  </md-dialog-actions>' +
+                    '</md-dialog>',
+                targetEvent: $event,
+                parent: angular.element($document.body),
+                controller: 'IconDialogController',
+                controllerAs: 'vm'
+            });
         }
     }
 })();

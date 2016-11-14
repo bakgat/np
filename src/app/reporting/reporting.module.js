@@ -3,6 +3,5 @@
 
     angular
         .module('app.reporting', [
-          'in-viewport'
         ]);
 })();

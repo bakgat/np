@@ -7,18 +7,15 @@
         .constant('EMAIL_ROUTES', [{
             state: 'triangular.email.inbox',
             name: 'Inbox',
-            url: '/email/inbox',
-            icon: 'zmdi zmdi-inbox'
+            url: '/email/inbox'
         },{
             state: 'triangular.email.trash',
             name: 'Trash',
-            url: '/email/trash',
-            icon: 'zmdi zmdi-minus-circle'
+            url: '/email/trash'
         },{
             state: 'triangular.email.sent',
             name: 'Sent',
-            url: '/email/sent',
-            icon: 'zmdi zmdi-email'
+            url: '/email/sent'
         }]);
 
     /* @ngInject */

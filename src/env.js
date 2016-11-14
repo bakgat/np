@@ -17,5 +17,7 @@
   window.__env.scopes = 'profile email',
   window.__env.domain = ''
 
+  window.__env.redirectAfterLoginState = 'triangular.dashboard-analytics';
+
 
 }(this));

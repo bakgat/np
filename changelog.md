@@ -4,12 +4,14 @@
   layout: docs.hbs
 ---
 
-# Version 1.0.0
+# 1.0
+
+## Version 1.0.0
 > Release Date : 5th June 2015
 
 - Initial ThemeForest Submit
 
-# Version 1.1.0
+## Version 1.1.0
 > Release Date : 11th June 2015
 
 - Updated Angular Material to 0.10.0-rc1
@@ -26,7 +28,7 @@
 - Fix for controls on Google Maps
 - Fix right sidebar on ToDo page
 
-# Version 1.1.1
+## Version 1.1.1
 > Release Date : 12th June 2015
 
 - Update to Angular Material 0.10.0-rc4
@@ -35,7 +37,7 @@
 - Fixed scrollbar behaviour on sidebar
 - Fixed bower install problem being caused by countUp.js
 
-# Version 1.1.2
+## Version 1.1.2
 > Release Date : 17th June 2015
 
 - Update to Angular Material 0.10.0
@@ -47,7 +49,7 @@
 - Added share button to blog widget in General Dashboard
 - Fix toolbar in IE10
 
-# Version 1.1.3
+## Version 1.1.3
 > Release Date : 19th June 2015
 
 - Fixed icon elements example buttons - used suggestion in [issue 3181](https://github.com/angular/material/issues/3181)
@@ -56,7 +58,7 @@
 - Fixes for Internet Explorer 10
 - Updated docs with better node install instructions
 
-# Version 1.2.0
+## Version 1.2.0
 > Release Date : 26th June 2015
 
 - Added notifications on main dashboard
@@ -65,14 +67,14 @@
 - Added option for collapsible side menu
 - Changed logo markup
 
-# Version 1.2.1
+## Version 1.2.1
 > Release Date : 29th June 2015
 
 - Fixed time-line page on mobile IOS
 - Fixed collapsible menu button
 - Fixed toggle icon animation for sub menus
 
-# Version 1.3.0
+## Version 1.3.0
 > Release Date : 13th July 2015
 
 - Added calendar translations so calendar widget can now be multi language
@@ -84,7 +86,7 @@
 - Minor bugfixes
 - Added new Social Dashboard
 
-# Version 1.4.0
+## Version 1.4.0
 > Release Date : 26th July 2015
 
 - Fix for SASS when compiling using command line
@@ -95,7 +97,7 @@
 - Updated Angular Material to 0.10.1-rc3
 - NEW FEATURE Added new Calendar module
 
-# Version 1.5.0
+## Version 1.5.0
 > Release Date : 10th August 2015
 
 - Fixed switching from email to todo in mobile sized screens
@@ -117,7 +119,9 @@
 - Removed all usage of translate filter and replaced with directive (better performance)
 - Added Chinese and Portuguese translations
 
-# Version 2.0.0
+# 2.0
+
+## Version 2.0.0
 > Release Date : 31st August 2015
 
 - Code style changed to match https://github.com/johnpapa/angular-styleguide
@@ -137,7 +141,7 @@
 - Calendar: Improved looks and mobile responsiveness.
 - Docs: Added version migration guide to docs
 
-# Version 2.0.1
+## Version 2.0.1
 > Release Date : 4th September 2015
 
 - Turn off profiler by default.
@@ -154,7 +158,7 @@
 - updated eslint and eslint-angular-plugin
 - Updated docs to match new 2.0 code
 
-# Version 2.1.0
+## Version 2.1.0
 > Release Date : 23rd September 2015
 
 - Fixed bug when adding new events (not keeping data in calendar)
@@ -167,7 +171,7 @@
 - Updated chart.js and examples
 - Updated Material Design Iconic Font to 2.1.2 (65 New Icons!)
 
-# Version 2.2.0
+## Version 2.2.0
 > Release Date : 1st October 2015
 
 - app.scss now imports angular-material.scss file (gives access to angular material variables)
@@ -182,7 +186,7 @@
 - Datepicker added to events dialog
 - Updated AngularJS to 1.4.7
 
-# Version 2.3.0
+## Version 2.3.0
 > Release Date : 23rd October 2015
 
 - Added bower package for easy maintenance of apps
@@ -197,7 +201,7 @@
 - Fixes for table localization (thanks merqurio)
 - Fixes for Safari browser compatibility
 
-# Version 2.4.0
+## Version 2.4.0
 > Release Date : 7th December 2015
 
 - Converted material backgrounds to jpg - thanks TheRealDuckboy
@@ -212,7 +216,7 @@
 - Updated AngularJS to 1.4.8
 - Fixed gulp tasks to work with latest node packages
 
-# Version 2.5.0
+## Version 2.5.0
 > Release Date : 23rd December 2015
 
 - Fixed tri wizard to work with ng-repeated inputs
@@ -225,7 +229,7 @@
 - Fixed FAB speed dial remaining open on General Dashboard
 - Updated all dialogs to use new angular material 1.0.1 markup
 
-# Version 2.5.1
+## Version 2.5.1
 > Release Date : 10th February 2016
 
 - Fixed active email highlight in email list
@@ -238,7 +242,7 @@
 - Fixed email list styling
 - Fixed Dashboard widget chart widths
 
-# Version 2.6.0
+## Version 2.6.0
 > Release Date : 16th March 2016
 
 - Fixed translate gulp task.
@@ -279,7 +283,7 @@
 - Better display of scrollbars on Windows IE10+ & Chrome
 - Fixed layout of authentication pages in IE11+
 
-# Version 2.6.1
+## Version 2.6.1
 > Release Date : 18th March 2016
 
 - Moved loader watches into triangular run (catches events earlier)
@@ -289,14 +293,14 @@
 - Added loader example to elements
 - Added datepicker example
 
-# Version 2.6.2
+## Version 2.6.2
 > Release Date : 29th March 2016
 
 - Fixed Side Navigation Toggle
 - Upgraded md-table examples with progress bar functionality
 - Updated Documentation with examples for Template Overriding
 
-# Version 2.6.3
+## Version 2.6.3
 > Release Date : 7th April 2016
 
 - Fixed unwanted animation on table advanced when select search or check item
@@ -304,7 +308,7 @@
 - Fix for flash of default theme until this issue is resolved https://github.com/angular/material/pull/7427
 - Updated Docs with further detail on template customisations
 
-# Version 2.7.0
+## Version 2.7.0
 > Release Date : 27th April 2016
 
 - Translations are now optional - include app.translation module if you need multi-language
@@ -315,7 +319,7 @@
 - Added animations to page transitions
 - Updated Docs
 
-# Version 2.7.1
+## Version 2.7.1
 > Release Date : 5th May 2016
 
 - Update angular to version 1.5.5
@@ -328,10 +332,78 @@
 - Fixed permissions on some routes.
 - Fixed translations in title & breadcrumbs.
 
-# Version 2.7.2
+## Version 2.7.2
 > Release Date : 24th May 2016
 
 - Update to latest version of angular permissions fixes #123 (back button)
 - New style for for compose / reply dialog in email (fixes IE 11)
 - Fix menu background color when sideMenuSize is set to hidden
 - Fix footer scrolling in Safari
+
+## Version 2.8.0
+> Release Date : 8th June 2016
+
+- Fixed menu item permission on link type
+- Updated to new material angular RC5
+- New Documentation for all template
+
+## Version 2.9.0
+> Release Date : 11th July 2016
+
+- Fixed height of pie chart in analytics widget
+- Fixed form wizard view on mobile.
+- Added getMenu function to triMenu that will grab any menu item using its id attribute
+- Changed Todo example to use new triMenu to change it's badge value based on number of todos
+- Added click handler to menus to allow click events as well as state router changes
+- Added openInNewTab option to menu items
+- Updated Angular Permissions to 3.2.1
+
+## Version 2.9.1
+> Release Date : 20th July 2016
+
+- Fixed bug in permissions route handling.
+- Moved permissions module declaration into app.permissions module
+- Updated Angular UI Router to 0.3.1
+- Fix for authentication background image
+
+## Version 2.9.2
+> Release Date : 25th July 2016
+
+- Fixed background images stretching on authentication layout pages
+- Fixed layout for Dashboards in IE11
+- Added temporary fix for DatePicker background
+
+## Version 2.10.0
+> Release Date : 24th August 2016
+
+- Updated angular material to 1.1.0
+- Improvements to documentation (thanks Vincent)
+- Fixes for Error pages (401, 404, 500) in IE11
+- Fixed code example popup dialog on ui icons pages
+- Fixed jumping at end of page transition
+
+## Version 2.10.1
+> Release Date : 8th September 2016
+
+- Updated angular material to 1.1.1
+
+## Version 2.11.0
+> Release Date : 18th October 2016
+
+- Fixed karma testing gulp
+- Fixed seed-module load order
+- New improved form wizard (fixes already filled in form)
+- Improved Docs
+- New Chart Library added angular-nvd3
+- New Analytics Dashboard!
+
+## Version 2.11.1
+> Release Date : 25th October 2016
+
+- Fix bug in sidebar
+
+## Version 2.12.0
+> Release Date : 10th November 2016
+
+- Fixes for dashboards in IE11
+- Added new D3 chart demos

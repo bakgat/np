@@ -74,7 +74,7 @@
 
                     if (angular.isDefined(roles[role])) {
                         // check if the permission we are validating is in this role's permissions
-                        if (-1 !== roles[role].validationFunction.indexOf(permission)) {
+                        if (-1 !== roles[role].validationFunction[2](permission)) {
                             hasPermission = true;
                         }
                     }

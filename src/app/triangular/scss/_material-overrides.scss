@@ -1,30 +1,25 @@
 // Overrides
+
 a {
-    color: #00BCD4;
+  color: #00BCD4;
 }
 
 body[md-theme="dark"] {
-    background-color: #3a3a3a;
+  background-color: #3a3a3a;
 }
-
 .md-dark-theme {
-    color: rgba(255, 255, 255, .7) !important;
-    a {
-        color: #ffffff;
-    }
+  color: rgba(255, 255, 255, .7) !important;
+  a {
+    color: #ffffff;
+  }
 }
-
-.md-open-menu-container {
-    background: #ffffff;
- }
 md-list {
-    padding-top: 0px;
-    padding-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-
 .md-list-item-inner {
-    max-width: 100%;
-    box-sizing: border-box;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 md-list-item ._md-list-item-inner .md-avatar.course-avatar {
@@ -32,18 +27,46 @@ md-list-item ._md-list-item-inner .md-avatar.course-avatar {
     height: 30px;
 }
 
-.thumb1 {
-    background: url(blah.jpg) 50% 50% no-repeat;
-    /* 50% 50% centers image in div */
-    width: 250px;
-    height: 250px;
+.email-inbox-list-item p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.thumb a {
-    display: block;
-    width: 250px;
-    height: 250px;
+md-card md-card-content {
+  display: block;
 }
+
+ui-gmap-google-map img {
+  max-width: none;
+}
+
+#footer .md-toolbar-tools h2 {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+}
+
+// datepicker background
+md-datepicker, md-datepicker .md-datepicker-input {
+  background: none !important;
+}
+.md-calendar-day-header th {
+  vertical-align: middle;
+}
+
+// md-data-table stop transition on toolbars
+
+.md-table-toolbar {
+  transition: none;
+}
+
+// Fix for ie11 dashboards table-layout
+@media screen and (max-width: $layout-breakpoint-xs) {
+  .os-windows .layout-column > .flex, .layout-xs-column > .flex {
+      flex-basis: auto;
+  }
+}
+
 
 user-avatar.md-avatar,
 user-avatar.md-user-avatar {
@@ -70,45 +93,11 @@ user-avatar.md-user-avatar {
     }
 }
 
-
-.email-inbox-list-item p {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-md-card md-card-content {
-    display: block;
-}
-
-ui-gmap-google-map img {
-    max-width: none;
-}
-
-#footer .md-toolbar-tools h2 {
-    font-size: 1.8rem;
-    line-height: 2.2rem;
-}
-
 // datepicker background
 md-datepicker,
 md-datepicker .md-datepicker-input {
     background: none !important;
 }
-
-// md-data-table stop transition on toolbars
-.md-table-toolbar {
-    transition: none;
-}
-
-.cover {
-    background-size: cover;
-}
-
-md-input-container.narrow {
-    margin: 0;
-}
-
 label.md-caption {
     &.date-label {
         visibility: hidden;
@@ -120,3 +109,8 @@ label.md-caption {
         visibility: visible;
     }
 }
+
+md-input-container.narrow {
+    margin: 0;
+}
+

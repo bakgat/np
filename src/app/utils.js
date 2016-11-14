@@ -1,4 +1,4 @@
-function round(value, decimals) {
+/*function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
 
@@ -23,7 +23,7 @@ function median(arr) {
         median = (arrResults[half - 1] + arrResults[half]) / 2.0;
 
     return median;
-}
+}*/
 
 String.prototype.capitalizeFirstLetter = function() {
     if (typeof this.charAt === "function") {

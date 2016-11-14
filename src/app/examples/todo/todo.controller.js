@@ -6,22 +6,19 @@
         .controller('TodoController', TodoController);
 
     /* @ngInject */
-    function TodoController($scope, $state, $mdDialog) {
+    function TodoController($scope, $state, $mdDialog, TodoService) {
         var vm = this;
-        vm.todos = [
-            {description: 'Material Design', priority: 'high', selected: true},
-            {description: 'Install espresso machine', priority: 'high', selected: false},
-            {description: 'Deploy to Server', priority: 'medium', selected: true},
-            {description: 'Cloud Sync', priority: 'medium', selected: false},
-            {description: 'Test Configurations', priority: 'low', selected: false},
-            {description: 'Validate markup', priority: 'low', selected: false},
-            {description: 'Debug javascript', priority: 'low', selected: true},
-            {description: 'Arrange meeting', priority: 'low', selected: true}
-        ];
+
         vm.orderTodos = orderTodos;
         vm.removeTodo = removeTodo;
+        vm.todoSelected = todoSelected;
 
         //////////////////////////
+
+        function init() {
+            vm.todos = TodoService.getTodos();
+            TodoService.updateMenuBadge();
+        }
 
         function orderTodos(task) {
             switch(task.priority){
@@ -37,12 +34,16 @@
         }
 
         function removeTodo(todo){
-            for(var i = vm.todos.length - 1; i >= 0; i--) {
-                if(vm.todos[i] === todo) {
-                    vm.todos.splice(i, 1);
-                }
-            }
+            TodoService.removeTodo(todo);
         }
+
+        function todoSelected() {
+            TodoService.updateMenuBadge();
+        }
+
+        // init
+
+        init();
 
         // watches
 
@@ -53,8 +54,8 @@
                 controller: 'DialogController',
                 controllerAs: 'vm'
             })
-            .then(function(answer) {
-                vm.todos.push(answer);
+            .then(function(newTodo) {
+                TodoService.addTodo(newTodo);
             });
         });
     }

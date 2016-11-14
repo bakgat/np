@@ -1,8 +1,9 @@
 /* view change animation */
 .triangular-content {
-    /*&.ng-enter,
+    &.ng-enter,
     &.ng-leave {
       position: absolute;
+      top: 64px;
       width: 100%;
       height: 100%;
       transition: .5s;
@@ -14,5 +15,5 @@
 
     &.ng-leave {
       opacity: 0;
-    }*/
+    }
 }

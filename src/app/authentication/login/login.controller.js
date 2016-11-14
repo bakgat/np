@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($rootScope, $state, googleService, triSettings, UserService, HTTPCache) {
+    function LoginController($rootScope, $state, googleService, triSettings, UserService, HTTPCache, _env) {
         var vm = this;
         vm.loginClick = loginClick;
 
@@ -19,7 +19,7 @@
             googleService.login().then(function(user) {
                 HTTPCache.setDefaultHeaders({ Auth: user.auth_token });
 
-                $state.go('triangular.analytics');
+                $state.go(_env.redirectAfterLoginState);
             }, function(err) {
                 console.log('Failed: ' + err);
             });

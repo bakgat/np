@@ -71,15 +71,13 @@ gulp.task('images', function () {
     .pipe(gulp.dest(paths.dist + '/assets/images/'));
 });
 
-gulp.task('fonts', function() {
-    var files = $.mainBowerFiles();
-    files.push(paths.src + '/fonts/**/*');
-
-    return gulp.src(files)
-        .pipe($.filter('**/*.{eot,otf,svg,ttf,woff,woff2}'))
-        .pipe($.flatten())
-        .pipe(gulp.dest(paths.dist + '/fonts/'));
+gulp.task('fonts', function () {
+  return gulp.src($.mainBowerFiles())
+    .pipe($.filter('**/*.{eot,otf,svg,ttf,woff,woff2}'))
+    .pipe($.flatten())
+    .pipe(gulp.dest(paths.dist + '/fonts/'));
 });
+
 gulp.task('translations', function () {
   return gulp.src('src/**/i18n/*.json')
     .pipe(gulp.dest(paths.dist + '/'))

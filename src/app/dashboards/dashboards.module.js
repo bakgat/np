@@ -3,5 +3,6 @@
 
     angular
         .module('app.dashboards', [
+
         ]);
 })();

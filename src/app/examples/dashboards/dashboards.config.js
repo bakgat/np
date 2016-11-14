@@ -13,7 +13,7 @@
             abstract: true,
             views: {
                 sidebarLeft: {
-                    templateUrl: 'app/triangular/components/menu/menu.tmpl.html',
+                    templateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
                     controller: 'MenuController',
                     controllerAs: 'vm'
                 },
@@ -31,8 +31,28 @@
         })
         .state('triangular.dashboard-analytics', {
             url: '/dashboards/analytics',
-            templateUrl: 'app/examples/dashboards/analytics/dashboard-analytics.tmpl.html',
-            controller: 'DashboardAnalyticsController',
+            views: {
+                '': {
+                    templateUrl: 'app/examples/dashboards/analytics/analytics.tmpl.html',
+                    controller: 'DashboardAnalyticsController',
+                    controllerAs: 'vm'
+                },
+                'belowContent': {
+                    templateUrl: 'app/examples/dashboards/analytics/fab-button.tmpl.html',
+                    controller: 'DashboardAnalyticsFabButtonController',
+                    controllerAs: 'vm'
+                }
+            },
+            data: {
+                layout: {
+                    contentClass: 'analytics-dashboard'
+                }
+            }
+        })
+        .state('triangular.dashboard-classic', {
+            url: '/dashboards/classic',
+            templateUrl: 'app/examples/dashboards/classic/classic.tmpl.html',
+            controller: 'DashboardClassicController',
             controllerAs: 'vm'
         })
         .state('triangular.dashboard-server', {
@@ -94,6 +114,10 @@
             },{
                 name: 'Sales',
                 state: 'triangular.dashboard-sales',
+                type: 'link'
+            },{
+                name: 'Classic',
+                state: 'triangular.dashboard-classic',
                 type: 'link'
             },{
                 name: 'Server',

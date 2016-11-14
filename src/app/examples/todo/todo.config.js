@@ -35,12 +35,13 @@
         });
 
         triMenuProvider.addMenu({
+            id: 'todo',
             name: 'To do',
             icon: 'zmdi zmdi-check',
             state: 'triangular.todo',
             type: 'link',
             permission: 'viewTodo',
-            badge: Math.round(Math.random() * (20 - 1) + 1),
+            badge: '',
             priority: 2.4
         });
     }

@@ -7,7 +7,7 @@
             <md-card-content class="overflow-auto">
                 <md-list class="margin-bottom-10">
                     <md-list-item ng-repeat="todo in vm.todos | orderBy:vm.orderTodos" ng-class="{'md-primary': todo.priority === 'high', 'md-accent': todo.priority === 'medium', 'md-warn': todo.priority === 'low'}" class="slide" md-swipe-right="vm.removeTodo(todo)" md-no-ink>
-                        <md-checkbox ng-model="todo.selected"></md-checkbox>
+                        <md-checkbox ng-model="todo.selected" ng-change="vm.todoSelected()"></md-checkbox>
                         <p class="no-select">
                             {{::todo.description}}
                         </p>

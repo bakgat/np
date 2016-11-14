@@ -10,7 +10,6 @@
     width: 50px;
   }
   .widget-title {
-    
     .md-subhead, .md-body-1, .md-body-2 {
       margin: 0;
     }
@@ -80,8 +79,10 @@
     }
   }
   .chart-container {
-    flex: 1 1;
-    max-width: 100%;
+    flex: 1;
+    canvas {
+      height: auto !important;
+    }
   }
   .widget-loading {
     position: absolute;
@@ -98,6 +99,11 @@
       @include fadeOut();
     }
   }
+}
+
+// Ie fix for widgets
+.os-windows .widget.layout-column .widget-content {
+  display: block;
 }
 
 .widget[background] {
@@ -120,7 +126,7 @@ chart-legend ul {
     md-fab-speed-dial {
       position: absolute;
       top: -190px;
-      right: 42px;
+      right: 16px;
     }
   }
 }
@@ -260,17 +266,3 @@ $shadow-ambient-shadow-opacity: 0.12;
 .drag-container > .gu-transit {
   opacity: 0;
 }
-
-
-md-menu-item.divider {
-      height: 3px;
-      min-height: 3px;
-    }
-    md-menu-item {
-      height: 40px;
-      min-height: 40px;
-      .md-button {
-        line-height: 24px;
-        height: 24px;
-      }
-    }

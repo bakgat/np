@@ -6,7 +6,7 @@
         .controller('RightSidenavController', RightSidenavController);
 
     /* @ngInject */
-    function RightSidenavController($scope, $http, $mdSidenav, $state, API_CONFIG) {
+    function RightSidenavController($scope, $http, $mdSidenav, $state, _env) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
@@ -158,7 +158,14 @@
             vm.currentTab = tab;
         });
 
-        
+        // fetch some dummy emails from the API
+        $http({
+            method: 'GET',
+            url: _env.api + '/email/inbox'
+        }).success(function(data) {
+            vm.emails = data.slice(1,20);
+        });
+
         function openMail() {
             $state.go('triangular-no-scroll.email.inbox');
             vm.close();

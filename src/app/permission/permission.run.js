@@ -6,8 +6,8 @@
         .run(permissionRun);
 
     /* @ngInject */
-    function permissionRun($rootScope, $cookies, $state, PermPermissionStore, PermRoleStore, UserService) {
-       
+    function permissionRun($rootScope, $cookies, $state, PermPermissionStore, PermRoleStore, UserService, _) {
+
 
         // create permissions and add check function verify all permissions
         var permissions = [
@@ -16,23 +16,30 @@
             'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports',
             'manage', 'manageStudents', 'manageGroups', 'manageStaff',
             'addSunflowerEvaluation', 'addMultipleEvaluation'
-            ];
-        PermPermissionStore.defineManyPermissions(permissions, function (permissionName) {
+        ];
+
+
+        PermPermissionStore.defineManyPermissions(permissions, function(permissionName) {
             return UserService.hasPermission(permissionName);
         });
 
         // create roles for app
         PermRoleStore.defineManyRoles({
-            'SUPERADMIN': permissions, //ALLOW ALL FOR SA
-            'ADMIN': ['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports', 'manage', 'manageStudents', 'manageGroups', 'manageStaff'],
-            'TEACHER': ['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports'],
-            'SECRETARY': ['dashboards', 'manage', 'manageStudents', 'manageGroups', 'manageStaff'],
-            'MANAGER': ['dashboards', 'care', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports'],
-            'CAREMANAGER': ['dashboards', 'care','reporting', 'reportingEvaluations'],
-            'CARE': ['dashboards', 'care','reporting', 'reportingEvaluations'],
-            'ANONYMOUS': []
+            'SUPERADMIN': preparePermissions(permissions), //ALLOW ALL FOR SA
+            'ADMIN': preparePermissions(['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports', 'manage', 'manageStudents', 'manageGroups', 'manageStaff']),
+            'TEACHER': preparePermissions(['dashboards', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports']),
+            'SECRETARY': preparePermissions(['dashboards', 'manage', 'manageStudents', 'manageGroups', 'manageStaff']),
+            'MANAGER': preparePermissions(['dashboards', 'care', 'reporting', 'reportingEvaluations', 'reportingIAC', 'reportingReports']),
+            'CAREMANAGER': preparePermissions(['dashboards', 'care', 'reporting', 'reportingEvaluations']),
+            'CARE': preparePermissions(['dashboards', 'care', 'reporting', 'reportingEvaluations']),
+            'ANONYMOUS': preparePermissions([])
         });
 
+        function preparePermissions(perms) {
+            return function(perm) {
+                _.includes(perms, perm);
+            }
+        };
         ///////////////////////
 
         // default redirect if access is denied

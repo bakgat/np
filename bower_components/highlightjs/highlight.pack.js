@@ -1,4 +1,4 @@
-/*! highlight.js v9.6.0 | BSD3 License | git.io/hljslicense */
+/*! highlight.js v9.8.0 | BSD3 License | git.io/hljslicense */
 (function(factory) {
 
   // Find the global object for export to both the browser and web workers.
@@ -1405,9 +1405,9 @@ hljs.registerLanguage('cpp', function(hljs) {
   var NUMBERS = {
     className: 'number',
     variants: [
-      { begin: '\\b(0b[01\'_]+)' },
-      { begin: '\\b([\\d\'_]+(\\.[\\d\'_]*)?|\\.[\\d\'_]+)(u|U|l|L|ul|UL|f|F|b|B)' },
-      { begin: '(-?)(\\b0[xX][a-fA-F0-9\'_]+|(\\b[\\d\'_]+(\\.[\\d\'_]*)?|\\.[\\d\'_]+)([eE][-+]?[\\d\'_]+)?)' }
+      { begin: '\\b(0b[01\']+)' },
+      { begin: '\\b([\\d\']+(\\.[\\d\']*)?|\\.[\\d\']+)(u|U|l|L|ul|UL|f|F|b|B)' },
+      { begin: '(-?)(\\b0[xX][a-fA-F0-9\']+|(\\b[\\d\']+(\\.[\\d\']*)?|\\.[\\d\']+)([eE][-+]?[\\d\']+)?)' }
     ],
     relevance: 0
   };
@@ -2888,6 +2888,31 @@ hljs.registerLanguage('ceylon', function(hljs) {
   };
 });
 
+hljs.registerLanguage('clean', function(hljs) {
+  return {
+    aliases: ['clean','icl','dcl'],
+    keywords: {
+      keyword:
+        'if let in with where case of class instance otherwise ' +
+        'implementation definition system module from import qualified as ' +
+        'special code inline foreign export ccall stdcall generic derive ' +
+        'infix infixl infixr',
+      literal:
+        'True False'
+    },
+    contains: [
+
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+
+      {begin: '->|<-[|:]?|::|#!?|>>=|\\{\\||\\|\\}|:==|=:|\\.\\.|<>|`'} // relevance booster
+    ]
+  };
+});
+
 hljs.registerLanguage('clojure', function(hljs) {
   var keywords = {
     'builtin-name':
@@ -3641,16 +3666,16 @@ hljs.registerLanguage('cs', function(hljs) {
   var KEYWORDS = {
     keyword:
       // Normal keywords.
-      'abstract as base bool break byte case catch char checked const continue decimal dynamic ' +
+      'abstract as base bool break byte case catch char checked const continue decimal ' +
       'default delegate do double else enum event explicit extern finally fixed float ' +
-      'for foreach goto if implicit in int interface internal is lock long when ' +
+      'for foreach goto if implicit in int interface internal is lock long ' +
       'object operator out override params private protected public readonly ref sbyte ' +
       'sealed short sizeof stackalloc static string struct switch this try typeof ' +
-      'uint ulong unchecked unsafe ushort using virtual volatile void while async ' +
+      'uint ulong unchecked unsafe ushort using virtual void volatile while ' +
       'nameof ' +
       // Contextual keywords.
-      'ascending descending from get group into join let orderby partial select set value var ' +
-      'where yield',
+      'add alias ascending async await by descending dynamic equals from get global group into join ' +
+      'let on orderby partial remove select set value var where yield',
     literal:
       'null false true'
   };
@@ -3710,7 +3735,7 @@ hljs.registerLanguage('cs', function(hljs) {
     ]
   };
 
-  var TYPE_IDENT_RE = hljs.IDENT_RE + '(<' + hljs.IDENT_RE + '>)?(\\[\\])?';
+  var TYPE_IDENT_RE = hljs.IDENT_RE + '(<' + hljs.IDENT_RE + '(\\s*,\\s*' + hljs.IDENT_RE + ')*>)?(\\[\\])?';
   return {
     aliases: ['csharp'],
     keywords: KEYWORDS,
@@ -4406,7 +4431,11 @@ hljs.registerLanguage('delphi', function(hljs) {
     'xorwrite goto near function end div overload object unit begin string on inline repeat until ' +
     'destructor write message program with read initialization except default nil if case cdecl in ' +
     'downto threadvar of try pascal const external constructor type public then implementation ' +
-    'finally published procedure';
+    'finally published procedure absolute reintroduce operator as is abstract alias assembler ' +
+    'bitpacked break continue cppdecl cvar enumerator experimental platform deprecated ' +
+    'unimplemented dynamic export far16 forward generic helper implements interrupt iochecks ' +
+    'local name nodefault noreturn nostackframe oldfpccall otherwise saveregisters softfloat ' +
+    'specialize strict unaligned varargs ';
   var COMMENT_MODES = [
     hljs.C_LINE_COMMENT_MODE,
     hljs.COMMENT(
@@ -4603,28 +4632,21 @@ hljs.registerLanguage('dockerfile', function(hljs) {
   return {
     aliases: ['docker'],
     case_insensitive: true,
-    keywords: 'from maintainer cmd expose add copy entrypoint volume user workdir onbuild run env label',
+    keywords: 'from maintainer expose env user onbuild',
     contains: [
       hljs.HASH_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.NUMBER_MODE,
       {
-        keywords: 'run cmd entrypoint volume add copy workdir onbuild label',
-        begin: /^ *(onbuild +)?(run|cmd|entrypoint|volume|add|copy|workdir|label) +/,
+        beginKeywords: 'run cmd entrypoint volume add copy workdir label healthcheck',
         starts: {
           end: /[^\\]\n/,
           subLanguage: 'bash'
         }
-      },
-      {
-        keywords: 'from maintainer expose env user onbuild',
-        begin: /^ *(onbuild +)?(from|maintainer|expose|env|user|onbuild) +/, end: /[^\\]\n/,
-        contains: [
-          hljs.APOS_STRING_MODE,
-          hljs.QUOTE_STRING_MODE,
-          hljs.NUMBER_MODE,
-          hljs.HASH_COMMENT_MODE
-        ]
       }
-    ]
+    ],
+    illegal: '</'
   }
 });
 
@@ -5155,6 +5177,9 @@ hljs.registerLanguage('ruby', function(hljs) {
         // \B in the beginning suppresses recognition of ?-sequences where ?
         // is the last character of a preceding identifier, as in: `func?4`
         begin: /\B\?(\\\d{1,3}|\\x[A-Fa-f0-9]{1,2}|\\u[A-Fa-f0-9]{4}|\\?\S)\b/
+      },
+      {
+        begin: /<<(-?)\w+$/, end: /^\s*\w+$/,
       }
     ]
   };
@@ -5551,6 +5576,51 @@ hljs.registerLanguage('fix', function(hljs) {
     }],
     case_insensitive: true
   };
+});
+
+hljs.registerLanguage('flix', function (hljs) {
+
+    var CHAR = {
+        className: 'string',
+        begin: /'(.|\\[xXuU][a-zA-Z0-9]+)'/
+    };
+
+    var STRING = {
+        className: 'string',
+        variants: [
+            {
+                begin: '"', end: '"'
+            }
+        ]
+    };
+
+    var NAME = {
+        className: 'title',
+        begin: /[^0-9\n\t "'(),.`{}\[\]:;][^\n\t "'(),.`{}\[\]:;]+|[^0-9\n\t "'(),.`{}\[\]:;=]/
+    };
+
+    var METHOD = {
+        className: 'function',
+        beginKeywords: 'def',
+        end: /[:={\[(\n;]/,
+        excludeEnd: true,
+        contains: [NAME]
+    };
+
+    return {
+        keywords: {
+            literal: 'true false',
+            keyword: 'case class def else enum if impl import in lat rel index let match namespace switch type yield with'
+        },
+        contains: [
+            hljs.C_LINE_COMMENT_MODE,
+            hljs.C_BLOCK_COMMENT_MODE,
+            CHAR,
+            STRING,
+            METHOD,
+            hljs.C_NUMBER_MODE
+        ]
+    };
 });
 
 hljs.registerLanguage('fortran', function(hljs) {
@@ -6168,7 +6238,7 @@ hljs.registerLanguage('glsl', function(hljs) {
     keywords: {
       keyword:
         // Statements
-        'break continue discard do else for if return while' +
+        'break continue discard do else for if return while switch case default ' +
         // Qualifiers
         'attribute binding buffer ccw centroid centroid varying coherent column_major const cw ' +
         'depth_any depth_greater depth_less depth_unchanged early_fragment_tests equal_spacing ' +
@@ -6753,57 +6823,111 @@ hljs.registerLanguage('haxe', function(hljs) {
   var IDENT_RE = '[a-zA-Z_$][a-zA-Z0-9_$]*';
   var IDENT_FUNC_RETURN_TYPE_RE = '([*]|[a-zA-Z_$][a-zA-Z0-9_$]*)';
 
+  var HAXE_BASIC_TYPES = 'Int Float String Bool Dynamic Void Array ';
+
   return {
     aliases: ['hx'],
     keywords: {
-      keyword: 'break callback case cast catch class continue default do dynamic else enum extends extern ' +
-    'for function here if implements import in inline interface never new override package private ' +
-    'public return static super switch this throw trace try typedef untyped using var while',
-      literal: 'true false null'
+      keyword: 'break callback case cast catch continue default do dynamic else enum extern ' +
+               'for function here if import in inline never new override package private get set ' +
+               'public return static super switch this throw trace try typedef untyped using var while ' +
+               HAXE_BASIC_TYPES,
+      built_in:
+        'trace this',
+      literal:
+        'true false null _'
     },
     contains: [
-      hljs.APOS_STRING_MODE,
+      { className: 'string', // interpolate-able strings
+        begin: '\'', end: '\'',
+        contains: [
+          hljs.BACKSLASH_ESCAPE,
+          { className: 'subst', // interpolation
+            begin: '\\$\\{', end: '\\}'
+          },
+          { className: 'subst', // interpolation
+            begin: '\\$', end: '\\W}'
+          }
+        ]
+      },
       hljs.QUOTE_STRING_MODE,
       hljs.C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
       hljs.C_NUMBER_MODE,
-      {
-        className: 'class',
-        beginKeywords: 'class interface', end: '{', excludeEnd: true,
+      { className: 'meta', // compiler meta
+        begin: '@:', end: '$'
+      },
+      { className: 'meta', // compiler conditionals
+        begin: '#', end: '$',
+        keywords: {'meta-keyword': 'if else elseif end error'}
+      },
+      { className: 'type', // function types
+        begin: ':[ \t]*', end: '[^A-Za-z0-9_ \t\\->]',
+        excludeBegin: true, excludeEnd: true,
+        relevance: 0
+      },
+      { className: 'type', // types
+        begin: ':[ \t]*', end: '\\W',
+        excludeBegin: true, excludeEnd: true
+      },
+      { className: 'type', // instantiation
+        begin: 'new *', end: '\\W',
+        excludeBegin: true, excludeEnd: true
+      },
+      { className: 'class', // enums
+        beginKeywords: 'enum', end: '\\{',
         contains: [
-          {
-            beginKeywords: 'extends implements'
+          hljs.TITLE_MODE
+        ]
+      },
+      { className: 'class', // abstracts
+        beginKeywords: 'abstract', end: '[\\{$]',
+        contains: [
+          { className: 'type',
+            begin: '\\(', end: '\\)',
+            excludeBegin: true, excludeEnd: true
+          },
+          { className: 'type',
+            begin: 'from +', end: '\\W',
+            excludeBegin: true, excludeEnd: true
+          },
+          { className: 'type',
+            begin: 'to +', end: '\\W',
+            excludeBegin: true, excludeEnd: true
+          },
+          hljs.TITLE_MODE
+        ],
+        keywords: {
+          keyword: 'abstract from to'
+        }
+      },
+      { className: 'class', // classes
+        begin: '\\b(class|interface) +', end: '[\\{$]',  excludeEnd: true,
+        keywords: 'class interface',
+        contains: [
+          { className: 'keyword',
+            begin: '\\b(extends|implements) +',
+            keywords: 'extends implements',
+            contains: [
+              {
+                className: 'type',
+                begin: hljs.IDENT_RE,
+                relevance: 0
+              }
+            ]
           },
           hljs.TITLE_MODE
         ]
       },
-      {
-        className: 'meta',
-        begin: '#', end: '$',
-        keywords: {'meta-keyword': 'if else elseif end error'}
-      },
-      {
-        className: 'function',
-        beginKeywords: 'function', end: '[{;]', excludeEnd: true,
+      { className: 'function',
+        beginKeywords: 'function', end: '\\(', excludeEnd: true,
         illegal: '\\S',
         contains: [
-          hljs.TITLE_MODE,
-          {
-            className: 'params',
-            begin: '\\(', end: '\\)',
-            contains: [
-              hljs.APOS_STRING_MODE,
-              hljs.QUOTE_STRING_MODE,
-              hljs.C_LINE_COMMENT_MODE,
-              hljs.C_BLOCK_COMMENT_MODE
-            ]
-          },
-          {
-            begin: ':\\s*' + IDENT_FUNC_RETURN_TYPE_RE
-          }
+          hljs.TITLE_MODE
         ]
       }
-    ]
+    ],
+    illegal: /<\//
   };
 });
 
@@ -7165,13 +7289,14 @@ hljs.registerLanguage('irpf90', function(hljs) {
 });
 
 hljs.registerLanguage('java', function(hljs) {
-  var GENERIC_IDENT_RE = hljs.UNDERSCORE_IDENT_RE + '(<' + hljs.UNDERSCORE_IDENT_RE + '(\\s*,\\s*' + hljs.UNDERSCORE_IDENT_RE + ')*>)?';
+  var JAVA_IDENT_RE = '[\u00C0-\u02B8a-zA-Z_$][\u00C0-\u02B8a-zA-Z_$0-9]*';
+  var GENERIC_IDENT_RE = JAVA_IDENT_RE + '(<' + JAVA_IDENT_RE + '(\\s*,\\s*' + JAVA_IDENT_RE + ')*>)?';
   var KEYWORDS =
     'false synchronized int abstract float private char boolean static null if const ' +
     'for true while long strictfp finally protected import native final void ' +
     'enum else break transient catch instanceof byte super volatile case assert short ' +
     'package default double public try this switch continue throws protected public private ' +
-    'module requires exports';
+    'module requires exports do';
 
   // https://docs.oracle.com/javase/7/docs/technotes/guides/language/underscores-literals.html
   var JAVA_NUMBER_RE = '\\b' +
@@ -7272,28 +7397,66 @@ hljs.registerLanguage('java', function(hljs) {
 });
 
 hljs.registerLanguage('javascript', function(hljs) {
+  var IDENT_RE = '[A-Za-z$_][0-9A-Za-z$_]*';
+  var KEYWORDS = {
+    keyword:
+      'in of if for while finally var new function do return void else break catch ' +
+      'instanceof with throw case default try this switch continue typeof delete ' +
+      'let yield const export super debugger as async await static ' +
+      // ECMAScript 6 modules import
+      'import from as'
+    ,
+    literal:
+      'true false null undefined NaN Infinity',
+    built_in:
+      'eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent ' +
+      'encodeURI encodeURIComponent escape unescape Object Function Boolean Error ' +
+      'EvalError InternalError RangeError ReferenceError StopIteration SyntaxError ' +
+      'TypeError URIError Number Math Date String RegExp Array Float32Array ' +
+      'Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array ' +
+      'Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require ' +
+      'module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect ' +
+      'Promise'
+  };
+  var EXPRESSIONS;
+  var NUMBER = {
+    className: 'number',
+    variants: [
+      { begin: '\\b(0[bB][01]+)' },
+      { begin: '\\b(0[oO][0-7]+)' },
+      { begin: hljs.C_NUMBER_RE }
+    ],
+    relevance: 0
+  };
+  var SUBST = {
+    className: 'subst',
+    begin: '\\$\\{', end: '\\}',
+    keywords: KEYWORDS,
+    contains: []  // defined later
+  };
+  var TEMPLATE_STRING = {
+    className: 'string',
+    begin: '`', end: '`',
+    contains: [
+      hljs.BACKSLASH_ESCAPE,
+      SUBST
+    ]
+  };
+  SUBST.contains = [
+    hljs.APOS_STRING_MODE,
+    hljs.QUOTE_STRING_MODE,
+    TEMPLATE_STRING,
+    NUMBER,
+    hljs.REGEXP_MODE
+  ]
+  var PARAMS_CONTAINS = SUBST.contains.concat([
+    hljs.C_BLOCK_COMMENT_MODE,
+    hljs.C_LINE_COMMENT_MODE
+  ]);
+
   return {
     aliases: ['js', 'jsx'],
-    keywords: {
-      keyword:
-        'in of if for while finally var new function do return void else break catch ' +
-        'instanceof with throw case default try this switch continue typeof delete ' +
-        'let yield const export super debugger as async await static ' +
-        // ECMAScript 6 modules import
-        'import from as'
-      ,
-      literal:
-        'true false null undefined NaN Infinity',
-      built_in:
-        'eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent ' +
-        'encodeURI encodeURIComponent escape unescape Object Function Boolean Error ' +
-        'EvalError InternalError RangeError ReferenceError StopIteration SyntaxError ' +
-        'TypeError URIError Number Math Date String RegExp Array Float32Array ' +
-        'Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array ' +
-        'Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require ' +
-        'module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect ' +
-        'Promise'
-    },
+    keywords: KEYWORDS,
     contains: [
       {
         className: 'meta',
@@ -7306,27 +7469,19 @@ hljs.registerLanguage('javascript', function(hljs) {
       },
       hljs.APOS_STRING_MODE,
       hljs.QUOTE_STRING_MODE,
-      { // template string
-        className: 'string',
-        begin: '`', end: '`',
-        contains: [
-          hljs.BACKSLASH_ESCAPE,
-          {
-            className: 'subst',
-            begin: '\\$\\{', end: '\\}'
-          }
-        ]
-      },
+      TEMPLATE_STRING,
       hljs.C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
-      {
-        className: 'number',
-        variants: [
-          { begin: '\\b(0[bB][01]+)' },
-          { begin: '\\b(0[oO][0-7]+)' },
-          { begin: hljs.C_NUMBER_RE }
-        ],
-        relevance: 0
+      NUMBER,
+      { // object attr container
+        begin: /[{,]\s*/, relevance: 0,
+        contains: [
+          {
+            begin: IDENT_RE + '\\s*:', returnBegin: true,
+            relevance: 0,
+            contains: [{className: 'attr', begin: IDENT_RE, relevance: 0}]
+          }
+        ]
       },
       { // "value" container
         begin: '(' + hljs.RE_STARTERS_RE + '|\\b(case|return|throw)\\b)\\s*',
@@ -7335,12 +7490,42 @@ hljs.registerLanguage('javascript', function(hljs) {
           hljs.C_LINE_COMMENT_MODE,
           hljs.C_BLOCK_COMMENT_MODE,
           hljs.REGEXP_MODE,
+          {
+            className: 'function',
+            begin: '(\\(.*?\\)|' + IDENT_RE + ')\\s*=>', returnBegin: true,
+            end: '\\s*=>',
+            contains: [
+              {
+                className: 'params',
+                variants: [
+                  {
+                    begin: IDENT_RE
+                  },
+                  {
+                    begin: /\(\s*\)/,
+                  },
+                  {
+                    begin: /\(/, end: /\)/,
+                    excludeBegin: true, excludeEnd: true,
+                    keywords: KEYWORDS,
+                    contains: PARAMS_CONTAINS
+                  }
+                ]
+              }
+            ]
+          },
           { // E4X / JSX
             begin: /</, end: /(\/\w+|\w+\/)>/,
             subLanguage: 'xml',
             contains: [
               {begin: /<\w+\s*\/>/, skip: true},
-              {begin: /<\w+/, end: /(\/\w+|\w+\/)>/, skip: true, contains: ['self']}
+              {
+                begin: /<\w+/, end: /(\/\w+|\w+\/)>/, skip: true,
+                contains: [
+                  {begin: /<\w+\s*\/>/, skip: true},
+                  'self'
+                ]
+              }
             ]
           }
         ],
@@ -7350,16 +7535,13 @@ hljs.registerLanguage('javascript', function(hljs) {
         className: 'function',
         beginKeywords: 'function', end: /\{/, excludeEnd: true,
         contains: [
-          hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][0-9A-Za-z$_]*/}),
+          hljs.inherit(hljs.TITLE_MODE, {begin: IDENT_RE}),
           {
             className: 'params',
             begin: /\(/, end: /\)/,
             excludeBegin: true,
             excludeEnd: true,
-            contains: [
-              hljs.C_LINE_COMMENT_MODE,
-              hljs.C_BLOCK_COMMENT_MODE
-            ]
+            contains: PARAMS_CONTAINS
           }
         ],
         illegal: /\[|%/
@@ -8061,12 +8243,12 @@ hljs.registerLanguage('less', function(hljs) {
     variants: [{
       begin: '[\\.#:&\\[>]', end: '[;{}]'  // mixin calls end with ';'
       }, {
-      begin: INTERP_IDENT_RE + '[^;]*{',
-      end: '{'
+      begin: INTERP_IDENT_RE, end: '{'
     }],
     returnBegin: true,
     returnEnd:   true,
     illegal: '[<=\'$"]',
+    relevance: 0,
     contains: [
       hljs.C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
@@ -10226,65 +10408,86 @@ hljs.registerLanguage('nix', function(hljs) {
 hljs.registerLanguage('nsis', function(hljs) {
   var CONSTANTS = {
     className: 'variable',
-    begin: '\\$(ADMINTOOLS|APPDATA|CDBURN_AREA|CMDLINE|COMMONFILES32|COMMONFILES64|COMMONFILES|COOKIES|DESKTOP|DOCUMENTS|EXEDIR|EXEFILE|EXEPATH|FAVORITES|FONTS|HISTORY|HWNDPARENT|INSTDIR|INTERNET_CACHE|LANGUAGE|LOCALAPPDATA|MUSIC|NETHOOD|OUTDIR|PICTURES|PLUGINSDIR|PRINTHOOD|PROFILE|PROGRAMFILES32|PROGRAMFILES64|PROGRAMFILES|QUICKLAUNCH|RECENT|RESOURCES_LOCALIZED|RESOURCES|SENDTO|SMPROGRAMS|SMSTARTUP|STARTMENU|SYSDIR|TEMP|TEMPLATES|VIDEOS|WINDIR)'
+    begin: /\$(ADMINTOOLS|APPDATA|CDBURN_AREA|CMDLINE|COMMONFILES32|COMMONFILES64|COMMONFILES|COOKIES|DESKTOP|DOCUMENTS|EXEDIR|EXEFILE|EXEPATH|FAVORITES|FONTS|HISTORY|HWNDPARENT|INSTDIR|INTERNET_CACHE|LANGUAGE|LOCALAPPDATA|MUSIC|NETHOOD|OUTDIR|PICTURES|PLUGINSDIR|PRINTHOOD|PROFILE|PROGRAMFILES32|PROGRAMFILES64|PROGRAMFILES|QUICKLAUNCH|RECENT|RESOURCES_LOCALIZED|RESOURCES|SENDTO|SMPROGRAMS|SMSTARTUP|STARTMENU|SYSDIR|TEMP|TEMPLATES|VIDEOS|WINDIR)/
   };
 
   var DEFINES = {
     // ${defines}
     className: 'variable',
-    begin: '\\$+{[a-zA-Z0-9_]+}'
+    begin: /\$+{[\w\.:-]+}/
   };
 
   var VARIABLES = {
     // $variables
     className: 'variable',
-    begin: '\\$+[a-zA-Z0-9_]+',
-    illegal: '\\(\\){}'
+    begin: /\$+\w+/,
+    illegal: /\(\){}/
   };
 
   var LANGUAGES = {
     // $(language_strings)
     className: 'variable',
-    begin: '\\$+\\([a-zA-Z0-9_]+\\)'
+    begin: /\$+\([\w\^\.:-]+\)/
   };
 
   var PARAMETERS = {
     // command parameters
-    className: 'built_in',
+    className: 'params',
     begin: '(ARCHIVE|FILE_ATTRIBUTE_ARCHIVE|FILE_ATTRIBUTE_NORMAL|FILE_ATTRIBUTE_OFFLINE|FILE_ATTRIBUTE_READONLY|FILE_ATTRIBUTE_SYSTEM|FILE_ATTRIBUTE_TEMPORARY|HKCR|HKCU|HKDD|HKEY_CLASSES_ROOT|HKEY_CURRENT_CONFIG|HKEY_CURRENT_USER|HKEY_DYN_DATA|HKEY_LOCAL_MACHINE|HKEY_PERFORMANCE_DATA|HKEY_USERS|HKLM|HKPD|HKU|IDABORT|IDCANCEL|IDIGNORE|IDNO|IDOK|IDRETRY|IDYES|MB_ABORTRETRYIGNORE|MB_DEFBUTTON1|MB_DEFBUTTON2|MB_DEFBUTTON3|MB_DEFBUTTON4|MB_ICONEXCLAMATION|MB_ICONINFORMATION|MB_ICONQUESTION|MB_ICONSTOP|MB_OK|MB_OKCANCEL|MB_RETRYCANCEL|MB_RIGHT|MB_RTLREADING|MB_SETFOREGROUND|MB_TOPMOST|MB_USERICON|MB_YESNO|NORMAL|OFFLINE|READONLY|SHCTX|SHELL_CONTEXT|SYSTEM|TEMPORARY)'
   };
 
-  var COMPILER ={
+  var COMPILER = {
     // !compiler_flags
     className: 'keyword',
-    begin: '\\!(addincludedir|addplugindir|appendfile|cd|define|delfile|echo|else|endif|error|execute|finalize|getdllversionsystem|ifdef|ifmacrodef|ifmacrondef|ifndef|if|include|insertmacro|macroend|macro|makensis|packhdr|searchparse|searchreplace|tempfile|undef|verbose|warning)'
+    begin: /\!(addincludedir|addplugindir|appendfile|cd|define|delfile|echo|else|endif|error|execute|finalize|getdllversionsystem|ifdef|ifmacrodef|ifmacrondef|ifndef|if|include|insertmacro|macroend|macro|makensis|packhdr|searchparse|searchreplace|tempfile|undef|verbose|warning)/
+  };
+
+  var METACHARS = {
+    // $\n, $\r, $\t, $$
+    className: 'subst',
+    begin: /\$(\\[nrt]|\$)/
+  };
+
+  var PLUGINS = {
+    // plug::ins
+    className: 'class',
+    begin: /\w+\:\:\w+/
+  };
+
+    var STRING = {
+      className: 'string',
+      variants: [
+        {
+          begin: '"', end: '"'
+        },
+        {
+          begin: '\'', end: '\''
+        },
+        {
+          begin: '`', end: '`'
+        }
+      ],
+      illegal: /\n/,
+      contains: [
+        METACHARS,
+        CONSTANTS,
+        DEFINES,
+        VARIABLES,
+        LANGUAGES
+      ]
   };
 
   return {
     case_insensitive: false,
     keywords: {
       keyword:
-      'Abort AddBrandingImage AddSize AllowRootDirInstall AllowSkipFiles AutoCloseWindow BGFont BGGradient BrandingText BringToFront Call CallInstDLL Caption ChangeUI CheckBitmap ClearErrors CompletedText ComponentText CopyFiles CRCCheck CreateDirectory CreateFont CreateShortCut Delete DeleteINISec DeleteINIStr DeleteRegKey DeleteRegValue DetailPrint DetailsButtonText DirText DirVar DirVerify EnableWindow EnumRegKey EnumRegValue Exch Exec ExecShell ExecWait ExpandEnvStrings File FileBufSize FileClose FileErrorText FileOpen FileRead FileReadByte FileReadUTF16LE FileReadWord FileSeek FileWrite FileWriteByte FileWriteUTF16LE FileWriteWord FindClose FindFirst FindNext FindWindow FlushINI FunctionEnd GetCurInstType GetCurrentAddress GetDlgItem GetDLLVersion GetDLLVersionLocal GetErrorLevel GetFileTime GetFileTimeLocal GetFullPathName GetFunctionAddress GetInstDirError GetLabelAddress GetTempFileName Goto HideWindow Icon IfAbort IfErrors IfFileExists IfRebootFlag IfSilent InitPluginsDir InstallButtonText InstallColors InstallDir InstallDirRegKey InstProgressFlags InstType InstTypeGetText InstTypeSetText IntCmp IntCmpU IntFmt IntOp IsWindow LangString LicenseBkColor LicenseData LicenseForceSelection LicenseLangString LicenseText LoadLanguageFile LockWindow LogSet LogText ManifestDPIAware ManifestSupportedOS MessageBox MiscButtonText Name Nop OutFile Page PageCallbacks PageExEnd Pop Push Quit ReadEnvStr ReadINIStr ReadRegDWORD ReadRegStr Reboot RegDLL Rename RequestExecutionLevel ReserveFile Return RMDir SearchPath SectionEnd SectionGetFlags SectionGetInstTypes SectionGetSize SectionGetText SectionGroupEnd SectionIn SectionSetFlags SectionSetInstTypes SectionSetSize SectionSetText SendMessage SetAutoClose SetBrandingImage SetCompress SetCompressor SetCompressorDictSize SetCtlColors SetCurInstType SetDatablockOptimize SetDateSave SetDetailsPrint SetDetailsView SetErrorLevel SetErrors SetFileAttributes SetFont SetOutPath SetOverwrite SetPluginUnload SetRebootFlag SetRegView SetShellVarContext SetSilent ShowInstDetails ShowUninstDetails ShowWindow SilentInstall SilentUnInstall Sleep SpaceTexts StrCmp StrCmpS StrCpy StrLen SubCaption SubSectionEnd Unicode UninstallButtonText UninstallCaption UninstallIcon UninstallSubCaption UninstallText UninstPage UnRegDLL Var VIAddVersionKey VIFileVersion VIProductVersion WindowIcon WriteINIStr WriteRegBin WriteRegDWORD WriteRegExpandStr WriteRegStr WriteUninstaller XPStyle',
+      'Abort AddBrandingImage AddSize AllowRootDirInstall AllowSkipFiles AutoCloseWindow BGFont BGGradient BrandingText BringToFront Call CallInstDLL Caption ChangeUI CheckBitmap ClearErrors CompletedText ComponentText CopyFiles CRCCheck CreateDirectory CreateFont CreateShortCut Delete DeleteINISec DeleteINIStr DeleteRegKey DeleteRegValue DetailPrint DetailsButtonText DirText DirVar DirVerify EnableWindow EnumRegKey EnumRegValue Exch Exec ExecShell ExecWait ExpandEnvStrings File FileBufSize FileClose FileErrorText FileOpen FileRead FileReadByte FileReadUTF16LE FileReadWord FileSeek FileWrite FileWriteByte FileWriteUTF16LE FileWriteWord FindClose FindFirst FindNext FindWindow FlushINI FunctionEnd GetCurInstType GetCurrentAddress GetDlgItem GetDLLVersion GetDLLVersionLocal GetErrorLevel GetFileTime GetFileTimeLocal GetFullPathName GetFunctionAddress GetInstDirError GetLabelAddress GetTempFileName Goto HideWindow Icon IfAbort IfErrors IfFileExists IfRebootFlag IfSilent InitPluginsDir InstallButtonText InstallColors InstallDir InstallDirRegKey InstProgressFlags InstType InstTypeGetText InstTypeSetText IntCmp IntCmpU IntFmt IntOp IsWindow LangString LicenseBkColor LicenseData LicenseForceSelection LicenseLangString LicenseText LoadLanguageFile LockWindow LogSet LogText ManifestDPIAware ManifestSupportedOS MessageBox MiscButtonText Name Nop OutFile Page PageCallbacks PageExEnd Pop Push Quit ReadEnvStr ReadINIStr ReadRegDWORD ReadRegStr Reboot RegDLL Rename RequestExecutionLevel ReserveFile Return RMDir SearchPath SectionEnd SectionGetFlags SectionGetInstTypes SectionGetSize SectionGetText SectionGroupEnd SectionIn SectionSetFlags SectionSetInstTypes SectionSetSize SectionSetText SendMessage SetAutoClose SetBrandingImage SetCompress SetCompressor SetCompressorDictSize SetCtlColors SetCurInstType SetDatablockOptimize SetDateSave SetDetailsPrint SetDetailsView SetErrorLevel SetErrors SetFileAttributes SetFont SetOutPath SetOverwrite SetRebootFlag SetRegView SetShellVarContext SetSilent ShowInstDetails ShowUninstDetails ShowWindow SilentInstall SilentUnInstall Sleep SpaceTexts StrCmp StrCmpS StrCpy StrLen SubCaption Unicode UninstallButtonText UninstallCaption UninstallIcon UninstallSubCaption UninstallText UninstPage UnRegDLL Var VIAddVersionKey VIFileVersion VIProductVersion WindowIcon WriteINIStr WriteRegBin WriteRegDWORD WriteRegExpandStr WriteRegStr WriteUninstaller XPStyle',
       literal:
-      'admin all auto both colored current false force hide highest lastused leave listonly none normal notset off on open print show silent silentlog smooth textonly true user '
+      'admin all auto both bottom bzip2 colored components current custom directory false force hide highest ifdiff ifnewer instfiles lastused leave left license listonly lzma nevershow none normal notset off on open print right show silent silentlog smooth textonly top true try un.components un.custom un.directory un.instfiles un.license uninstConfirm user Win10 Win7 Win8 WinVista zlib'
     },
     contains: [
       hljs.HASH_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
-      {
-        className: 'string',
-        begin: '"', end: '"',
-        illegal: '\\n',
-        contains: [
-          { // $\n, $\r, $\t, $$
-            begin: '\\$(\\\\(n|r|t)|\\$)'
-          },
-          CONSTANTS,
-          DEFINES,
-          VARIABLES,
-          LANGUAGES
-        ]
-      },
       hljs.COMMENT(
         ';',
         '$',
@@ -10294,17 +10497,16 @@ hljs.registerLanguage('nsis', function(hljs) {
       ),
       {
         className: 'function',
-        beginKeywords: 'Function PageEx Section SectionGroup SubSection', end: '$'
+        beginKeywords: 'Function PageEx Section SectionGroup', end: '$'
       },
+      STRING,
       COMPILER,
       DEFINES,
       VARIABLES,
       LANGUAGES,
       PARAMETERS,
-      hljs.NUMBER_MODE,
-      { // plug::ins
-        begin: hljs.IDENT_RE + '::' + hljs.IDENT_RE
-      }
+      PLUGINS,
+      hljs.NUMBER_MODE
     ]
   };
 });
@@ -10982,7 +11184,7 @@ hljs.registerLanguage('powershell', function(hljs) {
     case_insensitive: true,
     keywords: {
       keyword: 'if else foreach return function do while until elseif begin for trap data dynamicparam end break throw param continue finally in switch exit filter try process catch',
-      built_in: 'Add-Computer Add-Content Add-History Add-JobTrigger Add-Member Add-PSSnapin Add-Type Checkpoint-Computer Clear-Content Clear-EventLog Clear-History Clear-Host Clear-Item Clear-ItemProperty Clear-Variable Compare-Object Complete-Transaction Connect-PSSession Connect-WSMan Convert-Path ConvertFrom-Csv ConvertFrom-Json ConvertFrom-SecureString ConvertFrom-StringData ConvertTo-Csv ConvertTo-Html ConvertTo-Json ConvertTo-SecureString ConvertTo-Xml Copy-Item Copy-ItemProperty Debug-Process Disable-ComputerRestore Disable-JobTrigger Disable-PSBreakpoint Disable-PSRemoting Disable-PSSessionConfiguration Disable-WSManCredSSP Disconnect-PSSession Disconnect-WSMan Disable-ScheduledJob Enable-ComputerRestore Enable-JobTrigger Enable-PSBreakpoint Enable-PSRemoting Enable-PSSessionConfiguration Enable-ScheduledJob Enable-WSManCredSSP Enter-PSSession Exit-PSSession Export-Alias Export-Clixml Export-Console Export-Counter Export-Csv Export-FormatData Export-ModuleMember Export-PSSession ForEach-Object Format-Custom Format-List Format-Table Format-Wide Get-Acl Get-Alias Get-AuthenticodeSignature Get-ChildItem Get-Command Get-ComputerRestorePoint Get-Content Get-ControlPanelItem Get-Counter Get-Credential Get-Culture Get-Date Get-Event Get-EventLog Get-EventSubscriber Get-ExecutionPolicy Get-FormatData Get-Host Get-HotFix Get-Help Get-History Get-IseSnippet Get-Item Get-ItemProperty Get-Job Get-JobTrigger Get-Location Get-Member Get-Module Get-PfxCertificate Get-Process Get-PSBreakpoint Get-PSCallStack Get-PSDrive Get-PSProvider Get-PSSession Get-PSSessionConfiguration Get-PSSnapin Get-Random Get-ScheduledJob Get-ScheduledJobOption Get-Service Get-TraceSource Get-Transaction Get-TypeData Get-UICulture Get-Unique Get-Variable Get-Verb Get-WinEvent Get-WmiObject Get-WSManCredSSP Get-WSManInstance Group-Object Import-Alias Import-Clixml Import-Counter Import-Csv Import-IseSnippet Import-LocalizedData Import-PSSession Import-Module Invoke-AsWorkflow Invoke-Command Invoke-Expression Invoke-History Invoke-Item Invoke-RestMethod Invoke-WebRequest Invoke-WmiMethod Invoke-WSManAction Join-Path Limit-EventLog Measure-Command Measure-Object Move-Item Move-ItemProperty New-Alias New-Event New-EventLog New-IseSnippet New-Item New-ItemProperty New-JobTrigger New-Object New-Module New-ModuleManifest New-PSDrive New-PSSession New-PSSessionConfigurationFile New-PSSessionOption New-PSTransportOption New-PSWorkflowExecutionOption New-PSWorkflowSession New-ScheduledJobOption New-Service New-TimeSpan New-Variable New-WebServiceProxy New-WinEvent New-WSManInstance New-WSManSessionOption Out-Default Out-File Out-GridView Out-Host Out-Null Out-Printer Out-String Pop-Location Push-Location Read-Host Receive-Job Register-EngineEvent Register-ObjectEvent Register-PSSessionConfiguration Register-ScheduledJob Register-WmiEvent Remove-Computer Remove-Event Remove-EventLog Remove-Item Remove-ItemProperty Remove-Job Remove-JobTrigger Remove-Module Remove-PSBreakpoint Remove-PSDrive Remove-PSSession Remove-PSSnapin Remove-TypeData Remove-Variable Remove-WmiObject Remove-WSManInstance Rename-Computer Rename-Item Rename-ItemProperty Reset-ComputerMachinePassword Resolve-Path Restart-Computer Restart-Service Restore-Computer Resume-Job Resume-Service Save-Help Select-Object Select-String Select-Xml Send-MailMessage Set-Acl Set-Alias Set-AuthenticodeSignature Set-Content Set-Date Set-ExecutionPolicy Set-Item Set-ItemProperty Set-JobTrigger Set-Location Set-PSBreakpoint Set-PSDebug Set-PSSessionConfiguration Set-ScheduledJob Set-ScheduledJobOption Set-Service Set-StrictMode Set-TraceSource Set-Variable Set-WmiInstance Set-WSManInstance Set-WSManQuickConfig Show-Command Show-ControlPanelItem Show-EventLog Sort-Object Split-Path Start-Job Start-Process Start-Service Start-Sleep Start-Transaction Start-Transcript Stop-Computer Stop-Job Stop-Process Stop-Service Stop-Transcript Suspend-Job Suspend-Service Tee-Object Test-ComputerSecureChannel Test-Connection Test-ModuleManifest Test-Path Test-PSSessionConfigurationFile Trace-Command Unblock-File Undo-Transaction Unregister-Event Unregister-PSSessionConfiguration Unregister-ScheduledJob Update-FormatData Update-Help Update-List Update-TypeData Use-Transaction Wait-Event Wait-Job Wait-Process Where-Object Write-Debug Write-Error Write-EventLog Write-Host Write-Output Write-Progress Write-Verbose Write-Warning',
+      built_in: 'Add-Computer Add-Content Add-History Add-JobTrigger Add-Member Add-PSSnapin Add-Type Checkpoint-Computer Clear-Content Clear-EventLog Clear-History Clear-Host Clear-Item Clear-ItemProperty Clear-Variable Compare-Object Complete-Transaction Connect-PSSession Connect-WSMan Convert-Path ConvertFrom-Csv ConvertFrom-Json ConvertFrom-SecureString ConvertFrom-StringData ConvertTo-Csv ConvertTo-Html ConvertTo-Json ConvertTo-SecureString ConvertTo-Xml Copy-Item Copy-ItemProperty Debug-Process Disable-ComputerRestore Disable-JobTrigger Disable-PSBreakpoint Disable-PSRemoting Disable-PSSessionConfiguration Disable-WSManCredSSP Disconnect-PSSession Disconnect-WSMan Disable-ScheduledJob Enable-ComputerRestore Enable-JobTrigger Enable-PSBreakpoint Enable-PSRemoting Enable-PSSessionConfiguration Enable-ScheduledJob Enable-WSManCredSSP Enter-PSSession Exit-PSSession Export-Alias Export-Clixml Export-Console Export-Counter Export-Csv Export-FormatData Export-ModuleMember Export-PSSession ForEach-Object Format-Custom Format-List Format-Table Format-Wide Get-Acl Get-Alias Get-AuthenticodeSignature Get-ChildItem Get-Command Get-ComputerRestorePoint Get-Content Get-ControlPanelItem Get-Counter Get-Credential Get-Culture Get-Date Get-Event Get-EventLog Get-EventSubscriber Get-ExecutionPolicy Get-FormatData Get-Host Get-HotFix Get-Help Get-History Get-IseSnippet Get-Item Get-ItemProperty Get-Job Get-JobTrigger Get-Location Get-Member Get-Module Get-PfxCertificate Get-Process Get-PSBreakpoint Get-PSCallStack Get-PSDrive Get-PSProvider Get-PSSession Get-PSSessionConfiguration Get-PSSnapin Get-Random Get-ScheduledJob Get-ScheduledJobOption Get-Service Get-TraceSource Get-Transaction Get-TypeData Get-UICulture Get-Unique Get-Variable Get-Verb Get-WinEvent Get-WmiObject Get-WSManCredSSP Get-WSManInstance Group-Object Import-Alias Import-Clixml Import-Counter Import-Csv Import-IseSnippet Import-LocalizedData Import-PSSession Import-Module Invoke-AsWorkflow Invoke-Command Invoke-Expression Invoke-History Invoke-Item Invoke-RestMethod Invoke-WebRequest Invoke-WmiMethod Invoke-WSManAction Join-Path Limit-EventLog Measure-Command Measure-Object Move-Item Move-ItemProperty New-Alias New-Event New-EventLog New-IseSnippet New-Item New-ItemProperty New-JobTrigger New-Object New-Module New-ModuleManifest New-PSDrive New-PSSession New-PSSessionConfigurationFile New-PSSessionOption New-PSTransportOption New-PSWorkflowExecutionOption New-PSWorkflowSession New-ScheduledJobOption New-Service New-TimeSpan New-Variable New-WebServiceProxy New-WinEvent New-WSManInstance New-WSManSessionOption Out-Default Out-File Out-GridView Out-Host Out-Null Out-Printer Out-String Pop-Location Push-Location Read-Host Receive-Job Register-EngineEvent Register-ObjectEvent Register-PSSessionConfiguration Register-ScheduledJob Register-WmiEvent Remove-Computer Remove-Event Remove-EventLog Remove-Item Remove-ItemProperty Remove-Job Remove-JobTrigger Remove-Module Remove-PSBreakpoint Remove-PSDrive Remove-PSSession Remove-PSSnapin Remove-TypeData Remove-Variable Remove-WmiObject Remove-WSManInstance Rename-Computer Rename-Item Rename-ItemProperty Reset-ComputerMachinePassword Resolve-Path Restart-Computer Restart-Service Restore-Computer Resume-Job Resume-Service Save-Help Select-Object Select-String Select-Xml Send-MailMessage Set-Acl Set-Alias Set-AuthenticodeSignature Set-Content Set-Date Set-ExecutionPolicy Set-Item Set-ItemProperty Set-JobTrigger Set-Location Set-PSBreakpoint Set-PSDebug Set-PSSessionConfiguration Set-ScheduledJob Set-ScheduledJobOption Set-Service Set-StrictMode Set-TraceSource Set-Variable Set-WmiInstance Set-WSManInstance Set-WSManQuickConfig Show-Command Show-ControlPanelItem Show-EventLog Sort-Object Split-Path Start-Job Start-Process Start-Service Start-Sleep Start-Transaction Start-Transcript Stop-Computer Stop-Job Stop-Process Stop-Service Stop-Transcript Suspend-Job Suspend-Service Tee-Object Test-ComputerSecureChannel Test-Connection Test-ModuleManifest Test-Path Test-PSSessionConfigurationFile Trace-Command Unblock-File Undo-Transaction Unregister-Event Unregister-PSSessionConfiguration Unregister-ScheduledJob Update-FormatData Update-Help Update-List Update-TypeData Use-Transaction Wait-Event Wait-Job Wait-Process Where-Object Write-Debug Write-Error Write-EventLog Write-Host Write-Output Write-Progress Write-Verbose Write-Warning Add-MDTPersistentDrive Disable-MDTMonitorService Enable-MDTMonitorService Get-MDTDeploymentShareStatistics Get-MDTMonitorData Get-MDTOperatingSystemCatalog Get-MDTPersistentDrive Import-MDTApplication Import-MDTDriver Import-MDTOperatingSystem Import-MDTPackage Import-MDTTaskSequence New-MDTDatabase Remove-MDTMonitorData Remove-MDTPersistentDrive Restore-MDTPersistentDrive Set-MDTMonitorData Test-MDTDeploymentShare Test-MDTMonitorData Update-MDTDatabaseSchema Update-MDTDeploymentShare Update-MDTLinkedDS Update-MDTMedia Update-MDTMedia Add-VamtProductKey Export-VamtData Find-VamtManagedMachine Get-VamtConfirmationId Get-VamtProduct Get-VamtProductKey Import-VamtData Initialize-VamtData Install-VamtConfirmationId Install-VamtProductActivation Install-VamtProductKey Update-VamtProduct',
       nomarkup: '-ne -eq -lt -gt -ge -le -not -like -notlike -match -notmatch -contains -notcontains -in -notin -replace'
     },
     contains: [
@@ -11431,7 +11633,7 @@ hljs.registerLanguage('python', function(hljs) {
       built_in:
         'Ellipsis NotImplemented'
     },
-    illegal: /(<\/|->|\?)/,
+    illegal: /(<\/|->|\?)|=>/,
     contains: [
       PROMPT,
       NUMBER,
@@ -11439,7 +11641,7 @@ hljs.registerLanguage('python', function(hljs) {
       hljs.HASH_COMMENT_MODE,
       {
         variants: [
-          {className: 'function', beginKeywords: 'def', relevance: 10},
+          {className: 'function', beginKeywords: 'def'},
           {className: 'class', beginKeywords: 'class'}
         ],
         end: /:/,
@@ -11919,8 +12121,6 @@ hljs.registerLanguage('ruleslanguage', function(hljs) {
 
 hljs.registerLanguage('rust', function(hljs) {
   var NUM_SUFFIX = '([uif](8|16|32|64|size))\?';
-  var BLOCK_COMMENT = hljs.inherit(hljs.C_BLOCK_COMMENT_MODE);
-  BLOCK_COMMENT.contains.push('self');
   var KEYWORDS =
     'alignof as be box break const continue crate do else enum extern ' +
     'false fn for if impl in let loop match mod mut offsetof once priv ' +
@@ -11956,7 +12156,7 @@ hljs.registerLanguage('rust', function(hljs) {
     illegal: '</',
     contains: [
       hljs.C_LINE_COMMENT_MODE,
-      BLOCK_COMMENT,
+      hljs.COMMENT('/\\*', '\\*/', {contains: ['self']}),
       hljs.inherit(hljs.QUOTE_STRING_MODE, {begin: /b?"/, illegal: null}),
       {
         className: 'string',
@@ -13910,7 +14110,7 @@ hljs.registerLanguage('swift', function(hljs) {
 
   var TYPE = {
     className: 'type',
-    begin: '\\b[A-Z][\\w\']*',
+    begin: '\\b[A-Z][\\w\u00C0-\u02B8\']*',
     relevance: 0
   };
   var BLOCK_COMMENT = hljs.COMMENT(
@@ -13977,7 +14177,7 @@ hljs.registerLanguage('swift', function(hljs) {
         end: '\\{',
         excludeEnd: true,
         contains: [
-          hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][0-9A-Za-z$_]*/})
+          hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][\u00C0-\u02B80-9A-Za-z$_]*/})
         ]
       },
       {
@@ -14851,8 +15051,8 @@ hljs.registerLanguage('vhdl', function(hljs) {
     case_insensitive: true,
     keywords: {
       keyword:
-        'abs access after alias all and architecture array assert attribute begin block ' +
-        'body buffer bus case component configuration constant context cover disconnect ' +
+        'abs access after alias all and architecture array assert assume assume_guarantee attribute ' +
+        'begin block body buffer bus case component configuration constant context cover disconnect ' +
         'downto default else elsif end entity exit fairness file for force function generate ' +
         'generic group guarded if impure in inertial inout is label library linkage literal ' +
         'loop map mod nand new next nor not null of on open or others out package port ' +
@@ -14861,14 +15061,19 @@ hljs.registerLanguage('vhdl', function(hljs) {
         'severity shared signal sla sll sra srl strong subtype then to transport type ' +
         'unaffected units until use variable vmode vprop vunit wait when while with xnor xor',
       built_in:
-        'boolean bit character severity_level integer time delay_length natural positive ' +
-        'string bit_vector file_open_kind file_open_status std_ulogic std_ulogic_vector ' +
+        'boolean bit character ' +
+        'integer time delay_length natural positive ' +
+        'string bit_vector file_open_kind file_open_status ' +
         'std_logic std_logic_vector unsigned signed boolean_vector integer_vector ' +
-        'real_vector time_vector'
+        'std_ulogic std_ulogic_vector unresolved_unsigned u_unsigned unresolved_signed u_signed' +
+        'real_vector time_vector',
+      literal:
+        'false true note warning error failure ' +  // severity_level
+        'line text side width'                      // textio
     },
     illegal: '{',
     contains: [
-      hljs.C_BLOCK_COMMENT_MODE,        // VHDL-2008 block commenting.
+      hljs.C_BLOCK_COMMENT_MODE,      // VHDL-2008 block commenting.
       hljs.COMMENT('--', '$'),
       hljs.QUOTE_STRING_MODE,
       {
@@ -14877,7 +15082,7 @@ hljs.registerLanguage('vhdl', function(hljs) {
         relevance: 0
       },
       {
-        className: 'literal',
+        className: 'string',
         begin: '\'(U|X|0|1|Z|W|L|H|-)\'',
         contains: [hljs.BACKSLASH_ESCAPE]
       },

@@ -23,7 +23,7 @@
     }
 
     /* @ngInject */
-    function triMenuItemController($scope, $mdSidenav, $state, $filter, triBreadcrumbsService) {
+    function triMenuItemController($scope, $injector, $mdSidenav, $state, $filter, $window, triBreadcrumbsService) {
         var triMenuItem = this;
         // load a template for this directive based on the type ( link | dropdown )
         triMenuItem.item.template = 'app/triangular/components/menu/menu-item-' + triMenuItem.item.type + '.tmpl.html';
@@ -79,8 +79,19 @@
         }
 
         function openLink() {
-            var params = angular.isUndefined(triMenuItem.item.params) ? {} : triMenuItem.item.params;
-            $state.go(triMenuItem.item.state, params);
+            if(angular.isDefined(triMenuItem.item.click)) {
+                $injector.invoke(triMenuItem.item.click);
+            }
+            else {
+                var params = angular.isUndefined(triMenuItem.item.params) ? {} : triMenuItem.item.params;
+                if(angular.isDefined(triMenuItem.item.openInNewTab) && triMenuItem.item.openInNewTab === true) {
+                    var url = $state.href(triMenuItem.item.state, params);
+                    $window.open(url, '_blank');
+                }
+                else {
+                    $state.go(triMenuItem.item.state, params);
+                }
+            }
             triMenuItem.item.active = true;
             $mdSidenav('left').close();
         }
