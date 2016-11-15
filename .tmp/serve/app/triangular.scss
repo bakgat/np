@@ -29,6 +29,17 @@ $layout-breakpoint-lg:     1920px !default;
     min-height: 100%;
   }
 }
+.fullwidth-dialog {
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+
+  md-dialog-content {
+    max-width: none;
+    max-height: none;
+  }
+}
 // Overrides
 
 a {

@@ -6,33 +6,53 @@
         .controller('StudentIACController', StudentIACController);
 
     /* @ngInject */
-    function StudentIACController($state, iac) {
+    function StudentIACController($state, $mdDialog, iac) {
         var vm = this;
 
         vm.isAchieved = isAchieved;
         vm.isPractice = isPractice;
-        
-        vm.iac = {
-          goals: iac
-        }
-        
+        vm.editIac = editIac;
+
+        vm.iac = iac;
+
 
         function init() {
 
         }
 
         function isAchieved(goal) {
-            if(goal.isAchieved == null) {
+            if (goal.achieved == null) {
                 return '';
             }
-            return goal.isAchieved ? 'zmdi zmdi-check-square' : '';
+            return goal.achieved ? 'zmdi zmdi-check' : '';
         }
 
         function isPractice(goal) {
-            if(goal.isPractice == null) {
+            if (goal.practice == null) {
                 return '';
             }
-            return goal.isPractice ? 'zmdi zmdi-block' : '';
+            return goal.practice ? 'zmdi zmdi-check' : '';
+        }
+
+        function editIac($event) {
+            $mdDialog.show({
+                    controller: 'IacDialogController',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/reporting/iac/iac-dialog.tmpl.html',
+                    targetEvent: $event,
+                    locals: {
+                        iac: vm.iac
+                    },
+                    focusOnOpen: false
+                })
+                .then(function(iac) {
+                    iac.save();
+                }, cancelEvaluation);
+
+            function cancelEvaluation() {
+                console.log('cancel');
+            }
+
         }
     }
 })();

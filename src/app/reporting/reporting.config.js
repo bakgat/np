@@ -29,7 +29,7 @@
                         }
                     }
                 })
-                .state('triangular.reporting.iac', {
+                .state('triangular.reporting.iacs', {
                     url: '/iac',
                     views: {
                         '@triangular': {
@@ -39,25 +39,34 @@
                             controllerAs: 'vm'
                         }
                     },
+                    resolve: {
+                        iacs: function(IacService, UserService) {
+                            return UserService.getActiveGroup().then(function(response) {
+                                return IacService.getList({'group': response.id});
+                            });
+                        }
+                    },
                     data: {
                         permissions: {
                             only: ['reportingIAC']
                         }
                     }
                 })
-                .state('triangular.reporting.iac.student', {
-                    url: '/student/:studentId',
+                .state('triangular.reporting.iacs.iac', {
+                    url: '/iac/:iacId',
                     templateUrl: 'app/reporting/iac/student-iac.tmpl.html',
                     controller: 'StudentIACController',
                     controllerAs: 'vm',
                     resolve: {
-                        iac: function() {
-                            return [
-                                { text: 'Optellen tot 10 zonder brug', isAchieved: true, isPractice: false, comment: 'Prima gedaan!' },
-                                { text: 'Optellen tot 20 zonder brug', isAchieved: true, isPractice: false, comment: '' },
-                                { text: 'Optellen tot 20 met brug', isAchieved: null, isPractice: null, comment: null },
-                                { text: 'Aftrekken tot 10 zonder brug', isAchieved: false, isPractice: true, comment: 'Nog veel werk, Marina!' },
-                            ];
+                        iac: function($stateParams, iacs) {
+                            var id = $stateParams.iacId;
+                            var foundIac = false;
+                            for (var i = 0; i < iacs.length; i++) {
+                                if (id == iacs[i].id) {
+                                    foundIac = iacs[i];
+                                }
+                            }
+                            return foundIac;
                         }
                     }
                 })
@@ -124,18 +133,19 @@
                         icon: 'zmdi zmdi-keyboard',
                         type: 'link',
                         permission: 'reportingEvaluations'
-                    }
-                    /*, {
+                    }, {
                         name: 'Aangepaste leerlijnen',
-                        state: 'triangular.reporting.iac',
+                        state: 'triangular.reporting.iacs',
                         icon: 'zmdi zmdi-arrow-split',
                         type: 'link'
-                    }, {
-                        name: 'Rapporten',
-                        state: 'triangular.reporting.reports',
-                        icon: 'zmdi zmdi-print',
-                        type: 'link'
-                    }*/
+                    }
+                    /*, 
+                                        {
+                                            name: 'Rapporten',
+                                            state: 'triangular.reporting.reports',
+                                            icon: 'zmdi zmdi-print',
+                                            type: 'link'
+                                        }*/
                 ]
             });
         }

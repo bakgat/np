@@ -1,0 +1,47 @@
+<md-dialog class="fullwidth-dialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Leerlijn aanpassen
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="group-compose-dialog md-padding">
+        <form name="iac" novalidate>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                        <tr md-row>
+                            <th md-column><span>Doel</span></th>
+                            <th md-column><span>Behaald</span></th>
+                            <th md-column><span>Oefenen</span></th>
+                            <th md-column><span>Opmerking</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="ig in vm.iac.iacGoals">
+                            <td md-cell>{{::ig.goal.text}}</td>
+                            <td md-cell>
+                                <md-checkbox ng-model="ig.achieved" aria-label="Behaald"></md-checkbox>
+                            </td>
+                            <td md-cell>
+                                <md-checkbox ng-model="ig.practice" aria-label="Oefenen"></md-checkbox>
+                            </td>
+                            <td md-cell ng-click="vm.editComment($event, ig)" ng-class="{'md-placeholder': !ig.comment}">
+                                {{ig.comment || 'Opmerking toevoegen'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="vm.cancel()">Annuleren</md-button>
+        <md-button class="md-primary" ng-click="vm.save()" ng-disabled="profile.$invalid">Opslaan</md-button>
+    </md-dialog-actions>
+</md-dialog>
