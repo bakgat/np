@@ -28288,44 +28288,6 @@ md-card md-card-footer {
   md-card {
     border: 1px solid #fff; } }
 
-#admin-panel {
-  overflow: hidden;
-  position: relative; }
-  #admin-panel > md-content {
-    z-index: 3; }
-
-#admin-panel-content-view {
-  display: block;
-  position: relative;
-  padding-bottom: 65px;
-  min-height: calc(100vh - 64px);
-  -webkit-backface-visibility: hidden; }
-
-.admin-sidebar-left, .triangular-sidenav-left {
-  overflow-x: hidden; }
-  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
-    min-height: 100%;
-    overflow-x: hidden; }
-
-.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  -ms-overflow-style: none;
-  /* ie fix for removing scrollbars */ }
-  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
-    min-width: 48px;
-    max-width: 48px;
-    -webkit-transition: all .3s;
-    transition: all .3s; }
-    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
-      min-width: 260px;
-      max-width: 260px; }
-
-.admin-toolbar {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  z-index: 4; }
-
 #footer {
   box-shadow: 0 -2px 6px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -28959,6 +28921,44 @@ chart-legend ul {
 [tri-wizard] .wizard-navbar {
   background-color: white; }
 
+#admin-panel {
+  overflow: hidden;
+  position: relative; }
+  #admin-panel > md-content {
+    z-index: 3; }
+
+#admin-panel-content-view {
+  display: block;
+  position: relative;
+  padding-bottom: 65px;
+  min-height: calc(100vh - 64px);
+  -webkit-backface-visibility: hidden; }
+
+.admin-sidebar-left, .triangular-sidenav-left {
+  overflow-x: hidden; }
+  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
+    min-height: 100%;
+    overflow-x: hidden; }
+
+.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  -ms-overflow-style: none;
+  /* ie fix for removing scrollbars */ }
+  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
+    min-width: 48px;
+    max-width: 48px;
+    -webkit-transition: all .3s;
+    transition: all .3s; }
+    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
+      min-width: 260px;
+      max-width: 260px; }
+
+.admin-toolbar {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
+  z-index: 4; }
+
 /* this was added to fix a bug in Safari */
 /* https://github.com/oxygenna/triangular/issues/126 */
 .triangular-content > div {
@@ -29259,6 +29259,9 @@ md-icon.pf-placeholder {
   md-icon.pf-placeholder.is-final {
     color: #ff5722; }
 
+.seed-list {
+  list-style: lower-greek; }
+
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29469,9 +29472,6 @@ md-icon.pf-placeholder {
 
 .notos-SF:before {
   content: ""; }
-
-.seed-list {
-  list-style: lower-greek; }
 
 .login-frame md-card {
   max-width: 400px;
@@ -29974,6 +29974,82 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
     right: 0px;
     left: 0px; }
 
+.elements-button-examples md-card-content {
+  min-height: 100px; }
+
+.elements-buttons-raised-usage {
+  width: 400px; }
+  .elements-buttons-raised-usage .elements-raised-content {
+    padding: 16px; }
+  .elements-buttons-raised-usage .elements-raised-buttons {
+    padding: 16px; }
+    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
+      margin-left: 5px; }
+
+.elements-buttons-fab-usage {
+  position: relative; }
+  .elements-buttons-fab-usage .md-fab {
+    position: absolute;
+    bottom: 26px;
+    right: 26px; }
+
+.elements-icons md-content {
+  min-width: 400px;
+  height: 500px; }
+  .elements-icons md-content .md-font {
+    font-size: 24px; }
+
+.elements-icon-size-1 {
+  width: 16px;
+  height: 16px; }
+  .elements-icon-size-1 span {
+    font-size: 16px; }
+
+.elements-icon-size-2 {
+  width: 24px;
+  height: 24px; }
+  .elements-icon-size-2 span {
+    font-size: 24px; }
+
+.elements-icon-size-3 {
+  width: 32px;
+  height: 32px; }
+  .elements-icon-size-3 span {
+    font-size: 32px; }
+
+.elements-icon-size-4 {
+  width: 48px;
+  height: 48px; }
+  .elements-icon-size-4 span {
+    font-size: 48px; }
+
+.elements-icons-preview .md-button md-icon {
+  font-size: 24px; }
+
+.elements-icons-preview .elements-icon-small {
+  font-size: 16px;
+  width: 16px;
+  height: 16px; }
+
+.elements-radio-avatar img {
+  width: 150px; }
+
+.example-tabs-content md-content {
+  background: none !important; }
+
+.elements-grids-example md-grid-tile {
+  background-size: 100%; }
+
+.elements-sidebar-example md-sidenav md-content {
+  background: none; }
+
+.elements-sidebar-example .md-button {
+  margin: 0px 20px; }
+
+.elements-whiteframe-example md-whiteframe {
+  min-width: 500px;
+  background-color: white; }
+
 .todo-container .slide.ng-enter {
   -webkit-animation-name: slideInRight;
   animation-name: slideInRight;
@@ -30092,82 +30168,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
-
-.elements-button-examples md-card-content {
-  min-height: 100px; }
-
-.elements-buttons-raised-usage {
-  width: 400px; }
-  .elements-buttons-raised-usage .elements-raised-content {
-    padding: 16px; }
-  .elements-buttons-raised-usage .elements-raised-buttons {
-    padding: 16px; }
-    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
-      margin-left: 5px; }
-
-.elements-buttons-fab-usage {
-  position: relative; }
-  .elements-buttons-fab-usage .md-fab {
-    position: absolute;
-    bottom: 26px;
-    right: 26px; }
-
-.elements-icons md-content {
-  min-width: 400px;
-  height: 500px; }
-  .elements-icons md-content .md-font {
-    font-size: 24px; }
-
-.elements-icon-size-1 {
-  width: 16px;
-  height: 16px; }
-  .elements-icon-size-1 span {
-    font-size: 16px; }
-
-.elements-icon-size-2 {
-  width: 24px;
-  height: 24px; }
-  .elements-icon-size-2 span {
-    font-size: 24px; }
-
-.elements-icon-size-3 {
-  width: 32px;
-  height: 32px; }
-  .elements-icon-size-3 span {
-    font-size: 32px; }
-
-.elements-icon-size-4 {
-  width: 48px;
-  height: 48px; }
-  .elements-icon-size-4 span {
-    font-size: 48px; }
-
-.elements-icons-preview .md-button md-icon {
-  font-size: 24px; }
-
-.elements-icons-preview .elements-icon-small {
-  font-size: 16px;
-  width: 16px;
-  height: 16px; }
-
-.elements-radio-avatar img {
-  width: 150px; }
-
-.example-tabs-content md-content {
-  background: none !important; }
-
-.elements-grids-example md-grid-tile {
-  background-size: 100%; }
-
-.elements-sidebar-example md-sidenav md-content {
-  background: none; }
-
-.elements-sidebar-example .md-button {
-  margin: 0px 20px; }
-
-.elements-whiteframe-example md-whiteframe {
-  min-width: 500px;
-  background-color: white; }
 
 .daterange-button {
   color: rgba(0, 0, 0, 0.84); }
