@@ -1,0 +1,61 @@
+<md-dialog class="fullwidth-dialog">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                Feedback voor {{vm.result.student.displayName}}
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="feedback-dialog md-padding" flex>
+        <div class="feedback-report md-whiteframe-z1">
+            <h4>{{::vm.report.start}} - {{::vm.report.end}}</h4>
+            <md-table-container>
+                <table md-table class="md-primary md-data-table" ng-repeat="major in vm.report.majors">
+                    <thead md-head>
+                        <tr md-row>
+                            <th>{{major.name}}</th>
+                            <th>{{major.permanent | number:1}}%</th>
+                            <th>{{major.final | number:1}}%</th>
+                            <th>{{major.total | number:1}}%</th>
+                        </tr>
+                        <tr md-row>
+                            <th md-column>Vak</th>
+                            <th md-column>Permanent</th>
+                            <th md-column>Eind</th>
+                            <th md-column>Totaal</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="branch in major.branches">
+                            <td md-cell ng-bind="branch.name"></td>
+                            <td md-cell>
+                                <span ng-if="branch.history[0].permanent"><span class="score">{{branch.history[0].permanent | number:1}}</span>/{{branch.history[0].max}}</span>
+                            </td>
+                            <td md-cell>
+                                <span ng-if="branch.history[0].final"><span class="score" >{{branch.history[0].final | number:1}}</span>/{{branch.history[0].max}}</span>
+                            </td>
+                            <td md-cell>
+                                <span ng-if="branch.history[0].total"><span class="score">{{branch.history[0].total | number:1}}</span>/{{branch.history[0].max}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </div>
+        <div class="feedback-summary">
+            <md-input-container flex class="md-block">
+                <text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar"></text-angular>
+            </md-input-container>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <text-angular-toolbar name="editor-toolbar" class="feedback-dialog-editor-toolbar" ta-toolbar-active-button-class="active"></text-angular-toolbar>
+        <span flex></span>
+        <md-button class="md-default md-raised" ng-click="vm.cancel()" translate="Annuleren" aria-label="annuleren"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" translate="Opslaan" aria-label="opslaan"></md-button>
+    </md-dialog-actions>
+</md-dialog>

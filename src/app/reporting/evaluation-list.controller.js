@@ -63,8 +63,7 @@
                             permanent: true
                         }
                     },
-                    focusOnOpen: false,
-                    fullscreen: action === 'feedback'
+                    focusOnOpen: false
                 })
                 .then(saveEvaluation, cancelEvaluation);
 
@@ -79,7 +78,20 @@
         }
 
         function saveEvaluation(evaluation) {
+            console.log(evaluation);
             EvaluationService.post(evaluation).then(insertEvaluation);
+        }
+
+        function removeEvaluation(evaluation) {
+            var i = 0;
+            for (i = 0; i < vm.evaluations.length; i++) {
+                if (vm.evaluations[i].id == evaluation.id) {
+                    vm.evaluations.splice(i, 1);
+                    break;
+                }
+            }
+           
+            createEvaluationGroups();
         }
 
         function insertEvaluation(evaluation) {
@@ -172,6 +184,10 @@
 
         $scope.$on('saveEvaluation', function($event, evaluation) {
             saveEvaluation(evaluation);
+        });
+
+        $scope.$on('removeEvaluation', function($event, evaluation) {
+            removeEvaluation(evaluation);
         });
 
         $scope.$on('evaluationOpened', function(evaluation) {

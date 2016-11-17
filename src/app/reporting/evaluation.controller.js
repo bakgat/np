@@ -13,6 +13,9 @@
 
         vm.closeEvaluation = closeEvaluation;
         vm.editEvaluation = editEvaluation;
+        vm.removeEvaluation = removeEvaluation;
+        vm.editFeedback = editFeedback;
+
         vm.headerBg = headerBg;
 
         vm.barChart = {
@@ -38,6 +41,7 @@
         init();
         /////////////////////////////////
         function init() {
+            console.log(evaluation);
             vm.evaluation = evaluation;
             makeCharts();
             $scope.$emit('evaluationOpened', vm.evaluation);
@@ -105,10 +109,10 @@
             if (vm.evaluation.type == 'C') {
                 templateUrl = 'app/reporting/evaluations/comprehensive/comprehensive-dialog.tmpl.html';
                 controller = 'ComprehensiveDialogController';
-            } else if(vm.evaluation.type == 'S') {
+            } else if (vm.evaluation.type == 'S') {
                 templateUrl = 'app/reporting/evaluations/spoken/spoken-dialog.tmpl.html';
                 controller = 'SpokenDialogController';
-            } else if(vm.evaluation.type == 'MC') {
+            } else if (vm.evaluation.type == 'MC') {
                 templateUrl = 'app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html';
                 controller = 'MultiplechoiceDialogController';
             }
@@ -123,6 +127,7 @@
                     focusOnOpen: false
                 })
                 .then(function(evaluation) {
+
                     evaluation.date = $filter('date')(evaluation.date, 'yyyy-MM-dd');
 
                     if (evaluation.id) {
@@ -136,6 +141,47 @@
                         $scope.$emit('saveEvaluation', evaluation);
                     }
 
+                }, cancelEvaluation);
+
+            function cancelEvaluation() {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content('Geannuleerd.')
+                    .position('bottom right')
+                    .hideDelay(3000)
+                );
+            }
+        }
+
+        function removeEvaluation(evaluation) {
+            evaluation.delete().then(function(response) {
+                if (response) {
+                    $scope.$emit('removeEvaluation', evaluation);
+                }
+            })
+        }
+
+        function editFeedback($event, result) {
+            var templateUrl = 'app/reporting/evaluations/feedback/editfeedback-dialog.tmpl.html';
+            var controller = 'EditFeedbackDialogController';
+            
+            $mdDialog.show({
+                    controller: controller,
+                    controllerAs: 'vm',
+                    templateUrl: templateUrl,
+                    targetEvent: $event,
+                    locals: {
+                        result: result
+                    },
+                    focusOnOpen: true
+                })
+                .then(function(result) {
+                    //TODO: get this more efficient 
+                    //Only save committed summary !!! for this student
+                    //eg: post /evaluation/{id}/student/{id}/summary !?
+                    vm.evaluation.save().then(function(response) {
+                        console.log(response);
+                    });
                 }, cancelEvaluation);
 
             function cancelEvaluation() {

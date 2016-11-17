@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.pointResults" ng-if="!result.block && result.score">
+                        <tr md-row ng-repeat="result in vm.evaluation.pointResults" ng-if="!result.block && result.score">
                             <td md-cell>
                                 {{::result.student.displayName}}
                             </td>
@@ -43,7 +43,7 @@
                             </td>
                             <td md-cell>
                                 <span ng-repeat="redicodi in result.redicodi | orderBy:'toString()'" '>
-                                <i class="diff-icon notos {{'notos-' + redicodi}}"></i>
+                                <i class="diff-icon notos {{'notos- ' + redicodi}}"></i>
                             </span>
                             </td>
                         </tr>
@@ -69,13 +69,13 @@
 
         <md-card-content ng-if="vm.evaluation.type == 'C'">
             <table md-table class="md-primary md-data-table">
-                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                    <thead md-head >
                         <tr md-row>
                             <th md-column>Naam</th>
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.comprehensiveResults" ng-if="!result.block">
+                        <tr md-row  ng-repeat="result in vm.evaluation.comprehensiveResults" ng-if="!result.block">
                             <td md-cell>
                                 {{::result.student.displayName}}
                             </td>
@@ -93,12 +93,38 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-auto-select md-select="user" ng-repeat="result in vm.evaluation.spokenResults" ng-if="!result.block">
+                        <tr md-row  ng-repeat="result in vm.evaluation.spokenResults" ng-if="!result.block">
                             <td md-cell>
                                 {{::result.student.displayName}}
                             </td>
                             <td md-cell>
                                 {{::result.summary}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </md-card-content>
+
+        <md-card-content ng-if="vm.evaluation.type == 'F'">
+            <table md-table class="md-primary md-data-table">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Naam</th>
+                            <th md-column>Samenvatting</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row  ng-repeat="result in vm.evaluation.feedbackResults">
+                            <td md-cell>
+                                {{::result.student.displayName}}
+                            </td>
+                            <td md-cell ng-bind-html="result.summary">
+                            </td>
+                            <td md-cell style="width:30px">
+                                   <md-button class="md-icon-button" ng-click="vm.editFeedback($event, result)" aria-label="Bewerken">
+                                           <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                   </md-button>
+                                   <md-tooltip>bewerken</md-tooltip>
                             </td>
                         </tr>
                     </tbody>
