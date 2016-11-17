@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function EditFeedbackDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, result, focusOnOpen,
-        ReportingService, StudentService) {
+        ReportingService, StudentService, textAngularManager) {
 
         var vm = this;
         vm.cancel = cancel;

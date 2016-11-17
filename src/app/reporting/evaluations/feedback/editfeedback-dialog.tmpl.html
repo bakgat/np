@@ -14,19 +14,20 @@
         <div class="feedback-report md-whiteframe-z1">
             <h4>{{::vm.report.start}} - {{::vm.report.end}}</h4>
             <md-table-container>
-                <table md-table class="md-primary md-data-table" ng-repeat="major in vm.report.majors">
+                <table md-table class="md-primary md-data-table" ng-repeat="major in vm.report.majors">    
                     <thead md-head>
-                        <tr md-row>
-                            <th>{{major.name}}</th>
-                            <th>{{major.permanent | number:1}}%</th>
-                            <th>{{major.final | number:1}}%</th>
-                            <th>{{major.total | number:1}}%</th>
+                        <tr md-row class="md-primary">
+                            <th md-column>{{major.name}}</th>
+                            <th md-column style="width:100px;">Permanent</th>
+                            <th md-column style="width:100px;">Eind</th>
+                            <th md-column style="width:100px;">Totaal</th>
+                            
                         </tr>
                         <tr md-row>
-                            <th md-column>Vak</th>
-                            <th md-column>Permanent</th>
-                            <th md-column>Eind</th>
-                            <th md-column>Totaal</th>
+                            <th md-column></th>
+                            <th md-column style="width:100px;">{{major.permanent | number:1}}%</th>
+                            <th md-column style="width:100px;">{{major.final | number:1}}%</th>
+                            <th md-column style="width:100px;">{{major.total | number:1}}%</th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -48,7 +49,7 @@
         </div>
         <div class="feedback-summary">
             <md-input-container flex class="md-block">
-                <text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar"></text-angular>
+                <text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar" aria-label="feedback"></text-angular>
             </md-input-container>
         </div>
     </md-dialog-content>
