@@ -47,7 +47,6 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
     .pipe($.useref())
     .pipe(jsFilter)
-    .pipe(version())
     .pipe($.ngAnnotate())
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore)
@@ -58,11 +57,11 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe($.replace('../font/weathericons-regular', '../fonts/weathericons-regular'))
     .pipe($.revReplace())
     .pipe(htmlFilter)
-    .pipe($.minifyHtml({
+    /*.pipe($.minifyHtml({
       empty: true,
       spare: true,
       quotes: true
-    }))
+    }))*/
     .pipe(htmlFilter.restore)
     .pipe(gulp.dest(paths.dist + '/'))
     .pipe($.size({ title: paths.dist + '/', showFiles: true }));
