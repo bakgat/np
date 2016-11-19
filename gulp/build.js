@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var path = require('path');
+var version = require('gulp-version-number');
 
 var paths = gulp.paths;
 
@@ -46,6 +47,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
     .pipe($.useref())
     .pipe(jsFilter)
+    .pipe(version())
     .pipe($.ngAnnotate())
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore)

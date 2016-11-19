@@ -31,7 +31,7 @@
                     vm.groups = response;
                 });
             if (vm.fromStaff) {
-                StaffService.all('types').getList()
+                StaffService.one('types').getList()
                     .then(function(response) {
                         vm.staffTypes = response;
                     });
