@@ -6,70 +6,45 @@
         .controller('ToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia,
+        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
+        triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache, DateRangeService) {
+
         var vm = this;
+
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;
         vm.openSideNav = openSideNav;
         vm.hideMenuButton = hideMenuButton;
-        vm.switchLanguage = switchLanguage;
+
         vm.toggleNotificationsTab = toggleNotificationsTab;
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
 
-        if($injector.has('UserService')) {
-            var UserService = $injector.get('UserService');
-            vm.currentUser = UserService.getCurrentUser();
-        }
-        else {
-            // permissions are turned off so no UserService available
-            // just set default user
-            vm.currentUser = {
-                displayName: 'Christos',
-                username: 'christos',
-                avatar: 'assets/images/avatars/avatar-5.png',
-                roles: []
-            };
-        }
+        vm.range = DateRangeService.range();
+        vm.daterangeChanged = daterangeChanged;
+
+        initToolbar();
 
         ////////////////
+        function initToolbar() {
+            vm.user = UserService.getCurrentUser();
+        }
+        function daterangeChanged() {
+            $state.go(vm.baseState, {}, {reload: true});
+        }
+
 
         function openSideNav(navID) {
-            $mdUtil.debounce(function(){
+            $mdUtil.debounce(function() {
                 $mdSidenav(navID).toggle();
             }, 300)();
         }
 
-        function switchLanguage(languageCode) {
-            if($injector.has('$translate')) {
-                var $translate = $injector.get('$translate');
-                $translate.use(languageCode)
-                .then(function() {
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .content($filter('triTranslate')('Language Changed'))
-                        .position('bottom right')
-                        .hideDelay(500)
-                    );
-                    $rootScope.$emit('changeTitle');
-                });
-            }
-        }
-
         function hideMenuButton() {
-            switch(triLayout.layout.sideMenuSize) {
-                case 'hidden':
-                    // always show button if menu is hidden
-                    return false;
-                case 'off':
-                    // never show button if menu is turned off
-                    return true;
-                default:
-                    // show the menu button when screen is mobile and menu is hidden
-                    return $mdMedia('gt-sm');
-            }
+            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
 
         function toggleNotificationsTab(tab) {
@@ -77,12 +52,13 @@
             vm.openSideNav('notifications');
         }
 
+
         function toggleFullScreen() {
             vm.isFullScreen = !vm.isFullScreen;
-            vm.fullScreenIcon = vm.isFullScreen ? 'zmdi zmdi-fullscreen-exit':'zmdi zmdi-fullscreen';
+            vm.fullScreenIcon = vm.isFullScreen ? 'zmdi zmdi-fullscreen-exit' : 'zmdi zmdi-fullscreen';
             // more info here: https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
             var doc = $document[0];
-            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement ) {
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
                 if (doc.documentElement.requestFullscreen) {
                     doc.documentElement.requestFullscreen();
                 } else if (doc.documentElement.msRequestFullscreen) {
@@ -105,7 +81,9 @@
             }
         }
 
-        $scope.$on('newMailNotification', function(){
+        
+
+        $scope.$on('newMailNotification', function() {
             vm.emailNew = true;
         });
     }
