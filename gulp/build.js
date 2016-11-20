@@ -2,7 +2,8 @@
 
 var gulp = require('gulp');
 var path = require('path');
-var version = require('gulp-version-number');
+var rev = require('gulp-rev');
+var revReplace = require('gulp-rev-replace');
 
 var paths = gulp.paths;
 
@@ -42,6 +43,7 @@ gulp.task('html', ['inject', 'partials'], function () {
   var htmlFilter = $.filter(['*.html', '!/src/app/elements/examples/*.html'], {restore: true});
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
+  var indexHtmlFilter = $.filter(['**/*', '!**/*.html', '!**/env.js'], { restore: true });
 
   return gulp.src(paths.tmp + '/serve/*.html')
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
@@ -55,14 +57,17 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(cssFilter.restore)
     .pipe($.replace('../bower_components/material-design-iconic-font/dist/fonts', '../fonts'))
     .pipe($.replace('../font/weathericons-regular', '../fonts/weathericons-regular'))
-    .pipe($.revReplace())
     .pipe(htmlFilter)
-    /*.pipe($.minifyHtml({
+    .pipe($.minifyHtml({
       empty: true,
       spare: true,
       quotes: true
-    }))*/
+    }))
     .pipe(htmlFilter.restore)
+    .pipe(indexHtmlFilter)
+    .pipe(rev())
+    .pipe(indexHtmlFilter.restore)
+    .pipe(revReplace())
     .pipe(gulp.dest(paths.dist + '/'))
     .pipe($.size({ title: paths.dist + '/', showFiles: true }));
 });
