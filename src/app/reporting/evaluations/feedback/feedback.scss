@@ -1,9 +1,14 @@
-.feedback-report, .feedback-summary {
-  max-height: 50%;
-  height: 50%;
-  overflow: scroll;
-  padding: 10px;
+.feedback-report,
+.feedback-summary {
+    max-height: 50%;
+    height: 50%;
+    overflow: scroll;
+    padding: 10px;
 }
-table.md-table tr.md-primary th.md-column {
-  color: #00BCD4;
+
+table.md-table tr.md-primary {
+    background: #00BCD4;
+    th.md-column {
+        color: #FFF;
+    }
 }

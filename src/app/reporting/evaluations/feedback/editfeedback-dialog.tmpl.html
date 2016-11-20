@@ -25,9 +25,9 @@
                         </tr>
                         <tr md-row>
                             <th md-column></th>
-                            <th md-column style="width:100px;">{{major.permanent | number:1}}%</th>
-                            <th md-column style="width:100px;">{{major.final | number:1}}%</th>
-                            <th md-column style="width:100px;">{{major.total | number:1}}%</th>
+                            <th md-column style="width:100px;"><span ng-if="major.permanent">{{major.permanent | number:1}}%</span></th>
+                            <th md-column style="width:100px;"><span ng-if="major.final">{{major.final | number:1}}%</span></th>
+                            <th md-column style="width:100px;"><span ng-if="major.total">{{major.total | number:1}}%</span></th>
                         </tr>
                     </thead>
                     <tbody md-body>
