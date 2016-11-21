@@ -41,12 +41,9 @@
                                 <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="MC" required></select-branches>
                             </div>
                             <div layout="row">
-                                <md-input-container class="md-block" flex>
-                                    <md-checkbox aria-label="Permanente evaluatie" ng-model="vm.evaluation.permanent">Permanente evaluatie</md-checkbox>
-                                </md-input-container>
-                                <md-input-container class="md-block" flex>
-                                    <md-checkbox aria-label="Eindevaluatie" ng-model="vm.evaluation.final">Eindevaluatie</md-checkbox>
-                                </md-input-container>
+                                <md-switch ng-model="vm.evaluation.permanent" aria-label="Permanente evaluatie">
+                                    {{vm.evaluation.permanent ? 'Permanente evaluatie' : 'Eindevaluatie'}}
+                                </md-switch>
                             </div>
                         </form>
                     </md-content>

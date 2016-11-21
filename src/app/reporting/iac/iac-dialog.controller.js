@@ -37,7 +37,7 @@
         function editComment($event, iacGoal) {
             $event.stopPropagation();
 
-            var promise = $mdEditDialog.small({
+            var promise = $mdEditDialog.large({
                 modelValue: iacGoal.comment,
                 placeholder: 'Opmerking toevoegen',
                 save: function(input) {
