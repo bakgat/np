@@ -35,11 +35,12 @@
 
             vm.edit = vm.evaluation.feedbackResults;
 
-            UserService.getActiveGroup().then(function(profile) {
-                profile.one('branches').getList({'evaluationtype':'F'}).then(function(bfg) {
+            UserService.getActiveGroup().then(function(group) {
+                group.all('branches').getList({'evaluationtype':'F'}).then(function(bfg) {
                     vm.evaluation.branchForGroup = bfg[0];
                 });
-                StudentService.getList({ 'group': profile.id })
+
+                StudentService.getList({ 'group': group.id })
                     .then(function(response) {
                         vm.students = response;
 

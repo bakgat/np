@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function BranchService(HTTPCache) {
-        return HTTPCache.service('branches');
+        return HTTPCache.all('branches');
     }
 })();

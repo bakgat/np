@@ -12,7 +12,7 @@
     <md-divider></md-divider>
     <md-dialog-content class="feedback-dialog md-padding" flex>
         <div class="feedback-report md-whiteframe-z1">
-            <h4>{{::vm.report.start}} - {{::vm.report.end}}</h4>
+            <h4>{{::vm.report.start | date:'dd MMMM yyyy' }} - {{::vm.report.end | date:'dd MMMM yyyy' }}</h4>
             <md-table-container>
                 <table md-table class="md-primary md-data-table" ng-repeat="major in vm.report.majors">    
                     <thead md-head>
@@ -49,6 +49,7 @@
         </div>
         <div class="feedback-summary">
             <md-input-container flex class="md-block">
+                <label>Opmerkingen</label>
                 <text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar" aria-label="feedback"></text-angular>
             </md-input-container>
         </div>

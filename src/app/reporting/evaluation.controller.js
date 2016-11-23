@@ -15,9 +15,6 @@
         vm.editEvaluation = editEvaluation;
         vm.removeEvaluation = removeEvaluation;
         vm.editFeedback = editFeedback;
-
-        vm.headerBg = headerBg;
-
         vm.barChart = {
             data: [
                 []
@@ -41,7 +38,6 @@
         init();
         /////////////////////////////////
         function init() {
-            console.log(evaluation);
             vm.evaluation = evaluation;
             makeCharts();
             $scope.$emit('evaluationOpened', vm.evaluation);
@@ -194,32 +190,6 @@
             }
         }
 
-        function headerBg() {
-            var id = '40';
-
-            /*var avatar = vm.evaluation.course.avatar;
-            
-            switch (avatar) {
-                case 'mk':
-                    id = '01';
-                    break;
-                case 'c':
-                    id = '05';
-                    break;
-                case 'hr':
-                    id = '10';
-                    break;
-                case 'mr':
-                    id = '12';
-                    break;
-                case 't':
-                    id = '17';
-                    break;
-                case 'gk':
-                    id = '08';
-                    break;
-            }*/
-            return 'mb-bg-' + id;
-        }
+   
     }
 })();

@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function StudentService(HTTPCache) {
-        return HTTPCache.service('students');
+        return HTTPCache.all('students');
     }
 })();

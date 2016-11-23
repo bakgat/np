@@ -60,7 +60,7 @@
         }
 
         function loadStudents() {
-            group.getList('students')
+            group.all('students').getList()
                 .then(function(response) {
                     vm.students = response;
                 });

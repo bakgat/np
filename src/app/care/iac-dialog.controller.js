@@ -28,7 +28,7 @@
         }
 
         function loadGoals() {
-            IacService.one('goals').getList().then(function(response) {
+            IacService.all('goals').getList().then(function(response) {
                 vm.majors = response;
             });
         }

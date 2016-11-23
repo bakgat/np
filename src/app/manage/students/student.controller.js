@@ -29,7 +29,7 @@
             vm.student = student;
             vm.student.birthday = new Date(vm.student.birthday);
 
-            student.getList('groups').then(function(response) {
+            student.all('groups').getList().then(function(response) {
                 vm.studentGroups = response;
             });
             $scope.$emit('studentOpenend', vm.student);

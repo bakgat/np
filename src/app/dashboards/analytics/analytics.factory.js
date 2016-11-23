@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function AnalyticsService(HTTPCache) {
-        return HTTPCache.service('analytics');
+        return HTTPCache.all('analytics');
     }
 })();

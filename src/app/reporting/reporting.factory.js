@@ -6,7 +6,7 @@
         .factory('ReportingService', ReportingService);
 
     /* @ngInject */
-    function ReportingService($q, $http, _, moment, HTTPCache) {
-        return HTTPCache.service('report');
+    function ReportingService(HTTPCache) {
+        return HTTPCache.all('report');
     }
 })();

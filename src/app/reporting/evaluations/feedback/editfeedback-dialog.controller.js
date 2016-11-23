@@ -24,7 +24,7 @@
         ///////////////
 
         function init() {
-            ReportingService.one('student').one(result.student.id).get().then(function(response) {
+            ReportingService.one('student', result.student.id).get().then(function(response) {
                 makeReport(response);
             });
         }

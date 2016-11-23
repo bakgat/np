@@ -8,6 +8,6 @@
     /* @ngInject */
     function GroupService(HTTPCache) {
 
-        return HTTPCache.service('groups');
+        return HTTPCache.all('groups');
     }
 })();

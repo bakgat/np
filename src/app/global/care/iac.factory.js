@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function IacService(HTTPCache) {
-        return HTTPCache.service('iac');
+        return HTTPCache.all('iac');
     }
 })();

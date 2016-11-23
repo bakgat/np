@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($rootScope, $state, googleService, triSettings, UserService, HTTPCache, _env) {
+    function LoginController($rootScope, $state, googleService, triSettings, HTTPCache, _env) {
         var vm = this;
         vm.loginClick = loginClick;
 

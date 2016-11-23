@@ -24,7 +24,6 @@
         init();
         ////////////////////
         function init() {
-            //checkEmailList();
             createStudentGroups();
         }
 

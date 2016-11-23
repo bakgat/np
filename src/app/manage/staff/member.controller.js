@@ -31,10 +31,10 @@
             vm.member = member;
             vm.member.birthday = new Date(vm.member.birthday);
 
-            member.getList('roles').then(function(response) {
+            member.all('roles').getList().then(function(response) {
                 vm.staffRoles = response;
             });
-            member.getList('groups').then(function(response) {
+            member.all('groups').getList().then(function(response) {
                 vm.staffInGroups = response;
             });
 
@@ -180,48 +180,6 @@
             });
         }
 
-
-
-        /*function openRole($event, roleperiod) {
-            $mdDialog.show({
-                controller: 'AddToRoleDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/manage/roles/add-to-role-dialog.tmpl.html',
-                targetEvent: $event,
-                focusOnOpen: false,
-                locals: {
-                    roleperiod: {
-                        id: roleperiod.id,
-                        role: roleperiod.role,
-                        start: $filter('fromNtDate')(roleperiod.start),
-                        end: $filter('fromNtDate')(roleperiod.end)
-                    }
-                }
-            }).then(function(roleperiod) {
-                vm.member.put('roles', roleperiod)
-                    .then(function(response) {
-                        idx = false;
-                        for (var i = 0; i < vm.member.staffRoles.length; i++) {
-                            if (vm.member.staffRoles[i].id == response.id) {
-                                idx = i;
-                                break;
-                            }
-                        }
-                        if (idx !== false) {
-                            vm.member.staffRoles.splice()
-                        }
-                    });
-            }, cancelAddToRole);
-
-            function cancelAddToRole() {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content('Rol toevoegen geannuleerd')
-                    .position('bottom right')
-                    .hideDelay(2000)
-                );
-            }
-        }*/
 
 
 

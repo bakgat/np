@@ -42,7 +42,7 @@
             }
 
 
-            BranchService.one('majors').getList().then(function(majors) {
+            BranchService.all('majors').getList().then(function(majors) {
                 $scope.majors = majors;
             });
 

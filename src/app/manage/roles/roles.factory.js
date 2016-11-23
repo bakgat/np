@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function RoleService(HTTPCache) {
-        return HTTPCache.service('roles');
+        return HTTPCache.all('roles');
     }
 })();

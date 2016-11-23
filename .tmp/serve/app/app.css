@@ -29229,24 +29229,24 @@ md-card md-card-content {
 .evaluation-wizard md-tabs md-tab-content {
   padding-top: 44px; }
 
-.evaluation-dialog {
+.evaluation-dialog, .feedback-dialog {
   min-width: 700px;
   max-width: 700px; }
-  .evaluation-dialog .md-title {
+  .evaluation-dialog .md-title, .feedback-dialog .md-title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; }
-  .evaluation-dialog .md-button-group.super-narrow {
+  .evaluation-dialog .md-button-group.super-narrow, .feedback-dialog .md-button-group.super-narrow {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
     height: 36px;
     margin: auto; }
-    .evaluation-dialog .md-button-group.super-narrow > .md-button {
+    .evaluation-dialog .md-button-group.super-narrow > .md-button, .feedback-dialog .md-button-group.super-narrow > .md-button {
       min-width: 32px;
       height: 30px;
       margin: auto; }
-      .evaluation-dialog .md-button-group.super-narrow > .md-button.active {
+      .evaluation-dialog .md-button-group.super-narrow > .md-button.active, .feedback-dialog .md-button-group.super-narrow > .md-button.active {
         background-color: rgba(0, 0, 0, 0.12); }
 
 md-icon.pf-placeholder {
@@ -29819,82 +29819,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 
-.elements-button-examples md-card-content {
-  min-height: 100px; }
-
-.elements-buttons-raised-usage {
-  width: 400px; }
-  .elements-buttons-raised-usage .elements-raised-content {
-    padding: 16px; }
-  .elements-buttons-raised-usage .elements-raised-buttons {
-    padding: 16px; }
-    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
-      margin-left: 5px; }
-
-.elements-buttons-fab-usage {
-  position: relative; }
-  .elements-buttons-fab-usage .md-fab {
-    position: absolute;
-    bottom: 26px;
-    right: 26px; }
-
-.elements-icons md-content {
-  min-width: 400px;
-  height: 500px; }
-  .elements-icons md-content .md-font {
-    font-size: 24px; }
-
-.elements-icon-size-1 {
-  width: 16px;
-  height: 16px; }
-  .elements-icon-size-1 span {
-    font-size: 16px; }
-
-.elements-icon-size-2 {
-  width: 24px;
-  height: 24px; }
-  .elements-icon-size-2 span {
-    font-size: 24px; }
-
-.elements-icon-size-3 {
-  width: 32px;
-  height: 32px; }
-  .elements-icon-size-3 span {
-    font-size: 32px; }
-
-.elements-icon-size-4 {
-  width: 48px;
-  height: 48px; }
-  .elements-icon-size-4 span {
-    font-size: 48px; }
-
-.elements-icons-preview .md-button md-icon {
-  font-size: 24px; }
-
-.elements-icons-preview .elements-icon-small {
-  font-size: 16px;
-  width: 16px;
-  height: 16px; }
-
-.elements-radio-avatar img {
-  width: 150px; }
-
-.example-tabs-content md-content {
-  background: none !important; }
-
-.elements-grids-example md-grid-tile {
-  background-size: 100%; }
-
-.elements-sidebar-example md-sidenav md-content {
-  background: none; }
-
-.elements-sidebar-example .md-button {
-  margin: 0px 20px; }
-
-.elements-whiteframe-example md-whiteframe {
-  min-width: 500px;
-  background-color: white; }
-
 .extras-gallery-container {
   height: 100%; }
 
@@ -30049,6 +29973,82 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
     bottom: 0px;
     right: 0px;
     left: 0px; }
+
+.elements-button-examples md-card-content {
+  min-height: 100px; }
+
+.elements-buttons-raised-usage {
+  width: 400px; }
+  .elements-buttons-raised-usage .elements-raised-content {
+    padding: 16px; }
+  .elements-buttons-raised-usage .elements-raised-buttons {
+    padding: 16px; }
+    .elements-buttons-raised-usage .elements-raised-buttons .md-button {
+      margin-left: 5px; }
+
+.elements-buttons-fab-usage {
+  position: relative; }
+  .elements-buttons-fab-usage .md-fab {
+    position: absolute;
+    bottom: 26px;
+    right: 26px; }
+
+.elements-icons md-content {
+  min-width: 400px;
+  height: 500px; }
+  .elements-icons md-content .md-font {
+    font-size: 24px; }
+
+.elements-icon-size-1 {
+  width: 16px;
+  height: 16px; }
+  .elements-icon-size-1 span {
+    font-size: 16px; }
+
+.elements-icon-size-2 {
+  width: 24px;
+  height: 24px; }
+  .elements-icon-size-2 span {
+    font-size: 24px; }
+
+.elements-icon-size-3 {
+  width: 32px;
+  height: 32px; }
+  .elements-icon-size-3 span {
+    font-size: 32px; }
+
+.elements-icon-size-4 {
+  width: 48px;
+  height: 48px; }
+  .elements-icon-size-4 span {
+    font-size: 48px; }
+
+.elements-icons-preview .md-button md-icon {
+  font-size: 24px; }
+
+.elements-icons-preview .elements-icon-small {
+  font-size: 16px;
+  width: 16px;
+  height: 16px; }
+
+.elements-radio-avatar img {
+  width: 150px; }
+
+.example-tabs-content md-content {
+  background: none !important; }
+
+.elements-grids-example md-grid-tile {
+  background-size: 100%; }
+
+.elements-sidebar-example md-sidenav md-content {
+  background: none; }
+
+.elements-sidebar-example .md-button {
+  margin: 0px 20px; }
+
+.elements-whiteframe-example md-whiteframe {
+  min-width: 500px;
+  background-color: white; }
 
 .todo-container .slide.ng-enter {
   -webkit-animation-name: slideInRight;
@@ -30567,8 +30567,24 @@ table.md-table thead tr {
 .feedback-summary {
   max-height: 50%;
   height: 50%;
-  overflow: scroll;
-  padding: 10px; }
+  overflow: scroll; }
+  .feedback-report .ta-scroll-window > .ta-bind,
+  .feedback-summary .ta-scroll-window > .ta-bind {
+    min-height: none !important;
+    border: dashed 1px #999; }
+
+.md-button[disabled] {
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: normal; }
+
+.md-button.active {
+  color: #fff;
+  background: #F4511E;
+  font-weight: bold; }
+  .md-button.active[disabled] {
+    opacity: .54;
+    color: rgba(255, 255, 255, 0.54);
+    font-weight: normal; }
 
 table.md-table tr.md-primary {
   background: #00BCD4; }

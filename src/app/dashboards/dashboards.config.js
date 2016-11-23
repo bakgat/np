@@ -36,16 +36,11 @@
                         templateUrl: 'app/dashboards/analytics/analytics.tmpl.html',
                         controller: 'DashboardAnalyticsController',
                         controllerAs: 'vm'
-                    },
-                    'belowContent': {
-                        templateUrl: 'app/dashboards/analytics/fab-button.tmpl.html',
-                        controller: 'DashboardAnalyticsFabButtonController',
-                        controllerAs: 'vm'
                     }
                 },
                 resolve: {
                     analytics: function(AnalyticsService) {
-                        return AnalyticsService.one('events').one('report').get().then(function(response) {
+                        return AnalyticsService.all('events').one('report').get().then(function(response) {
                             return response;
                         });
                     }

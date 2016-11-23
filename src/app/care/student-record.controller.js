@@ -62,7 +62,7 @@
         }
 
         function loadIacs() {
-            student.getList('iac').then(function(response) {
+            student.all('iac').getList().then(function(response) {
                 vm.iacs = response;
                 return vm.iacs
             });
@@ -151,27 +151,6 @@
             })
         }
 
-        /*     function openDiff($event) {
-                 $mdDialog.show({
-                         controller: 'AddToDiffDialogController',
-                         controllerAs: 'vm',
-                         templateUrl: 'app/care/add-to-diff-dialog.tmpl.html',
-                         targetEvent: $event,
-                         focusOnOpen: false
-                     })
-                     .then(function(diffmodule) {
-                         console.info(diffmodule);
-                     }, cancelDiff);
-
-                 function cancelDiff() {
-                     $mdToast.show(
-                         $mdToast.simple()
-                         .content('Geannuleerd.')
-                         .position('bottom right')
-                         .hideDelay(3000)
-                     );
-                 }
-             }*/
 
         function openIac($event, iac) {
             //TODO: this iac is an converted iac not the original Restangular object
@@ -209,13 +188,27 @@
                     }
 
                     function insertIac(iac) {
-                        console.log(iac);
+                        var foundIac = false;
+                        var i = 0;
+                        for (i = 0; i < vm.iacs.length; i++) {
+                            if (vm.iacs[i].id == iac.id) {
+
+                                vm.iacs.splice(i, 1, iac);
+                                foundIac = true;
+                            }
+                        }
+                        if (!foundIac) {
+                            vm.iacs.push(iac);
+                        }
                     }
 
                     function cancelAddedIac() {
                         console.log('cancel added');
                     }
                 }, cancelIac);
+
+
+
 
             function cancelIac() {
                 $mdToast.show(

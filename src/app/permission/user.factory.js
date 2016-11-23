@@ -118,7 +118,7 @@
             if (groups == null) {
                 //TODO: for now group selection only for staff users
                 if (!hasAllGroupsPermission()) {
-                    StaffService.one(user.auth_token).getList('groups').then(function(response) {
+                    StaffService.one(user.auth_token).all('groups').getList().then(function(response) {
                         var mappedGroups = _.map(response, function(sig) {
                             return sig.group;
                         });

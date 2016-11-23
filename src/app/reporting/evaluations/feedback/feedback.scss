@@ -3,7 +3,27 @@
     max-height: 50%;
     height: 50%;
     overflow: scroll;
-    padding: 10px;
+    .ta-scroll-window > .ta-bind {
+        min-height: none !important;
+        border: dashed 1px #999;
+    }
+}
+
+.md-button {
+    &[disabled] {
+        color: rgba(0, 0, 0, .54);
+        font-weight: normal;
+    }
+    &.active {
+        color: #fff;
+        background: #F4511E;
+        font-weight: bold;
+        &[disabled] {
+            opacity: .54;
+            color: rgba(255, 255, 255, .54);
+            font-weight: normal;
+        }
+    }
 }
 
 table.md-table tr.md-primary {

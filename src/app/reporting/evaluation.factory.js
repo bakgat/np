@@ -7,6 +7,6 @@
 
     /* @ngInject */
     function EvaluationService($q, $http, _, moment, HTTPCache) {
-        return HTTPCache.service('evaluations');
+        return HTTPCache.all('evaluations');
     }
 })();

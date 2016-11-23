@@ -42,6 +42,7 @@
                     resolve: {
                         iacs: function(IacService, UserService) {
                             return UserService.getActiveGroup().then(function(response) {
+                                //return Restangular.all('iac').getList({'group': response.id});
                                 return IacService.getList({'group': response.id});
                             });
                         }
