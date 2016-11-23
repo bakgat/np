@@ -149,18 +149,34 @@
             }
         }
 
-        function removeEvaluation(evaluation) {
-            evaluation.delete().then(function(response) {
-                if (response) {
-                    $scope.$emit('removeEvaluation', evaluation);
-                }
-            })
+        function removeEvaluation(event, evaluation) {
+            var confirm = $mdDialog.confirm()
+                .title('Verwijderen')
+                .textContent('Weet u zeker dat u "' + evaluation.title + '" wil verwijderen?')
+                .ariaLabel('Verwijderen')
+                .targetEvent(event)
+                .ok('Absoluut')
+                .cancel('Nee hoor');
+
+            $mdDialog.show(confirm)
+                .then(function() {
+                    doRemove();
+                });
+
+            function doRemove() {
+                evaluation.remove()
+                    .then(function(response) {
+                        if (response) {
+                            $scope.$emit('removeEvaluation', evaluation);
+                        }
+                    });
+            }
         }
 
         function editFeedback($event, result) {
             var templateUrl = 'app/reporting/evaluations/feedback/editfeedback-dialog.tmpl.html';
             var controller = 'EditFeedbackDialogController';
-            
+
             $mdDialog.show({
                     controller: controller,
                     controllerAs: 'vm',
@@ -190,6 +206,6 @@
             }
         }
 
-   
+
     }
 })();

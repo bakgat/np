@@ -90,7 +90,6 @@
                     break;
                 }
             }
-           
             createEvaluationGroups();
         }
 
@@ -163,7 +162,7 @@
                     icon = 'notos notos-spoken';
                     break;
                 case 'MC':
-                    icon=  'zmdi zmdi-format-list-numbered';
+                    icon = 'zmdi zmdi-format-list-numbered';
                     break;
                 default:
                     icon = 'zmdi-circle';
@@ -172,11 +171,12 @@
             return 'zmdi ' + icon;
         }
 
-        //watches
-        $scope.$on('closeEvaluation', function() {
+        function closeEvaluation() {
             vm.selectedEvaluation = null;
             openList();
-        });
+        }
+        //watches
+        $scope.$on('closeEvaluation', closeEvaluation);
 
         $scope.$on('evaluationSaved', function($event, evaluation) {
             insertEvaluation(evaluation);
@@ -188,6 +188,7 @@
 
         $scope.$on('removeEvaluation', function($event, evaluation) {
             removeEvaluation(evaluation);
+            closeEvaluation();
         });
 
         $scope.$on('evaluationOpened', function(evaluation) {
