@@ -29259,6 +29259,9 @@ md-icon.pf-placeholder {
   md-icon.pf-placeholder.is-final {
     color: #ff5722; }
 
+.seed-list {
+  list-style: lower-greek; }
+
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29470,9 +29473,6 @@ md-icon.pf-placeholder {
 .notos-SF:before {
   content: ""; }
 
-.seed-list {
-  list-style: lower-greek; }
-
 .login-frame md-card {
   max-width: 400px;
   margin: auto; }
@@ -29540,42 +29540,6 @@ md-icon.pf-placeholder {
     border: none; }
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
-
-#ui-login {
-  overflow: auto; }
-  #ui-login.ng-enter {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0.5s;
-    animation-delay: 0.5s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-  #ui-login.ng-leave {
-    -webkit-animation-name: fadeOut;
-    animation-name: fadeOut;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-
-md-input-container ng-messages, md-input-container data-ng-messages {
-  display: block; }
 
 .calendar-page {
   padding: 0px 120px; }
@@ -29669,6 +29633,42 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .calendar-color-select md-option {
   text-transform: capitalize; }
+
+#ui-login {
+  overflow: auto; }
+  #ui-login.ng-enter {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  #ui-login.ng-leave {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+
+md-input-container ng-messages, md-input-container data-ng-messages {
+  display: block; }
 
 .google-example-chart {
   padding: 24px; }
@@ -29941,6 +29941,39 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .os-windows .error-container {
     max-height: 280px; }
 
+.md-select-form {
+  display: inline-block;
+  margin-top: 2px;
+  width: 100%; }
+  .md-select-form span {
+    width: 100%; }
+
+.tri-wizard-card md-card-content {
+  padding: 0px; }
+
+.github-user-dropdown img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box; }
+
+.github-user-dropdown span {
+  margin-left: 16px; }
+
+.maps-example .angular-google-map-container {
+  height: 550px; }
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px; }
+  #map_canvas .angular-google-map-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; }
+
 .elements-button-examples md-card-content {
   min-height: 100px; }
 
@@ -30016,39 +30049,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .elements-whiteframe-example md-whiteframe {
   min-width: 500px;
   background-color: white; }
-
-.md-select-form {
-  display: inline-block;
-  margin-top: 2px;
-  width: 100%; }
-  .md-select-form span {
-    width: 100%; }
-
-.tri-wizard-card md-card-content {
-  padding: 0px; }
-
-.github-user-dropdown img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: content-box; }
-
-.github-user-dropdown span {
-  margin-left: 16px; }
-
-.maps-example .angular-google-map-container {
-  height: 550px; }
-
-#map_canvas {
-  height: 100%;
-  width: 100%;
-  margin: 0px; }
-  #map_canvas .angular-google-map-container {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px; }
 
 .todo-container .slide.ng-enter {
   -webkit-animation-name: slideInRight;

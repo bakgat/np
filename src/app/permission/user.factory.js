@@ -160,7 +160,7 @@
 
                 });
             } else {
-                if (activeGroup.fromServer()) {
+                if (activeGroup.fromServer) {
                     defer.resolve(activeGroup);
                 } else {
                     GroupService.one(activeGroup.id).get()
