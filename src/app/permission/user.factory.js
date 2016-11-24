@@ -137,7 +137,7 @@
             }
 
             return defer.promise;
-            
+
         }
 
         function getActiveGroup() {
@@ -145,10 +145,29 @@
 
             if (activeGroup === null) {
                 allowedGroups().then(function(response) {
-                    defer.resolve(response[0]);
+                    if (response[0].isRestangularized()) {
+                        activeGroup = response[0];
+                        defer.resolve(activeGroup);
+                    } else {
+                        //TODO check if response[0] exists and ID exists on this item
+                        GroupService.one(response[0].id).get()
+                            .then(function(restGroup) {
+                                activeGroup = restGroup;
+                                defer.resolve(activeGroup);
+                            });
+                    }
+
                 });
             } else {
-                defer.resolve(activeGroup);
+                if (activeGroup.isRestangularized()) {
+                    defer.resolve(activeGroup);
+                } else {
+                    GroupService.one(activeGroup.id).get()
+                        .then(function(restGroup) {
+                            activeGroup = restGroup;
+                            defer.resolve(activeGroup);
+                        });
+                }
             }
             return defer.promise;
         }

@@ -618,6 +618,24 @@
 
 (function() {
     'use strict';
+
+    angular
+        .module('app.dashboards')
+        .component('counterWidget', {
+            templateUrl: 'app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html',
+            controllerAs: 'vm',
+            bindings: {
+                title: '@',
+                count: '<',
+                icon: '@',
+                background: '@',
+                color: '@'
+            }
+        });
+})();
+
+(function() {
+    'use strict';
     LineChartWidgetController.$inject = ["$timeout"];
     angular
         .module('app.dashboards')
@@ -643,24 +661,6 @@
             vm.api.refreshWithTimeout(200);
         }, 0);
     }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.dashboards')
-        .component('counterWidget', {
-            templateUrl: 'app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html',
-            controllerAs: 'vm',
-            bindings: {
-                title: '@',
-                count: '<',
-                icon: '@',
-                background: '@',
-                color: '@'
-            }
-        });
 })();
 
 'use strict';
@@ -9081,6 +9081,1034 @@
 (function() {
     'use strict';
 
+    DefaultToolbarController.$inject = ["$scope", "$injector", "$rootScope", "$mdMedia", "$state", "$element", "$filter", "$mdUtil", "$mdSidenav", "$mdToast", "$timeout", "$document", "triBreadcrumbsService", "triSettings", "triLayout", "UserService", "HTTPCache", "DateRangeService"];
+    angular
+        .module('triangular.components')
+        .controller('ToolbarController', DefaultToolbarController);
+
+    /* @ngInject */
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia,
+        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
+        triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache, DateRangeService) {
+
+        var vm = this;
+
+        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        vm.emailNew = false;
+        vm.languages = triSettings.languages;
+        vm.openSideNav = openSideNav;
+        vm.hideMenuButton = hideMenuButton;
+
+        vm.toggleNotificationsTab = toggleNotificationsTab;
+        vm.isFullScreen = false;
+        vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
+        vm.toggleFullScreen = toggleFullScreen;
+
+        vm.range = DateRangeService.range();
+        vm.daterangeChanged = daterangeChanged;
+
+        initToolbar();
+
+        ////////////////
+        function initToolbar() {
+            vm.user = UserService.getCurrentUser();
+        }
+        function daterangeChanged() {
+            $state.go(vm.baseState, {}, {reload: true});
+        }
+
+
+        function openSideNav(navID) {
+            $mdUtil.debounce(function() {
+                $mdSidenav(navID).toggle();
+            }, 300)();
+        }
+
+        function hideMenuButton() {
+            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
+        }
+
+        function toggleNotificationsTab(tab) {
+            $rootScope.$broadcast('triSwitchNotificationTab', tab);
+            vm.openSideNav('notifications');
+        }
+
+
+        function toggleFullScreen() {
+            vm.isFullScreen = !vm.isFullScreen;
+            vm.fullScreenIcon = vm.isFullScreen ? 'zmdi zmdi-fullscreen-exit' : 'zmdi zmdi-fullscreen';
+            // more info here: https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
+            var doc = $document[0];
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                if (doc.documentElement.requestFullscreen) {
+                    doc.documentElement.requestFullscreen();
+                } else if (doc.documentElement.msRequestFullscreen) {
+                    doc.documentElement.msRequestFullscreen();
+                } else if (doc.documentElement.mozRequestFullScreen) {
+                    doc.documentElement.mozRequestFullScreen();
+                } else if (doc.documentElement.webkitRequestFullscreen) {
+                    doc.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (doc.exitFullscreen) {
+                    doc.exitFullscreen();
+                } else if (doc.msExitFullscreen) {
+                    doc.msExitFullscreen();
+                } else if (doc.mozCancelFullScreen) {
+                    doc.mozCancelFullScreen();
+                } else if (doc.webkitExitFullscreen) {
+                    doc.webkitExitFullscreen();
+                }
+            }
+        }
+
+        
+
+        $scope.$on('newMailNotification', function() {
+            vm.emailNew = true;
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    RightSidenavController.$inject = ["$scope", "$http", "$mdSidenav", "$state", "_env"];
+    angular
+        .module('triangular.components')
+        .controller('RightSidenavController', RightSidenavController);
+
+    /* @ngInject */
+    function RightSidenavController($scope, $http, $mdSidenav, $state, _env) {
+        var vm = this;
+        // sets the current active tab
+        vm.close = close;
+        vm.currentTab = 0;
+        vm.notificationGroups = [{
+            name: 'Twitter',
+            notifications: [{
+                title: 'Mention from oxygenna',
+                icon: 'fa fa-twitter',
+                iconColor: '#55acee',
+                date: moment().startOf('hour')
+            },{
+                title: 'Oxygenna',
+                icon: 'fa fa-twitter',
+                iconColor: '#55acee',
+                date: moment().startOf('hour')
+            },{
+                title: 'Oxygenna',
+                icon: 'fa fa-twitter',
+                iconColor: '#55acee',
+                date: moment().startOf('hour')
+            },{
+                title: 'Followed by Oxygenna',
+                icon: 'fa fa-twitter',
+                iconColor: '#55acee',
+                date: moment().startOf('hour')
+            }]
+        },{
+            name: 'Server',
+            notifications: [{
+                title: 'Server Down',
+                icon: 'zmdi zmdi-alert-circle',
+                iconColor: 'rgb(244, 67, 54)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Slow Response Time',
+                icon: 'zmdi zmdi-alert-triangle',
+                iconColor: 'rgb(255, 152, 0)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Server Down',
+                icon: 'zmdi zmdi-alert-circle',
+                iconColor: 'rgb(244, 67, 54)',
+                date: moment().startOf('hour')
+            }]
+        },{
+            name: 'Sales',
+            notifications: [{
+                title: 'Triangular Admin $21',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Lambda WordPress $60',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Triangular Admin $21',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Triangular Admin $21',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Lambda WordPress $60',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            },{
+                title: 'Triangular Admin $21',
+                icon: 'zmdi zmdi-shopping-cart',
+                iconColor: 'rgb(76, 175, 80)',
+                date: moment().startOf('hour')
+            }]
+        }];
+        vm.openMail = openMail;
+        vm.settingsGroups = [{
+            name: 'Account Settings',
+            settings: [{
+                title: 'Show my location',
+                icon: 'zmdi zmdi-pin',
+                enabled: true
+            },{
+                title: 'Show my avatar',
+                icon: 'zmdi zmdi-face',
+                enabled: false
+            },{
+                title: 'Send me notifications',
+                icon: 'zmdi zmdi-notifications-active',
+                enabled: true
+            }]
+        },{
+            name: 'Chat Settings',
+            settings: [{
+                title: 'Show my username',
+                icon: 'zmdi zmdi-account',
+                enabled: true
+            },{
+                title: 'Make my profile public',
+                icon: 'zmdi zmdi-account-box',
+                enabled: false
+            },{
+                title: 'Allow cloud backups',
+                icon: 'zmdi zmdi-cloud-upload',
+                enabled: true
+            }]
+        }];
+
+        vm.statisticsGroups = [{
+            name: 'User Statistics',
+            stats: [{
+                title: 'Storage Space (120/160 Gb)',
+                mdClass: 'md-primary',
+                value: 60
+            },{
+                title: 'Bandwidth Usage (10/100 Gb)',
+                mdClass: 'md-accent',
+                value: 10
+            },{
+                title: 'Memory Usage (1/8 Gb)',
+                mdClass: 'md-warn',
+                value: 100
+            }]
+        },{
+            name: 'Server Statistics',
+            stats: [{
+                title: 'Storage Space (120/160 Gb)',
+                mdClass: 'md-primary',
+                value: 60
+            },{
+                title: 'Bandwidth Usage (10/100 Gb)',
+                mdClass: 'md-accent',
+                value: 10
+            },{
+                title: 'Memory Usage (1/8 Gb)',
+                mdClass: 'md-warn',
+                value: 100
+            }]
+        }];
+
+        ////////////////
+
+        // add an event to switch tabs (used when user clicks a menu item before sidebar opens)
+        $scope.$on('triSwitchNotificationTab', function($event, tab) {
+            vm.currentTab = tab;
+        });
+
+        // fetch some dummy emails from the API
+        $http({
+            method: 'GET',
+            url: _env.api + '/email/inbox'
+        }).success(function(data) {
+            vm.emails = data.slice(1,20);
+        });
+
+        function openMail() {
+            $state.go('triangular-no-scroll.email.inbox');
+            vm.close();
+        }
+
+        function close() {
+            $mdSidenav('notifications').close();
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+ var env = {};
+
+    // Import variables if present (from env.js)
+    if (window) {
+        Object.assign(env, window.__env);
+    }
+
+    angular
+        .module('app', [
+            'ui.router', 'permission',
+            'triangular',
+            'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
+            'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment',
+            'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload', 'nvd3',
+            'checklist-model', 'restangular',
+            'app.translate',
+            // only need one language?  if you want to turn off translations
+            // comment out or remove the 'app.translate', line above
+            'app.permission',
+            // dont need permissions?  if you want to turn off permissions
+            // comment out or remove the 'app.permission', line above
+            // also remove 'permission' from the first line of dependencies
+            // https://github.com/Narzerus/angular-permission see here for why
+            // uncomment above to activate the example seed module
+            // 'seed-module',
+            //'app.examples',
+            'app.global',
+            'app.filters',
+            'app.dashboards',
+            'app.authentication',
+            'app.manage',
+            'app.reporting',
+            'app.care',
+        ])
+        .constant('_', window._)
+        .constant('moment', moment)
+        .constant('_env', env);
+})();
+
+(function() {
+    'use strict';
+
+    LoaderController.$inject = ["triSettings"];
+    angular
+        .module('app')
+        .controller('LoaderController', LoaderController);
+
+    /* @ngInject */
+    function LoaderController(triSettings) {
+        var vm = this;
+
+        vm.triSettings = triSettings;
+    }
+})();
+
+(function() {
+    'use strict';
+
+    LeftSidenavController.$inject = ["triSettings", "triLayout"];
+    angular
+        .module('triangular.components')
+        .controller('LeftSidenavController', LeftSidenavController);
+
+    /* @ngInject */
+    function LeftSidenavController(triSettings, triLayout) {
+        var vm = this;
+        vm.layout = triLayout.layout;
+        vm.sidebarInfo = {
+            appName: triSettings.name,
+            appLogo: triSettings.logo
+        };
+        vm.toggleIconMenu = toggleIconMenu;
+
+        ////////////
+
+        function toggleIconMenu() {
+            var menu = vm.layout.sideMenuSize === 'icon' ? 'full' : 'icon';
+            triLayout.setOption('sideMenuSize', menu);
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    FooterController.$inject = ["triLayout", "triSettings"];
+    angular
+        .module('app')
+        .controller('AppFooterController', FooterController);
+
+    /* @ngInject */
+    function FooterController(triLayout, triSettings) {
+        var vm = this;
+
+        vm.layout = triLayout;
+        vm.settings = triSettings;
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.global', [
+        ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.global')
+        .filter('staffType', staffType);
+
+    function staffType() {
+        return filterFilter;
+
+        ////////////////
+
+        function filterFilter(input) {
+            switch (input) {
+                case 'T':
+                    return 'Leerkracht';
+                    break;
+                case 'X':
+                    return 'Titularis';
+                    break;
+            }
+        }
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    UserAvatarController.$inject = ["$filter"];
+    angular
+        .module('app.global')
+        .directive('userAvatar', userAvatar);
+
+    /* @ngInject */
+    function userAvatar() {
+        // Usage:
+        //
+        // ```html
+        // <select-groups ng-value="">
+        // ```
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'E',
+            scope: {
+                'ngModel': '='
+            },
+            templateUrl: 'app/global/profile/user-avatar.tmpl.html',
+            controller: UserAvatarController,
+            controllerAs: 'vm',
+            bindToController: true // because the scope is isolated
+        };
+        return directive;
+        ////////////////////////
+
+        function link($scope, $element, attrs) {
+            
+        }
+    }
+
+    /* @ngInject */
+    function UserAvatarController($filter) {
+        var vm = this;
+        vm.user = vm.ngModel;
+
+        vm.style = '';
+
+        init();
+        ////////////////////
+
+        function init() {
+            var source = 'http://schkt.volglvs.be/PIX/';
+            source += vm.user.lastName.removeDiacritics(true).replace(' ', '%20');
+            source += vm.user.firstName.removeDiacritics(true).replace(' ', '%20');
+            source += $filter('date')(vm.user.birthday, 'dd.MM.yyyy');
+            source += '.JPG';
+
+            vm.style = 'url(' + source + ')';
+        }
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    ProfileService.$inject = ["$q", "$timeout", "GroupService", "$rootScope"];
+    angular
+        .module('app.global')
+        .factory('ProfileService', ProfileService);
+
+    /* @ngInject */
+    function ProfileService($q, $timeout, GroupService, $rootScope) {
+
+
+        var service = {
+            activeGroup: activeGroup,
+            setActiveGroup: setActiveGroup
+        };
+
+        var activeGroup = null;
+
+        return service;
+
+        ///////////////
+
+        function activeGroup() {
+            var defer = $q.defer();
+
+            if(activeGroup === null) {
+                GroupService.getList({active:true}).then(function(response) {
+                    defer.resolve(response[0]);
+                });
+            } else {
+                defer.resolve(activeGroup);
+            }
+            return defer.promise;
+        }
+
+        function setActiveGroup(group) {
+            activeGroup = group;
+            $rootScope.$broadcast('activeGroupChanged', group);
+        }
+
+    }
+})();
+
+(function() {
+    'use strict';
+
+    SelectGroupsController.$inject = ["$state", "UserService"];
+    angular
+        .module('app.global')
+        .directive('selectGroups', selectGroups);
+
+    /* @ngInject */
+    function selectGroups() {
+        // Usage:
+        //
+        // ```html
+        // <select-groups ng-value="">
+        // ```
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'E',
+            scope: {
+                'reloadState': '=',
+                'active': '=',
+                'onlyOwned': '='
+            },
+            templateUrl: 'app/global/groups/select-groups.tmpl.html',
+            controller: SelectGroupsController,
+            controllerAs: 'vm',
+            bindToController: true // because the scope is isolated
+        };
+        return directive;
+        ////////////////////////
+
+        function link($scope, $element, attrs) {}
+    }
+
+    /* @ngInject */
+    function SelectGroupsController($state, UserService) {
+        var vm = this;
+
+        vm.selectedGroup = null;
+        vm.switchGroup = switchGroup;
+
+        init();
+        ////////////////////
+
+        function init() {
+            UserService.allowedGroups().then(function(groups) {
+                vm.groups = groups;
+                UserService.getActiveGroup().then(function(group) {
+                    vm.selectedGroup = group;
+                });
+            });
+        }
+
+        function switchGroup(group) {
+            UserService.setActiveGroup(group);
+            $state.go(vm.reloadState, {}, { reload: true });
+        }
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    DateRangeService.$inject = ["$q", "$timeout", "$rootScope", "moment"];
+    angular
+        .module('app.global')
+        .factory('DateRangeService', DateRangeService);
+
+    /* @ngInject */
+    function DateRangeService($q, $timeout, $rootScope, moment) {
+
+
+        var service = {
+            thisWeek: thisWeek,
+            thisMonth: thisMonth,
+            thisQuarter: thisQuarter,
+            thisSchoolyear: thisSchoolyear,
+            custom: custom,
+            range: range
+        };
+
+        var range = undefined;
+
+        return service;
+        //////////////////////////////
+
+        function range() {
+            if(range === undefined) {
+                range = thisQuarter();
+            }
+            return range;
+        }
+
+        function custom(cr) {
+            range = cr;
+            return range;
+        }
+
+        function thisWeek() {
+            range = {
+                start: moment().startOf('week'),
+                end: moment().endOf('week')
+            };
+            return range;
+        }
+
+        function thisMonth() {
+            range = {
+                start: moment().startOf('month'),
+                end: moment().endOf('month')
+            };
+            return range;
+        }
+
+        function thisQuarter() {
+            var now = moment();
+
+            if (now.month() > 7) {
+                return quarter(1);
+            } else if (now < moment().easter()) {
+                return quarter(2);
+            } else {
+                return quarter(3);
+            }
+        }
+
+        function quarter(q) {
+            var start, end;
+            //q = 1, 2, 3
+            if (q == 1) {
+                //First schoolQuarter
+                start = moment().month(8).startOf('month');
+                end = moment().month(11).endOf('month');
+            } else if (q == 2) {
+                //Second schoolQuarter
+                start = moment().startOf('year');
+                end = moment().easter();
+            } else {
+                start = moment().easter();
+                end = moment().month(5).endOf('month');
+            }
+            range = {
+                start: start,
+                end: end
+            };
+            return range;
+        }
+
+        function thisSchoolyear() {
+            var start, end, now = moment();
+            var yearNow = now.year();
+            if (now.month() < 8) {
+                start = moment().subtract(-1, 'year').month(8).startOf('month');
+                end = moment().month(7).endOf('month');
+            } else {
+                start = moment().month(8).startOf('month');
+                end = moment().add(1, 'year').month(7).endOf('month');
+            }
+            range = {
+                start: start,
+                end: end
+            };
+            return range;
+        }
+
+    }
+})();
+
+(function() {
+    'use strict';
+
+    DateRangeController.$inject = ["$mdPanel", "$rootScope", "DateRangeService", "HTTPCache", "moment"];
+    DateRangePickerController.$inject = ["$scope", "mdPanelRef", "range", "onClose", "DateRangeService"];
+    angular
+        .module('app.global')
+        .directive('mdDaterange', mdDaterange);
+
+    /* @ngInject */
+    function mdDaterange() {
+        var directive = {
+            link: link,
+            restrict: 'E',
+            scope: {
+                range: '=',
+                onDaterangeChanged: '&'
+            },
+            templateUrl: 'app/global/daterange/daterange.tmpl.html',
+            controller: DateRangeController,
+            controllerAs: 'vm',
+            bindToController: true
+        };
+        return directive;
+        ////////////////////////
+
+        function link($scope, $element, $attrs) {}
+    }
+
+    /* @ngInject  */
+    function DateRangeController($mdPanel, $rootScope, DateRangeService, HTTPCache, moment) {
+        var vm = this;
+
+        vm.showMenu = showMenu;
+
+
+        init();
+        /////////////////////////
+
+        function init() {
+            vm.range = DateRangeService.range();
+            setRequestParams();
+        }
+
+        function showMenu(ev) {
+            var position = $mdPanel.newPanelPosition()
+                .relativeTo('.datepicker-label')
+                .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
+
+            var config = {
+                attachTo: angular.element(document.body),
+                controller: DateRangePickerController,
+                controllerAs: 'vm',
+                templateUrl: 'app/global/daterange/daterange-picker.tmpl.html',
+                panelClass: 'demo-menu-example',
+                position: position,
+                locals: {
+                    range: vm.range,
+                    onClose: closePicker
+                },
+                openFrom: ev,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                focusOnOpen: false,
+                zIndex: 2
+            };
+
+            $mdPanel.open(config);
+
+
+        }
+
+        function closePicker(data) {
+            vm.range = data.range;
+            setRequestParams();
+            vm.onDaterangeChanged && vm.onDaterangeChanged();
+        }
+
+        function setRequestParams() {
+            HTTPCache.setDefaultRequestParams({
+                start: vm.range.start.format('YYYY-MM-DD'),
+                end: vm.range.end.format('YYYY-MM-DD')
+            });
+        }
+
+
+
+    }
+
+
+    /* @ngInject */
+    function DateRangePickerController($scope, mdPanelRef, range, onClose, DateRangeService) {
+        var vm = this;
+
+        vm.range = range;
+
+        vm.select = select;
+        vm.selectCustomStart = selectCustomStart;
+        vm.selectCustomEnd = selectCustomEnd;
+
+        vm.cancel = cancel;
+
+        init();
+        /////////////////////////
+        function init() {
+
+        }
+
+        function select(option) {
+            if (option == 'week') {
+                vm.range = DateRangeService.thisWeek();
+            } else if (option == 'month') {
+                vm.range = DateRangeService.thisMonth();
+            } else if (option == 'quarter') {
+                vm.range = DateRangeService.thisQuarter();
+            } else if (option == 'schoolyear') {
+                vm.range = DateRangeService.thisSchoolyear();
+            }
+            saveAndClose();
+        }
+
+        function cancel() {
+            mdPanelRef.close();
+        }
+
+        function saveAndClose() {
+            mdPanelRef.close().then(function(mdPanelRef) {
+                onClose({
+                    range: vm.range
+                });
+            });
+        }
+
+        function selectCustomStart() {
+            vm.range.start = moment(vm.start);
+            vm.selectedTab = 1;
+        }
+
+        function selectCustomEnd() {
+            vm.range.end = moment(vm.end);
+            DateRangeService.custom(vm.range);
+            saveAndClose();
+        }
+
+        $scope.$watch('vm.range', function() {
+            vm.start = vm.range.start.toDate();
+            vm.end = vm.range.end.toDate();
+        }, true);
+
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    IacService.$inject = ["HTTPCache"];
+    angular
+        .module('app.global')
+        .factory('IacService', IacService);
+
+    /* @ngInject */
+    function IacService(HTTPCache) {
+        return HTTPCache.all('iac');
+    }
+})();
+
+(function() {
+    'use strict';
+
+    DiffService.$inject = ["$q", "$http"];
+    angular
+        .module('app.global')
+        .factory('DiffService', DiffService);
+
+    /* @ngInject */
+    function DiffService($q, $http) {
+        
+        var service = {
+            getModules: getModules
+        };
+
+        return service;
+
+        ///////////////
+
+        function getModules() {
+            return $http.get('app/global/data/diff.json');
+        }
+
+    }
+})();
+
+(function() {
+    'use strict';
+
+    selectMajors.$inject = ["$timeout", "$filter", "BranchService"];
+    angular
+        .module('app.global')
+        .directive('selectMajors', selectMajors);
+
+    /* @ngInject */
+    function selectMajors($timeout, $filter, BranchService) {
+        // Usage:
+        //
+        // ```html
+        // <select-majors ng-value="">
+        // ```
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'E',
+            scope: {
+                'ngModel': '=',
+                'required': '=?'
+            },
+            templateUrl: 'app/global/branches/select-majors.tmpl.html'
+        };
+        return directive;
+        ////////////////////////
+
+        function link($scope, $element, attrs) {
+
+            $scope.majors = null;
+
+            if (attrs.hasOwnProperty('multiple')) {
+                $scope.multiple = true;
+            } else {
+                $scope.multiple = false;
+            }
+            if (attrs.hasOwnProperty('required')) {
+                $scope.required = true;
+            } else {
+                $scope.required = false;
+            }
+
+
+            BranchService.all('majors').getList().then(function(majors) {
+                $scope.majors = majors;
+            });
+
+
+
+        }
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    selectBranches.$inject = ["$timeout", "$filter", "BranchService", "UserService", "GroupService"];
+    angular
+        .module('app.global')
+        .directive('selectBranches', selectBranches);
+
+    /* @ngInject */
+    function selectBranches($timeout, $filter, BranchService, UserService, GroupService) {
+        // Usage:
+        //
+        // ```html
+        // <select-courses ng-value="">
+        // ```
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'E',
+            scope: {
+                'ngModel': '=',
+                'required': '=?'
+            },
+            templateUrl: 'app/global/branches/select-branches.tmpl.html'
+        };
+        return directive;
+        ////////////////////////
+
+        function link($scope, $element, attrs) {
+
+            $scope.majors = null;
+            $scope.branchGroups = null;
+
+            if (attrs.hasOwnProperty('multiple')) {
+                $scope.multiple = true;
+            } else {
+                $scope.multiple = false;
+            }
+            if (attrs.hasOwnProperty('required')) {
+                $scope.required = true;
+            } else {
+                $scope.required = false;
+            }
+
+
+            if (attrs.hasOwnProperty('byGroups')) {
+                var type = attrs.hasOwnProperty('byType') ? { evaluationtype: attrs.byType } : {}; 
+                UserService.getActiveGroup().then(function(group) {
+                    var result = [];
+                    //i.e. /groups/{id}/branches?evaluationtype=C
+                    GroupService.one(group.id).all('branches').getList(type).then(function(branchGroups) {
+                        // /branches?group={id}
+                        BranchService.getList({ 'group': group.id }).then(function(majors) {
+                            angular.forEach(majors, function(major) {
+                                result.push({
+                                    major: {
+                                        id: major.id,
+                                        name: major.name
+                                    },
+                                    branchForGroup: []
+                                });
+                            });
+                            angular.forEach(result, function(r) {
+                                r.branchForGroup = $filter('majorGroup')(branchGroups, r);
+                            });
+                            $scope.branchGroups = result;
+                        });
+                    });
+                });
+            } else {
+                UserService.getActiveGroup().then(function(group) {
+                    BranchService.getList({ 'group': group.id }).then(function(majors) {
+                        $scope.majors = majors;
+                    });
+                });
+            }
+
+
+        }
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    BranchService.$inject = ["HTTPCache"];
+    angular
+        .module('app.global')
+        .factory('BranchService', BranchService);
+
+    /* @ngInject */
+    function BranchService(HTTPCache) {
+        return HTTPCache.all('branches');
+    }
+})();
+
+(function() {
+    'use strict';
+
     webfontLoader.$inject = ["$rootScope", "$window"];
     angular
         .module('webfont-loader', [])
@@ -10426,1034 +11454,6 @@
         }
     }
 })();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.global', [
-        ]);
-})();
-(function() {
-    'use strict';
-
-    IacService.$inject = ["HTTPCache"];
-    angular
-        .module('app.global')
-        .factory('IacService', IacService);
-
-    /* @ngInject */
-    function IacService(HTTPCache) {
-        return HTTPCache.all('iac');
-    }
-})();
-
-(function() {
-    'use strict';
-
-    DiffService.$inject = ["$q", "$http"];
-    angular
-        .module('app.global')
-        .factory('DiffService', DiffService);
-
-    /* @ngInject */
-    function DiffService($q, $http) {
-        
-        var service = {
-            getModules: getModules
-        };
-
-        return service;
-
-        ///////////////
-
-        function getModules() {
-            return $http.get('app/global/data/diff.json');
-        }
-
-    }
-})();
-
-(function() {
-    'use strict';
-
-    DefaultToolbarController.$inject = ["$scope", "$injector", "$rootScope", "$mdMedia", "$state", "$element", "$filter", "$mdUtil", "$mdSidenav", "$mdToast", "$timeout", "$document", "triBreadcrumbsService", "triSettings", "triLayout", "UserService", "HTTPCache", "DateRangeService"];
-    angular
-        .module('triangular.components')
-        .controller('ToolbarController', DefaultToolbarController);
-
-    /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia,
-        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
-        triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache, DateRangeService) {
-
-        var vm = this;
-
-        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        vm.emailNew = false;
-        vm.languages = triSettings.languages;
-        vm.openSideNav = openSideNav;
-        vm.hideMenuButton = hideMenuButton;
-
-        vm.toggleNotificationsTab = toggleNotificationsTab;
-        vm.isFullScreen = false;
-        vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
-        vm.toggleFullScreen = toggleFullScreen;
-
-        vm.range = DateRangeService.range();
-        vm.daterangeChanged = daterangeChanged;
-
-        initToolbar();
-
-        ////////////////
-        function initToolbar() {
-            vm.user = UserService.getCurrentUser();
-        }
-        function daterangeChanged() {
-            $state.go(vm.baseState, {}, {reload: true});
-        }
-
-
-        function openSideNav(navID) {
-            $mdUtil.debounce(function() {
-                $mdSidenav(navID).toggle();
-            }, 300)();
-        }
-
-        function hideMenuButton() {
-            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
-        }
-
-        function toggleNotificationsTab(tab) {
-            $rootScope.$broadcast('triSwitchNotificationTab', tab);
-            vm.openSideNav('notifications');
-        }
-
-
-        function toggleFullScreen() {
-            vm.isFullScreen = !vm.isFullScreen;
-            vm.fullScreenIcon = vm.isFullScreen ? 'zmdi zmdi-fullscreen-exit' : 'zmdi zmdi-fullscreen';
-            // more info here: https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
-            var doc = $document[0];
-            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-                if (doc.documentElement.requestFullscreen) {
-                    doc.documentElement.requestFullscreen();
-                } else if (doc.documentElement.msRequestFullscreen) {
-                    doc.documentElement.msRequestFullscreen();
-                } else if (doc.documentElement.mozRequestFullScreen) {
-                    doc.documentElement.mozRequestFullScreen();
-                } else if (doc.documentElement.webkitRequestFullscreen) {
-                    doc.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-            } else {
-                if (doc.exitFullscreen) {
-                    doc.exitFullscreen();
-                } else if (doc.msExitFullscreen) {
-                    doc.msExitFullscreen();
-                } else if (doc.mozCancelFullScreen) {
-                    doc.mozCancelFullScreen();
-                } else if (doc.webkitExitFullscreen) {
-                    doc.webkitExitFullscreen();
-                }
-            }
-        }
-
-        
-
-        $scope.$on('newMailNotification', function() {
-            vm.emailNew = true;
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    RightSidenavController.$inject = ["$scope", "$http", "$mdSidenav", "$state", "_env"];
-    angular
-        .module('triangular.components')
-        .controller('RightSidenavController', RightSidenavController);
-
-    /* @ngInject */
-    function RightSidenavController($scope, $http, $mdSidenav, $state, _env) {
-        var vm = this;
-        // sets the current active tab
-        vm.close = close;
-        vm.currentTab = 0;
-        vm.notificationGroups = [{
-            name: 'Twitter',
-            notifications: [{
-                title: 'Mention from oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Followed by Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            }]
-        },{
-            name: 'Server',
-            notifications: [{
-                title: 'Server Down',
-                icon: 'zmdi zmdi-alert-circle',
-                iconColor: 'rgb(244, 67, 54)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Slow Response Time',
-                icon: 'zmdi zmdi-alert-triangle',
-                iconColor: 'rgb(255, 152, 0)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Server Down',
-                icon: 'zmdi zmdi-alert-circle',
-                iconColor: 'rgb(244, 67, 54)',
-                date: moment().startOf('hour')
-            }]
-        },{
-            name: 'Sales',
-            notifications: [{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Lambda WordPress $60',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Lambda WordPress $60',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            }]
-        }];
-        vm.openMail = openMail;
-        vm.settingsGroups = [{
-            name: 'Account Settings',
-            settings: [{
-                title: 'Show my location',
-                icon: 'zmdi zmdi-pin',
-                enabled: true
-            },{
-                title: 'Show my avatar',
-                icon: 'zmdi zmdi-face',
-                enabled: false
-            },{
-                title: 'Send me notifications',
-                icon: 'zmdi zmdi-notifications-active',
-                enabled: true
-            }]
-        },{
-            name: 'Chat Settings',
-            settings: [{
-                title: 'Show my username',
-                icon: 'zmdi zmdi-account',
-                enabled: true
-            },{
-                title: 'Make my profile public',
-                icon: 'zmdi zmdi-account-box',
-                enabled: false
-            },{
-                title: 'Allow cloud backups',
-                icon: 'zmdi zmdi-cloud-upload',
-                enabled: true
-            }]
-        }];
-
-        vm.statisticsGroups = [{
-            name: 'User Statistics',
-            stats: [{
-                title: 'Storage Space (120/160 Gb)',
-                mdClass: 'md-primary',
-                value: 60
-            },{
-                title: 'Bandwidth Usage (10/100 Gb)',
-                mdClass: 'md-accent',
-                value: 10
-            },{
-                title: 'Memory Usage (1/8 Gb)',
-                mdClass: 'md-warn',
-                value: 100
-            }]
-        },{
-            name: 'Server Statistics',
-            stats: [{
-                title: 'Storage Space (120/160 Gb)',
-                mdClass: 'md-primary',
-                value: 60
-            },{
-                title: 'Bandwidth Usage (10/100 Gb)',
-                mdClass: 'md-accent',
-                value: 10
-            },{
-                title: 'Memory Usage (1/8 Gb)',
-                mdClass: 'md-warn',
-                value: 100
-            }]
-        }];
-
-        ////////////////
-
-        // add an event to switch tabs (used when user clicks a menu item before sidebar opens)
-        $scope.$on('triSwitchNotificationTab', function($event, tab) {
-            vm.currentTab = tab;
-        });
-
-        // fetch some dummy emails from the API
-        $http({
-            method: 'GET',
-            url: _env.api + '/email/inbox'
-        }).success(function(data) {
-            vm.emails = data.slice(1,20);
-        });
-
-        function openMail() {
-            $state.go('triangular-no-scroll.email.inbox');
-            vm.close();
-        }
-
-        function close() {
-            $mdSidenav('notifications').close();
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
- var env = {};
-
-    // Import variables if present (from env.js)
-    if (window) {
-        Object.assign(env, window.__env);
-    }
-
-    angular
-        .module('app', [
-            'ui.router', 'permission',
-            'triangular',
-            'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
-            'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment',
-            'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload', 'nvd3',
-            'checklist-model', 'restangular',
-            'app.translate',
-            // only need one language?  if you want to turn off translations
-            // comment out or remove the 'app.translate', line above
-            'app.permission',
-            // dont need permissions?  if you want to turn off permissions
-            // comment out or remove the 'app.permission', line above
-            // also remove 'permission' from the first line of dependencies
-            // https://github.com/Narzerus/angular-permission see here for why
-            // uncomment above to activate the example seed module
-            // 'seed-module',
-            //'app.examples',
-            'app.global',
-            'app.filters',
-            'app.dashboards',
-            'app.authentication',
-            'app.manage',
-            'app.reporting',
-            'app.care',
-        ])
-        .constant('_', window._)
-        .constant('moment', moment)
-        .constant('_env', env);
-})();
-
-(function() {
-    'use strict';
-
-    LoaderController.$inject = ["triSettings"];
-    angular
-        .module('app')
-        .controller('LoaderController', LoaderController);
-
-    /* @ngInject */
-    function LoaderController(triSettings) {
-        var vm = this;
-
-        vm.triSettings = triSettings;
-    }
-})();
-
-(function() {
-    'use strict';
-
-    LeftSidenavController.$inject = ["triSettings", "triLayout"];
-    angular
-        .module('triangular.components')
-        .controller('LeftSidenavController', LeftSidenavController);
-
-    /* @ngInject */
-    function LeftSidenavController(triSettings, triLayout) {
-        var vm = this;
-        vm.layout = triLayout.layout;
-        vm.sidebarInfo = {
-            appName: triSettings.name,
-            appLogo: triSettings.logo
-        };
-        vm.toggleIconMenu = toggleIconMenu;
-
-        ////////////
-
-        function toggleIconMenu() {
-            var menu = vm.layout.sideMenuSize === 'icon' ? 'full' : 'icon';
-            triLayout.setOption('sideMenuSize', menu);
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    FooterController.$inject = ["triLayout", "triSettings"];
-    angular
-        .module('app')
-        .controller('AppFooterController', FooterController);
-
-    /* @ngInject */
-    function FooterController(triLayout, triSettings) {
-        var vm = this;
-
-        vm.layout = triLayout;
-        vm.settings = triSettings;
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.global')
-        .filter('staffType', staffType);
-
-    function staffType() {
-        return filterFilter;
-
-        ////////////////
-
-        function filterFilter(input) {
-            switch (input) {
-                case 'T':
-                    return 'Leerkracht';
-                    break;
-                case 'X':
-                    return 'Titularis';
-                    break;
-            }
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    UserAvatarController.$inject = ["$filter"];
-    angular
-        .module('app.global')
-        .directive('userAvatar', userAvatar);
-
-    /* @ngInject */
-    function userAvatar() {
-        // Usage:
-        //
-        // ```html
-        // <select-groups ng-value="">
-        // ```
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                'ngModel': '='
-            },
-            templateUrl: 'app/global/profile/user-avatar.tmpl.html',
-            controller: UserAvatarController,
-            controllerAs: 'vm',
-            bindToController: true // because the scope is isolated
-        };
-        return directive;
-        ////////////////////////
-
-        function link($scope, $element, attrs) {
-            
-        }
-    }
-
-    /* @ngInject */
-    function UserAvatarController($filter) {
-        var vm = this;
-        vm.user = vm.ngModel;
-
-        vm.style = '';
-
-        init();
-        ////////////////////
-
-        function init() {
-            var source = 'http://schkt.volglvs.be/PIX/';
-            source += vm.user.lastName.removeDiacritics(true).replace(' ', '%20');
-            source += vm.user.firstName.removeDiacritics(true).replace(' ', '%20');
-            source += $filter('date')(vm.user.birthday, 'dd.MM.yyyy');
-            source += '.JPG';
-
-            vm.style = 'url(' + source + ')';
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    ProfileService.$inject = ["$q", "$timeout", "GroupService", "$rootScope"];
-    angular
-        .module('app.global')
-        .factory('ProfileService', ProfileService);
-
-    /* @ngInject */
-    function ProfileService($q, $timeout, GroupService, $rootScope) {
-
-
-        var service = {
-            activeGroup: activeGroup,
-            setActiveGroup: setActiveGroup
-        };
-
-        var activeGroup = null;
-
-        return service;
-
-        ///////////////
-
-        function activeGroup() {
-            var defer = $q.defer();
-
-            if(activeGroup === null) {
-                GroupService.getList({active:true}).then(function(response) {
-                    defer.resolve(response[0]);
-                });
-            } else {
-                defer.resolve(activeGroup);
-            }
-            return defer.promise;
-        }
-
-        function setActiveGroup(group) {
-            activeGroup = group;
-            $rootScope.$broadcast('activeGroupChanged', group);
-        }
-
-    }
-})();
-
-(function() {
-    'use strict';
-
-    SelectGroupsController.$inject = ["$state", "UserService"];
-    angular
-        .module('app.global')
-        .directive('selectGroups', selectGroups);
-
-    /* @ngInject */
-    function selectGroups() {
-        // Usage:
-        //
-        // ```html
-        // <select-groups ng-value="">
-        // ```
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                'reloadState': '=',
-                'active': '=',
-                'onlyOwned': '='
-            },
-            templateUrl: 'app/global/groups/select-groups.tmpl.html',
-            controller: SelectGroupsController,
-            controllerAs: 'vm',
-            bindToController: true // because the scope is isolated
-        };
-        return directive;
-        ////////////////////////
-
-        function link($scope, $element, attrs) {}
-    }
-
-    /* @ngInject */
-    function SelectGroupsController($state, UserService) {
-        var vm = this;
-
-        vm.selectedGroup = null;
-        vm.switchGroup = switchGroup;
-
-        init();
-        ////////////////////
-
-        function init() {
-            UserService.allowedGroups().then(function(groups) {
-                vm.groups = groups;
-                UserService.getActiveGroup().then(function(group) {
-                    vm.selectedGroup = group;
-                });
-            });
-        }
-
-        function switchGroup(group) {
-            UserService.setActiveGroup(group);
-            $state.go(vm.reloadState, {}, { reload: true });
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    DateRangeService.$inject = ["$q", "$timeout", "$rootScope", "moment"];
-    angular
-        .module('app.global')
-        .factory('DateRangeService', DateRangeService);
-
-    /* @ngInject */
-    function DateRangeService($q, $timeout, $rootScope, moment) {
-
-
-        var service = {
-            thisWeek: thisWeek,
-            thisMonth: thisMonth,
-            thisQuarter: thisQuarter,
-            thisSchoolyear: thisSchoolyear,
-            custom: custom,
-            range: range
-        };
-
-        var range = undefined;
-
-        return service;
-        //////////////////////////////
-
-        function range() {
-            if(range === undefined) {
-                range = thisQuarter();
-            }
-            return range;
-        }
-
-        function custom(cr) {
-            range = cr;
-            return range;
-        }
-
-        function thisWeek() {
-            range = {
-                start: moment().startOf('week'),
-                end: moment().endOf('week')
-            };
-            return range;
-        }
-
-        function thisMonth() {
-            range = {
-                start: moment().startOf('month'),
-                end: moment().endOf('month')
-            };
-            return range;
-        }
-
-        function thisQuarter() {
-            var now = moment();
-
-            if (now.month() > 7) {
-                return quarter(1);
-            } else if (now < moment().easter()) {
-                return quarter(2);
-            } else {
-                return quarter(3);
-            }
-        }
-
-        function quarter(q) {
-            var start, end;
-            //q = 1, 2, 3
-            if (q == 1) {
-                //First schoolQuarter
-                start = moment().month(8).startOf('month');
-                end = moment().month(11).endOf('month');
-            } else if (q == 2) {
-                //Second schoolQuarter
-                start = moment().startOf('year');
-                end = moment().easter();
-            } else {
-                start = moment().easter();
-                end = moment().month(5).endOf('month');
-            }
-            range = {
-                start: start,
-                end: end
-            };
-            return range;
-        }
-
-        function thisSchoolyear() {
-            var start, end, now = moment();
-            var yearNow = now.year();
-            if (now.month() < 8) {
-                start = moment().subtract(-1, 'year').month(8).startOf('month');
-                end = moment().month(7).endOf('month');
-            } else {
-                start = moment().month(8).startOf('month');
-                end = moment().add(1, 'year').month(7).endOf('month');
-            }
-            range = {
-                start: start,
-                end: end
-            };
-            return range;
-        }
-
-    }
-})();
-
-(function() {
-    'use strict';
-
-    DateRangeController.$inject = ["$mdPanel", "$rootScope", "DateRangeService", "HTTPCache", "moment"];
-    DateRangePickerController.$inject = ["$scope", "mdPanelRef", "range", "onClose", "DateRangeService"];
-    angular
-        .module('app.global')
-        .directive('mdDaterange', mdDaterange);
-
-    /* @ngInject */
-    function mdDaterange() {
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                range: '=',
-                onDaterangeChanged: '&'
-            },
-            templateUrl: 'app/global/daterange/daterange.tmpl.html',
-            controller: DateRangeController,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-        return directive;
-        ////////////////////////
-
-        function link($scope, $element, $attrs) {}
-    }
-
-    /* @ngInject  */
-    function DateRangeController($mdPanel, $rootScope, DateRangeService, HTTPCache, moment) {
-        var vm = this;
-
-        vm.showMenu = showMenu;
-
-
-        init();
-        /////////////////////////
-
-        function init() {
-            vm.range = DateRangeService.range();
-            setRequestParams();
-        }
-
-        function showMenu(ev) {
-            var position = $mdPanel.newPanelPosition()
-                .relativeTo('.datepicker-label')
-                .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
-
-            var config = {
-                attachTo: angular.element(document.body),
-                controller: DateRangePickerController,
-                controllerAs: 'vm',
-                templateUrl: 'app/global/daterange/daterange-picker.tmpl.html',
-                panelClass: 'demo-menu-example',
-                position: position,
-                locals: {
-                    range: vm.range,
-                    onClose: closePicker
-                },
-                openFrom: ev,
-                clickOutsideToClose: true,
-                escapeToClose: true,
-                focusOnOpen: false,
-                zIndex: 2
-            };
-
-            $mdPanel.open(config);
-
-
-        }
-
-        function closePicker(data) {
-            vm.range = data.range;
-            setRequestParams();
-            vm.onDaterangeChanged && vm.onDaterangeChanged();
-        }
-
-        function setRequestParams() {
-            HTTPCache.setDefaultRequestParams({
-                start: vm.range.start.format('YYYY-MM-DD'),
-                end: vm.range.end.format('YYYY-MM-DD')
-            });
-        }
-
-
-
-    }
-
-
-    /* @ngInject */
-    function DateRangePickerController($scope, mdPanelRef, range, onClose, DateRangeService) {
-        var vm = this;
-
-        vm.range = range;
-
-        vm.select = select;
-        vm.selectCustomStart = selectCustomStart;
-        vm.selectCustomEnd = selectCustomEnd;
-
-        vm.cancel = cancel;
-
-        init();
-        /////////////////////////
-        function init() {
-
-        }
-
-        function select(option) {
-            if (option == 'week') {
-                vm.range = DateRangeService.thisWeek();
-            } else if (option == 'month') {
-                vm.range = DateRangeService.thisMonth();
-            } else if (option == 'quarter') {
-                vm.range = DateRangeService.thisQuarter();
-            } else if (option == 'schoolyear') {
-                vm.range = DateRangeService.thisSchoolyear();
-            }
-            saveAndClose();
-        }
-
-        function cancel() {
-            mdPanelRef.close();
-        }
-
-        function saveAndClose() {
-            mdPanelRef.close().then(function(mdPanelRef) {
-                onClose({
-                    range: vm.range
-                });
-            });
-        }
-
-        function selectCustomStart() {
-            vm.range.start = moment(vm.start);
-            vm.selectedTab = 1;
-        }
-
-        function selectCustomEnd() {
-            vm.range.end = moment(vm.end);
-            DateRangeService.custom(vm.range);
-            saveAndClose();
-        }
-
-        $scope.$watch('vm.range', function() {
-            vm.start = vm.range.start.toDate();
-            vm.end = vm.range.end.toDate();
-        }, true);
-
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    selectMajors.$inject = ["$timeout", "$filter", "BranchService"];
-    angular
-        .module('app.global')
-        .directive('selectMajors', selectMajors);
-
-    /* @ngInject */
-    function selectMajors($timeout, $filter, BranchService) {
-        // Usage:
-        //
-        // ```html
-        // <select-majors ng-value="">
-        // ```
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                'ngModel': '=',
-                'required': '=?'
-            },
-            templateUrl: 'app/global/branches/select-majors.tmpl.html'
-        };
-        return directive;
-        ////////////////////////
-
-        function link($scope, $element, attrs) {
-
-            $scope.majors = null;
-
-            if (attrs.hasOwnProperty('multiple')) {
-                $scope.multiple = true;
-            } else {
-                $scope.multiple = false;
-            }
-            if (attrs.hasOwnProperty('required')) {
-                $scope.required = true;
-            } else {
-                $scope.required = false;
-            }
-
-
-            BranchService.all('majors').getList().then(function(majors) {
-                $scope.majors = majors;
-            });
-
-
-
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    selectBranches.$inject = ["$timeout", "$filter", "BranchService", "UserService", "GroupService"];
-    angular
-        .module('app.global')
-        .directive('selectBranches', selectBranches);
-
-    /* @ngInject */
-    function selectBranches($timeout, $filter, BranchService, UserService, GroupService) {
-        // Usage:
-        //
-        // ```html
-        // <select-courses ng-value="">
-        // ```
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                'ngModel': '=',
-                'required': '=?'
-            },
-            templateUrl: 'app/global/branches/select-branches.tmpl.html'
-        };
-        return directive;
-        ////////////////////////
-
-        function link($scope, $element, attrs) {
-
-            $scope.majors = null;
-            $scope.branchGroups = null;
-
-            if (attrs.hasOwnProperty('multiple')) {
-                $scope.multiple = true;
-            } else {
-                $scope.multiple = false;
-            }
-            if (attrs.hasOwnProperty('required')) {
-                $scope.required = true;
-            } else {
-                $scope.required = false;
-            }
-
-
-            if (attrs.hasOwnProperty('byGroups')) {
-                var type = attrs.hasOwnProperty('byType') ? { evaluationtype: attrs.byType } : {}; 
-                UserService.getActiveGroup().then(function(group) {
-                    var result = [];
-                    //i.e. /groups/{id}/branches?evaluationtype=C
-                    GroupService.one(group.id).all('branches').getList(type).then(function(branchGroups) {
-                        // /branches?group={id}
-                        BranchService.getList({ 'group': group.id }).then(function(majors) {
-                            angular.forEach(majors, function(major) {
-                                result.push({
-                                    major: {
-                                        id: major.id,
-                                        name: major.name
-                                    },
-                                    branchForGroup: []
-                                });
-                            });
-                            angular.forEach(result, function(r) {
-                                r.branchForGroup = $filter('majorGroup')(branchGroups, r);
-                            });
-                            $scope.branchGroups = result;
-                        });
-                    });
-                });
-            } else {
-                UserService.getActiveGroup().then(function(group) {
-                    BranchService.getList({ 'group': group.id }).then(function(majors) {
-                        $scope.majors = majors;
-                    });
-                });
-            }
-
-
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    BranchService.$inject = ["HTTPCache"];
-    angular
-        .module('app.global')
-        .factory('BranchService', BranchService);
-
-    /* @ngInject */
-    function BranchService(HTTPCache) {
-        return HTTPCache.all('branches');
-    }
-})();
-
 (function() {
     'use strict';
 
@@ -16100,6 +16100,34 @@
 (function() {
     'use strict';
 
+    LockController.$inject = ["$state", "triSettings"];
+    angular
+        .module('app.authentication')
+        .controller('LockController', LockController);
+
+    /* @ngInject */
+    function LockController($state, triSettings) {
+        var vm = this;
+        vm.loginClick = loginClick;
+        vm.user = {
+            name: 'Morris Onions',
+            email: 'info@oxygenna.com',
+            password: ''
+        };
+        vm.triSettings = triSettings;
+
+        ////////////////
+
+        // controller to handle login check
+        function loginClick() {
+            // user logged in ok so goto the dashboard
+            $state.go('triangular.dashboard-general');
+        }
+    }
+})();
+(function() {
+    'use strict';
+
     LoginController.$inject = ["$rootScope", "$state", "googleService", "triSettings", "HTTPCache", "_env"];
     angular
         .module('app.authentication')
@@ -16128,34 +16156,6 @@
     }
 })();
 
-(function() {
-    'use strict';
-
-    LockController.$inject = ["$state", "triSettings"];
-    angular
-        .module('app.authentication')
-        .controller('LockController', LockController);
-
-    /* @ngInject */
-    function LockController($state, triSettings) {
-        var vm = this;
-        vm.loginClick = loginClick;
-        vm.user = {
-            name: 'Morris Onions',
-            email: 'info@oxygenna.com',
-            password: ''
-        };
-        vm.triSettings = triSettings;
-
-        ////////////////
-
-        // controller to handle login check
-        function loginClick() {
-            // user logged in ok so goto the dashboard
-            $state.go('triangular.dashboard-general');
-        }
-    }
-})();
 (function() {
     'use strict';
 
@@ -17251,7 +17251,7 @@
             }
 
             return defer.promise;
-            
+
         }
 
         function getActiveGroup() {
@@ -17259,10 +17259,29 @@
 
             if (activeGroup === null) {
                 allowedGroups().then(function(response) {
-                    defer.resolve(response[0]);
+                    if (response[0].isRestangularized()) {
+                        activeGroup = response[0];
+                        defer.resolve(activeGroup);
+                    } else {
+                        //TODO check if response[0] exists and ID exists on this item
+                        GroupService.one(response[0].id).get()
+                            .then(function(restGroup) {
+                                activeGroup = restGroup;
+                                defer.resolve(activeGroup);
+                            });
+                    }
+
                 });
             } else {
-                defer.resolve(activeGroup);
+                if (activeGroup.isRestangularized()) {
+                    defer.resolve(activeGroup);
+                } else {
+                    GroupService.one(activeGroup.id).get()
+                        .then(function(restGroup) {
+                            activeGroup = restGroup;
+                            defer.resolve(activeGroup);
+                        });
+                }
             }
             return defer.promise;
         }
@@ -18999,9 +19018,6 @@ $templateCache.put("app/examples/charts/google-line.tmpl.html","<div class=\"pad
 $templateCache.put("app/examples/charts/google-scatter.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Google Chart Tools Directive Module to bring you all the chart types available from Google Charts.</p>\n\n    <p class=\"md-subhead\">Material Scatter Charts have many small improvements over Classic Scatter Charts, including variable opacity for legibility of overlapping points, an improved color palette, clearer label formatting, tighter default spacing, softer gridlines and titles (and the addition of subtitles).</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Google Material Scatter Chart Example</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-controller=\"GoogleChartsScatterController as vm\" ng-include=\"\'app/examples/charts/examples/google-scatter.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/charts/examples/google-scatter.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/charts/examples/google-scatter.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
 $templateCache.put("app/examples/dashboards/dashboard-draggable.tmpl.html","<div layout=\"column\" class=\"padded-content-page\">\n    <h2>Creating containers with draggable elements</h2>\n    <p>Triangular allows you to easily build amazing containers with draggable elements. The examples below display such a functionality by creating simple containers with draggable widgets. Drag them around in order to re-order them. More examples can be found in analytics and server pages under the dashboard menu.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Horizontal dragging</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-draggable.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-draggable.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>Example Column container. More complex layouts are also allowed, offering two degrees of freedom in movement.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Vertical dragging</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-draggable-vertical.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-draggable-vertical.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
 $templateCache.put("app/examples/dashboards/widgets.tmpl.html","<div layout=\"column\" class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular allows you to build stunning dashbords easily using widgets.  Each widget has many different options you can find out how to use some of them below.</p>\n\n\n    <p>Titles & subtitles can be placed above and below the widget content.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Title above and below the content</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-title-above.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-title-above.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n\n    <p>Titles & subtitles can also be be placed to the side of the widget content.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Title on the side of the content</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-title-side.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-title-side.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can also use any of <a ui-sref=\"admin-panel.default.ui-colors\">triangulars palette colors</a> for your widgets.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Using palette colours</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-colors.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-colors.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n\n    <p>You can also use an image for your widget backgrounds.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Using palette colours</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-backgrounds.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-backgrounds.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
-$templateCache.put("app/examples/email/email-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog\">\n    <md-toolbar class=\"toolbar-default\" md-theme=\"{{vm.triSkin.elements.toolbar}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n              <span>{{vm.title}}</span>\n            </h2>\n            <span flex></span>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"email-dialog md-padding\">\n        <form name=\"emailForm\" novalidate>\n            <div layout=\"row\">\n                <div layout=\"column\" flex>\n                    <md-contact-chips\n                        flex\n                        ng-model=\"vm.email.to\"\n                        md-contacts=\"vm.queryContacts($query)\"\n                        md-contact-name=\"name\"\n                        md-contact-image=\"image\"\n                        md-contact-email=\"email\"\n                        md-require-match\n                        filter-selected=\"true\"\n                        placeholder=\"{{\'To\' | triTranslate}}\"\n                        secondary-placeholder=\"{{\'To\' | triTranslate}}\">\n                    </md-contact-chips>\n                    <div class=\"email-dialog-ccs ng-hide\" layout=\"column\" ng-show=\"vm.showCCS\" >\n                        <md-contact-chips\n                            ng-model=\"vm.email.cc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'CC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'CC\' | triTranslate}}\">\n                        </md-contact-chips>\n                        <md-contact-chips\n                            ng-model=\"vm.email.bcc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'BCC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'BCC\' | triTranslate}}\">\n                        </md-contact-chips>\n                    </div>\n                </div>\n                <md-button class=\"md-icon-button\" ng-click=\"vm.toggleCCS($event)\" aria-label=\"toggle ccs\">\n                    <md-icon md-font-icon ng-class=\"vm.showCCSIcon\"></md-icon>\n                </md-button>\n            </div>\n\n            <md-input-container class=\"email-subject md-block\">\n                <label for=\"subject\" translate>Subject</label>\n                <input ng-model=\"vm.email.subject\" name=\"subject\" required>\n                <div ng-messages=\"emailForm.subject.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a subject for the email.</span>\n                    </div>\n                </div>\n            </md-input-container>\n\n            <text-angular class=\"email-content\" name=\"emailBody\" ng-model=\"vm.email.content\" ta-target-toolbars=\"editor-toolbar\"></text-angular>\n        </form>\n    </md-dialog-content>\n\n    <md-dialog-actions layout=\"row\">\n        <text-angular-toolbar name=\"editor-toolbar\" class=\"email-dialog-editor-toolbar\" ta-toolbar-active-button-class=\"active\"></text-angular-toolbar>\n        <span flex></span>\n        <md-button ng-click=\"vm.send()\" class=\"md-primary\" ng-disabled=\"emailForm.$invalid\" aria-label=\"send\" translate=\"Send\"></md-button>\n    </md-dialog-actions>\n</md-dialog>");
-$templateCache.put("app/examples/email/email.tmpl.html","<md-content class=\"md-padding full-width\">\n    <md-card>\n        <md-card-header>\n            <md-card-avatar>\n                <img class=\"md-user-avatar\" ng-src=\"{{::vm.email.from.image}}\"/>\n            </md-card-avatar>\n            <md-card-header-text>\n                <span class=\"md-title\">{{::vm.email.from.name}}</span>\n                <span class=\"md-subhead\">{{::vm.email.subject}}</span>\n            </md-card-header-text>\n            <md-card-icon-actions>\n                <md-button class=\"md-icon-button\" aria-label=\"close\" ng-click=\"vm.closeEmail()\">\n                    <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n                </md-button>\n            </md-card-icon-actions>\n        </md-card-header>\n        <md-divider></md-divider>\n        <md-card-content>\n            <p ng-repeat=\"paragraph in vm.email.content\">{{paragraph}}</p>\n        </md-card-content>\n        <md-divider></md-divider>\n        <md-card-actions layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply\')\" aria-label=\"Reply\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply_ALL\')\" aria-label=\"Reply All\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply-all\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Forward\')\" aria-label=\"Forward\">\n                <md-icon md-font-icon=\"zmdi zmdi-forward\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.deleteEmail(vm.email)\" aria-label=\"Delete\">\n                <md-icon md-font-icon=\"zmdi zmdi-delete\"></md-icon>\n            </md-button>\n        </md-card-actions>\n    </md-card>\n</md-content>\n");
-$templateCache.put("app/examples/email/inbox.tmpl.html","<div flex layout=\"row\">\n    <md-content flex=\"100\" flex-gt-xs=\"50\" flex-gt-lg=\"40\" ng-show=\"vm.showEmailList\">\n        <md-list class=\"inbox-list\">\n            <div ng-repeat=\"group in vm.emailGroups\">\n                <md-subheader class=\"md-primary\" ng-show=\"group.emails.length > 0\">{{::group.name}}</md-subheader>\n                <md-list-item class=\"inbox-list__email inbox-list__email--animated md-3-line md-long-text\" ng-repeat=\"email in group.emails | orderBy:\'-date\'\" ng-click=\"vm.openMail(email)\" ng-class=\"{ \'inbox-list__email--active\': vm.selectedMail === email.id, \'inbox-list__email--unread\': email.unread }\">\n                    <img class=\"md-avatar\" ng-src=\"{{::email.from.image}}\" alt=\"{{::email.from.name}}\">\n                    <div class=\"md-list-item-text\" layout=\"column\">\n                        <h3><span class=\"md-caption\" am-time-ago=\"email.date\"></span>{{::email.from.name}}</h3>\n                        <h4>{{::email.subject}}</h4>\n                        <p>{{::email.content[0] | cut:true:80:\' ...\'}}</p>\n                    </div>\n                    <md-divider ng-if=\"!$last\"></md-divider>\n                </md-list-item>\n            </div>\n        </md-list>\n    </md-content>\n    <div class=\"md-whiteframe-z1 animate-wrapper\" layout=\"column\" layout-align=\"start center\" flex>\n        <div flex id=\"ui-admin-email\" ui-view layout=\"column\" layout-align=\"start center\" class=\"overflow-auto full-width\">\n            <div flex class=\"inbox-no-email-selected\" layout=\"column\" layout-align=\"center\">\n                <h2 hide-xs translate>No email selected</h2>\n            </div>\n        </div>\n    </div>\n</div>\n<md-button ng-click=\"vm.composeClick($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'EMAIL.COMPOSE_EMAIL\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-edit\"></md-icon>\n</md-button>\n");
 $templateCache.put("app/examples/elements/buttons.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Button Examples</h2>\n    <p class=\"md-subhead\">A button consists of text and/or an image that clearly communicates what action will occur when the user touches it.  Triangular provides all the button types recommended in the <a href=\"http://www.google.com/design/spec/components/buttons.html\">material design specification</a></p>\n\n    <h3>Button Types</h3>\n    <p>There are three types of main buttons: </p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Raised Button</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" ng-include=\"\'app/examples/elements/examples/button-raised.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-raised.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Flat Button</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" ng-include=\"\'app/examples/elements/examples/button-flat.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-flat.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Floating action button (FAB)</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-xs=\"column\" layout-padding layout-align=\"space-around center\" ng-include=\"\'app/examples/elements/examples/button-fab.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-fab.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <h3>Example Usage</h2>\n\n    <p>Choosing a button style depends on the primacy of the button, the number of containers on screen, and the overall layout of the screen.</p>\n    <p>First, look at the button’s function: is it important and ubiquitous enough to be a floating action button?</p>\n    <p>Next, choose raised or flat dimensionality depending on the container it will be in and how many z-space layers you have on screen. There should not be layers upon layers upon layers of objects on the screen.</p>\n    <p>Finally, look at your specific layout. You should primarily use one type of button per container. Only mix button types when you have a good reason to, such as emphasizing an important function.</p>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Raised Button Example</h3>\n            <p>Raised buttons emphasize functions that would otherwise get lost on a busy or wide space. They add dimension to mostly flat layouts.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n\n        <div flex flex-xs=\"100\" class=\"elements-buttons-raised-usage md-whiteframe-z1\" layout=\"column\">\n            <md-toolbar>\n                <h2 class=\"md-toolbar-tools\">\n                    <span>Raised Button</span>\n                </h2>\n            </md-toolbar>\n            <div class=\"elements-raised-content\">\n                <h3>Uploading</h3>\n                <h1>{{vm.determinateValue}}%</h1>\n                <md-progress-linear class=\"md-warn\" md-mode=\"buffer\" value=\"{{vm.determinateValue}}\" md-buffer-value=\"{{vm.determinateValue2}}\"></md-progress-linear>\n            </div>\n            <div class=\"elements-raised-buttons\" layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" aria-label=\"pause\">Pause</md-button>\n                <md-button class=\"md-raised md-warn\" aria-label=\"cancel\">Cancel</md-button>\n            </div>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Floating Action Button (FAB)</h3>\n            <p>Floating action buttons are used for a special type of promoted action. They are distinguished by a circled icon floating above the UI and have special motion behaviors related to morphing, launching, and the transferring anchor point.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n        <div flex flex-xs=\"100\" class=\"elements-buttons-fab-usage md-whiteframe-z3\" layout=\"column\">\n            <img src=\"assets/images/dashboards/tweet.jpg\" alt=\"\">\n            <md-toolbar>\n                <h2 class=\"md-toolbar-tools\">\n                    <span>Fab Button</span>\n                </h2>\n            </md-toolbar>\n            <md-button class=\"md-fab md-accent\" aria-label=\"fab button\">\n                <md-icon md-font-icon=\"zmdi zmdi-plus\"></md-icon>\n            </md-button>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Flat button</h3>\n            <p>Use flat buttons for contexts such as toolbars and dialogs to avoid gratuitous layering.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n        <div flex flex-xs=\"100\" class=\"elements-buttons-flat-usage md-whiteframe-z3\" layout=\"column\">\n            <div class=\"md-padding\">\n                <h2>Would you like to use our location service?</h2>\n                <p>Let us monitor your location to keep you up to date with everything that is happening in your current area.</p>\n            </div>\n            <md-divider></md-divider>\n            <div class=\"md-padding\" layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-primary\">Disagree</md-button>\n                <md-button class=\"md-primary\">Agree</md-button>\n            </div>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <h3>Button Ripple Options</h2>\n    <p>You can also change the style of ripple effects using the <code>md-ripple-size</code> and <code>md-no-ink</code> attribute</p>\n    <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom >\n        <md-tab label=\"example\">\n            <div class=\"padding-40 md-tabs-content\">\n                <md-card>\n                    <md-card-content ng-include=\"\'app/examples/elements/examples/button-ripple.tmpl.html\'\"></md-card-content>\n                </md-card>\n            </div>\n        </md-tab>\n        <md-tab label=\"HTML\">\n            <div class=\"md-tabs-content\">\n                <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-ripple.tmpl.html\'\"></div>\n            </div>\n        </md-tab>\n    </md-tabs>\n\n    <h3>Button States</h3>\n    <p>You can also change the style of ripple effects using the <code>md-ripple-size</code> attribute</p>\n    <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom >\n        <md-tab label=\"example\">\n            <div class=\"padding-40 md-tabs-content\">\n                <md-card>\n                    <md-card-content ng-include=\"\'app/examples/elements/examples/button-disabled.tmpl.html\'\"></md-card-content>\n                </md-card>\n            </div>\n        </md-tab>\n        <md-tab label=\"HTML\">\n            <div class=\"md-tabs-content\">\n                <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-disabled.tmpl.html\'\"></div>\n            </div>\n        </md-tab>\n    </md-tabs>\n</div>\n");
 $templateCache.put("app/examples/elements/cards.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Card Examples</h2>\n    <p class=\"md-subhead\">A card is a piece of paper that contains unique related data; for example, a photo, text, and link all about a single subject. Cards are typically an entry point to more complex and detailed information.</p>\n\n    <p>Cards have a constant width and variable height. The maximum height is limited to what can fit within a single view on a platform, but it can temporarily expand as needed (for example, to display a comment field).  Cards do not flip to reveal information on their back.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Simple Card - with top image</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-1.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Card - with media</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-2.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-2.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Card - action buttons and titles</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-3.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-3.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/checkboxes.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Checkbox Examples</h2>\n    <p class=\"md-subhead\">Checkboxes allow the user to select multiple options from a set.  If you have multiple on/off options appearing in a list, checkboxes are a good way to preserve space.</p>\n\n    <p>Checkboxes use animation to communicate focused and pressed states.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Simple Checkbox</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card ng-init=\"checkboxes = { primary: true, default: true, warn: true }\">\n                        <md-card-content class=\"padding-40\" layout-padding layout-align=\"space-around start\" ng-include=\"\'app/examples/elements/examples/checkboxes-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/checkboxes-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
@@ -19029,6 +19045,9 @@ $templateCache.put("app/examples/elements/toolbars.tmpl.html","<div class=\"padd
 $templateCache.put("app/examples/elements/tooltips.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Tooltip Examples</h2>\n    <p class=\"md-subhead\">Tooltips are labels that appear on hover and focus when the user hovers over an element with the cursor, focuses on an element using a keyboard (usually through the tab key), or, in a touch UI, upon touch (without releasing). They contain textual identification for the element in question. They may also contain brief helper text regarding the function of the element. Nothing within the label can take focus.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Example tooltips</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-align=\"center center\" ng-include=\"\'app/examples/elements/examples/tooltip-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/tooltip-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/upload.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">File Upload Examples</h2>\n    <p class=\"md-subhead\">Triangular includes the <a href=\"https://github.com/danialfarid/ng-file-upload\">ng-file-upload directive</a> to allow easy upload form creation.</p>\n\n    <p>Here are some examples</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Simple upload button (allow multiple)</h3>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-controller=\"ElementsUpload1Controller as vm\" ng-include=\"\'app/examples/elements/examples/upload-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/upload-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/elements/examples/upload-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Upload button with animation</h3>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-controller=\"ElementsUploadAnimateController as vm\" ng-include=\"\'app/examples/elements/examples/upload-animate.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/upload-animate.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/elements/examples/upload-animate.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/whiteframes.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Whiteframe Examples</h2>\n    <p class=\"md-subhead\">Whiteframes provide a variety of layout structures using a consistent approach to surfaces, layering, and shadows.</p>\n\n    <div class=\"example-code md-whiteframe-z1\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Whiteframe examples</h3>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content elements-whiteframe-example padding-40\">\n                    <div layout=\"column\" layout-align=\"center center\" layout-padding ng-include=\"\'app/examples/elements/examples/whiteframe-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/whiteframe-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
+$templateCache.put("app/examples/email/email-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog\">\n    <md-toolbar class=\"toolbar-default\" md-theme=\"{{vm.triSkin.elements.toolbar}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n              <span>{{vm.title}}</span>\n            </h2>\n            <span flex></span>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"email-dialog md-padding\">\n        <form name=\"emailForm\" novalidate>\n            <div layout=\"row\">\n                <div layout=\"column\" flex>\n                    <md-contact-chips\n                        flex\n                        ng-model=\"vm.email.to\"\n                        md-contacts=\"vm.queryContacts($query)\"\n                        md-contact-name=\"name\"\n                        md-contact-image=\"image\"\n                        md-contact-email=\"email\"\n                        md-require-match\n                        filter-selected=\"true\"\n                        placeholder=\"{{\'To\' | triTranslate}}\"\n                        secondary-placeholder=\"{{\'To\' | triTranslate}}\">\n                    </md-contact-chips>\n                    <div class=\"email-dialog-ccs ng-hide\" layout=\"column\" ng-show=\"vm.showCCS\" >\n                        <md-contact-chips\n                            ng-model=\"vm.email.cc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'CC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'CC\' | triTranslate}}\">\n                        </md-contact-chips>\n                        <md-contact-chips\n                            ng-model=\"vm.email.bcc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'BCC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'BCC\' | triTranslate}}\">\n                        </md-contact-chips>\n                    </div>\n                </div>\n                <md-button class=\"md-icon-button\" ng-click=\"vm.toggleCCS($event)\" aria-label=\"toggle ccs\">\n                    <md-icon md-font-icon ng-class=\"vm.showCCSIcon\"></md-icon>\n                </md-button>\n            </div>\n\n            <md-input-container class=\"email-subject md-block\">\n                <label for=\"subject\" translate>Subject</label>\n                <input ng-model=\"vm.email.subject\" name=\"subject\" required>\n                <div ng-messages=\"emailForm.subject.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a subject for the email.</span>\n                    </div>\n                </div>\n            </md-input-container>\n\n            <text-angular class=\"email-content\" name=\"emailBody\" ng-model=\"vm.email.content\" ta-target-toolbars=\"editor-toolbar\"></text-angular>\n        </form>\n    </md-dialog-content>\n\n    <md-dialog-actions layout=\"row\">\n        <text-angular-toolbar name=\"editor-toolbar\" class=\"email-dialog-editor-toolbar\" ta-toolbar-active-button-class=\"active\"></text-angular-toolbar>\n        <span flex></span>\n        <md-button ng-click=\"vm.send()\" class=\"md-primary\" ng-disabled=\"emailForm.$invalid\" aria-label=\"send\" translate=\"Send\"></md-button>\n    </md-dialog-actions>\n</md-dialog>");
+$templateCache.put("app/examples/email/email.tmpl.html","<md-content class=\"md-padding full-width\">\n    <md-card>\n        <md-card-header>\n            <md-card-avatar>\n                <img class=\"md-user-avatar\" ng-src=\"{{::vm.email.from.image}}\"/>\n            </md-card-avatar>\n            <md-card-header-text>\n                <span class=\"md-title\">{{::vm.email.from.name}}</span>\n                <span class=\"md-subhead\">{{::vm.email.subject}}</span>\n            </md-card-header-text>\n            <md-card-icon-actions>\n                <md-button class=\"md-icon-button\" aria-label=\"close\" ng-click=\"vm.closeEmail()\">\n                    <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n                </md-button>\n            </md-card-icon-actions>\n        </md-card-header>\n        <md-divider></md-divider>\n        <md-card-content>\n            <p ng-repeat=\"paragraph in vm.email.content\">{{paragraph}}</p>\n        </md-card-content>\n        <md-divider></md-divider>\n        <md-card-actions layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply\')\" aria-label=\"Reply\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply_ALL\')\" aria-label=\"Reply All\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply-all\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Forward\')\" aria-label=\"Forward\">\n                <md-icon md-font-icon=\"zmdi zmdi-forward\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.deleteEmail(vm.email)\" aria-label=\"Delete\">\n                <md-icon md-font-icon=\"zmdi zmdi-delete\"></md-icon>\n            </md-button>\n        </md-card-actions>\n    </md-card>\n</md-content>\n");
+$templateCache.put("app/examples/email/inbox.tmpl.html","<div flex layout=\"row\">\n    <md-content flex=\"100\" flex-gt-xs=\"50\" flex-gt-lg=\"40\" ng-show=\"vm.showEmailList\">\n        <md-list class=\"inbox-list\">\n            <div ng-repeat=\"group in vm.emailGroups\">\n                <md-subheader class=\"md-primary\" ng-show=\"group.emails.length > 0\">{{::group.name}}</md-subheader>\n                <md-list-item class=\"inbox-list__email inbox-list__email--animated md-3-line md-long-text\" ng-repeat=\"email in group.emails | orderBy:\'-date\'\" ng-click=\"vm.openMail(email)\" ng-class=\"{ \'inbox-list__email--active\': vm.selectedMail === email.id, \'inbox-list__email--unread\': email.unread }\">\n                    <img class=\"md-avatar\" ng-src=\"{{::email.from.image}}\" alt=\"{{::email.from.name}}\">\n                    <div class=\"md-list-item-text\" layout=\"column\">\n                        <h3><span class=\"md-caption\" am-time-ago=\"email.date\"></span>{{::email.from.name}}</h3>\n                        <h4>{{::email.subject}}</h4>\n                        <p>{{::email.content[0] | cut:true:80:\' ...\'}}</p>\n                    </div>\n                    <md-divider ng-if=\"!$last\"></md-divider>\n                </md-list-item>\n            </div>\n        </md-list>\n    </md-content>\n    <div class=\"md-whiteframe-z1 animate-wrapper\" layout=\"column\" layout-align=\"start center\" flex>\n        <div flex id=\"ui-admin-email\" ui-view layout=\"column\" layout-align=\"start center\" class=\"overflow-auto full-width\">\n            <div flex class=\"inbox-no-email-selected\" layout=\"column\" layout-align=\"center\">\n                <h2 hide-xs translate>No email selected</h2>\n            </div>\n        </div>\n    </div>\n</div>\n<md-button ng-click=\"vm.composeClick($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'EMAIL.COMPOSE_EMAIL\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-edit\"></md-icon>\n</md-button>\n");
 $templateCache.put("app/examples/extras/avatars.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular includes an enormous set of Material Design Avatars. Amazing details and 1000s of combinations. Includes original Adobe Illustrator file as well as 1440 exported images</p>\n\n    <md-grid-list md-cols=\"6\" md-cols-xs=\"4\" md-row-height=\"1:1\" md-gutter=\"4px\">\n        <md-grid-tile md-rowspan=\"{{::avatar.rowspan}}\" md-colspan=\"{{::avatar.colspan}}\" ng-repeat=\"avatar in ::vm.avatars\" ng-style=\"::{ \'background-image\': \'url(\' + avatar.image + \')\', \'background-size\' : \'cover\' }\" palette-background=\"{{::avatar.color}}:{{::avatar.hue}}\">\n            <md-grid-tile-footer>\n                <h3>{{::avatar.title}}</h3>\n            </md-grid-tile-footer>\n        </md-grid-tile>\n    </md-grid-list>\n</md-content>");
 $templateCache.put("app/examples/extras/blank.tmpl.html","<div class=\"padded-content-page\">\n    <div layout=\"row\" layout-align=\"center center\">\n        <p>Your content here</p>\n    </div>\n</div>");
 $templateCache.put("app/examples/extras/gallery-dialog.tmpl.html","<md-dialog aria-label=\"{{vm.currentImage.title}}\">\n    <md-dialog-content class=\"md-dialog-content extras-image-dialog\">\n        <img ng-src=\"{{vm.currentImage.urlFull}}\" alt=\"{{vm.currentImage.title}}\">\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        {{vm.currentImage.title}}\n        <span flex></span>\n        <md-button ng-click=\"vm.prev()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-left\"></md-icon>\n        </md-button>\n        <md-button ng-click=\"vm.next()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon>\n        </md-button>\n    </md-dialog-actions>\n</md-dialog>");
@@ -19043,11 +19062,11 @@ $templateCache.put("app/examples/github/github.tmpl.html","<div layout=\"column\
 $templateCache.put("app/examples/layouts/composer.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-heading\">Layout Composer</h2>\n    <p class=\"md-subhead\">Use this page to try out the many different page layouts at your disposal when using triangular!</p>\n    <div layout=\"row\" layout-align=\"center center\">\n        <md-card flex>\n            <div layout=\"column\" layout-fill>\n                <md-toolbar>\n                    <div class=\"md-toolbar-tools\">\n                        <h2>Create a page layout</h2>\n                    </div>\n                </md-toolbar>\n            </div>\n            <md-card-content>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Size</label>\n                    <md-select ng-model=\"vm.layout.toolbarSize\" ng-change=\"vm.updateOption(\'toolbarSize\')\" placeholder=\"Select a size\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarSizes\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Background</label>\n                    <md-select ng-model=\"vm.layout.toolbarClass\" ng-change=\"vm.updateOption(\'toolbarClass\')\" placeholder=\"Select a background\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarBackgrounds\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Shrink</label>\n                    <md-switch ng-model=\"vm.layout.toolbarShrink\" ng-change=\"vm.updateOption(\'toolbarShrink\')\"></md-switch>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Content Background</label>\n                    <md-select ng-model=\"vm.layout.contentClass\" ng-change=\"vm.updateOption(\'contentClass\')\" placeholder=\"Select a background\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarBackgrounds\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Side Menu Size</label>\n                    <md-select ng-model=\"vm.layout.sideMenuSize\" ng-change=\"vm.updateOption(\'sideMenuSize\')\" placeholder=\"Select a size\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.sideMenuSizes\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Show Footer</label>\n                    <md-switch ng-model=\"vm.layout.footer\" ng-change=\"vm.updateOption(\'footer\')\"></md-switch>\n                </div>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout=\"row\" layout-align=\"center start\">\n        <md-card flex>\n            <md-toolbar>\n                <div class=\"md-toolbar-tools\">\n                    <h2>Apply to all pages</h2>\n                </div>\n            </md-toolbar>\n            <md-card-content>\n                <p>Change your <code>config.triangular.layout.js</code> file to contain the following to set your whole site to use this layout.</p>\n                <div hljs source=\"vm.allPagesCode\" language=\"javascript\"></div>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout=\"row\" layout-align=\"center start\">\n        <md-card flex>\n            <md-toolbar>\n                <div class=\"md-toolbar-tools\">\n                    <h2>Apply to one page</h2>\n                </div>\n            </md-toolbar>\n            <md-card-content>\n                <p>Use a state like this to use this layout on a single page.</p>\n                <div hljs source=\"vm.onePageCode\" language=\"javascript\"></div>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>");
 $templateCache.put("app/examples/layouts/no-scroll-page.tmpl.html","<div flex layout=\"column\">\n    <div flex layout=\"row\" layout-xs=\"column\">\n        <div class=\"md-padding\" flex palette-background=\"green:500\">\n            <p>Here is an example of a non scrolling page.</p>\n        </div>\n        <div class=\"md-padding\" flex palette-background=\"red:500\">\n            <p>This allows you to use the flex box model to create full height layouts.</p>\n        </div>\n    </div>\n    <div flex layout=\"row\" layout-xs=\"column\">\n        <div class=\"md-padding\" flex palette-background=\"blue:500\">\n            <p>Like this one.</p>\n        </div>\n        <div class=\"md-padding\" flex palette-background=\"cyan:500\">\n            <p>Where the page is split into 4 panels.</p>\n        </div>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/layouts/standard-page.tmpl.html","<div class=\"md-padding\">\n    <h2 class=\"md-display-1\">Standard Page Example</h2>\n\n    <p>Here is how to make a simple page in triangular.</p>\n\n    <h3 class=\"md-subheading\">Create a ui state</h3>\n\n    <p>First of all in your module config create a state and url for the page to load on.</p>\n\n    <p>Make sure you add the <code>triangular.</code> to the beginning of your state.  This will make ui router add the triangular toolbar, sidebar, etc.</p>\n\n    <div class=\"md-whiteframe-4dp\" layout=\"column\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                my-module.config.js\n            </div>\n        </md-toolbar>\n        <div hljs language=\"js\">\n    (function() {\n        \'use strict\';\n\n        angular\n            .module(\'app.my-module\')\n            .config(moduleConfig);\n\n        /* @ngInject */\n        function moduleConfig($stateProvider) {\n            $stateProvider\n            .state(\'triangular.my-page\',  {\n                url: \'/my-page\',\n                templateUrl: \'app/my-module/my-page.tmpl.html\'\n            })\n        });\n    })();\n        </div>\n    </div>\n\n    <p>Now when you goto <code>/my-page</code> in your browser you will see the contents of <code>my-page.tmpl.html</code> inside the triangular app layout.</p>\n</div>\n");
-$templateCache.put("app/examples/maps/maps-demo.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Angular Google Maps Directive Module to bring you all the map types available from Google Maps.</p>\n\n    <p class=\"md-subhead\">Angular Google Maps Directive Module is a set of directives written in CoffeeScript and javascript. It is based on the Google Maps javascript API version 3. There are directives for most of the widely-used Google Maps objects, including markers, windows, lines and shapes.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Map with marker</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapLabelDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-label-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Terrain style map</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapTerrainDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-terrain-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
-$templateCache.put("app/examples/maps/maps-fullwidth.tmpl.html","<div id=\"map_canvas\">\n    <ui-gmap-google-map center=\"::vm.map.center\" zoom=\"::vm.map.zoom\">\n        <ui-gmap-marker coords=\"::vm.map.marker.coords\" idkey=\"::vm.map.marker.id\" options=\"::vm.map.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>");
 $templateCache.put("app/examples/menu/dynamic-page.tmpl.html","<div class=\"padded-content-page\">\n    <h3>Dynamic Menu Test Page</h3>\n\n    <p class=\"md-subhead\">This is a dummy page created using the <code>triMenu</code> service.</p>\n\n    <p>Don\'t like this page?  Well go back to the dynamic menu page and remove it!</p>\n\n    <md-button class=\"md-primary md-raised\" href=\"#/menu/dynamic\">Go back to the menu page</md-button>\n</div>");
 $templateCache.put("app/examples/menu/dynamic.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">You can use the <code>triMenu</code> service in any controller to add and remove menu items from the side menu</p>\n\n    <p>Here is how you can modify the side menu dynamically</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Add and remove a menu item using triMenu service</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-padding layout-align=\"space-around center\" ng-include=\"\'app/examples/menu/examples/dynamic-menu.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/menu/examples/dynamic-menu.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"js\" include=\"\'app/examples/menu/examples/dynamic-menu.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n</div>");
 $templateCache.put("app/examples/menu/level.tmpl.html","<md-content class=\"padded-content-page\">\n    <h1>{{vm.level}}</h1>\n\n    <p>You are now at level {{vm.level}}</p>\n\n    <p>With triangular you can nest menus forever!</p>\n</md-content>");
+$templateCache.put("app/examples/maps/maps-demo.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Angular Google Maps Directive Module to bring you all the map types available from Google Maps.</p>\n\n    <p class=\"md-subhead\">Angular Google Maps Directive Module is a set of directives written in CoffeeScript and javascript. It is based on the Google Maps javascript API version 3. There are directives for most of the widely-used Google Maps objects, including markers, windows, lines and shapes.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Map with marker</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapLabelDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-label-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Terrain style map</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapTerrainDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-terrain-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
+$templateCache.put("app/examples/maps/maps-fullwidth.tmpl.html","<div id=\"map_canvas\">\n    <ui-gmap-google-map center=\"::vm.map.center\" zoom=\"::vm.map.zoom\">\n        <ui-gmap-marker coords=\"::vm.map.marker.coords\" idkey=\"::vm.map.marker.id\" options=\"::vm.map.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>");
 $templateCache.put("app/examples/todo/add-todo-dialog.tmpl.html","<md-dialog aria-label=\"Mango (Fruit)\" flex=\"30\" flex-xs=\"100\">\n    <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n                <span translate>Add Task</span>\n            </h2>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"md-dialog-content\">\n        <form name=\"taskForm\" novalidate layout=\"column\">\n            <md-input-container>\n                <label translate>Task Name</label>\n                <input ng-model=\"vm.item.description\" class=\"dialog-close\" name=\"task\" required/>\n                <div ng-messages=\"taskForm.task.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a task name</span>\n                    </div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label translate>Priority</label>\n                <md-select placeholder=\"{{\'Priority\' | triTranslate}}\" ng-model=\"vm.item.priority\">\n                    <md-option value=\"high\" translate>High</md-option>\n                    <md-option value=\"medium\" translate>Medium</md-option>\n                    <md-option value=\"low\" translate>Low</md-option>\n                </md-select>\n            </md-input-container>\n        </form>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"vm.cancel()\">Cancel</md-button>\n        <md-button ng-click=\"vm.hide()\" class=\"md-primary\" ng-disabled=\"taskForm.$invalid\">Ok</md-button>\n    </md-dialog-actions>\n</md-dialog>");
 $templateCache.put("app/examples/todo/fab-button.tmpl.html","<md-button ng-click=\"vm.addTodo($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'TODO.ADD-TODO\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-plus\"></md-icon>\n</md-button>\n");
 $templateCache.put("app/examples/todo/todo.tmpl.html","<div class=\"todo-container\">\n    <div layout-fill layout=\"row\" layout-align=\"center center\">\n        <md-card flex=\"70\" flex-xs=\"90\" class=\"margin-top-50 margin-bottom-50 md-whiteframe-z4\">\n            <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n                <h2 class=\"md-toolbar-tools\" translate>To do list</h2>\n            </md-toolbar>\n            <md-card-content class=\"overflow-auto\">\n                <md-list class=\"margin-bottom-10\">\n                    <md-list-item ng-repeat=\"todo in vm.todos | orderBy:vm.orderTodos\" ng-class=\"{\'md-primary\': todo.priority === \'high\', \'md-accent\': todo.priority === \'medium\', \'md-warn\': todo.priority === \'low\'}\" class=\"slide\" md-swipe-right=\"vm.removeTodo(todo)\" md-no-ink>\n                        <md-checkbox ng-model=\"todo.selected\" ng-change=\"vm.todoSelected()\"></md-checkbox>\n                        <p class=\"no-select\">\n                            {{::todo.description}}\n                        </p>\n                        <p flex class=\"md-secondary\">\n                            {{::todo.priority}}\n                        </p>\n                    </md-list-item>\n                </md-list>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout-fill layout=\"row\" layout-align=\"center center\">\n        <md-card flex=\"70\" flex-xs=\"90\" class=\"margin-top-20 margin-bottom-20\">\n            <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n                <h2 class=\"md-toolbar-tools\" translate>Note</h2>\n            </md-toolbar>\n            <md-card-content>\n                <p translate>Remove items from the list by swiping right</p>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n");
@@ -19145,15 +19164,15 @@ $templateCache.put("app/examples/forms/examples/inputs-float.tmpl.html","<h2>Cre
 $templateCache.put("app/examples/forms/examples/inputs-icons.tmpl.html","<h2>Create User</h2>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n    <input type=\"text\" placeholder=\"Name\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-phone\"></md-icon>\n    <input type=\"text\" placeholder=\"Phone Number\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n    <input type=\"email\" placeholder=\"Email (required)\" ng-required=\"true\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-pin\"></md-icon>\n    <input type=\"text\" placeholder=\"Address\">\n</md-input-container>\n");
 $templateCache.put("app/examples/forms/examples/inputs-states.tmpl.html","<md-input-container>\n    <label>Enable or Disable me</label>\n    <input type=\"text\" ng-model=\"username\" ng-disabled=\"inputDisabled\">\n</md-input-container>\n<md-switch ng-model=\"inputDisabled\">\n    Disable Input\n</md-switch>\n");
 $templateCache.put("app/examples/forms/examples/validation-1.tmpl.html","<h2>Enter your email</h2>\n<form name=\"login\" novalidate>\n    <md-input-container class=\"md-block\">\n        <label for=\"email\">email</label>\n        <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"user.email\" required/>\n        <div ng-messages=\"login.email.$error\" md-auto-hide=\"false\" ng-show=\"login.email.$touched\">\n            <div ng-message=\"required\">\n                Please enter your email address.\n            </div>\n            <div ng-message=\"email\">\n                Please enter a valid email address.\n            </div>\n        </div>\n    </md-input-container>\n\n    <div class=\"button-toolbar\" layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-primary\" ng-disabled=\"login.$invalid\">Create</md-button>\n        <md-button>Cancel</md-button>\n    </div>\n</form>\n");
+$templateCache.put("app/examples/menu/examples/dynamic-menu.tmpl.html","<div ng-controller=\"MenuDynamicController as vm\" layout=\"column\">\n    <div layout=\"row\">\n         <md-switch ng-model=\"vm.dynamicMenu.showDynamicMenu\" aria-label=\"Show extra menu\" ng-change=\"vm.toggleExtraMenu(vm.dynamicMenu.showDynamicMenu)\">\n            Show extra menu\n        </md-switch>\n    </div>\n</div>");
 $templateCache.put("app/examples/maps/examples/map-label-demo.tmpl.html","<ui-gmap-google-map center=\"vm.labeledMap.center\" zoom=\"vm.labeledMap.zoom\" options=\"vm.labeledMap.options\">\n    <ui-gmap-marker coords=\"vm.labeledMap.marker.coords\" idkey=\"vm.labeledMap.marker.id\" options=\"vm.labeledMap.marker.options\">\n    	<ui-gmap-window show=\"\'true\'\">\n            <div>{{vm.labelTitle}}</div>\n        </ui-gmap-window>\n    </ui-gmap-marker>\n</ui-gmap-google-map>\n");
 $templateCache.put("app/examples/maps/examples/map-terrain-demo.tmpl.html","<div id=\"map_terrain_canvas\">\n    <ui-gmap-google-map center=\"vm.terrainMap.center\" zoom=\"vm.terrainMap.zoom\" options=\"vm.terrainMap.options\">\n    	<ui-gmap-marker coords=\"vm.terrainMap.marker.coords\" idkey=\"vm.terrainMap.marker.id\" options=\"vm.terrainMap.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>\n");
-$templateCache.put("app/examples/menu/examples/dynamic-menu.tmpl.html","<div ng-controller=\"MenuDynamicController as vm\" layout=\"column\">\n    <div layout=\"row\">\n         <md-switch ng-model=\"vm.dynamicMenu.showDynamicMenu\" aria-label=\"Show extra menu\" ng-change=\"vm.toggleExtraMenu(vm.dynamicMenu.showDynamicMenu)\">\n            Show extra menu\n        </md-switch>\n    </div>\n</div>");
 $templateCache.put("app/care/layout/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\">\n        </span>\n    </h2>\n    \n    <md-button class=\"md-icon-button\" ng-click=\"vm.toggleSearch()\" aria-label=\"{{\'Toggle Menu\' | triTranslate}}\">\n        <md-icon md-font-icon=\"zmdi zmdi-search\"></md-icon>\n    </md-button>\n\n    <input class=\"toolbar-search\" ng-show=\"vm.showSearch\" ng-model=\"studentSearch\" ng-change=\"vm.filterStudentList(studentSearch)\" type=\"text\" placeholder=\"{{\'Zoeken\' | triTranslate}}\" flex>\n\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleFullScreen()\" aria-label=\"toggle fullscreen\">\n        <md-icon md-font-icon ng-class=\"vm.fullScreenIcon\"></md-icon>\n    </md-button>\n\n    <select-groups reload-state=\"vm.baseState\" only-owned=\"true\"></select-groups>\n\n     <md-menu>\n        <md-button aria-label=\"Open user menu\" ng-click=\"$mdOpenMenu()\" aria-label=\"side navigation\">\n            <img class=\"toolbar-user-avatar\" ng-src=\"{{vm.user.picture}}\">\n            {{vm.user.given_name}}\n        </md-button>\n        <md-menu-content width=\"4\">\n            <md-menu-item>\n                <md-button ng-click=\"vm.toggleNotificationsTab(2)\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-settings\"></md-icon>\n                    <span translate=\"Instellingen\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-item>\n                <md-button href=\"#\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n                    <span translate=\"Profiel\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-divider></md-menu-divider>\n            <md-menu-item>\n                <md-button href=\"#/login\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-sign-in\"></md-icon>\n                    <span translate=\"Afmelden\"></span>\n                </md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n\n<!--\n    <md-button class=\"md-icon-button toolbar-button animated\" ng-click=\"vm.toggleNotificationsTab(0)\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n        <span class=\"toolbar-button-badge animated\" theme-background=\"accent\" ng-class=\"{ \'toolbar-button-badge-new\' : vm.emailNew }\">5</span>\n    </md-button>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleNotificationsTab(1)\">\n        <md-icon md-font-icon=\"fa fa-bell-o\"></md-icon>\n        <span class=\"toolbar-button-badge\" theme-background=\"accent\">2</span>\n    </md-button>\n-->\n\n</div>\n");
 $templateCache.put("app/examples/authentication/forgot/forgot.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\" translate>Forgot your password?</h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <p translate>Please enter your email below</p>\n        <form name=\"forgot\">\n            <md-input-container class=\"md-block\">\n                <label for=\"email\" translate>email</label>\n                <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                <div ng-messages=\"forgot.email.$error\" md-auto-hide=\"false\" ng-show=\"forgot.email.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your email address.</span></div>\n                    <div ng-message when=\"email\"><span translate>Please enter a valid email address.</span></div>\n                </div>\n            </md-input-container>\n\n            <md-button class=\"md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" ng-click=\"vm.resetClick()\" ng-disabled=\"forgot.$invalid\" translate=\"Reset\" aria-label=\"{{\'Reset\' | triTranslate}}\"></md-button>\n\n            <md-button class=\"md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" href=\"#/login\" translate=\"Remembered it? Login in here\" aria-label=\"{{\'Remembered it? Login in here\' | triTranslate}}\"></md-button>\n        </form>\n    </md-content>\n</md-card>\n");
-$templateCache.put("app/examples/authentication/layouts/authentication.tmpl.html","<div class=\"full-image-background mb-bg-fb-05\" layout=\"row\" layout-fill>\n    <div class=\"animate-wrapper\" flex layout=\"column\">\n        <div id=\"ui-login\" class=\"login-frame\" ui-view flex layout=\"column\" layout-align=\"center center\"></div>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/authentication/lock/lock.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\">\n            <span translate>Welcome back</span> {{vm.user.name}}\n        </h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <p class=\"margin-top-20 margin-bottom-20\" translate>You have been logged out due to idleness. Enter your password to log back in.</p>\n\n        <form name=\"lock\">\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" required/>\n                <div ng-messages for=\"lock.password.$error\" md-auto-hide=\"false\" ng-show=\"lock.password.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your password.</span></div>\n                </div>\n            </md-input-container>\n\n            <div layout=\"row\">\n                <md-button flex href=\"#/login\" translate=\"Log out\"></md-button>\n                <md-button flex class=\"md-primary\" ng-click=\"vm.loginClick()\" ng-disabled=\"lock.$invalid\" translate=\"Log in\"></md-button>\n            </div>\n        </form>\n    </md-content>\n</md-card>\n");
-$templateCache.put("app/examples/authentication/profile/profile.tmpl.html","<div class=\"full-image-background mb-bg-01 padding-20 padding-top-200 overlay-gradient-30\" layout=\"row\" layout-align=\"center start\">\n    <div class=\"margin-right-20\">\n        <img src=\"assets/images/avatars/avatar-5.png\" alt=\"girl-avatar\" class=\"make-round\" width=\"100\"/>\n    </div>\n    <div class=\"text-light\">\n        <h3 class=\"font-weight-600 margin-bottom-0 text-light\">Christos / Profile</h3>\n        <p class=\"font-weight-300 margin-top-0\">Edit your name, avatar etc</p>\n     </div>\n</div>\n\n<div layout=\"row\" class=\"profile\" layout-wrap>\n    <div flex=\"100\" flex-gt-md=\"100\">\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"Profile\">\n                <md-content class=\"md-padding\">\n                    <form name=\"profile\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"name\" translate>name</label>\n                            <input id=\"name\" label=\"name\" name=\"name\" type=\"text\" ng-model=\"vm.user.name\" required/>\n                            <div ng-messages=\"profile.name.$error\" md-auto-hide=\"false\" ng-show=\"profile.name.$touched\">\n                                <div ng-message when=\"required\"><span translate>Please enter your name</span></div>\n                            </div>\n                        </md-input-container>\n                        <md-input-container class=\"md-block\">\n                            <label for=\"email\" translate>email</label>\n                            <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                            <div ng-messages=\"profile.email.$error\" md-auto-hide=\"false\" ng-show=\"profile.email.$touched\">\n                                <div ng-message when=\"required\">\n                                    <span translate>Please enter your email address</span>\n                                </div>\n                                <div ng-message when=\"email\">\n                                    <span translate>Please enter a valid email address</span>\n                                </div>\n                            </div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"location\" translate>location</label>\n                            <input id=\"location\" label=\"location\" name=\"location\" type=\"text\" ng-model=\"vm.user.location\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"website\" translate>website</label>\n                            <input id=\"website\" label=\"website\" name=\"website\" type=\"text\" ng-model=\"vm.user.website\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"twitter\" translate>twitter</label>\n                            <input id=\"twitter\" label=\"twitter\" name=\"twitter\" type=\"text\" ng-model=\"vm.user.twitter\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"bio\" translate>bio</label>\n                            <textarea id=\"bio\" label=\"bio\" name=\"bio\" ng-model=\"vm.user.bio\"/>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Password\">\n                <md-content class=\"md-padding\">\n                    <form name=\"password\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"old-password\" translate>current</label>\n                            <input id=\"old-password\" label=\"old-password\" name=\"old-password\" type=\"text\" ng-model=\"vm.user.current\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"password\" translate>new password</label>\n                            <input id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" tri-same-password=\"password.confirm\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.password.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.password.$touched\"></div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"confirm\" translate>confirm password</label>\n                            <input id=\"confirm\" label=\"confirm\" name=\"confirm\" type=\"password\" ng-model=\"vm.user.confirm\" tri-same-password=\"password.password\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.confirm.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.confirm.$touched\"></div>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Notifications\">\n                <md-content class=\"md-padding\">\n                    <md-list>\n                        <div ng-repeat=\"group in ::vm.settingsGroups\">\n                            <md-subheader class=\"md-accent\" translate=\"{{::group.name}}\"></md-subheader>\n                            <md-list-item ng-repeat=\"setting in ::group.settings\" layout=\"row\" layout-align=\"space-around center\">\n                                <md-icon md-font-icon=\"{{::setting.icon}}\"></md-icon>\n                                <p translate>{{::setting.title}}</p>\n                                <md-switch class=\"md-secondary\" ng-model=\"setting.enabled\"></md-switch>\n                            </md-list-item>\n                        </div>\n                    </md-list>\n                    <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n</div>\n");
+$templateCache.put("app/examples/authentication/layouts/authentication.tmpl.html","<div class=\"full-image-background mb-bg-fb-05\" layout=\"row\" layout-fill>\n    <div class=\"animate-wrapper\" flex layout=\"column\">\n        <div id=\"ui-login\" class=\"login-frame\" ui-view flex layout=\"column\" layout-align=\"center center\"></div>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/authentication/login/login.tmpl.html","<md-card >\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\" translate>Login</h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <form name=\"login\">\n            <md-input-container class=\"md-block\">\n                <label for=\"email\" translate>email</label>\n                <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                <div ng-messages=\"login.email.$error\" md-auto-hide=\"false\" ng-show=\"login.email.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your email address.</span></div>\n                    <div ng-message when=\"email\"><span translate>Please enter a valid email address.</span></div>\n                </div>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input  id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" required/>\n                <div ng-messages for=\"login.password.$error\" md-auto-hide=\"false\" ng-show=\"login.password.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your password.</span></div>\n                </div>\n            </md-input-container>\n\n            <div layout=\"row\" layout-align=\"space-between center\">\n                <md-input-container>\n                    <md-checkbox ng-model=\"vm.user.rememberMe\">\n                        <span translate>Remember Me</span>\n                    </md-checkbox>\n                </md-input-container>\n\n                <md-input-container>\n                    <md-button flex class=\"md-primary\" href=\"#/forgot\" translate=\"Forgot password?\" aria-label=\"{{\'Forgot password?\' | triTranslate}}\"></md-button>\n                </md-input-container>\n            </div>\n\n            <md-button class=\"md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\"  ng-click=\"vm.loginClick()\" ng-disabled=\"login.$invalid\" translate=\"Log in\" aria-label=\"{{\'Log in\' | triTranslate}}\"></md-button>\n\n            <md-button class=\"md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" href=\"#/signup\" translate=\"Don\'t have an account? Create one now\" aria-label=\"{{\'Don\\\'t have an account? Create one now\' | triTranslate}}\"></md-button>\n\n            <div class=\"social-login\">\n                <md-divider></md-divider>\n\n                <div class=\"text-center margin-20\" translate>or login with</div>\n\n                <div layout=\"row\" layout-align=\"space-between center\"  layout-margin>\n                    <md-button href=\"#\" ng-repeat=\"social in ::vm.socialLogins\" class=\"md-icon-button\" ng-style=\"{ \'background-color\': social.color }\" aria-label=\"{{social.icon}}\">\n                        <md-icon md-font-icon=\"{{::social.icon}}\"></md-icon>\n                    </md-button>\n                </div>\n            </div>\n        </form>\n    </md-content>\n</md-card>\n");
+$templateCache.put("app/examples/authentication/profile/profile.tmpl.html","<div class=\"full-image-background mb-bg-01 padding-20 padding-top-200 overlay-gradient-30\" layout=\"row\" layout-align=\"center start\">\n    <div class=\"margin-right-20\">\n        <img src=\"assets/images/avatars/avatar-5.png\" alt=\"girl-avatar\" class=\"make-round\" width=\"100\"/>\n    </div>\n    <div class=\"text-light\">\n        <h3 class=\"font-weight-600 margin-bottom-0 text-light\">Christos / Profile</h3>\n        <p class=\"font-weight-300 margin-top-0\">Edit your name, avatar etc</p>\n     </div>\n</div>\n\n<div layout=\"row\" class=\"profile\" layout-wrap>\n    <div flex=\"100\" flex-gt-md=\"100\">\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"Profile\">\n                <md-content class=\"md-padding\">\n                    <form name=\"profile\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"name\" translate>name</label>\n                            <input id=\"name\" label=\"name\" name=\"name\" type=\"text\" ng-model=\"vm.user.name\" required/>\n                            <div ng-messages=\"profile.name.$error\" md-auto-hide=\"false\" ng-show=\"profile.name.$touched\">\n                                <div ng-message when=\"required\"><span translate>Please enter your name</span></div>\n                            </div>\n                        </md-input-container>\n                        <md-input-container class=\"md-block\">\n                            <label for=\"email\" translate>email</label>\n                            <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                            <div ng-messages=\"profile.email.$error\" md-auto-hide=\"false\" ng-show=\"profile.email.$touched\">\n                                <div ng-message when=\"required\">\n                                    <span translate>Please enter your email address</span>\n                                </div>\n                                <div ng-message when=\"email\">\n                                    <span translate>Please enter a valid email address</span>\n                                </div>\n                            </div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"location\" translate>location</label>\n                            <input id=\"location\" label=\"location\" name=\"location\" type=\"text\" ng-model=\"vm.user.location\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"website\" translate>website</label>\n                            <input id=\"website\" label=\"website\" name=\"website\" type=\"text\" ng-model=\"vm.user.website\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"twitter\" translate>twitter</label>\n                            <input id=\"twitter\" label=\"twitter\" name=\"twitter\" type=\"text\" ng-model=\"vm.user.twitter\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"bio\" translate>bio</label>\n                            <textarea id=\"bio\" label=\"bio\" name=\"bio\" ng-model=\"vm.user.bio\"/>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Password\">\n                <md-content class=\"md-padding\">\n                    <form name=\"password\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"old-password\" translate>current</label>\n                            <input id=\"old-password\" label=\"old-password\" name=\"old-password\" type=\"text\" ng-model=\"vm.user.current\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"password\" translate>new password</label>\n                            <input id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" tri-same-password=\"password.confirm\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.password.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.password.$touched\"></div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"confirm\" translate>confirm password</label>\n                            <input id=\"confirm\" label=\"confirm\" name=\"confirm\" type=\"password\" ng-model=\"vm.user.confirm\" tri-same-password=\"password.password\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.confirm.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.confirm.$touched\"></div>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Notifications\">\n                <md-content class=\"md-padding\">\n                    <md-list>\n                        <div ng-repeat=\"group in ::vm.settingsGroups\">\n                            <md-subheader class=\"md-accent\" translate=\"{{::group.name}}\"></md-subheader>\n                            <md-list-item ng-repeat=\"setting in ::group.settings\" layout=\"row\" layout-align=\"space-around center\">\n                                <md-icon md-font-icon=\"{{::setting.icon}}\"></md-icon>\n                                <p translate>{{::setting.title}}</p>\n                                <md-switch class=\"md-secondary\" ng-model=\"setting.enabled\"></md-switch>\n                            </md-list-item>\n                        </div>\n                    </md-list>\n                    <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n</div>\n");
 $templateCache.put("app/examples/authentication/signup/password.messages.html","\n");
 $templateCache.put("app/examples/authentication/signup/signup.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\" translate>Sign up</h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <form name=\"signup\">\n            <md-input-container class=\"md-block\">\n                <label for=\"name\" translate>name</label>\n                <input id=\"name\" label=\"name\" name=\"name\" type=\"text\" ng-model=\"vm.user.name\" required/>\n                <div ng-messages=\"signup.name.$error\" md-auto-hide=\"false\" ng-show=\"signup.name.$touched\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter your name</span>\n                    </div>\n                </div>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label for=\"email\" translate>email</label>\n                <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                <div ng-messages=\"signup.email.$error\" md-auto-hide=\"false\" ng-show=\"signup.email.$touched\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter your email address</span>\n                    </div>\n                    <div ng-message when=\"email\">\n                        <span translate>Please enter a valid email address</span>\n                    </div>\n                </div>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" tri-same-password=\"signup.confirm\" ng-minlength=\"8\" required/>\n                <ng-messages for=\"signup.password.$error\" md-auto-hide=\"false\" ng-show=\"signup.password.$touched\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a password</span>\n                    </div>\n                    <div ng-message when=\"minlength\">\n                        <span translate>Your password must be greater than 8 characters long</span>\n                    </div>\n                    <div ng-message when=\"samePassword\">\n                        <span translate>You need to enter the same password</span>\n                    </div>\n                </ng-messages>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>confirm password</label>\n                <input id=\"confirm\" label=\"confirm\" name=\"confirm\" type=\"password\" ng-model=\"vm.user.confirm\" tri-same-password=\"signup.password\" ng-minlength=\"8\" required/>\n                <ng-messages for=\"signup.confirm.$error\" md-auto-hide=\"false\" ng-show=\"signup.confirm.$touched\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a password</span>\n                    </div>\n                    <div ng-message when=\"minlength\">\n                        <span translate>Your password must be greater than 8 characters long</span>\n                    </div>\n                    <div ng-message when=\"samePassword\">\n                        <span translate>You need to enter the same password</span>\n                    </div>\n                </ng-messages>\n            </md-input-container>\n\n            <md-button class=\"md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" ng-click=\"vm.signupClick()\" ng-disabled=\"signup.$invalid\" translate=\"Sign Up\" aria-label=\"{{\'Sign Up\' | triTranslate}}\"></md-button>\n\n            <md-button  class=\"md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" href=\"#/login\" translate=\"Already have an account? Login here.\" aria-label=\"{{\'Already have an account? Login here.\' | triTranslate}}\"></md-button>\n\n        </form>\n    </md-content>\n\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/analytics.tmpl.html","<div class=\"md-content md-padding\">\n    <div layout=\"row\" layout-xs=\"column\" layout-wrap>\n        <counter-widget flex flex-sm=\"50\" title=\"Comments\" count=\"vm.data.social.comments\" icon=\"fa fa-comments\" background=\"red-400\" color=\"white\"></counter-widget>\n        <counter-widget flex flex-sm=\"50\" title=\"Tweets\" count=\"vm.data.social.tweets\" icon=\"fa fa-twitter\"  background=\"blue-A100\" color=\"white\"></counter-widget>\n        <counter-widget flex flex-sm=\"50\" title=\"Likes\" count=\"vm.data.social.likes\" icon=\"fa fa-facebook\"  background=\"blue-900\" color=\"white\"></counter-widget>\n        <counter-widget flex flex-sm=\"50\" title=\"Pageviews\" count=\"vm.data.social.pageviews\" icon=\"fa fa-eye\"  background=\"green-500\" color=\"white\"></counter-widget>\n    </div>\n    <div layout=\"row\">\n        <line-chart-widget flex start=\"vm.start\" end=\"vm.end\" time-spans=\"vm.timeSpans\" on-time-change=\"vm.timeSpanChanged(span)\" data=\"vm.data.sessionsLineChartData\" options=\"vm.overviewLineChartOptions\"></line-chart-widget>\n    </div>\n    <div layout=\"row\" layout-xs=\"column\">\n        <div flex flex-xs=\"100\" layout=\"column\">\n            <div flex layout=\"row\">\n                <stat-chart-widget flex name=\"Sessions\" statistic=\"{{vm.data.totals.sessions | number}}\" data=\"vm.data.sessionsLineChartData\" options=\"vm.statLineChartOptions\"></stat-chart-widget>\n                <stat-chart-widget flex name=\"Users\" statistic=\"{{vm.data.totals.users | number}}\" data=\"vm.data.usersLineChartData\" options=\"vm.statLineChartOptions\"></stat-chart-widget>\n                <stat-chart-widget flex name=\"Pageviews\" statistic=\"{{vm.data.totals.pageviews | number}}\" data=\"vm.data.pageviewsLineChartData\" options=\"vm.statLineChartOptions\"></stat-chart-widget>\n            </div>\n            <div layout=\"row\">\n                <stat-chart-widget flex name=\"Pages / Sessions\" statistic=\"{{vm.data.totals.pagesessions | number}}\" data=\"vm.data.pagesSessionsLineChartData\" options=\"vm.statLineChartOptions\"></stat-chart-widget>\n                <stat-chart-widget flex name=\"Avg. Session\" statistic=\"{{vm.data.totals.avgsessions | secondsToDate | date:\'HH:mm:ss\'}}\" data=\"vm.data.avgSessionLineChartData\" options=\"vm.statTimeLineChartOptions\"></stat-chart-widget>\n                <stat-chart-widget flex name=\"Bounce Rate\" statistic=\"{{vm.data.totals.bounces.toFixed(2)}}%\" data=\"vm.data.bounceLineChartData\" options=\"vm.statPercentLineChartOptions\"></stat-chart-widget>\n            </div>\n        </div>\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <pie-chart-widget data=\"vm.data.visitorPieChartData\" options=\"vm.visitorPieChartOptions\"></pie-chart-widget>\n        </div>\n    </div>\n    <div layout=\"row\" layout-xs=\"column\">\n        <div flex flex-xs=\"100\" layout=\"column\">\n            <tabs-widget languages=\"vm.data.languages\" countries=\"vm.data.countries\"></tabs-widget>\n        </div>\n        <div flex flex-xs=\"100\" layout=\"column\">\n            <map-widget></map-widget>\n        </div>\n    </div>\n</div>\n");
@@ -19171,9 +19190,9 @@ $templateCache.put("app/examples/dashboards/widgets/widget-load-data-dialog.tmpl
 $templateCache.put("app/manage/layout/toolbar/staff.toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\"></md-icon>\n        </span>\n    </h2>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleFullScreen()\" aria-label=\"toggle fullscreen\">\n        <md-icon md-font-icon ng-class=\"vm.fullScreenIcon\"></md-icon>\n    </md-button>\n\n    <select-groups reload-state=\"vm.baseState\" only-owned=\"true\"></select-groups><!-- TODO !!!!! -->\n<!--\n    <md-button class=\"md-icon-button toolbar-button animated\" ng-click=\"vm.toggleNotificationsTab(0)\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n        <span class=\"toolbar-button-badge animated\" theme-background=\"accent\" ng-class=\"{ \'toolbar-button-badge-new\' : vm.emailNew }\">5</span>\n    </md-button>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleNotificationsTab(1)\">\n        <md-icon md-font-icon=\"fa fa-bell-o\"></md-icon>\n        <span class=\"toolbar-button-badge\" theme-background=\"accent\">2</span>\n    </md-button>\n-->\n    <md-menu>\n        <md-button aria-label=\"Open user menu\" ng-click=\"$mdOpenMenu()\" aria-label=\"side navigation\">\n            <img class=\"toolbar-user-avatar\" ng-src=\"{{vm.user.picture}}\">\n            {{vm.user.given_name}}\n        </md-button>\n        <md-menu-content width=\"4\">\n            <md-menu-item>\n                <md-button ng-click=\"vm.toggleNotificationsTab(2)\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-settings\"></md-icon>\n                    <span translate=\"Instellingen\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-item>\n                <md-button href=\"#\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n                    <span translate=\"Profiel\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-divider></md-menu-divider>\n            <md-menu-item>\n                <md-button href=\"#/login\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-sign-in\"></md-icon>\n                    <span translate=\"Afmelden\"></span>\n                </md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n");
 $templateCache.put("app/manage/layout/toolbar/student.toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\"></md-icon>\n        </span>\n    </h2>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleFullScreen()\" aria-label=\"toggle fullscreen\">\n        <md-icon md-font-icon ng-class=\"vm.fullScreenIcon\"></md-icon>\n    </md-button>\n\n    <select-groups reload-state=\"vm.baseState\" only-owned=\"true\"></select-groups><!-- TODO !!!!! -->\n<!--\n    <md-button class=\"md-icon-button toolbar-button animated\" ng-click=\"vm.toggleNotificationsTab(0)\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n        <span class=\"toolbar-button-badge animated\" theme-background=\"accent\" ng-class=\"{ \'toolbar-button-badge-new\' : vm.emailNew }\">5</span>\n    </md-button>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleNotificationsTab(1)\">\n        <md-icon md-font-icon=\"fa fa-bell-o\"></md-icon>\n        <span class=\"toolbar-button-badge\" theme-background=\"accent\">2</span>\n    </md-button>\n-->\n    <md-menu>\n        <md-button aria-label=\"Open user menu\" ng-click=\"$mdOpenMenu()\" aria-label=\"side navigation\">\n            <img class=\"toolbar-user-avatar\" ng-src=\"{{vm.user.picture}}\">\n            {{vm.user.given_name}}\n        </md-button>\n        <md-menu-content width=\"4\">\n            <md-menu-item>\n                <md-button ng-click=\"vm.toggleNotificationsTab(2)\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-settings\"></md-icon>\n                    <span translate=\"Instellingen\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-item>\n                <md-button href=\"#\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n                    <span translate=\"Profiel\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-divider></md-menu-divider>\n            <md-menu-item>\n                <md-button href=\"#/login\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-sign-in\"></md-icon>\n                    <span translate=\"Afmelden\"></span>\n                </md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n");
 $templateCache.put("app/reporting/evaluations/comprehensive/comprehensive-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                <span ng-if=\"vm.evaluation.course\">{{vm.evaluation.course.name}}: </span>\n                {{vm.evaluation.title || \'Nieuwe evaluatie toevoegen\'}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"evaluation-dialog\" tri-wizard ng-init=\"triWizard.currentStep = 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                                <select-branches layout=\"column\" flex ng-model=\"vm.evaluation.branchForGroup\" by-groups by-type=\"C\" required></select-branches>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'all\')\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            \n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep == 0\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Vorige\" aria-label=\"vorige\"></md-button>\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.currentStep == 1\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Volgende\" aria-label=\"volgende\"></md-button>\n        <md-button class=\"md-accent md-raised\" ng-click=\"vm.save()\" ng-show=\"triWizard.currentStep === 1\" translate=\"Opslaan\" aria-label=\"opslaan\"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
-$templateCache.put("app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                <span ng-if=\"vm.evaluation.course\">{{vm.evaluation.course.name}}: </span>\n                {{vm.evaluation.title || \'Nieuwe evaluatie toevoegen\'}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"evaluation-dialog\" tri-wizard ng-init=\"triWizard.currentStep = vm.evaluation.pointResults.length > 0 ? 2 : 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\" layout-align=\"center center\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                                <select-branches layout=\"column\" flex ng-model=\"vm.evaluation.branchForGroup\" by-groups by-type=\"MC\" required></select-branches>\n                            </div>\n                            <div layout=\"row\">\n                                <md-switch ng-model=\"vm.evaluation.permanent\" aria-label=\"Permanente evaluatie\">\n                                    {{vm.evaluation.permanent ? \'Permanente evaluatie\' : \'Eindevaluatie\'}}\n                                </md-switch>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"creator\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Opties</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <div layout=\"row\">\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Soort meerkeuze</label>\n                                <md-select placeholder=\"Soort meerkeuze\" ng-model=\"vm.evaluation.settings.type\" flex>\n                                    <md-option value=\"pmc\">Meerkeuze <em>na</em> een zin.</md-option>\n                                    <md-option value=\"pmcp\">Meerkeuze <em>ingesloten</em> in zin.</md-option>\n                                    <md-option value=\"mc\">Enkel meerkeuze</md-option>\n                                </md-select>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\">\n                            <md-input-container class=\"md-block\" flex ng-hide=\"vm.evaluation.settings.type == \'mc\'\">\n                                <label>Tekst voor de meerkeuze</label>\n                                <input ng-model=\"vm.evaluation.settings.pre\" name=\"pre\" required>\n                            </md-input-container>\n                            <md-input-container class=\"md-block\" flex ng-show=\"vm.evaluation.settings.type == \'pmcp\'\">\n                                <label>Tekst na de meerkeuze</label>\n                                <input ng-model=\"vm.evaluation.settings.post\" name=\"post\" required>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\" layout-align=\"space-between center\">\n                            <md-checkbox ng-model=\"vm.evaluation.settings.multiple\" aria-label=\"Selecteer meerdere\"> Selecteer meerdere</md-checkbox>\n                            <md-checkbox ng-model=\"vm.evaluation.settings.printOthers\" aria-label=\"Andere weergeven\"> Alle mogelijkheden weergeven</md-checkbox>\n                        </div>\n                        <div layout=\"row\" ng-if=\"vm.evaluation.settings.printOthers\">\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Stijl voor selectie</label>\n                                <md-select ng-model=\"vm.evaluation.settings.selected\">\n                                    <md-option value=\"bold\"><b>Vet</b></md-option>\n                                    <md-option value=\"color:green\"><span style=\"color:green;\">Groen</span></md-option>\n                                    <md-option value=\"color:red\"><span style=\"color:red;\">Rood</span></md-option>\n                                </md-select>\n                            </md-input-container>\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Stijl voor niet geselecteerde</label>\n                                <md-select ng-model=\"vm.evaluation.settings.notSelected\">\n                                    <md-option value=\"\"><em>niets doen</em></md-option>\n                                    <md-option value=\"small\"><span style=\"font-size: 0.7rem;\">Klein</span></md-option>\n                                    <md-option value=\"line-through\"><span style=\"text-decoration:line-through\">Doorstreept</span></md-option>\n                                    <md-option value=\"color:red\"><span style=\"color:red;\">Rood</span></md-option>\n                                </md-select>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\">\n                            <md-chips ng-model=\"vm.evaluation.settings.options\" name=\"options\" placeholder=\"Voeg een optie toe\" delete-button-label=\"Verwijder Optie\" delete-hint=\"Druk op delete op een optie te verwijderen.\" secondary-placeholder=\"+Optie\" flex></md-chips>\n                        </div>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">3</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents()\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Basis\" ng-click=\"vm.selectStudents(\'basic\')\">\n                                    <md-icon class=\"notos notos-basic\"></md-icon> Basis\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'challenge\')\">\n                                    <md-icon class=\"notos notos-challenge\"></md-icon> Uitdaging\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"results\" ng-disabled=\"vm.selectedStudents.length == 0\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">4</span>\n                    <span translate>Resultaten</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"resultsForm\" tri-wizard-form>\n                            <div layout=\"row\" ng-repeat=\"result in vm.evaluation.multiplechoiceResults \" ng-if=\"!result.block \">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>{{::result.student.displayName}}</label>\n                                    <md-select ng-multiple=\"vm.evaluation.settings.multiple\" ng-model=\"result.selected \">\n                                        <md-option ng-repeat=\"option in vm.evaluation.settings.options track by $index \" ng-value=\"option\">{{option}}</md-option>\n                                    </md-select>\n                                </md-input-container>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row \">\n        <span flex></span>\n        <md-button class=\"md-primary md-raised \" ng-click=\"triWizard.prevStep() \" ng-hide=\"triWizard.currentStep==0 \" ng-disabled=\"triWizard.prevStepDisabled() \" translate=\"Vorige \" aria-label=\"vorige \"></md-button>\n        <md-button class=\"md-primary md-raised \" ng-click=\"triWizard.nextStep() \" ng-hide=\"triWizard.currentStep==3 \" ng-disabled=\"triWizard.nextStepDisabled() \" translate=\"Volgende \" aria-label=\"volgende \"></md-button>\n        <md-button class=\"md-accent md-raised \" ng-click=\"vm.save() \" ng-show=\"triWizard.currentStep===3 \" translate=\"Opslaan \" aria-label=\"opslaan \"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
 $templateCache.put("app/reporting/evaluations/feedback/editfeedback-dialog.tmpl.html","<md-dialog class=\"fullwidth-dialog\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                Feedback voor {{vm.result.student.displayName}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"feedback-dialog md-padding\" flex>\n        <div class=\"feedback-report md-whiteframe-z1\">\n            <h4>{{::vm.report.start | date:\'dd MMMM yyyy\' }} - {{::vm.report.end | date:\'dd MMMM yyyy\' }}</h4>\n            <md-table-container>\n                <table md-table class=\"md-primary md-data-table\" ng-repeat=\"major in vm.report.majors\">    \n                    <thead md-head>\n                        <tr md-row class=\"md-primary\">\n                            <th md-column>{{major.name}}</th>\n                            <th md-column style=\"width:100px;\">Permanent</th>\n                            <th md-column style=\"width:100px;\">Eind</th>\n                            <th md-column style=\"width:100px;\">Totaal</th>\n                            \n                        </tr>\n                        <tr md-row>\n                            <th md-column></th>\n                            <th md-column style=\"width:100px;\"><span ng-if=\"major.permanent\">{{major.permanent | number:1}}%</span></th>\n                            <th md-column style=\"width:100px;\"><span ng-if=\"major.final\">{{major.final | number:1}}%</span></th>\n                            <th md-column style=\"width:100px;\"><span ng-if=\"major.total\">{{major.total | number:1}}%</span></th>\n                        </tr>\n                    </thead>\n                    <tbody md-body>\n                        <tr md-row ng-repeat=\"branch in major.branches\">\n                            <td md-cell ng-bind=\"branch.name\"></td>\n                            <td md-cell>\n                                <span ng-if=\"branch.history[0].permanent\"><span class=\"score\">{{branch.history[0].permanent | number:1}}</span>/{{branch.history[0].max}}</span>\n                            </td>\n                            <td md-cell>\n                                <span ng-if=\"branch.history[0].final\"><span class=\"score\" >{{branch.history[0].final | number:1}}</span>/{{branch.history[0].max}}</span>\n                            </td>\n                            <td md-cell>\n                                <span ng-if=\"branch.history[0].total\"><span class=\"score\">{{branch.history[0].total | number:1}}</span>/{{branch.history[0].max}}</span>\n                            </td>\n                        </tr>\n                    </tbody>\n                </table>\n            </md-table-container>\n        </div>\n        <div class=\"feedback-summary\">\n            <md-input-container flex class=\"md-block\">\n                <label>Opmerkingen</label>\n                <text-angular name=\"feedbackSummary\" ng-model=\"vm.result.summary\" ta-target-toolbars=\"editor-toolbar\" aria-label=\"feedback\"></text-angular>\n            </md-input-container>\n        </div>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <text-angular-toolbar name=\"editor-toolbar\" class=\"feedback-dialog-editor-toolbar\" ta-toolbar-active-button-class=\"active\"></text-angular-toolbar>\n        <span flex></span>\n        <md-button class=\"md-default md-raised\" ng-click=\"vm.cancel()\" translate=\"Annuleren\" aria-label=\"annuleren\"></md-button>\n        <md-button class=\"md-accent md-raised\" ng-click=\"vm.save()\" translate=\"Opslaan\" aria-label=\"opslaan\"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
 $templateCache.put("app/reporting/evaluations/feedback/feedback-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                Feedback toevoegen\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"feedback-dialog\" tri-wizard ng-init=\"triWizard.currentStep = 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'all\')\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            \n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep == 0\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Vorige\" aria-label=\"vorige\"></md-button>\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.currentStep == 1\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Volgende\" aria-label=\"volgende\"></md-button>\n        <md-button class=\"md-accent md-raised\" ng-click=\"vm.save()\" ng-show=\"triWizard.currentStep === 1\" translate=\"Opslaan\" aria-label=\"opslaan\"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
+$templateCache.put("app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                <span ng-if=\"vm.evaluation.course\">{{vm.evaluation.course.name}}: </span>\n                {{vm.evaluation.title || \'Nieuwe evaluatie toevoegen\'}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"evaluation-dialog\" tri-wizard ng-init=\"triWizard.currentStep = vm.evaluation.pointResults.length > 0 ? 2 : 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\" layout-align=\"center center\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                                <select-branches layout=\"column\" flex ng-model=\"vm.evaluation.branchForGroup\" by-groups by-type=\"MC\" required></select-branches>\n                            </div>\n                            <div layout=\"row\">\n                                <md-switch ng-model=\"vm.evaluation.permanent\" aria-label=\"Permanente evaluatie\">\n                                    {{vm.evaluation.permanent ? \'Permanente evaluatie\' : \'Eindevaluatie\'}}\n                                </md-switch>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"creator\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Opties</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <div layout=\"row\">\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Soort meerkeuze</label>\n                                <md-select placeholder=\"Soort meerkeuze\" ng-model=\"vm.evaluation.settings.type\" flex>\n                                    <md-option value=\"pmc\">Meerkeuze <em>na</em> een zin.</md-option>\n                                    <md-option value=\"pmcp\">Meerkeuze <em>ingesloten</em> in zin.</md-option>\n                                    <md-option value=\"mc\">Enkel meerkeuze</md-option>\n                                </md-select>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\">\n                            <md-input-container class=\"md-block\" flex ng-hide=\"vm.evaluation.settings.type == \'mc\'\">\n                                <label>Tekst voor de meerkeuze</label>\n                                <input ng-model=\"vm.evaluation.settings.pre\" name=\"pre\" required>\n                            </md-input-container>\n                            <md-input-container class=\"md-block\" flex ng-show=\"vm.evaluation.settings.type == \'pmcp\'\">\n                                <label>Tekst na de meerkeuze</label>\n                                <input ng-model=\"vm.evaluation.settings.post\" name=\"post\" required>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\" layout-align=\"space-between center\">\n                            <md-checkbox ng-model=\"vm.evaluation.settings.multiple\" aria-label=\"Selecteer meerdere\"> Selecteer meerdere</md-checkbox>\n                            <md-checkbox ng-model=\"vm.evaluation.settings.printOthers\" aria-label=\"Andere weergeven\"> Alle mogelijkheden weergeven</md-checkbox>\n                        </div>\n                        <div layout=\"row\" ng-if=\"vm.evaluation.settings.printOthers\">\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Stijl voor selectie</label>\n                                <md-select ng-model=\"vm.evaluation.settings.selected\">\n                                    <md-option value=\"bold\"><b>Vet</b></md-option>\n                                    <md-option value=\"color:green\"><span style=\"color:green;\">Groen</span></md-option>\n                                    <md-option value=\"color:red\"><span style=\"color:red;\">Rood</span></md-option>\n                                </md-select>\n                            </md-input-container>\n                            <md-input-container class=\"md-block\" flex>\n                                <label>Stijl voor niet geselecteerde</label>\n                                <md-select ng-model=\"vm.evaluation.settings.notSelected\">\n                                    <md-option value=\"\"><em>niets doen</em></md-option>\n                                    <md-option value=\"small\"><span style=\"font-size: 0.7rem;\">Klein</span></md-option>\n                                    <md-option value=\"line-through\"><span style=\"text-decoration:line-through\">Doorstreept</span></md-option>\n                                    <md-option value=\"color:red\"><span style=\"color:red;\">Rood</span></md-option>\n                                </md-select>\n                            </md-input-container>\n                        </div>\n                        <div layout=\"row\">\n                            <md-chips ng-model=\"vm.evaluation.settings.options\" name=\"options\" placeholder=\"Voeg een optie toe\" delete-button-label=\"Verwijder Optie\" delete-hint=\"Druk op delete op een optie te verwijderen.\" secondary-placeholder=\"+Optie\" flex></md-chips>\n                        </div>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">3</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents()\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Basis\" ng-click=\"vm.selectStudents(\'basic\')\">\n                                    <md-icon class=\"notos notos-basic\"></md-icon> Basis\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'challenge\')\">\n                                    <md-icon class=\"notos notos-challenge\"></md-icon> Uitdaging\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"results\" ng-disabled=\"vm.selectedStudents.length == 0\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">4</span>\n                    <span translate>Resultaten</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"resultsForm\" tri-wizard-form>\n                            <div layout=\"row\" ng-repeat=\"result in vm.evaluation.multiplechoiceResults \" ng-if=\"!result.block \">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>{{::result.student.displayName}}</label>\n                                    <md-select ng-multiple=\"vm.evaluation.settings.multiple\" ng-model=\"result.selected \">\n                                        <md-option ng-repeat=\"option in vm.evaluation.settings.options track by $index \" ng-value=\"option\">{{option}}</md-option>\n                                    </md-select>\n                                </md-input-container>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row \">\n        <span flex></span>\n        <md-button class=\"md-primary md-raised \" ng-click=\"triWizard.prevStep() \" ng-hide=\"triWizard.currentStep==0 \" ng-disabled=\"triWizard.prevStepDisabled() \" translate=\"Vorige \" aria-label=\"vorige \"></md-button>\n        <md-button class=\"md-primary md-raised \" ng-click=\"triWizard.nextStep() \" ng-hide=\"triWizard.currentStep==3 \" ng-disabled=\"triWizard.nextStepDisabled() \" translate=\"Volgende \" aria-label=\"volgende \"></md-button>\n        <md-button class=\"md-accent md-raised \" ng-click=\"vm.save() \" ng-show=\"triWizard.currentStep===3 \" translate=\"Opslaan \" aria-label=\"opslaan \"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
 $templateCache.put("app/reporting/evaluations/points/points-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                <span ng-if=\"vm.evaluation.course\">{{vm.evaluation.course.name}}: </span>\n                {{vm.evaluation.title || \'Nieuwe evaluatie toevoegen\'}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"evaluation-dialog\" tri-wizard ng-init=\"triWizard.currentStep = vm.evaluation.pointResults.length > 0 ? 2 : 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\" layout-align=\"center center\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Maximum</label>\n                                    <input type=\"number\" ng-model=\"vm.evaluation.max\" name=\"max\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                                <select-branches layout=\"column\" flex ng-model=\"vm.evaluation.branchForGroup\" by-groups by-type=\"P\" required></select-branches>\n                            </div>\n                            <div layout=\"row\">\n                                <md-switch ng-model=\"vm.evaluation.permanent\" aria-label=\"Permanente evaluatie\">\n                                    {{vm.evaluation.permanent ? \'Permanente evaluatie\' : \'Eindevaluatie\'}}\n                                </md-switch>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents()\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Basis\" ng-click=\"vm.selectStudents(\'basic\')\">\n                                    <md-icon class=\"notos notos-basic\"></md-icon> Basis\n                                </md-button>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-default\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'challenge\')\">\n                                    <md-icon class=\"notos notos-challenge\"></md-icon> Uitdaging\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <!--http://schkt.volglvs.be/PIX/StaelensLaurens07.08.2011.JPG-->\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"results\" ng-disabled=\"vm.selectedStudents.length == 0\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">3</span>\n                    <span translate>Resultaten</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content layout=\"row\" layout-align=\"space-around center\">\n                        <div class=\"md-padding\">\n                            <form name=\"resultsForm\" tri-wizard-form viewport>\n                                <div layout=\"row\" flex ng-repeat=\"result in vm.evaluation.pointResults\" ng-if=\"!result.block\">\n                                    <md-input-container class=\"md-icon-float md-block\" flex>\n                                        <label>{{::result.student.displayName}}</label>\n                                        <input type=\"number\" ng-model=\"result.score\" name=\"score_{{$index}}\" score enter-as-tab max=\"vm.evaluation.max\">\n                                        <md-icon md-font-set=\"regular-font\" class=\"md-caption\">/{{vm.evaluation.max}}</md-icon>\n                                        <div ng-messages=\"resultsForm[\'score_\' + $index].$error\" md-auto-hide=\"false\" ng-show=\"resultsForm[\'score_\' + $index].$error\">\n                                            <div ng-message=\"max\">\n                                                Meer dan het maximum.\n                                            </div>\n                                        </div>\n                                    </md-input-container>\n                                    <div class=\"margin-left-10 md-button-group super-narrow\" ng-class=\"{\'md-whiteframe-z1\' : vm.hasRedicodi(result)}\">\n                                        <md-button ng-class=\"{\'active\': vm.hasRedicodi(result, \'B\')}\" ng-click=\"vm.toggleRedicodi(result, \'B\')\" tabindex=\"-1\" aria-label=\"basis\">\n                                            <md-icon class=\"notos notos-basic\"></md-icon>\n                                            <md-tooltip>basis</md-tooltip>\n                                        </md-button>\n                                        <md-button ng-class=\"{\'active\': vm.hasRedicodi(result, \'C\')}\" ng-click=\"vm.toggleRedicodi(result, \'C\')\" tabindex=\"-1\" aria-label=\"uitdaging\">\n                                            <md-icon class=\"notos notos-challenge\"></md-icon>\n                                            <md-tooltip>uitbreiding</md-tooltip>\n                                        </md-button>\n                                        <md-button ng-class=\"{\'active\': vm.hasRedicodi(result, \'S\')}\" ng-click=\"vm.toggleRedicodi(result, \'S\')\" tabindex=\"-1\" aria-label=\"met ondersteuning\">\n                                            <md-icon class=\"notos notos-support\"></md-icon>\n                                            <md-tooltip>met ondersteuning</md-tooltip>\n                                        </md-button>\n                                        <md-button ng-class=\"{\'active\': vm.hasRedicodi(result, \'T\')}\" ng-click=\"vm.toggleRedicodi(result, \'T\')\" tabindex=\"-1\" aria-label=\"met hulpmiddelen\">\n                                            <md-icon class=\"notos notos-tools\"></md-icon>\n                                            <md-tooltip>met hulpmiddelen</md-tooltip>\n                                        </md-button>\n                                    </div>\n                                </div>\n                            </form>\n                        </div>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <span class=\"md-caption\" ng-if=\"triWizard.currentStep == 2\">\n            Gemiddelde: {{vm.average|number:1}}% | Mediaan: {{vm.median|number:1}}%\n        </span>\n        <span flex></span>\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep == 0\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Vorige\" aria-label=\"vorige\"></md-button>\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.currentStep == 2\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Volgende\" aria-label=\"volgende\"></md-button>\n        <md-button class=\"md-accent md-raised\" ng-click=\"vm.save()\" ng-show=\"triWizard.currentStep === 2\" translate=\"Opslaan\" aria-label=\"opslaan\"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
 $templateCache.put("app/reporting/evaluations/spoken/spoken-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog evaluation-wizard\">\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n            <h2 class=\"md-title\">\n                <span ng-if=\"vm.evaluation.course\">{{vm.evaluation.course.name}}: </span>\n                {{vm.evaluation.title || \'Nieuwe evaluatie toevoegen\'}}\n            </h2>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n        <md-progress-linear class=\"\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n    </md-toolbar>\n    <md-divider></md-divider>\n    <md-dialog-content class=\"evaluation-dialog\" tri-wizard ng-init=\"triWizard.currentStep = 0\">\n        <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n            <md-tab id=\"settings\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">1</span>\n                    <span translate>Instellingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"settingsForm\" tri-wizard-form novalidate>\n                            <div layout=\"row\">\n                                <md-input-container class=\"md-block\" flex>\n                                    <label>Titel</label>\n                                    <input ng-model=\"vm.evaluation.title\" name=\"title\" required>\n                                </md-input-container>\n                            </div>\n                            <div layout=\"row\" layout-align=\"space-around center\">\n                                <div layout=\"column\" flex>\n                                    <label class=\"md-caption \">Datum</label>\n                                    <md-datepicker name=\"date\" ng-model=\"vm.evaluation.date\" md-placeholder=\"Datum\" md-date-format=\"longDate\" required flex></md-datepicker>\n                                    <div ng-messages=\"settingsForm.date.$error\" md-auto-hide=\"false\" ng-show=\"settingsForm.date.$touched\">\n                                        <div ng-message when=\"required\">\n                                            <span translate>Datum is een verplicht veld</span>\n                                        </div>\n                                    </div>\n                                </div>\n                                <select-branches layout=\"column\" flex ng-model=\"vm.evaluation.branchForGroup\" by-groups by-type=\"S\" required></select-branches>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"students\" ng-disabled=\"settingsForm.$invalid\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">2</span>\n                    <span translate>Leerlingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content class=\"md-padding\">\n                        <form name=\"studentsForm\" tri-wizard-form layout=\"row\" layout-align=\"space-around\">\n                            <div layout=\"column\" flex=\"35\">\n                                <h6>Kies één of meerdere groepen</h6>\n                                <md-button style=\"text-align:left;\" class=\"md-raised md-accent\" aria-label=\"Volledige klas\" ng-click=\"vm.selectStudents(\'all\')\">\n                                    <md-icon class=\"zmdi zmdi-select-all\"></md-icon> Volledige klas\n                                </md-button>\n                            </div>\n                            <div layout=\"column\" flex=\"65\">\n                                <h6>Of kies één of meerdere leerlingen</h6>\n                                <md-list>\n                                    <md-list-item ng-repeat=\"student in vm.students\">\n                                        <md-checkbox checklist-model=\"vm.selectedStudents\" checklist-value=\"student\"></md-checkbox>\n                                        <user-avatar ng-model=\"student\" class=\"md-avatar\"></user-avatar>\n                                        <div class=\"md-list-item-text\">\n                                            <p>{{::student.displayName}}</p>\n                                        </div>\n                                    </md-list-item>\n                                </md-list>\n                            </div>\n                        </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n            <md-tab id=\"results\" ng-disabled=\"vm.selectedStudents.length == 0\" md-selected=\"true\" md-on-select=\"vm.prepareInput()\">\n                <md-tab-label>\n                    <span class=\"oxy-step-label\">3</span>\n                    <span translate>Samenvattingen</span>\n                </md-tab-label>\n                <md-tab-body>\n                    <md-content layout=\"row\" >\n                            <form name=\"resultsForm\" tri-wizard-form viewport class=\"md-padding\" flex>\n                                <div layout=\"row\" ng-repeat=\"result in vm.evaluation.spokenResults\" ng-if=\"!result.block\">\n                                    <md-input-container class=\"md-icon-float md-block\" flex>\n                                        <label>{{::result.student.displayName}}</label>\n                                        <textarea ng-model=\"result.summary\"></textarea>\n                                    </md-input-container>\n                                </div>\n                            </form>\n                    </md-content>\n                </md-tab-body>\n            </md-tab>\n        </md-tabs>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep == 0\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Vorige\" aria-label=\"vorige\"></md-button>\n        <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.currentStep == 2\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Volgende\" aria-label=\"volgende\"></md-button>\n        <md-button class=\"md-accent md-raised\" ng-click=\"vm.save()\" ng-show=\"triWizard.currentStep === 2\" translate=\"Opslaan\" aria-label=\"opslaan\"></md-button>\n    </md-dialog-actions>\n</md-dialog>\n");
 $templateCache.put("app/reporting/layout/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\"></md-icon>\n        </span>\n    </h2>\n    <md-daterange range=\"vm.range\" on-daterange-changed=\"vm.daterangeChanged()\"></md-daterange>\n    <select-groups reload-state=\"vm.baseState\" only-owned=\"true\"></select-groups>\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.filterAdvanced()\" aria-label=\"filter\">\n        <md-icon md-font-icon=\"zmdi zmdi-filter-list\"></md-icon>\n    </md-button>\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleFullScreen()\" aria-label=\"toggle fullscreen\">\n        <md-icon md-font-icon ng-class=\"vm.fullScreenIcon\"></md-icon>\n    </md-button>\n    <!--\n    <md-button class=\"md-icon-button toolbar-button animated\" ng-click=\"vm.toggleNotificationsTab(0)\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n        <span class=\"toolbar-button-badge animated\" theme-background=\"accent\" ng-class=\"{ \'toolbar-button-badge-new\' : vm.emailNew }\">5</span>\n    </md-button>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleNotificationsTab(1)\">\n        <md-icon md-font-icon=\"fa fa-bell-o\"></md-icon>\n        <span class=\"toolbar-button-badge\" theme-background=\"accent\">2</span>\n    </md-button>\n-->\n    <md-menu>\n        <md-button aria-label=\"Open user menu\" ng-click=\"$mdOpenMenu()\" aria-label=\"side navigation\">\n            <img class=\"toolbar-user-avatar\" ng-src=\"{{vm.user.picture}}\"> {{vm.user.given_name}}\n        </md-button>\n        <md-menu-content width=\"4\">\n            <md-menu-item>\n                <md-button ng-click=\"vm.toggleNotificationsTab(2)\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-settings\"></md-icon>\n                    <span translate=\"Instellingen\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-item>\n                <md-button href=\"#\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n                    <span translate=\"Profiel\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-divider></md-menu-divider>\n            <md-menu-item>\n                <md-button href=\"#/login\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-sign-in\"></md-icon>\n                    <span translate=\"Afmelden\"></span>\n                </md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n");
@@ -19190,8 +19209,8 @@ $templateCache.put("app/triangular/layouts/default/default-no-scroll.tmpl.html",
 $templateCache.put("app/triangular/layouts/default/default.tmpl.html","<div layout=\"row\" class=\"full-height\">\n    <!-- left sidebar -->\n\n    <md-sidenav class=\"admin-sidebar-left md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"layout.sideMenuSize !== \'hidden\' && $mdMedia(\'gt-sm\')\" ui-view=\"sidebarLeft\" ng-class=\"{ \'admin-sidebar-collapsed\': layout.sideMenuSize == \'icon\' }\" ng-mouseover=\"layoutController.activateHover()\" ng-mouseleave=\"layoutController.removeHover()\"></md-sidenav>\n\n    <!-- main content -->\n    <div id=\"admin-panel\" layout=\"column\" flex>\n        <!-- loading animation -->\n        <tri-loader></tri-loader>\n\n        <!-- top toolbar -->\n        <md-toolbar class=\"admin-toolbar\" ng-if=\"layout.showToolbar\" md-theme=\"{{triSkin.elements.toolbar}}\" ui-view=\"toolbar\" ng-class=\"[layout.toolbarSize,layout.toolbarClass]\"></md-toolbar>\n\n        <!-- scrollable content -->\n        <md-content ng-class=\"layout.contentClass\" flex tri-default-content ui-view=\"content\"></md-content>\n\n        <div ui-view=\"belowContent\"></div>\n    </div>\n\n    <!-- right sidebar -->\n    <md-sidenav layout layout-fill class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=\"notifications\" ui-view=\"sidebarRight\"></md-sidenav>\n</div>\n");
 $templateCache.put("app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html","<md-card class=\"tri-counter-widget\" flex md-colors=\"::{ background: vm.background, color: vm.color }\">\n    <md-card-content layout=\"row\" layout-align=\"space-between center\">\n        <md-icon class=\"font-size-5 margin-left-10 inherit-color\" md-font-icon=\"{{vm.icon}}\"></md-icon>\n        <div layout=\"column\">\n            <p class=\"md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis\" countupto=\"vm.count\" decimals=\"0\"></p>\n            <p class=\"md-body-2 margin-top-0 margin-bottom-0\" translate>{{vm.title}}</p>\n        </div>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.tmpl.html","<md-card>\n    <md-card-header>\n        <md-card-header-text>\n            <span class=\"md-title\">Overview</span>\n            <span class=\"md-subhead\">{{vm.start.toDate() | date:\'fullDate\'}} - {{vm.end.toDate() | date:\'fullDate\'}}</span>\n        </md-card-header-text>\n        <md-menu>\n            <md-button aria-label=\"Change timespan\" class=\"md-icon-button\" ng-click=\"$mdOpenMenu($event)\">\n                <md-icon md-menu-origin md-font-icon=\"zmdi zmdi-more-vert\"></md-icon>\n            </md-button>\n            <md-menu-content>\n                <md-menu-item ng-repeat=\"span in vm.timeSpans\">\n                    <md-button ng-click=\"vm.onTimeChange({ span: span })\">\n                        {{span.name}}\n                    </md-button>\n                </md-menu-item>\n            </md-menu-content>\n        </md-menu>\n    </md-card-header>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
-$templateCache.put("app/dashboards/analytics/widgets/map-widget/map-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <ui-gmap-google-map class=\"map-widget\" center=\"vm.map.center\" zoom=\"vm.map.zoom\" options=\"vm.map.options\">\n            <ui-gmap-markers models=\"vm.randomMarkers\" coords=\"\'self\'\" icon=\"\'icon\'\"></ui-gmap-markers>\n        </ui-gmap-google-map>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
+$templateCache.put("app/dashboards/analytics/widgets/map-widget/map-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <ui-gmap-google-map class=\"map-widget\" center=\"vm.map.center\" zoom=\"vm.map.zoom\" options=\"vm.map.options\">\n            <ui-gmap-markers models=\"vm.randomMarkers\" coords=\"\'self\'\" icon=\"\'icon\'\"></ui-gmap-markers>\n        </ui-gmap-google-map>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/stat-chart-widget/stat-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <h3 class=\"md-subhead margin-bottom-0\">{{vm.name}}</h3>\n        <h3 class=\"md-headline margin-top-0\">{{vm.statistic}}</h4>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/tabs-widget/tabs-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"language\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.languages.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"language in vm.languages | orderBy: vm.tableQueries.languages.order | limitTo: vm.tableQueries.languages.limit : (vm.tableQueries.languages.page -1) * vm.tableQueries.languages.limit\">\n                                    <td md-cell>{{::language.language}}</td>\n                                    <td md-cell>{{::language.sessions | number}}</td>\n                                    <td md-cell>{{::language.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.languages.limit\" md-page=\"vm.tableQueries.languages.page\" md-total=\"{{vm.languages.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"country\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.countries.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"country in vm.countries | orderBy: vm.tableQueries.countries.order | limitTo: vm.tableQueries.countries.limit : (vm.tableQueries.countries.page -1) * vm.tableQueries.countries.limit\">\n                                    <td md-cell>{{::country.country}}</td>\n                                    <td md-cell>{{::country.sessions}}</td>\n                                    <td md-cell>{{::country.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.countries.limit\" md-page=\"vm.tableQueries.countries.page\" md-total=\"{{vm.countries.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/calendar/layouts/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" hide-gt-md ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n    <h2 flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\">\n        </span>\n    </h2>\n\n    <div class=\"widget-buttons\">\n        <md-button class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'prev\')\" aria-label=\"previous month\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-left\"></md-icon>\n        </md-button>\n        <md-button hide show-gt-lg class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'today\')\" aria-label=\"today\">\n            <md-icon md-font-icon=\"zmdi zmdi-calendar-alt\"></md-icon>\n        </md-button>\n        <md-button class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'next\')\" aria-label=\"next month\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon>\n        </md-button>\n    </div>\n\n    <md-menu>\n        <md-button class=\"md-icon-button\" aria-label=\"{{\'Change View\' | triTranslate}}\" ng-click=\"$mdOpenMenu()\">\n            <md-icon md-font-icon=\"{{vm.currentView.icon}}\" ng-class=\"vm.currentView.icon\"></md-icon>\n        </md-button>\n        <md-menu-content width=\"2\">\n            <md-menu-item ng-repeat=\"view in vm.views\">\n                <md-button ng-click=\"vm.changeView(view)\" translate=\"{{::view.name}}\" aria-label=\"{{::view.name}}\"></md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n\n");

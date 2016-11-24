@@ -29000,6 +29000,36 @@ chart-legend ul {
       min-width: 260px;
       max-width: 260px; }
 
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
+md-content.md-cyan-theme {
+  background: #fff; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29034,36 +29064,6 @@ chart-legend ul {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
-md-content.md-cyan-theme {
-  background: #fff; }
 
 .dashboard-container .layout-margin {
   margin: 0px; }
@@ -29541,6 +29541,18 @@ md-icon.pf-placeholder {
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
 
+.md-button.md-primary.daterange-button {
+  color: rgba(0, 0, 0, 0.84); }
+
+.daterange-picker {
+  width: 340px;
+  background: #fff; }
+  .daterange-picker .md-calendar-day-header {
+    display: none; }
+  .daterange-picker > .default-list > .picker-item > .md-button {
+    width: 100%;
+    margin: 0; }
+
 #ui-login {
   overflow: auto; }
   #ui-login.ng-enter {
@@ -29670,12 +29682,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .calendar-color-select md-option {
   text-transform: capitalize; }
 
-.google-example-chart {
-  padding: 24px; }
-
-.chartjs-example-chart {
-  padding: 24px; }
-
 .dashboard-container .layout-margin {
   margin: 0px; }
 
@@ -29697,6 +29703,12 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
   height: 72px; }
+
+.google-example-chart {
+  padding: 24px; }
+
+.chartjs-example-chart {
+  padding: 24px; }
 
 .email-dialog {
   min-width: 800px;
@@ -30168,18 +30180,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
-
-.md-button.md-primary.daterange-button {
-  color: rgba(0, 0, 0, 0.84); }
-
-.daterange-picker {
-  width: 340px;
-  background: #fff; }
-  .daterange-picker .md-calendar-day-header {
-    display: none; }
-  .daterange-picker > .default-list > .picker-item > .md-button {
-    width: 100%;
-    margin: 0; }
 
 .triangular-loader {
   background: #fff; }
