@@ -141,11 +141,12 @@
         }
 
         function getActiveGroup() {
+            //TODO: 
             var defer = $q.defer();
 
             if (activeGroup === null) {
                 allowedGroups().then(function(response) {
-                    if (response[0].isRestangularized()) {
+                    if (response[0].fromServer) {
                         activeGroup = response[0];
                         defer.resolve(activeGroup);
                     } else {
@@ -159,7 +160,7 @@
 
                 });
             } else {
-                if (activeGroup.isRestangularized()) {
+                if (activeGroup.fromServer()) {
                     defer.resolve(activeGroup);
                 } else {
                     GroupService.one(activeGroup.id).get()
