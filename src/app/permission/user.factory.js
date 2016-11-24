@@ -117,7 +117,7 @@
 
             if (groups == null) {
                 //TODO: for now group selection only for staff users
-                if (hasAllGroupsPermission()) {
+                if (!hasAllGroupsPermission()) {
                     GroupService.getList({'owner':true}).then(function(response) {
                         groups = response;
                         defer.resolve(groups);
