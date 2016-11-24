@@ -117,12 +117,9 @@
 
             if (groups == null) {
                 //TODO: for now group selection only for staff users
-                if (!hasAllGroupsPermission()) {
-                    StaffService.one(user.auth_token).all('groups').getList().then(function(response) {
-                        var mappedGroups = _.map(response, function(sig) {
-                            return sig.group;
-                        });
-                        groups = mappedGroups;
+                if (hasAllGroupsPermission()) {
+                    GroupService.getList({'owner':true}).then(function(response) {
+                        groups = response;
                         defer.resolve(groups);
                     });
 
@@ -137,38 +134,18 @@
             }
 
             return defer.promise;
-
+            
         }
 
         function getActiveGroup() {
-            //TODO: 
             var defer = $q.defer();
 
             if (activeGroup === null) {
                 allowedGroups().then(function(response) {
-                    if (response[0].fromServer) {
-                        activeGroup = response[0];
-                        defer.resolve(activeGroup);
-                    } else {
-                        //TODO check if response[0] exists and ID exists on this item
-                        GroupService.one(response[0].id).get()
-                            .then(function(restGroup) {
-                                activeGroup = restGroup;
-                                defer.resolve(activeGroup);
-                            });
-                    }
-
+                    defer.resolve(response[0]);
                 });
             } else {
-                if (activeGroup.fromServer) {
-                    defer.resolve(activeGroup);
-                } else {
-                    GroupService.one(activeGroup.id).get()
-                        .then(function(restGroup) {
-                            activeGroup = restGroup;
-                            defer.resolve(activeGroup);
-                        });
-                }
+                defer.resolve(activeGroup);
             }
             return defer.promise;
         }
