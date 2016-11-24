@@ -80,3 +80,8 @@ md-icon.pf-placeholder {
         color: #ff5722;
     }
 }
+
+md-switch[disabled] .md-label {
+    opacity: .54;
+    color: rgba(0, 0, 0, .54);
+}

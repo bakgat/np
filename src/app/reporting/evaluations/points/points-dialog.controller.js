@@ -6,7 +6,7 @@
         .controller('PointsDialogController', PointsDialogController);
 
     /* @ngInject */
-    function PointsDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation, 
+    function PointsDialogController($scope, $timeout, $mdDialog, $filter, _, triSkins, evaluation,
         EvaluationService, StudentService, UserService) {
 
         var vm = this;
@@ -23,12 +23,13 @@
         //actions
         vm.save = save;
         vm.close = close;
+        vm.init = true;
 
         vm.selectStudents = selectStudents;
         vm.prepareInput = prepareInput;
 
         vm.toggleRedicodi = toggleRedicodi;
-     
+
         init();
         ///////////////
 
@@ -38,7 +39,8 @@
         }, true);
 
 
-        function init() {            
+        function init() {
+            vm.init = true;
             if (vm.evaluation.date) {
                 vm.evaluation.date = new Date(vm.evaluation.date);
             } else {
@@ -54,7 +56,7 @@
 
                         if (!vm.evaluation.pointResults) {
                             vm.evaluation.pointResults = [];
-                            
+
 
                         } else {
                             vm.selectedStudents = [];
@@ -64,10 +66,11 @@
                                 });
                                 vm.selectedStudents.push(student);
                             });
-                            
+
                             prepareInput();
 
                         }
+                        vm.init = false;
                     });
             });
 
@@ -109,7 +112,7 @@
             }
         }
 
-     
+
         function prepareInput() {
 
             /*
@@ -166,6 +169,11 @@
             vm.median = $filter('medianByPercent')(vm.evaluation.pointResults, 'score', vm.evaluation.max, 2);
         }
 
+        $scope.$watch('vm.evaluation.branchForGroup', function(value) {
+            if (!vm.init && value && value.onlyFinal) {
+                vm.evaluation.permanent = false
+            }
+        })
 
     }
 })();

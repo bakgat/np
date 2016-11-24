@@ -45,7 +45,7 @@
                                 <select-branches layout="column" flex ng-model="vm.evaluation.branchForGroup" by-groups by-type="P" required></select-branches>
                             </div>
                             <div layout="row">
-                                <md-switch ng-model="vm.evaluation.permanent" aria-label="Permanente evaluatie">
+                                <md-switch ng-model="vm.evaluation.permanent" aria-label="Permanente evaluatie" ng-disabled="vm.evaluation.branchForGroup && vm.evaluation.branchForGroup.onlyFinal">
                                     {{vm.evaluation.permanent ? 'Permanente evaluatie' : 'Eindevaluatie'}}
                                 </md-switch>
                             </div>
