@@ -338,125 +338,6 @@
     'use strict';
 
     angular
-        .module('app.examples.email', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    EmailToolbarController.$inject = ["$rootScope", "$mdMedia", "$filter", "$mdUtil", "$mdSidenav", "$state", "triBreadcrumbsService", "triLayout", "EMAIL_ROUTES"];
-    angular
-        .module('app.examples.email')
-        .controller('EmailToolbarController', EmailToolbarController);
-
-    /* @ngInject */
-    function EmailToolbarController($rootScope, $mdMedia, $filter, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout, EMAIL_ROUTES) {
-        var vm = this;
-        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        vm.filterEmailList = filterEmailList;
-        vm.hideMenuButton = hideMenuButton;
-        vm.openSideNav = openSideNav;
-        vm.showSearch = false;
-        vm.toggleSearch = toggleSearch;
-        vm.toolbarMenu = [];
-
-        /////////////////
-
-        function filterEmailList(emailSearch) {
-            $rootScope.$broadcast('emailSearch', emailSearch);
-        }
-
-        function toggleSearch() {
-            vm.showSearch = !vm.showSearch;
-        }
-
-        function hideMenuButton() {
-            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
-        }
-
-        /**
-         * Build handler to open/close a SideNav;
-         */
-        function openSideNav(navID) {
-            $mdUtil.debounce(function(){
-                $mdSidenav(navID).toggle();
-            }, 300)();
-        }
-
-
-        // init
-
-        for(var i = 0; i < EMAIL_ROUTES.length; i++) {
-            vm.toolbarMenu.push({
-                name: $filter('triTranslate')(EMAIL_ROUTES[i].name),
-                state: EMAIL_ROUTES[i].state,
-                icon: EMAIL_ROUTES[i].icon
-            });
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.calendar', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    CalendarToolbarController.$inject = ["$scope", "$state", "$element", "$mdUtil", "$mdSidenav", "triBreadcrumbsService", "uiCalendarConfig"];
-    angular
-        .module('app.examples.calendar')
-        .controller('CalendarToolbarController', CalendarToolbarController);
-
-    /* @ngInject */
-    function CalendarToolbarController($scope, $state, $element, $mdUtil, $mdSidenav, triBreadcrumbsService, uiCalendarConfig) {
-        var vm = this;
-        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        vm.changeMonth = changeMonth;
-        vm.changeView = changeView;
-        vm.openSideNav = openSideNav;
-        vm.views = [{
-            name: 'Month',
-            icon: 'zmdi zmdi-view-module',
-            viewName: 'month'
-        },{
-            name: 'Week',
-            icon: 'zmdi zmdi-view-week',
-            viewName: 'agendaWeek'
-        },{
-            name: 'Day',
-            icon: 'zmdi zmdi-view-day',
-            viewName: 'agendaDay'
-        }];
-        vm.currentView = vm.views[0];
-
-        //////////////
-
-        function changeMonth(direction) {
-            uiCalendarConfig.calendars['triangular-calendar'].fullCalendar(direction);
-        }
-
-        function changeView(view) {
-            vm.currentView = view;
-            uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('changeView', view.viewName);
-        }
-
-        function openSideNav(navID) {
-            $mdUtil.debounce(function(){
-                $mdSidenav(navID).toggle();
-            }, 300)();
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.dashboards', [
 
         ]);
@@ -618,24 +499,6 @@
 
 (function() {
     'use strict';
-
-    angular
-        .module('app.dashboards')
-        .component('counterWidget', {
-            templateUrl: 'app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html',
-            controllerAs: 'vm',
-            bindings: {
-                title: '@',
-                count: '<',
-                icon: '@',
-                background: '@',
-                color: '@'
-            }
-        });
-})();
-
-(function() {
-    'use strict';
     LineChartWidgetController.$inject = ["$timeout"];
     angular
         .module('app.dashboards')
@@ -663,6 +526,143 @@
     }
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('app.dashboards')
+        .component('counterWidget', {
+            templateUrl: 'app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html',
+            controllerAs: 'vm',
+            bindings: {
+                title: '@',
+                count: '<',
+                icon: '@',
+                background: '@',
+                color: '@'
+            }
+        });
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.email', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    EmailToolbarController.$inject = ["$rootScope", "$mdMedia", "$filter", "$mdUtil", "$mdSidenav", "$state", "triBreadcrumbsService", "triLayout", "EMAIL_ROUTES"];
+    angular
+        .module('app.examples.email')
+        .controller('EmailToolbarController', EmailToolbarController);
+
+    /* @ngInject */
+    function EmailToolbarController($rootScope, $mdMedia, $filter, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout, EMAIL_ROUTES) {
+        var vm = this;
+        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        vm.filterEmailList = filterEmailList;
+        vm.hideMenuButton = hideMenuButton;
+        vm.openSideNav = openSideNav;
+        vm.showSearch = false;
+        vm.toggleSearch = toggleSearch;
+        vm.toolbarMenu = [];
+
+        /////////////////
+
+        function filterEmailList(emailSearch) {
+            $rootScope.$broadcast('emailSearch', emailSearch);
+        }
+
+        function toggleSearch() {
+            vm.showSearch = !vm.showSearch;
+        }
+
+        function hideMenuButton() {
+            return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
+        }
+
+        /**
+         * Build handler to open/close a SideNav;
+         */
+        function openSideNav(navID) {
+            $mdUtil.debounce(function(){
+                $mdSidenav(navID).toggle();
+            }, 300)();
+        }
+
+
+        // init
+
+        for(var i = 0; i < EMAIL_ROUTES.length; i++) {
+            vm.toolbarMenu.push({
+                name: $filter('triTranslate')(EMAIL_ROUTES[i].name),
+                state: EMAIL_ROUTES[i].state,
+                icon: EMAIL_ROUTES[i].icon
+            });
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.calendar', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    CalendarToolbarController.$inject = ["$scope", "$state", "$element", "$mdUtil", "$mdSidenav", "triBreadcrumbsService", "uiCalendarConfig"];
+    angular
+        .module('app.examples.calendar')
+        .controller('CalendarToolbarController', CalendarToolbarController);
+
+    /* @ngInject */
+    function CalendarToolbarController($scope, $state, $element, $mdUtil, $mdSidenav, triBreadcrumbsService, uiCalendarConfig) {
+        var vm = this;
+        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        vm.changeMonth = changeMonth;
+        vm.changeView = changeView;
+        vm.openSideNav = openSideNav;
+        vm.views = [{
+            name: 'Month',
+            icon: 'zmdi zmdi-view-module',
+            viewName: 'month'
+        },{
+            name: 'Week',
+            icon: 'zmdi zmdi-view-week',
+            viewName: 'agendaWeek'
+        },{
+            name: 'Day',
+            icon: 'zmdi zmdi-view-day',
+            viewName: 'agendaDay'
+        }];
+        vm.currentView = vm.views[0];
+
+        //////////////
+
+        function changeMonth(direction) {
+            uiCalendarConfig.calendars['triangular-calendar'].fullCalendar(direction);
+        }
+
+        function changeView(view) {
+            vm.currentView = view;
+            uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('changeView', view.viewName);
+        }
+
+        function openSideNav(navID) {
+            $mdUtil.debounce(function(){
+                $mdSidenav(navID).toggle();
+            }, 300)();
+        }
+    }
+})();
 'use strict';
 
 /**
@@ -3000,237 +3000,6 @@
     'use strict';
 
     angular
-        .module('app.examples.menu', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    MenuDynamicController.$inject = ["dynamicMenuService", "triMenu"];
-    angular
-        .module('app.examples.menu')
-        .controller('MenuDynamicController', MenuDynamicController);
-
-    /* @ngInject */
-    function MenuDynamicController(dynamicMenuService, triMenu) {
-        var vm = this;
-        // get dynamic menu service to store & keep track the state of the menu status
-        vm.dynamicMenu = dynamicMenuService.dynamicMenu;
-        // create toggle function
-        vm.toggleExtraMenu = toggleExtraMenu;
-
-        ////////////////
-
-        function toggleExtraMenu(showMenu) {
-            if(showMenu) {
-                triMenu.addMenu({
-                    name: 'Dynamic Menu-MENU',
-                    icon: 'zmdi zmdi-flower-alt',
-                    type: 'link',
-                    priority: 0.0,
-                    state: 'triangular.menu-dynamic-dummy-page'
-                });
-            }
-            else {
-                triMenu.removeMenu('triangular.menu-dynamic-dummy-page');
-            }
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.maps', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    MapTerrainDemoController.$inject = ["uiGmapGoogleMapApi"];
-    angular
-        .module('app.examples.maps')
-        .controller('MapTerrainDemoController', MapTerrainDemoController);
-
-    /* @ngInject */
-    function MapTerrainDemoController(uiGmapGoogleMapApi) {
-        var vm = this;
-        uiGmapGoogleMapApi.then(function(maps) {
-            vm.terrainMap = {
-                center: {
-                    latitude: 51.219053,
-                    longitude: 4.404418
-                },
-                zoom: 10,
-                marker: {
-                    id:0,
-                    coords: {
-                        latitude: 51.219053,
-                        longitude: 4.404418
-                    },
-                    options: {
-                        icon: {
-                            anchor: new maps.Point(36,36),
-                            origin: new maps.Point(0,0),
-                            url: 'assets/images/maps/blue_marker.png'
-                        }
-                    }
-                },
-                options:{
-                    scrollwheel:false,
-                    mapTypeId:maps.MapTypeId.TERRAIN
-                }
-            };
-        });
-    }
-})();
-(function() {
-    'use strict';
-
-    MapLabelDemoController.$inject = ["$scope", "uiGmapGoogleMapApi"];
-    angular
-        .module('app.examples.maps')
-        .controller('MapLabelDemoController', MapLabelDemoController);
-
-    /* @ngInject */
-    function MapLabelDemoController($scope, uiGmapGoogleMapApi) {
-        var vm = this;
-        uiGmapGoogleMapApi.then(function(maps) {
-            vm.labeledMap = {
-                center: {
-                    latitude: 35.027469,
-                    longitude: -111.022753
-                },
-                zoom: 4,
-                marker: {
-                    id:0,
-                    coords: {
-                        latitude: 35.027469,
-                        longitude: -111.022753
-                    },
-                    options: {
-                        icon: {
-                            anchor: new maps.Point(36,36),
-                            origin: new maps.Point(0,0),
-                            url: 'assets/images/maps/blue_marker.png'
-                        }
-                    }
-                },
-                options:{
-                    scrollwheel:false
-                }
-            };
-
-            vm.labelTitle = 'Hello from Arizona!';
-        });
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.forms', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.forms')
-        .controller('Binding1Controller', Binding1Controller);
-
-    /* @ngInject */
-    function Binding1Controller() {
-        var vm = this;
-        vm.user = {
-            username: 'Morris',
-            password: '',
-            description: '',
-            favouriteColor: ''
-        };
-    }
-})();
-(function() {
-    'use strict';
-
-    Autocomplete1Controller.$inject = ["$timeout", "$q", "$log"];
-    angular
-        .module('app.examples.forms')
-        .controller('Autocomplete1Controller', Autocomplete1Controller);
-
-    /* @ngInject */
-    function Autocomplete1Controller($timeout, $q, $log) {
-        var vm = this;
-        // list of `state` value/display objects
-        vm.states             = loadAll();
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-        vm.selectedItemChange = selectedItemChange;
-        vm.searchTextChange   = searchTextChange;
-
-        //////////////////
-        function querySearch (query) {
-            var results = query ? vm.states.filter( createFilterFor(query) ) : vm.states, deferred;
-            if(self.simulateQuery) {
-                deferred = $q.defer();
-                $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-                return deferred.promise;
-            } else {
-                return results;
-            }
-        }
-
-        function searchTextChange(text) {
-            $log.info('Text changed to ' + text);
-        }
-
-        function selectedItemChange(item) {
-            $log.info('Item changed to ' + item);
-        }
-
-        /**
-        * Build `states` list of key/value pairs
-        */
-        function loadAll() {
-        /* jshint multistr: true */
-            var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-                Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-                Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-                Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-                North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-                South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-                Wisconsin, Wyoming';
-
-            return allStates.split(/, +/g).map(function (state) {
-                return {
-                    value: state.toLowerCase(),
-                    display: state
-                };
-            });
-        }
-
-        /**
-        * Create filter function for a query string
-        */
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-
-            return function filterFn(state) {
-                return (state.value.indexOf(lowercaseQuery) === 0);
-            };
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.examples.elements', [
 
         ]);
@@ -3691,6 +3460,237 @@
                     return contact;
                 }
             });
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.menu', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    MenuDynamicController.$inject = ["dynamicMenuService", "triMenu"];
+    angular
+        .module('app.examples.menu')
+        .controller('MenuDynamicController', MenuDynamicController);
+
+    /* @ngInject */
+    function MenuDynamicController(dynamicMenuService, triMenu) {
+        var vm = this;
+        // get dynamic menu service to store & keep track the state of the menu status
+        vm.dynamicMenu = dynamicMenuService.dynamicMenu;
+        // create toggle function
+        vm.toggleExtraMenu = toggleExtraMenu;
+
+        ////////////////
+
+        function toggleExtraMenu(showMenu) {
+            if(showMenu) {
+                triMenu.addMenu({
+                    name: 'Dynamic Menu-MENU',
+                    icon: 'zmdi zmdi-flower-alt',
+                    type: 'link',
+                    priority: 0.0,
+                    state: 'triangular.menu-dynamic-dummy-page'
+                });
+            }
+            else {
+                triMenu.removeMenu('triangular.menu-dynamic-dummy-page');
+            }
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.maps', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    MapTerrainDemoController.$inject = ["uiGmapGoogleMapApi"];
+    angular
+        .module('app.examples.maps')
+        .controller('MapTerrainDemoController', MapTerrainDemoController);
+
+    /* @ngInject */
+    function MapTerrainDemoController(uiGmapGoogleMapApi) {
+        var vm = this;
+        uiGmapGoogleMapApi.then(function(maps) {
+            vm.terrainMap = {
+                center: {
+                    latitude: 51.219053,
+                    longitude: 4.404418
+                },
+                zoom: 10,
+                marker: {
+                    id:0,
+                    coords: {
+                        latitude: 51.219053,
+                        longitude: 4.404418
+                    },
+                    options: {
+                        icon: {
+                            anchor: new maps.Point(36,36),
+                            origin: new maps.Point(0,0),
+                            url: 'assets/images/maps/blue_marker.png'
+                        }
+                    }
+                },
+                options:{
+                    scrollwheel:false,
+                    mapTypeId:maps.MapTypeId.TERRAIN
+                }
+            };
+        });
+    }
+})();
+(function() {
+    'use strict';
+
+    MapLabelDemoController.$inject = ["$scope", "uiGmapGoogleMapApi"];
+    angular
+        .module('app.examples.maps')
+        .controller('MapLabelDemoController', MapLabelDemoController);
+
+    /* @ngInject */
+    function MapLabelDemoController($scope, uiGmapGoogleMapApi) {
+        var vm = this;
+        uiGmapGoogleMapApi.then(function(maps) {
+            vm.labeledMap = {
+                center: {
+                    latitude: 35.027469,
+                    longitude: -111.022753
+                },
+                zoom: 4,
+                marker: {
+                    id:0,
+                    coords: {
+                        latitude: 35.027469,
+                        longitude: -111.022753
+                    },
+                    options: {
+                        icon: {
+                            anchor: new maps.Point(36,36),
+                            origin: new maps.Point(0,0),
+                            url: 'assets/images/maps/blue_marker.png'
+                        }
+                    }
+                },
+                options:{
+                    scrollwheel:false
+                }
+            };
+
+            vm.labelTitle = 'Hello from Arizona!';
+        });
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.forms', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.forms')
+        .controller('Binding1Controller', Binding1Controller);
+
+    /* @ngInject */
+    function Binding1Controller() {
+        var vm = this;
+        vm.user = {
+            username: 'Morris',
+            password: '',
+            description: '',
+            favouriteColor: ''
+        };
+    }
+})();
+(function() {
+    'use strict';
+
+    Autocomplete1Controller.$inject = ["$timeout", "$q", "$log"];
+    angular
+        .module('app.examples.forms')
+        .controller('Autocomplete1Controller', Autocomplete1Controller);
+
+    /* @ngInject */
+    function Autocomplete1Controller($timeout, $q, $log) {
+        var vm = this;
+        // list of `state` value/display objects
+        vm.states             = loadAll();
+        vm.selectedItem       = null;
+        vm.searchText         = null;
+        vm.querySearch        = querySearch;
+        vm.simulateQuery      = false;
+        vm.isDisabled         = false;
+        vm.selectedItemChange = selectedItemChange;
+        vm.searchTextChange   = searchTextChange;
+
+        //////////////////
+        function querySearch (query) {
+            var results = query ? vm.states.filter( createFilterFor(query) ) : vm.states, deferred;
+            if(self.simulateQuery) {
+                deferred = $q.defer();
+                $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+                return deferred.promise;
+            } else {
+                return results;
+            }
+        }
+
+        function searchTextChange(text) {
+            $log.info('Text changed to ' + text);
+        }
+
+        function selectedItemChange(item) {
+            $log.info('Item changed to ' + item);
+        }
+
+        /**
+        * Build `states` list of key/value pairs
+        */
+        function loadAll() {
+        /* jshint multistr: true */
+            var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
+                Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
+                Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
+                Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
+                North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
+                South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
+                Wisconsin, Wyoming';
+
+            return allStates.split(/, +/g).map(function (state) {
+                return {
+                    value: state.toLowerCase(),
+                    display: state
+                };
+            });
+        }
+
+        /**
+        * Create filter function for a query string
+        */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(state) {
+                return (state.value.indexOf(lowercaseQuery) === 0);
+            };
         }
     }
 })();
@@ -6768,117 +6768,6 @@
     'use strict';
 
     angular
-        .module('triangular.profiler', [
-            'digestHud'
-        ]);
-})();
-(function() {
-    'use strict';
-
-    profilerConfig.$inject = ["digestHudProvider"];
-    angular
-        .module('triangular.profiler')
-        .config(profilerConfig);
-
-    /* @ngInject */
-    function profilerConfig(digestHudProvider) {
-        digestHudProvider.enable();
-
-        // Optional configuration settings:
-        digestHudProvider.setHudPosition('top right'); // setup hud position on the page: top right, bottom left, etc. corner
-        digestHudProvider.numTopWatches = 20;  // number of items to display in detailed table
-        digestHudProvider.numDigestStats = 25;  // number of most recent digests to use f
-    }
-})();
-(function() {
-    'use strict';
-
-    layoutRunner.$inject = ["$rootScope", "triLayout"];
-    angular
-        .module('triangular')
-        .run(layoutRunner)
-        .provider('triLayout', layoutProvider);
-
-    /* @ngInject */
-    function layoutProvider() {
-        var layoutDefaults = {
-            toolbarSize: 'default',
-            toolbarShrink: true,
-            toolbarClass: '',
-            contentClass: '',
-            innerContentClass: '',
-            sideMenuSize: 'full',
-            showToolbar: true,
-            footer: true,
-            contentTemplateUrl: 'app/triangular/layouts/default/default-content.tmpl.html',
-            sidebarLeftTemplateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
-            sidebarLeftController: 'MenuController',
-            sidebarRightTemplateUrl: 'app/triangular/components/notifications-panel/notifications-panel.tmpl.html',
-            sidebarRightController: 'NotificationsPanelController',
-            toolbarTemplateUrl: 'app/triangular/components/toolbars/toolbar.tmpl.html',
-            toolbarController: 'DefaultToolbarController',
-            footerTemplateUrl: 'app/triangular/components/footer/footer.tmpl.html'
-        };
-        var resetableOptions = ['toolbarSize', 'toolbarShrink', 'toolbarClass', 'contentClass', 'innerContentClass', 'sideMenuSize', 'showToolbar', 'footer', 'contentTemplateUrl', 'sidebarLeftTemplateUrl', 'sidebarLeftController', 'sidebarRightTemplateUrl', 'sidebarRightController', 'toolbarTemplateUrl', 'toolbarController', 'footerTemplateUrl', 'loaderTemplateUrl', 'loaderController'];
-        var layout = {};
-
-        this.getDefaultOption = getDefaultOption;
-        this.setDefaultOption = setDefaultOption;
-
-        function getDefaultOption(name) {
-            return layoutDefaults[name];
-        }
-
-        function setDefaultOption(name, value) {
-            layoutDefaults[name] = value;
-        }
-
-        // init
-
-        angular.extend(layout, layoutDefaults);
-
-        // Service
-        this.$get = function() {
-            function setOption(name, value) {
-                layout[name] = value;
-            }
-
-            function updateLayoutFromState(event, toState) {
-                // reset classes
-                angular.forEach(resetableOptions, function(option){
-                    layout[option] = layoutDefaults[option];
-                });
-                var layoutOverrides = angular.isDefined(toState.data) && angular.isDefined(toState.data.layout) ? toState.data.layout : {};
-                angular.extend(layout, layout, layoutOverrides);
-            }
-
-            return {
-                layout: layout,
-                setOption: setOption,
-                updateLayoutFromState: updateLayoutFromState
-            };
-        };
-    }
-
-    /* @ngInject */
-    function layoutRunner($rootScope, triLayout) {
-        // check for $stateChangeStart and update the layouts if we have data.layout set
-        // if nothing set reset to defaults for every state
-        var destroyOn = $rootScope.$on('$stateChangeStart', triLayout.updateLayoutFromState);
-        $rootScope.$on('$destroy', removeWatch);
-
-        /////////////
-
-        function removeWatch() {
-            destroyOn();
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.filters', [
         ]);
 })();
@@ -7074,6 +6963,117 @@
             }
 
             return mean;
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('triangular.profiler', [
+            'digestHud'
+        ]);
+})();
+(function() {
+    'use strict';
+
+    profilerConfig.$inject = ["digestHudProvider"];
+    angular
+        .module('triangular.profiler')
+        .config(profilerConfig);
+
+    /* @ngInject */
+    function profilerConfig(digestHudProvider) {
+        digestHudProvider.enable();
+
+        // Optional configuration settings:
+        digestHudProvider.setHudPosition('top right'); // setup hud position on the page: top right, bottom left, etc. corner
+        digestHudProvider.numTopWatches = 20;  // number of items to display in detailed table
+        digestHudProvider.numDigestStats = 25;  // number of most recent digests to use f
+    }
+})();
+(function() {
+    'use strict';
+
+    layoutRunner.$inject = ["$rootScope", "triLayout"];
+    angular
+        .module('triangular')
+        .run(layoutRunner)
+        .provider('triLayout', layoutProvider);
+
+    /* @ngInject */
+    function layoutProvider() {
+        var layoutDefaults = {
+            toolbarSize: 'default',
+            toolbarShrink: true,
+            toolbarClass: '',
+            contentClass: '',
+            innerContentClass: '',
+            sideMenuSize: 'full',
+            showToolbar: true,
+            footer: true,
+            contentTemplateUrl: 'app/triangular/layouts/default/default-content.tmpl.html',
+            sidebarLeftTemplateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
+            sidebarLeftController: 'MenuController',
+            sidebarRightTemplateUrl: 'app/triangular/components/notifications-panel/notifications-panel.tmpl.html',
+            sidebarRightController: 'NotificationsPanelController',
+            toolbarTemplateUrl: 'app/triangular/components/toolbars/toolbar.tmpl.html',
+            toolbarController: 'DefaultToolbarController',
+            footerTemplateUrl: 'app/triangular/components/footer/footer.tmpl.html'
+        };
+        var resetableOptions = ['toolbarSize', 'toolbarShrink', 'toolbarClass', 'contentClass', 'innerContentClass', 'sideMenuSize', 'showToolbar', 'footer', 'contentTemplateUrl', 'sidebarLeftTemplateUrl', 'sidebarLeftController', 'sidebarRightTemplateUrl', 'sidebarRightController', 'toolbarTemplateUrl', 'toolbarController', 'footerTemplateUrl', 'loaderTemplateUrl', 'loaderController'];
+        var layout = {};
+
+        this.getDefaultOption = getDefaultOption;
+        this.setDefaultOption = setDefaultOption;
+
+        function getDefaultOption(name) {
+            return layoutDefaults[name];
+        }
+
+        function setDefaultOption(name, value) {
+            layoutDefaults[name] = value;
+        }
+
+        // init
+
+        angular.extend(layout, layoutDefaults);
+
+        // Service
+        this.$get = function() {
+            function setOption(name, value) {
+                layout[name] = value;
+            }
+
+            function updateLayoutFromState(event, toState) {
+                // reset classes
+                angular.forEach(resetableOptions, function(option){
+                    layout[option] = layoutDefaults[option];
+                });
+                var layoutOverrides = angular.isDefined(toState.data) && angular.isDefined(toState.data.layout) ? toState.data.layout : {};
+                angular.extend(layout, layout, layoutOverrides);
+            }
+
+            return {
+                layout: layout,
+                setOption: setOption,
+                updateLayoutFromState: updateLayoutFromState
+            };
+        };
+    }
+
+    /* @ngInject */
+    function layoutRunner($rootScope, triLayout) {
+        // check for $stateChangeStart and update the layouts if we have data.layout set
+        // if nothing set reset to defaults for every state
+        var destroyOn = $rootScope.$on('$stateChangeStart', triLayout.updateLayoutFromState);
+        $rootScope.$on('$destroy', removeWatch);
+
+        /////////////
+
+        function removeWatch() {
+            destroyOn();
         }
     }
 })();
@@ -7373,6 +7373,56 @@
 (function() {
     'use strict';
 
+    max.$inject = ["$q"];
+    angular
+        .module('app.reporting')
+        .directive('max', max);
+
+    /* @ngInject */
+    function max($q) {
+        var directive = {
+            link: link,
+            require: 'ngModel',
+            restrict: 'A',
+            scope: {
+                max: '='
+            }
+        }
+
+        return directive;
+
+
+
+        ///////////////////////
+
+        function link(scope, elem, attrs, ctrl) {
+            ctrl.$asyncValidators.max = validator;
+
+            function validator(modelValue, viewValue) {
+                if (ctrl.$isEmpty(modelValue)) {
+                    return $q.when();
+                }
+
+                var def = $q.defer();
+
+                var max = scope.max;
+                if (modelValue <= max) {
+                    def.resolve();
+                } else {
+                    def.reject();
+                }
+
+                return def.promise;
+            }
+
+
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
     chartProfileWidget.$inject = ["$timeout"];
     angular
         .module('app.reporting')
@@ -7559,56 +7609,6 @@
 
        
 
-    }
-})();
-
-(function() {
-    'use strict';
-
-    max.$inject = ["$q"];
-    angular
-        .module('app.reporting')
-        .directive('max', max);
-
-    /* @ngInject */
-    function max($q) {
-        var directive = {
-            link: link,
-            require: 'ngModel',
-            restrict: 'A',
-            scope: {
-                max: '='
-            }
-        }
-
-        return directive;
-
-
-
-        ///////////////////////
-
-        function link(scope, elem, attrs, ctrl) {
-            ctrl.$asyncValidators.max = validator;
-
-            function validator(modelValue, viewValue) {
-                if (ctrl.$isEmpty(modelValue)) {
-                    return $q.when();
-                }
-
-                var def = $q.defer();
-
-                var max = scope.max;
-                if (modelValue <= max) {
-                    def.resolve();
-                } else {
-                    def.reject();
-                }
-
-                return def.promise;
-            }
-
-
-        }
     }
 })();
 
@@ -9438,23 +9438,6 @@
 (function() {
     'use strict';
 
-    FooterController.$inject = ["triLayout", "triSettings"];
-    angular
-        .module('app')
-        .controller('AppFooterController', FooterController);
-
-    /* @ngInject */
-    function FooterController(triLayout, triSettings) {
-        var vm = this;
-
-        vm.layout = triLayout;
-        vm.settings = triSettings;
-    }
-})();
-
-(function() {
-    'use strict';
-
     angular
         .module('app.global', [
         ]);
@@ -9483,6 +9466,23 @@
         }
     }
 
+})();
+
+(function() {
+    'use strict';
+
+    FooterController.$inject = ["triLayout", "triSettings"];
+    angular
+        .module('app')
+        .controller('AppFooterController', FooterController);
+
+    /* @ngInject */
+    function FooterController(triLayout, triSettings) {
+        var vm = this;
+
+        vm.layout = triLayout;
+        vm.settings = triSettings;
+    }
 })();
 
 (function() {
@@ -9915,46 +9915,6 @@
 (function() {
     'use strict';
 
-    IacService.$inject = ["HTTPCache"];
-    angular
-        .module('app.global')
-        .factory('IacService', IacService);
-
-    /* @ngInject */
-    function IacService(HTTPCache) {
-        return HTTPCache.all('iac');
-    }
-})();
-
-(function() {
-    'use strict';
-
-    DiffService.$inject = ["$q", "$http"];
-    angular
-        .module('app.global')
-        .factory('DiffService', DiffService);
-
-    /* @ngInject */
-    function DiffService($q, $http) {
-        
-        var service = {
-            getModules: getModules
-        };
-
-        return service;
-
-        ///////////////
-
-        function getModules() {
-            return $http.get('app/global/data/diff.json');
-        }
-
-    }
-})();
-
-(function() {
-    'use strict';
-
     selectMajors.$inject = ["$timeout", "$filter", "BranchService"];
     angular
         .module('app.global')
@@ -10109,4494 +10069,40 @@
 (function() {
     'use strict';
 
-    webfontLoader.$inject = ["$rootScope", "$window"];
+    IacService.$inject = ["HTTPCache"];
     angular
-        .module('webfont-loader', [])
-        .directive('webfontLoader', webfontLoader);
+        .module('app.global')
+        .factory('IacService', IacService);
 
     /* @ngInject */
-    function webfontLoader($rootScope, $window) {
-        var directive = {
-            link: link
-        };
-        return directive;
-
-        function link(scope, element, attrs) {
-            function onActive() {
-                $rootScope.$broadcast('webfontLoader.loaded');
-            }
-
-            function onInactive() {
-                $rootScope.$broadcast('webfontLoader.error');
-            }
-
-            $window.WebFont.load({
-                google: {
-                    families: [attrs.webfontLoader]
-                },
-                active: onActive,
-                inactive: onInactive
-            });
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.ui', [
-            'ngCookies', 'webfont-loader'
-        ])
-        .constant('UI_FONTS', [{
-            name: 'Roboto Draft',
-            family: 'RobotoDraft',
-            google: 'RobotoDraft:300,400,500,700,400italic'
-        },{
-            name: 'Noto Sans',
-            family: 'Noto Sans',
-            google: 'Noto+Sans:400,700,400italic'
-        },{
-            name: 'Open Sans',
-            family: 'Open Sans',
-            google: 'Open+Sans:300,400,500,700,400italic'
-        },{
-            name: 'Lato',
-            family: 'Lato',
-            google: 'Lato:300,400,500,700,400italic'
-        },{
-            name: 'Ubuntu',
-            family: 'Ubuntu',
-            google: 'Ubuntu:300,400,500,700,400italic'
-        },{
-            name: 'Source Sans Pro',
-            family: 'Source Sans Pro',
-            google: 'Source+Sans+Pro:300,400,500,700,400italic'
-        }]);
-})();
-(function() {
-    'use strict';
-
-    WeatherIconsController.$inject = ["$mdDialog", "$document"];
-    angular
-        .module('app.examples.ui')
-        .controller('WeatherIconsController', WeatherIconsController);
-
-    /* @ngInject */
-    function WeatherIconsController($mdDialog, $document) {
-        var vm = this;
-        vm.icons = [{
-            'className': 'wi wi-day-cloudy-gusts',
-            'name': 'Day Cloudy Gusts'
-        },{
-            'className': 'wi wi-day-cloudy-windy',
-            'name': 'Day Cloudy Windy'
-        },{
-            'className': 'wi wi-day-cloudy',
-            'name': 'Day Cloudy'
-        },{
-            'className': 'wi wi-day-fog',
-            'name': 'Day Fog'
-        },{
-            'className': 'wi wi-day-hail',
-            'name': 'Day Hail'
-        },{
-            'className': 'wi wi-day-lightning',
-            'name': 'Day Lightning'
-        },{
-            'className': 'wi wi-day-rain-mix',
-            'name': 'Day Rain Mix'
-        },{
-            'className': 'wi wi-day-rain-wind',
-            'name': 'Day Rain Wind'
-        },{
-            'className': 'wi wi-day-rain',
-            'name': 'Day Rain'
-        },{
-            'className': 'wi wi-day-showers',
-            'name': 'Day Showers'
-        },{
-            'className': 'wi wi-day-snow',
-            'name': 'Day Snow'
-        },{
-            'className': 'wi wi-day-sprinkle',
-            'name': 'Day Sprinkle'
-        },{
-            'className': 'wi wi-day-sunny-overcast',
-            'name': 'Day Sunny Overcast'
-        },{
-            'className': 'wi wi-day-sunny',
-            'name': 'Day Sunny'
-        },{
-            'className': 'wi wi-day-storm-showers',
-            'name': 'Day Storm Showers'
-        },{
-            'className': 'wi wi-day-thunderstorm',
-            'name': 'Day Thunderstorm'
-        },{
-            'className': 'wi wi-cloudy-gusts',
-            'name': 'Cloudy Gusts'
-        },{
-            'className': 'wi wi-cloudy-windy',
-            'name': 'Cloudy Windy'
-        },{
-            'className': 'wi wi-cloudy',
-            'name': 'Cloudy'
-        },{
-            'className': 'wi wi-fog',
-            'name': 'Fog'
-        },{
-            'className': 'wi wi-hail',
-            'name': 'Hail'
-        },{
-            'className': 'wi wi-lightning',
-            'name': 'Lightning'
-        },{
-            'className': 'wi wi-rain-mix',
-            'name': 'Rain Mix'
-        },{
-            'className': 'wi wi-rain-wind',
-            'name': 'Rain Wind'
-        },{
-            'className': 'wi wi-rain',
-            'name': 'Rain'
-        },{
-            'className': 'wi wi-showers',
-            'name': 'Showers'
-        },{
-            'className': 'wi wi-snow',
-            'name': 'Snow'
-        },{
-            'className': 'wi wi-sprinkle',
-            'name': 'Sprinkle'
-        },{
-            'className': 'wi wi-storm-showers',
-            'name': 'Storm Showers'
-        },{
-            'className': 'wi wi-thunderstorm',
-            'name': 'Thunderstorm'
-        },{
-            'className': 'wi wi-windy',
-            'name': 'Windy'
-        },{
-            'className': 'wi wi-night-alt-cloudy-gusts',
-            'name': 'Night Alt Cloudy Gusts'
-        },{
-            'className': 'wi wi-night-alt-cloudy-windy',
-            'name': 'Night Alt Cloudy Windy'
-        },{
-            'className': 'wi wi-night-alt-hail',
-            'name': 'Night Alt Hail'
-        },{
-            'className': 'wi wi-night-alt-lightning',
-            'name': 'Night Alt Lightning'
-        },{
-            'className': 'wi wi-night-alt-rain-mix',
-            'name': 'Night Alt Rain Mix'
-        },{
-            'className': 'wi wi-night-alt-rain-wind',
-            'name': 'Night Alt Rain Wind'
-        },{
-            'className': 'wi wi-night-alt-rain',
-            'name': 'Night Alt Rain'
-        },{
-            'className': 'wi wi-night-alt-showers',
-            'name': 'Night Alt Showers'
-        },{
-            'className': 'wi wi-night-alt-snow',
-            'name': 'Night Alt Snow'
-        },{
-            'className': 'wi wi-night-alt-sprinkle',
-            'name': 'Night Alt Sprinkle'
-        },{
-            'className': 'wi wi-night-alt-storm-showers',
-            'name': 'Night Alt Storm Showers'
-        },{
-            'className': 'wi wi-night-alt-thunderstorm',
-            'name': 'Night Alt Thunderstorm'
-        },{
-            'className': 'wi wi-night-clear',
-            'name': 'Night Clear'
-        },{
-            'className': 'wi wi-night-cloudy-gusts',
-            'name': 'Night Cloudy Gusts'
-        },{
-            'className': 'wi wi-night-cloudy-windy',
-            'name': 'Night Cloudy Windy'
-        },{
-            'className': 'wi wi-night-cloudy',
-            'name': 'Night Cloudy'
-        },{
-            'className': 'wi wi-night-hail',
-            'name': 'Night Hail'
-        },{
-            'className': 'wi wi-night-lightning',
-            'name': 'Night Lightning'
-        },{
-            'className': 'wi wi-night-rain-mix',
-            'name': 'Night Rain Mix'
-        },{
-            'className': 'wi wi-night-rain-wind',
-            'name': 'Night Rain Wind'
-        },{
-            'className': 'wi wi-night-rain',
-            'name': 'Night Rain'
-        },{
-            'className': 'wi wi-night-showers',
-            'name': 'Night Showers'
-        },{
-            'className': 'wi wi-night-snow',
-            'name': 'Night Snow'
-        },{
-            'className': 'wi wi-night-sprinkle',
-            'name': 'Night Sprinkle'
-        },{
-            'className': 'wi wi-night-storm-showers',
-            'name': 'Night Storm Showers'
-        },{
-            'className': 'wi wi-night-thunderstorm',
-            'name': 'Night Thunderstorm'
-        },{
-            'className': 'wi wi-celsius',
-            'name': 'Celsius'
-        },{
-            'className': 'wi wi-cloud-down',
-            'name': 'Cloud Down'
-        },{
-            'className': 'wi wi-cloud-refresh',
-            'name': 'Cloud Refresh'
-        },{
-            'className': 'wi wi-cloud-up',
-            'name': 'Cloud Up'
-        },{
-            'className': 'wi wi-cloud',
-            'name': 'Cloud'
-        },{
-            'className': 'wi wi-degrees',
-            'name': 'Degrees'
-        },{
-            'className': 'wi wi-down-left',
-            'name': 'Down Left'
-        },{
-            'className': 'wi wi-down',
-            'name': 'Down'
-        },{
-            'className': 'wi wi-fahrenheit',
-            'name': 'Fahrenheit'
-        },{
-            'className': 'wi wi-horizon-alt',
-            'name': 'Horizon Alt'
-        },{
-            'className': 'wi wi-horizon',
-            'name': 'Horizon'
-        },{
-            'className': 'wi wi-left',
-            'name': 'Left'
-        },{
-            'className': 'wi wi-lightning',
-            'name': 'Lightning'
-        },{
-            'className': 'wi wi-night-fog',
-            'name': 'Night Fog'
-        },{
-            'className': 'wi wi-refresh-alt',
-            'name': 'Refresh Alt'
-        },{
-            'className': 'wi wi-refresh',
-            'name': 'Refresh'
-        },{
-            'className': 'wi wi-right',
-            'name': 'Right'
-        },{
-            'className': 'wi wi-sprinkles',
-            'name': 'Sprinkles'
-        },{
-            'className': 'wi wi-strong-wind',
-            'name': 'Strong Wind'
-        },{
-            'className': 'wi wi-sunrise',
-            'name': 'Sunrise'
-        },{
-            'className': 'wi wi-sunset',
-            'name': 'Sunset'
-        },{
-            'className': 'wi wi-thermometer-exterior',
-            'name': 'Thermometer Exterior'
-        },{
-            'className': 'wi wi-thermometer-internal',
-            'name': 'Thermometer Internal'
-        },{
-            'className': 'wi wi-thermometer',
-            'name': 'Thermometer'
-        },{
-            'className': 'wi wi-tornado',
-            'name': 'Tornado'
-        },{
-            'className': 'wi wi-up-right',
-            'name': 'Up Right'
-        },{
-            'className': 'wi wi-up',
-            'name': 'Up'
-        },{
-            'className': 'wi wi-wind-west',
-            'name': 'Wind West'
-        },{
-            'className': 'wi wi-wind-south-west',
-            'name': 'Wind South West'
-        },{
-            'className': 'wi wi-wind-south-east',
-            'name': 'Wind South East'
-        },{
-            'className': 'wi wi-wind-south',
-            'name': 'Wind South'
-        },{
-            'className': 'wi wi-wind-north-west',
-            'name': 'Wind North West'
-        },{
-            'className': 'wi wi-wind-north-east',
-            'name': 'Wind North East'
-        },{
-            'className': 'wi wi-wind-north',
-            'name': 'Wind North'
-        },{
-            'className': 'wi wi-wind-east',
-            'name': 'Wind East'
-        },{
-            'className': 'wi wi-smoke',
-            'name': 'Smoke'
-        },{
-            'className': 'wi wi-dust',
-            'name': 'Dust'
-        },{
-            'className': 'wi wi-snow-wind',
-            'name': 'Snow Wind'
-        },{
-            'className': 'wi wi-day-snow-wind',
-            'name': 'Day Snow Wind'
-        },{
-            'className': 'wi wi-night-snow-wind',
-            'name': 'Night Snow Wind'
-        },{
-            'className': 'wi wi-night-alt-snow-wind',
-            'name': 'Night Alt Snow Wind'
-        },{
-            'className': 'wi wi-day-sleet-storm',
-            'name': 'Day Sleet Storm'
-        },{
-            'className': 'wi wi-night-sleet-storm',
-            'name': 'Night Sleet Storm'
-        },{
-            'className': 'wi wi-night-alt-sleet-storm',
-            'name': 'Night Alt Sleet Storm'
-        },{
-            'className': 'wi wi-day-snow-thunderstorm',
-            'name': 'Day Snow Thunderstorm'
-        },{
-            'className': 'wi wi-night-snow-thunderstorm',
-            'name': 'Night Snow Thunderstorm'
-        },{
-            'className': 'wi wi-night-alt-snow-thunderstorm',
-            'name': 'Night Alt Snow Thunderstorm'
-        },{
-            'className': 'wi wi-solar-eclipse',
-            'name': 'Solar Eclipse'
-        },{
-            'className': 'wi wi-lunar-eclipse',
-            'name': 'Lunar Eclipse'
-        },{
-            'className': 'wi wi-meteor',
-            'name': 'Meteor'
-        },{
-            'className': 'wi wi-hot',
-            'name': 'Hot'
-        },{
-            'className': 'wi wi-hurricane',
-            'name': 'Hurricane'
-        },{
-            'className': 'wi wi-smog',
-            'name': 'Smog'
-        },{
-            'className': 'wi wi-alien',
-            'name': 'Alien'
-        },{
-            'className': 'wi wi-snowflake-cold',
-            'name': 'Snowflake Cold'
-        },{
-            'className': 'wi wi-stars',
-            'name': 'Stars'
-        },{
-            'className': 'wi wi-night-partly-cloudy',
-            'name': 'Night Partly Cloudy'
-        },{
-            'className': 'wi wi-umbrella',
-            'name': 'Umbrella'
-        },{
-            'className': 'wi wi-day-windy',
-            'name': 'Day Windy'
-        },{
-            'className': 'wi wi-night-alt-cloudy',
-            'name': 'Night Alt Cloudy'
-        },{
-            'className': 'wi wi-up-left',
-            'name': 'Up Left'
-        },{
-            'className': 'wi wi-down-right',
-            'name': 'Down Right'
-        },{
-            'className': 'wi wi-time-12',
-            'name': 'Time 12'
-        },{
-            'className': 'wi wi-time-1',
-            'name': 'Time 1'
-        },{
-            'className': 'wi wi-time-2',
-            'name': 'Time 2'
-        },{
-            'className': 'wi wi-time-3',
-            'name': 'Time 3'
-        },{
-            'className': 'wi wi-time-4',
-            'name': 'Time 4'
-        },{
-            'className': 'wi wi-time-5',
-            'name': 'Time 5'
-        },{
-            'className': 'wi wi-time-6',
-            'name': 'Time 6'
-        },{
-            'className': 'wi wi-time-7',
-            'name': 'Time 7'
-        },{
-            'className': 'wi wi-time-8',
-            'name': 'Time 8'
-        },{
-            'className': 'wi wi-time-9',
-            'name': 'Time 9'
-        },{
-            'className': 'wi wi-time-10',
-            'name': 'Time 10'
-        },{
-            'className': 'wi wi-time-11',
-            'name': 'Time 11'
-        },{
-            'className': 'wi wi-day-sleet',
-            'name': 'Day Sleet'
-        },{
-            'className': 'wi wi-night-sleet',
-            'name': 'Night Sleet'
-        },{
-            'className': 'wi wi-night-alt-sleet',
-            'name': 'Night Alt Sleet'
-        },{
-            'className': 'wi wi-sleet',
-            'name': 'Sleet'
-        },{
-            'className': 'wi wi-day-haze',
-            'name': 'Day Haze'
-        },{
-            'className': 'wi wi-beafort-0',
-            'name': 'Beafort 0'
-        },{
-            'className': 'wi wi-beafort-1',
-            'name': 'Beafort 1'
-        },{
-            'className': 'wi wi-beafort-2',
-            'name': 'Beafort 2'
-        },{
-            'className': 'wi wi-beafort-3',
-            'name': 'Beafort 3'
-        },{
-            'className': 'wi wi-beafort-4',
-            'name': 'Beafort 4'
-        },{
-            'className': 'wi wi-beafort-5',
-            'name': 'Beafort 5'
-        },{
-            'className': 'wi wi-beafort-6',
-            'name': 'Beafort 6'
-        },{
-            'className': 'wi wi-beafort-7',
-            'name': 'Beafort 7'
-        },{
-            'className': 'wi wi-beafort-8',
-            'name': 'Beafort 8'
-        },{
-            'className': 'wi wi-beafort-9',
-            'name': 'Beafort 9'
-        },{
-            'className': 'wi wi-beafort-10',
-            'name': 'Beafort 10'
-        },{
-            'className': 'wi wi-beafort-11',
-            'name': 'Beafort 11'
-        },{
-            'className': 'wi wi-beafort-12',
-            'name': 'Beafort 12'
-        },{
-            'className': 'wi wi-wind-default',
-            'name': 'Wind Default'
-        },{
-            'className': 'wi wi-moon-new',
-            'name': 'Moon New'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-1',
-            'name': 'Moon Waxing Cresent 1'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-2',
-            'name': 'Moon Waxing Cresent 2'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-3',
-            'name': 'Moon Waxing Cresent 3'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-4',
-            'name': 'Moon Waxing Cresent 4'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-5',
-            'name': 'Moon Waxing Cresent 5'
-        },{
-            'className': 'wi wi-moon-waxing-cresent-6',
-            'name': 'Moon Waxing Cresent 6'
-        },{
-            'className': 'wi wi-moon-first-quarter',
-            'name': 'Moon First Quarter'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-1',
-            'name': 'Moon Waxing Gibbous 1'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-2',
-            'name': 'Moon Waxing Gibbous 2'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-3',
-            'name': 'Moon Waxing Gibbous 3'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-4',
-            'name': 'Moon Waxing Gibbous 4'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-5',
-            'name': 'Moon Waxing Gibbous 5'
-        },{
-            'className': 'wi wi-moon-waxing-gibbous-6',
-            'name': 'Moon Waxing Gibbous 6'
-        },{
-            'className': 'wi wi-moon-full',
-            'name': 'Moon Full'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-1',
-            'name': 'Moon Waning Gibbous 1'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-2',
-            'name': 'Moon Waning Gibbous 2'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-3',
-            'name': 'Moon Waning Gibbous 3'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-4',
-            'name': 'Moon Waning Gibbous 4'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-5',
-            'name': 'Moon Waning Gibbous 5'
-        },{
-            'className': 'wi wi-moon-waning-gibbous-6',
-            'name': 'Moon Waning Gibbous 6'
-        },{
-            'className': 'wi wi-moon-3rd-quarter',
-            'name': 'Moon 3rd Quarter'
-        },{
-            'className': 'wi wi-moon-waning-crescent-1',
-            'name': 'Moon Waning Crescent 1'
-        },{
-            'className': 'wi wi-moon-waning-crescent-2',
-            'name': 'Moon Waning Crescent 2'
-        },{
-            'className': 'wi wi-moon-waning-crescent-3',
-            'name': 'Moon Waning Crescent 3'
-        },{
-            'className': 'wi wi-moon-waning-crescent-4',
-            'name': 'Moon Waning Crescent 4'
-        },{
-            'className': 'wi wi-moon-waning-crescent-5',
-            'name': 'Moon Waning Crescent 5'
-        },{
-            'className': 'wi wi-moon-waning-crescent-6',
-            'name': 'Moon Waning Crescent 6'
-        }];
-        vm.iconSource = 'Select icon below to see HTML';
-        vm.selectIcon = selectIcon;
-
-        function selectIcon($event, icon) {
-            $mdDialog.show({
-                title: '',
-                template:
-                    '<md-dialog>' +
-                    '  <md-toolbar>' +
-                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
-                    '  </md-toolbar>' +
-                    '  <md-dialog-content>' +
-                    '    <div hljs language="html"><md-icon md-font-icon="' + icon.className + '"></md-icon></div>' +
-                    '  </md-dialog-content>' +
-                    '  <md-dialog-actions>' +
-                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
-                    '      Close' +
-                    '    </md-button>' +
-                    '  </md-dialog-actions>' +
-                    '</md-dialog>',
-                targetEvent: $event,
-                parent: angular.element($document.body),
-                controller: 'IconDialogController',
-                controllerAs: 'vm'
-            });
-        }
-    }
-})();
-
-(function(jQuery) {
-    'use strict';
-
-    moduleRun.$inject = ["TypographySwitcherService"];
-    angular
-        .module('app.examples.ui')
-        .run(moduleRun);
-
-    /* @ngInject */
-    function moduleRun(TypographySwitcherService) {
-        // load up the webfont loader to allow loading google fonts in the demo
-        jQuery.ajax({
-            url: '//ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js',
-            dataType: 'script',
-            async: true,
-            success: function() {
-                // initialise typography switcher (make sure correct font is loaded if one has been selected)
-                TypographySwitcherService.init();
-            }
-        });
-    }
-})(jQuery);
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.ui')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.ui-typography', {
-            url: '/ui/typography',
-            controller: 'TypographyController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/typography.tmpl.html'
-        })
-        .state('triangular.ui-colors', {
-            url: '/ui/colors',
-            controller: 'ColorsController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/colors.tmpl.html'
-        })
-        .state('triangular.ui-material-icons', {
-            url: '/ui/material-icons',
-            controller: 'MaterialIconsController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/material-icons.tmpl.html',
-            resolve: {
-                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'elements/icons'
-                    });
-                }]
-            }
-        })
-        .state('triangular.ui-weather-icons', {
-            url: '/ui/weather-icons',
-            controller: 'WeatherIconsController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/weather-icons.tmpl.html'
-        })
-        .state('triangular.ui-fa-icons', {
-            url: '/ui/fa-icons',
-            controller: 'FaIconsController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/fa-icons.tmpl.html',
-            resolve: {
-                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'elements/icons-fa'
-                    });
-                }]
-            }
-        })
-
-        .state('triangular.ui-toolbar', {
-            url: '/ui/toolbars/:extraClass/:background/:shrink',
-            controller: 'ToolbarsUIController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/toolbars.tmpl.html'
-        })
-
-        .state('triangular.ui-skins', {
-            url: '/ui/skins',
-            controller: 'SkinsUIController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/ui/skins.tmpl.html'
-        });
-
-        triMenuProvider.addMenu({
-            name: 'UI',
-            icon: 'zmdi zmdi-ruler',
-            type: 'dropdown',
-            priority: 3.2,
-            children: [{
-                name: 'Colors',
-                state: 'triangular.ui-colors',
-                type: 'link'
-            },{
-                name: 'Font Awesome',
-                state: 'triangular.ui-fa-icons',
-                type: 'link'
-            },{
-                name: 'Material Icons',
-                state: 'triangular.ui-material-icons',
-                type: 'link'
-            },{
-                name: 'Skins',
-                state: 'triangular.ui-skins',
-                type: 'link'
-            },{
-                name: 'Typography',
-                state: 'triangular.ui-typography',
-                type: 'link'
-            },{
-                name: 'Weather Icons',
-                state: 'triangular.ui-weather-icons',
-                type: 'link'
-            }]
-        });
+    function IacService(HTTPCache) {
+        return HTTPCache.all('iac');
     }
 })();
 
 (function() {
     'use strict';
 
-    TypographyController.$inject = ["TypographySwitcherService", "UI_FONTS"];
+    DiffService.$inject = ["$q", "$http"];
     angular
-        .module('app.examples.ui')
-        .controller('TypographyController', TypographyController);
+        .module('app.global')
+        .factory('DiffService', DiffService);
 
     /* @ngInject */
-    function TypographyController(TypographySwitcherService, UI_FONTS) {
-        var vm = this;
-        vm.fonts = UI_FONTS;
-        vm.changeFont = changeFont;
-        vm.currentFont = TypographySwitcherService.getCurrentFont();
-
-        //////////////////
-
-        function changeFont() {
-            TypographySwitcherService.changeFont(vm.currentFont);
-        }
-
-        // init
-
-        angular.forEach(vm.fonts, function(font) {
-            if(vm.currentFont.name === font.name) {
-                vm.currentFont = font;
-            }
-        });
-    }
-})();
-(function() {
-    'use strict';
-
-    TypographySwitcher.$inject = ["$window", "$cookies", "$log", "UI_FONTS"];
-    angular
-        .module('app.examples.ui')
-        .factory('TypographySwitcherService', TypographySwitcher);
-
-    /* @ngInject */
-    function TypographySwitcher($window, $cookies, $log, UI_FONTS) {
-        return {
-            changeFont: changeFont,
-            getCurrentFont: getCurrentFont,
-            init: init
-        };
-
-        //////////////////
-
-        function init() {
-            // if we arent using the default font then change it
-            var currentFont = getCurrentFont();
-            if(currentFont.name !== 'Roboto Draft') {
-                changeFont(currentFont);
-            }
-        }
-
-        function getCurrentFont() {
-            // if we have no current font set, set it to first font (Roboto)
-            var fontCookie = $cookies.get('tri-typography-font');
-            if(angular.isUndefined(fontCookie)) {
-                $cookies.put('tri-typography-font', angular.toJson(UI_FONTS[0]));
-            }
-
-            return angular.fromJson($cookies.get('tri-typography-font'));
-        }
-
-        function changeFont(font) {
-            $window.WebFont.load({
-                google: {
-                    families: [font.google]
-                },
-                active: function() {
-                    angular.element('button,select,html,textarea,input').css({'font-family': font.family});
-                    $cookies.put('tri-typography-font', angular.toJson(font));
-                },
-                inactive: function() {
-                    $log.error('Font ' + font.name + ' could not be loaded');
-                }
-            });
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    SkinsUIController.$inject = ["$cookies", "$window", "triSkins", "triTheming"];
-    angular
-        .module('app.examples.ui')
-        .controller('SkinsUIController', SkinsUIController);
-
-    /* @ngInject */
-    function SkinsUIController($cookies, $window, triSkins, triTheming) {
-        var vm = this;
-        vm.elementColors = {
-            logo: '',
-            sidebar: '',
-            content: '',
-            toolbar: ''
-        };
-        vm.skins = triSkins.getSkins();
-        vm.selectedSkin = triSkins.getCurrent();
-        vm.trySkin = trySkin;
-        vm.updatePreview = updatePreview;
-
-        //////////////////////
-
-        function trySkin() {
-            if(vm.selectedSkin !== triSkins.getCurrent()) {
-                $cookies.put('triangular-skin',angular.toJson({
-                    skin: vm.selectedSkin.id
-                }));
-                $window.location.reload();
-            }
-        }
-
-
-        function updatePreview() {
-            for(var element in vm.elementColors) {
-                var theme = triTheming.getTheme(vm.selectedSkin.elements[element]);
-                var hue = angular.isUndefined(theme.colors.primary.hues.default) ? '500' : theme.colors.primary.hues.default;
-                var color = triTheming.getPaletteColor(theme.colors.primary.name, hue);
-                vm.elementColors[element] = triTheming.rgba(color.value);
-            }
-        }
-
-        // init
-
-        updatePreview();
-    }
-})();
-(function() {
-    'use strict';
-
-    MaterialIconsController.$inject = ["$mdDialog", "$document", "$compile", "$scope", "icons"];
-    angular
-        .module('app.examples.ui')
-        .controller('MaterialIconsController', MaterialIconsController);
-
-    /* @ngInject */
-    function MaterialIconsController($mdDialog, $document, $compile, $scope, icons) {
-        var vm = this;
-        vm.groups = [];
-        vm.icons = [];
-        vm.iconSource = 'Select icon below to see HTML';
-        vm.selectIcon = selectIcon;
-        vm.icons = icons.data;
-
-        function selectIcon($event, className) {
-            $mdDialog.show({
-                title: '',
-                template:
-                    '<md-dialog>' +
-                    '  <md-toolbar>' +
-                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
-                    '  </md-toolbar>' +
-                    '  <md-dialog-content>' +
-                    '    <div hljs language="html"><md-icon md-font-icon="' + className + '"></md-icon></div>' +
-                    '  </md-dialog-content>' +
-                    '  <md-dialog-actions>' +
-                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
-                    '      Close' +
-                    '    </md-button>' +
-                    '  </md-dialog-actions>' +
-                    '</md-dialog>',
-                targetEvent: $event,
-                parent: angular.element($document.body),
-                controller: 'IconDialogController',
-                controllerAs: 'vm'
-            });
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    IconDialogController.$inject = ["$mdDialog"];
-    angular
-        .module('app.examples.ui')
-        .controller('IconDialogController', IconDialogController);
-
-    /* @ngInject */
-    function IconDialogController($mdDialog) {
-        var vm = this;
-        vm.closeDialog = closeDialog;
-
-        function closeDialog() {
-            $mdDialog.hide();
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    FaIconsController.$inject = ["$mdDialog", "$document", "$scope", "$compile", "icons"];
-    angular
-        .module('app.examples.ui')
-        .controller('FaIconsController', FaIconsController);
-
-    /* @ngInject */
-    function FaIconsController($mdDialog, $document, $scope, $compile, icons) {
-        var vm = this;
-        vm.icons = loadIcons();
-        vm.iconSource = 'Select icon below to see HTML';
-        vm.selectIcon = selectIcon;
-
-        function loadIcons() {
-            var allIcons = [];
-            for(var className in icons.data) {
-                allIcons.push({
-                    className: className,
-                    name: icons.data[className]
-                });
-            }
-            return allIcons;
-        }
-
-        function selectIcon($event, icon) {
-            $mdDialog.show({
-                title: '',
-                template:
-                    '<md-dialog>' +
-                    '  <md-toolbar>' +
-                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
-                    '  </md-toolbar>' +
-                    '  <md-dialog-content>' +
-                    '    <div hljs language="html"><md-icon md-font-icon="' + icon.className + '"></md-icon></div>' +
-                    '  </md-dialog-content>' +
-                    '  <md-dialog-actions>' +
-                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
-                    '      Close' +
-                    '    </md-button>' +
-                    '  </md-dialog-actions>' +
-                    '</md-dialog>',
-                targetEvent: $event,
-                parent: angular.element($document.body),
-                controller: 'IconDialogController',
-                controllerAs: 'vm'
-            });
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    ColorsController.$inject = ["$mdDialog", "triTheming"];
-    angular
-        .module('app.examples.ui')
-        .controller('ColorsController', ColorsController);
-
-    /* @ngInject */
-    function ColorsController($mdDialog, triTheming) {
-        var vm = this;
-        vm.colourRGBA = colourRGBA;
-        vm.palettes = triTheming.palettes;
-        vm.selectPalette = selectPalette;
-
-        function colourRGBA(value) {
-            var rgba = triTheming.rgba(value);
-            return {
-                'background-color': rgba
-            };
-        }
-
-        function selectPalette($event, name, palette) {
-            $mdDialog.show({
-                controller: 'ColorDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/examples/ui/color-dialog.tmpl.html',
-                targetEvent: $event,
-                locals: {
-                    name: name,
-                    palette: palette
-                },
-                clickOutsideToClose: true
-            })
-            .then(function(answer) {
-                vm.alert = 'You said the information was "' + answer + '".';
-            }, cancelDialog);
-
-            function cancelDialog() {
-                vm.alert = 'You cancelled the dialog.';
-            }
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    ColorDialogController.$inject = ["$scope", "name", "palette", "triTheming"];
-    angular
-        .module('app.examples.ui')
-        .controller('ColorDialogController', ColorDialogController);
-
-    /* @ngInject */
-    function ColorDialogController($scope, name, palette, triTheming) {
-        var vm = this;
-        vm.itemStyle = itemStyle;
-        vm.name = name;
-        vm.palette = [];
-
-        ///////////
-
-        function itemStyle(palette) {
-            return {
-                'background-color': triTheming.rgba(palette.value),
-                'color': triTheming.rgba(palette.contrast)
-            };
-        }
-
-        // init
-
-        for(var code in palette) {
-            vm.palette.push({
-                code: code,
-                palette: palette[code]
-            });
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.todo', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    runFunction.$inject = ["TodoService"];
-    angular
-        .module('app.examples.todo')
-        .run(runFunction);
-
-    /* @ngInject */
-    function runFunction(TodoService) {
-        // Update todo badge when app first runs.
-
-        TodoService.updateMenuBadge();
-    }
-})();
-
-(function() {
-    'use strict';
-
-    TodoService.$inject = ["triMenu"];
-    angular
-        .module('app.examples.todo')
-        .factory('TodoService', TodoService);
-
-
-    /* @ngInject */
-    function TodoService(triMenu) {
-        var todos = [
-            {description: 'Material Design', priority: 'high', selected: true},
-            {description: 'Install espresso machine', priority: 'high', selected: false},
-            {description: 'Deploy to Server', priority: 'medium', selected: true},
-            {description: 'Cloud Sync', priority: 'medium', selected: false},
-            {description: 'Test Configurations', priority: 'low', selected: false},
-            {description: 'Validate markup', priority: 'low', selected: false},
-            {description: 'Debug javascript', priority: 'low', selected: true},
-            {description: 'Arrange meeting', priority: 'low', selected: true}
-        ];
-        var todoMenu = triMenu.getMenu('todo');
-
+    function DiffService($q, $http) {
+        
         var service = {
-            addTodo: addTodo,
-            getTodos: getTodos,
-            removeTodo: removeTodo,
-            todoCount: todoCount,
-            updateMenuBadge: updateMenuBadge
+            getModules: getModules
         };
+
         return service;
-
-        ////////////////
-
-        function addTodo(todo) {
-            todos.push(todo);
-            updateMenuBadge();
-        }
-
-        function getTodos() {
-            return todos;
-        }
-
-        function removeTodo(todo) {
-            for(var i = todos.length - 1; i >= 0; i--) {
-                if(todos[i] === todo) {
-                    todos.splice(i, 1);
-                }
-            }
-            updateMenuBadge();
-        }
-
-        function todoCount() {
-            var count = 0;
-            for(var i = todos.length - 1; i >= 0; i--) {
-                if(todos[i].selected === false) {
-                    count++;
-                }
-            }
-            return count;
-        }
-
-        function updateMenuBadge() {
-            todoMenu.badge = todoCount();
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    TodoController.$inject = ["$scope", "$state", "$mdDialog", "TodoService"];
-    angular
-        .module('app.examples.todo')
-        .controller('TodoController', TodoController);
-
-    /* @ngInject */
-    function TodoController($scope, $state, $mdDialog, TodoService) {
-        var vm = this;
-
-        vm.orderTodos = orderTodos;
-        vm.removeTodo = removeTodo;
-        vm.todoSelected = todoSelected;
-
-        //////////////////////////
-
-        function init() {
-            vm.todos = TodoService.getTodos();
-            TodoService.updateMenuBadge();
-        }
-
-        function orderTodos(task) {
-            switch(task.priority){
-                case 'high':
-                    return 1;
-                case 'medium':
-                    return 2;
-                case 'low':
-                    return 3;
-                default: // no priority set
-                    return 4;
-            }
-        }
-
-        function removeTodo(todo){
-            TodoService.removeTodo(todo);
-        }
-
-        function todoSelected() {
-            TodoService.updateMenuBadge();
-        }
-
-        // init
-
-        init();
-
-        // watches
-
-        $scope.$on('addTodo', function( ev ){
-            $mdDialog.show({
-                templateUrl: 'app/examples/todo/add-todo-dialog.tmpl.html',
-                targetEvent: ev,
-                controller: 'DialogController',
-                controllerAs: 'vm'
-            })
-            .then(function(newTodo) {
-                TodoService.addTodo(newTodo);
-            });
-        });
-    }
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.todo')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.todo', {
-            url: '/todo',
-            views: {
-                '': {
-                    templateUrl: 'app/examples/todo/todo.tmpl.html',
-                    controller: 'TodoController',
-                    controllerAs: 'vm'
-                },
-                'belowContent': {
-                    templateUrl: 'app/examples/todo/fab-button.tmpl.html',
-                    controller: 'TodoFabController',
-                    controllerAs: 'vm'
-                }
-            },
-            data: {
-                layout: {
-                    contentClass: 'layout-column full-image-background mb-bg-fb-08 background-overlay-static',
-                    innerContentClass: 'overlay-gradient-20'
-                },
-                permissions: {
-                    only: ['viewTodo']
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            id: 'todo',
-            name: 'To do',
-            icon: 'zmdi zmdi-check',
-            state: 'triangular.todo',
-            type: 'link',
-            permission: 'viewTodo',
-            badge: '',
-            priority: 2.4
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    TodoFabController.$inject = ["$rootScope"];
-    angular
-        .module('app.examples.todo')
-        .controller('TodoFabController', TodoFabController);
-
-    /* @ngInject */
-    function TodoFabController($rootScope) {
-        var vm = this;
-        vm.addTodo = addTodo;
-
-        ////////////////
-
-        function addTodo($event) {
-            $rootScope.$broadcast('addTodo', $event);
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    DialogController.$inject = ["$state", "$mdDialog"];
-    angular
-        .module('app.examples.todo')
-        .controller('DialogController', DialogController);
-
-    /* @ngInject */
-    function DialogController($state, $mdDialog) {
-        var vm = this;
-        vm.cancel = cancel;
-        vm.hide = hide;
-        vm.item = {
-            description: '',
-            priority: '',
-            selected: false
-        };
-
-        /////////////////////////
-
-        function hide() {
-            $mdDialog.hide(vm.item);
-        }
-
-        function cancel() {
-            $mdDialog.cancel();
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.menu')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.menu-levels', {
-            url: '/menu-levels/:level',
-            controller: 'LevelController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/menu/level.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.menu-dynamic', {
-            url: '/menu/dynamic',
-            controller: 'MenuDynamicController',
-            controllerAs: 'vm',
-            templateUrl: 'app/examples/menu/dynamic.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.menu-dynamic-dummy-page', {
-            url: '/menu/dynamic-page',
-            templateUrl: 'app/examples/menu/dynamic-page.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Menu',
-            icon: 'zmdi zmdi-receipt',
-            type: 'dropdown',
-            priority: 6.1,
-            children: [{
-                name: 'Dynamic Menu',
-                type: 'link',
-                state: 'triangular.menu-dynamic'
-            },{
-                name: 'On Click Menu',
-                type: 'link',
-                click: ['$mdDialog', function($mdDialog) {
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                        .clickOutsideToClose(true)
-                        .title('Menu Item Clicked')
-                        .htmlContent('You can now set menu item click events when you configure your menu as well as routes!.  See <code>app/examples/menu/menu.config.js</code> to learn how.')
-                        .ok('Got it Thanks.')
-                    );
-                }]
-            },{
-                name: 'Open in new tab',
-                type: 'link',
-                state: 'triangular.dashboard-general',
-                openInNewTab: true
-            },{
-                name: 'Unlimited Levels',
-                type: 'dropdown',
-                children: [{
-                    name: 'Level 2-1',
-                    type: 'dropdown',
-                    children: [{
-                        name: 'Level 3-1',
-                        type: 'dropdown',
-                        children: [{
-                            name: 'Level 4-1',
-                            type: 'link',
-                            state: 'triangular.menu-levels',
-                            params: {
-                                level: 'Item1-1-1-1'
-                            }
-                        },{
-                            name: 'Level 4-2',
-                            type: 'link',
-                            state: 'triangular.menu-levels',
-                            params: {
-                                level: 'Item1-1-1-2'
-                            }
-                        },{
-                            name: 'Level 4-3',
-                            type: 'link',
-                            state: 'triangular.menu-levels',
-                            params: {
-                                level: 'Item1-1-1-3'
-                            }
-                        }]
-                    }]
-                }]
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    LevelController.$inject = ["$stateParams"];
-    angular
-        .module('app.examples.menu')
-        .controller('LevelController', LevelController);
-
-    /* @ngInject */
-    function LevelController($stateParams) {
-        var vm = this;
-        vm.level = $stateParams.level;
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.menu')
-        .factory('dynamicMenuService', dynamicMenuService);
-
-    /* @ngInject */
-    function dynamicMenuService() {
-        return {
-            dynamicMenu: {
-                showDynamicMenu: false
-            }
-        };
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "uiGmapGoogleMapApiProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.maps')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, uiGmapGoogleMapApiProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.maps-fullwidth', {
-            url: '/maps/fullwidth',
-            templateUrl: 'app/examples/maps/maps-fullwidth.tmpl.html',
-            controller: 'MapController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewMaps']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.maps-demos', {
-            url: '/maps/demos',
-            templateUrl: 'app/examples/maps/maps-demo.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewMaps']
-                }
-            }
-        });
-
-        uiGmapGoogleMapApiProvider.configure({
-            v: '3.17',
-            libraries: 'weather,geometry,visualization'
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Maps',
-            icon: 'zmdi zmdi-pin',
-            type: 'dropdown',
-            priority: 7.1,
-            permission: 'viewMaps',
-            children: [{
-                name: 'Fullwidth',
-                state: 'triangular.maps-fullwidth',
-                type: 'link'
-            },{
-                name: 'Demos',
-                state: 'triangular.maps-demos',
-                type: 'link'
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    MapController.$inject = ["uiGmapGoogleMapApi"];
-    angular
-        .module('app.examples.maps')
-        .controller('MapController', MapController);
-
-    /* @ngInject */
-    function MapController(uiGmapGoogleMapApi) {
-        var vm = this;
-
-        uiGmapGoogleMapApi.then(function(maps) {
-            vm.map = {
-                center: {
-                    latitude: 35.027469,
-                    longitude: -111.022753
-                },
-                zoom: 4,
-                marker: {
-                    id:0,
-                    coords: {
-                        latitude: 35.027469,
-                        longitude: -111.022753
-                    },
-                    options: {
-                        icon: {
-                            anchor: new maps.Point(36,36),
-                            origin: new maps.Point(0,0),
-                            url: 'assets/images/maps/blue_marker.png'
-                        }
-                    }
-                }
-            };
-        });
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.layouts', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.layouts')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.standard-page',  {
-            url: '/layouts/standard-page',
-            templateUrl: 'app/examples/layouts/standard-page.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                },
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        })
-        .state('triangular.no-scroll-page',  {
-            url: '/layouts/no-scroll-page',
-            templateUrl: 'app/examples/layouts/no-scroll-page.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'triangular-non-scrolling'
-                },
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        })
-        .state('triangular.layouts-composer', {
-            url: '/layouts/composer',
-            templateUrl: 'app/examples/layouts/composer.tmpl.html',
-            controller: 'LayoutsComposerController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        })
-        .state('triangular.layouts-example-full-width', {
-            url: '/layouts/full-width',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
-            data: {
-                layout: {
-                    sideMenuSize: 'hidden'
-                },
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        })
-        .state('triangular.layouts-example-tall-toolbar', {
-            url: '/layouts/tall-toolbar',
-            templateUrl: 'app/examples/dashboards/server/dashboard-server.tmpl.html',
-            controller: 'DashboardServerController',
-            controllerAs: 'vm',
-            data: {
-                layout: {
-                    toolbarSize: 'md-tall',
-                    toolbarClass: 'md-warn'
-                },
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        })
-        .state('triangular.layouts-example-icon-menu', {
-            url: '/layouts/icon-menu',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
-            data: {
-                layout: {
-                    sideMenuSize: 'icon'
-                },
-                permissions: {
-                    only: ['viewLayouts']
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Layouts',
-            icon: 'zmdi zmdi-view-module',
-            type: 'dropdown',
-            priority: 2.4,
-            permission: 'viewLayouts',
-            children: [{
-                name: 'Standard Page',
-                type: 'link',
-                state: 'triangular.standard-page'
-            },{
-                name: 'Non Scrolling Page',
-                type: 'link',
-                state: 'triangular.no-scroll-page'
-            },{
-                name: 'Full Width Layout',
-                type: 'link',
-                state: 'triangular.layouts-example-full-width'
-            },{
-                name: 'Icon Menu',
-                type: 'link',
-                state: 'triangular.layouts-example-icon-menu'
-            },{
-                name: 'Tall Toolbar with background',
-                type: 'link',
-                state: 'triangular.layouts-example-tall-toolbar'
-            },{
-                name: 'Composer',
-                type: 'link',
-                state: 'triangular.layouts-composer'
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    LayoutsComposerController.$inject = ["$rootScope", "$filter", "$document", "triTheming", "triLayout"];
-    angular
-        .module('app.examples.layouts')
-        .controller('LayoutsComposerController', LayoutsComposerController);
-
-    /* @ngInject */
-    function LayoutsComposerController($rootScope, $filter, $document, triTheming, triLayout) {
-        var vm = this;
-        vm.allPagesCode = '';
-        vm.updateOption = updateOption;
-        vm.layout = triLayout.layout;
-        vm.onePageCode = '';
-        vm.options = {
-            toolbarSizes: {
-                'default': 'Default',
-                'md-medium-tall': 'Medium',
-                'md-tall': 'Tall'
-            },
-            toolbarBackgrounds: {
-            },
-            sideMenuSizes: {
-                'off': 'Off',
-                'hidden': 'Hidden',
-                'icon': 'Icons',
-                'full': 'Full Size'
-            }
-        };
-
-        ////////////////
-
-        function createCodeSnippets() {
-            vm.allPagesCode =
-                'triLayoutProvider.setDefaultOption(\'toolbarSize\', \'' + vm.layout.toolbarSize + '\');\n' +
-                'triLayoutProvider.setDefaultOption(\'toolbarShrink\', ' + vm.layout.toolbarShrink + ');\n' +
-                'triLayoutProvider.setDefaultOption(\'toolbarClass\', \'' + vm.layout.toolbarClass + '\');\n' +
-                'triLayoutProvider.setDefaultOption(\'contentClass\', \'' + vm.layout.contentClass + '\');\n' +
-                'triLayoutProvider.setDefaultOption(\'sideMenuSize\', \'' + vm.layout.sideMenuSize + '\');\n' +
-                'triLayoutProvider.setDefaultOption(\'footer\', ' + vm.layout.footer + ');\n';
-
-            vm.onePageCode =
-                '.state(\'triangular.my-state\', {' + '\n' +
-                '    // set the url of this page' + '\n' +
-                '    url: \'/my-route\',' + '\n' +
-                '    // set the html template to show on this page' + '\n' +
-                '    templateUrl: \'app/examples/my-module/my-page.tmpl.html\',' + '\n' +
-                '    // set the controller to load for this page' + '\n' +
-                '    controller: \'MyController\',' + '\n' +
-                '    controllerAs: \'vm\'' + '\n' +
-                '    data: {' + '\n' +
-                '        layout: {' + '\n' +
-                '            toolbarSize: \'' + vm.layout.toolbarSize + '\',' + '\n' +
-                '            toolbarShrink: ' + vm.layout.toolbarShrink + ',' + '\n' +
-                '            toolbarClass: \'' + vm.layout.toolbarClass + '\',' + '\n' +
-                '            contentClass: \'' + vm.layout.contentClass + '\',' + '\n' +
-                '            sideMenuSize: \'' + vm.layout.sideMenuSize + '\',' + '\n' +
-                '            footer: ' + vm.layout.footer + '\n' +
-                '        }' + '\n' +
-                '    }' + '\n' +
-                '});';
-        }
-
-        function updateOption(optionName) {
-            switch(optionName) {
-                case 'footer':
-                    var style = vm.layout.footer ? 'block' : 'none';
-                    $document[0].getElementById('footer').style.display = style;
-                    break;
-                case 'toolbarShrink':
-                    // update toolbar shrink
-                    // needs some work
-                    var mdContent = angular.element('#admin-panel md-content');
-                    $rootScope.$broadcast('$mdContentLoaded', angular.element(mdContent[0]));
-                    break;
-            }
-            // update the snippets
-            createCodeSnippets();
-        }
-
-        function createBackgroundOptions() {
-            vm.options.toolbarBackgrounds['none'] = 'No Background ';
-            var x, paddedNumber;
-            for(x = 1; x < 40 ; x++) {
-                paddedNumber = $filter('padding')(x, 2);
-                vm.options.toolbarBackgrounds['full-image-background mb-bg-' + paddedNumber] = 'Background ' + x;
-            }
-            for(x = 1; x < 30 ; x++) {
-                paddedNumber = $filter('padding')(x, 2);
-                vm.options.toolbarBackgrounds['full-image-background mb-bg-fb-' + paddedNumber] = 'Extra Background ' + x;
-            }
-        }
-
-        // init
-        createBackgroundOptions();
-        createCodeSnippets();
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.github', [
-        ]);
-})();
-(function() {
-    'use strict';
-
-    GithubController.$inject = ["$http", "$mdToast", "triLoaderService"];
-    angular
-        .module('app.examples.github')
-        .controller('GithubController', GithubController);
-
-    /* @ngInject */
-    function GithubController($http, $mdToast, triLoaderService) {
-        var oxygennaAPIUrl = 'http://api.oxygenna.com';
-        var vm = this;
-        vm.data = {
-            id: '11711437',
-            purchaseCode: '',
-            githubUser: ''
-        };
-        vm.register = register;
-        vm.userSearch = userSearch;
-
-        clearForm();
-
-        ////////////////
-
-        function register() {
-            triLoaderService.setLoaderActive(true);
-
-            $http.put(oxygennaAPIUrl + '/register-github-access', vm.data).
-            then(function() {
-                // everything went ok
-                triLoaderService.setLoaderActive(false);
-                popAToast('Success!  Check your GitHub email for your invite.');
-            }, registerError);
-
-            function registerError(response) {
-                // something went wrong
-                triLoaderService.setLoaderActive(false);
-                if(angular.isDefined(response.data.error)) {
-                    popAToast(response.data.error);
-                }
-            }
-        }
-
-        function userSearch (query) {
-            return $http.get('https://api.github.com/search/users?q=' + query + '+type:user+in:login').
-            then(function(response) {
-                // get the items
-                return response.data.items;
-            });
-        }
-
-        function clearForm() {
-            vm.data.purchaseCode = '';
-            vm.data.githubUser = '';
-        }
-
-        function popAToast(message) {
-            var toast = $mdToast.simple({
-                hideDelay: false
-            })
-            .content(message)
-            .action('OK')
-            .highlightAction(false)
-            .position('bottom right');
-
-            return $mdToast.show(toast);
-        }
-
-    }
-})();
-(function() {
-    'use strict';
-
-    config.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.github')
-        .config(config);
-
-    /* @ngInject */
-    function config($stateProvider, triMenuProvider) {
-        $stateProvider
-        .state('triangular.github', {
-            url: '/github',
-            templateUrl: 'app/examples/github/github.tmpl.html',
-            controller: 'GithubController',
-            controllerAs: 'vm',
-            data: {
-                layout: {
-                    contentClass: 'layout-column full-image-background mb-bg-fb-16 background-overlay-static',
-                    innerContentClass: 'overlay-gradient-20'
-                },
-                permissions: {
-                    only: ['viewGitHub']
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'GitHub',
-            state: 'triangular.github',
-            type: 'link',
-            icon: 'fa fa-github',
-            priority: 2.2,
-            permission: 'viewGitHub'
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.forms')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.forms-inputs', {
-            url: '/forms/inputs',
-            templateUrl: 'app/examples/forms/inputs.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.forms-binding', {
-            url: '/forms/binding',
-            templateUrl: 'app/examples/forms/binding.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.forms-autocomplete', {
-            url: '/forms/autocomplete',
-            templateUrl: 'app/examples/forms/autocomplete.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.forms-wizard', {
-            url: '/forms/wizard',
-            templateUrl: 'app/examples/forms/wizard.tmpl.html',
-            controller: 'FormWizardController',
-            controllerAs: 'wizardController',
-            data: {
-                layout: {
-                    contentClass: 'layout-column full-image-background mb-bg-fb-02 background-overlay-static',
-                    innerContentClass: 'overlay-gradient-20'
-                }
-            }
-        })
-        .state('triangular.forms-validation', {
-            url: '/forms/validation',
-            templateUrl: 'app/examples/forms/validation.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Forms',
-            icon: 'zmdi zmdi-calendar-check',
-            type: 'dropdown',
-            priority: 3.3,
-            children: [{
-                name: 'Autocomplete',
-                type: 'link',
-                state: 'triangular.forms-autocomplete'
-            },{
-                name: 'Data Binding',
-                type: 'link',
-                state: 'triangular.forms-binding'
-            },{
-                name: 'Inputs',
-                type: 'link',
-                state: 'triangular.forms-inputs'
-            },{
-                name: 'Wizard',
-                type: 'link',
-                state: 'triangular.forms-wizard'
-            },{
-                name: 'Validation',
-                type: 'link',
-                state: 'triangular.forms-validation'
-            }]
-        });
-        triMenuProvider.addMenu({
-            type: 'divider',
-            priority: 3.4
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.forms')
-        .controller('FormWizardController', FormWizardController);
-
-    /* @ngInject */
-    function FormWizardController() {
-        var vm = this;
-        vm.data = {
-            account: {
-                username: 'Oxygenna'
-            }
-        };
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.extras', [
-
-        ]);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.extras')
-        .controller('TimelineController', TimelineController);
-
-    /* @ngInject */
-    function TimelineController() {
-        var vm = this;
-        vm.events = [{
-            title: 'Material Design',
-            subtitle: 'We challenged ourselves to create a visual language for our users that synthesizes the classic principles of good design with the innovation and possibility of technology and science.',
-            date:'27/6/2015',
-            image: 'assets/images/avatars/hair-black-eyes-blue-green-skin-tanned.png',
-            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-01.jpg"/>',
-            palette: ''
-        },{
-            title: 'Dorothy Lewis',
-            subtitle: 'Design Magazine',
-            date:'27/6/2015',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned.png',
-            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">This spec is a living document that will be updated as we continue to develop the tenets and specifics of material design.</p>',
-            palette: 'cyan:500'
-        },{
-            title: 'Goals',
-            subtitle: 'Create a visual language that synthesizes classic principles of good design with the innovation and possibility of technology and science.',
-            date:'26/6/2015',
-            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-light.png',
-            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg"/>',
-            palette: 'cyan:500',
-            classes: 'widget-overlay-title'
-        },{
-            title: 'Principles',
-            subtitle: 'A material metaphor is the unifying theory of a rationalized space and a system of motion. ',
-            date:'24/6/2015',
-            image: 'assets/images/avatars/hair-black-eyes-dark-skin-dark.png',
-            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-03.jpg"/>'
-        },{
-            title: 'Joe Ross',
-            subtitle: 'CEO Google',
-            date:'23/6/2015',
-            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
-            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">Surfaces and edges of the material provide visual cues that are grounded in reality. The use of familiar tactile attributes helps users quickly understand affordances.</p> ',
-            palette: 'purple:500'
-        },{
-            title: 'Sam Ross',
-            subtitle: 'CEO Facebook',
-            date:'23/6/2015',
-            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
-            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">The color palette starts with primary colors and fills in the spectrum to create a complete and usable palette for Android, Web, and iOS.</p> ',
-            palette: 'deep-orange:700'
-        },{
-            title: 'John King',
-            subtitle: 'Limit your selection of colors by choosing three hues from the primary palette and one accent color from the secondary palette.',
-            date:'17/6/2015',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-dark.png',
-            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-04.jpg"/>',
-            palette: 'cyan:500',
-            classes: 'widget-overlay-title'
-        },{
-            title: 'Christos Pantazis',
-            subtitle: 'CEO Facebook',
-            date:'23/6/2015',
-            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
-            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">For white or black text on colored backgrounds, see these tables of color palettes for the appropriate contrast ratios and hex values.</p> ',
-            palette: 'red:50'
-        },{
-            title: 'Accent color',
-            subtitle: 'Use the accent color for your primary action button and components like switches or sliders.',
-            date:'12/6/2015',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned-2.png',
-            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-05.jpg"/>',
-            palette: 'cyan:500',
-            classes: 'widget-overlay-title'
-        }];
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.extras')
-        .directive('replaceWith', replaceWith);
-
-    /* @ngInject */
-    function replaceWith() {
-        // Usage:
-        //
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'A'
-        };
-        return directive;
-
-        function link(scope, element, attrs) {
-            attrs.$observe('replaceWith', function(value) {
-                if (value) {
-                    element.replaceWith(angular.isUndefined(value) ? '' : value);
-                }
-            });
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    GalleryController.$inject = ["$mdDialog"];
-    angular
-        .module('app.examples.extras')
-        .controller('GalleryController', GalleryController);
-
-    /* @ngInject */
-    function GalleryController($mdDialog) {
-        var vm = this;
-        vm.feed = [];
-        vm.openImage = openImage;
-
-        ////////////////
-
-        // number of days of dummy data to show
-        var numberOfFeedDays = 5;
-        var loremPixelCategories = ['abstract', 'city', 'people', 'nature', 'food', 'fashion', 'nightlife'];
-
-        function randomImage(title) {
-            var randImage = Math.floor((Math.random() * 10) + 1);
-            var randomCategory = loremPixelCategories[Math.floor((Math.random() * (loremPixelCategories.length-1)) + 1)];
-
-            var width = [300, 640];
-            var height = [225, 480];
-
-            var image = {
-                url: 'http://lorempixel.com/',
-                urlFull: 'http://lorempixel.com/',
-                title: title
-            };
-
-
-            if(Math.random() < 0.7) {
-                image.url += width[0] + '/' + height[0];
-                image.urlFull += width[1] + '/' + height[1];
-                image.rowspan = 2;
-                image.colspan = 2;
-            }
-            else {
-                image.url += height[0] + '/' + width[0];
-                image.urlFull += height[1] + '/' + width[1];
-                image.rowspan = 2;
-                image.colspan = 1;
-            }
-
-            image.url += '/' + randomCategory + '/' + randImage;
-            image.urlFull += '/' + randomCategory + '/' + randImage;
-
-            return image;
-        }
-
-        function createDayOfImages(day) {
-            var dayFeed = {
-                date: moment().subtract(day, 'days'),
-                images: []
-            };
-
-            var numberOfImages = Math.floor((Math.random() * 4) + 6);
-            for(var i = 0; i < numberOfImages; i++) {
-                dayFeed.images.push(randomImage('Photo ' + (i+1)));
-            }
-
-            return dayFeed;
-        }
-
-        function openImage(day, image, $event) {
-            $mdDialog.show({
-                controller: 'GalleryDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/examples/extras/gallery-dialog.tmpl.html',
-                clickOutsideToClose: true,
-                focusOnOpen: false,
-                targetEvent: $event,
-                locals: {
-                    day: day,
-                    image: image
-                }
-            });
-        }
-
-        function createFeed() {
-            for(var day = 0; day < numberOfFeedDays; day++) {
-                vm.feed.push(createDayOfImages(day));
-            }
-        }
-
-        // init
-
-        createFeed();
-    }
-})();
-(function() {
-    'use strict';
-
-    GalleryDialogController.$inject = ["$mdDialog", "day", "image"];
-    angular
-        .module('app.examples.extras')
-        .controller('GalleryDialogController', GalleryDialogController);
-
-    /* @ngInject */
-    function GalleryDialogController($mdDialog, day, image) {
-        var vm = this;
-        vm.currentImage = image;
-        vm.next = next;
-        vm.prev = prev;
-
-        function next() {
-            var index = day.images.indexOf(vm.currentImage);
-            index = index + 1 < day.images.length ? index + 1 : 0;
-            vm.currentImage = day.images[index];
-        }
-
-        function prev() {
-            var index = day.images.indexOf(vm.currentImage);
-            index = index - 1 < 0 ? day.images.length -1 : index - 1;
-            vm.currentImage = day.images[index];
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.extras')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.extra-gallery', {
-            url: '/extras/gallery',
-            templateUrl: 'app/examples/extras/gallery.tmpl.html',
-            controller: 'GalleryController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.extra-avatars', {
-            url: '/extras/avatars',
-            templateUrl: 'app/examples/extras/avatars.tmpl.html',
-            controller: 'AvatarsController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.extra-blank', {
-            url: '/extras/blank',
-            templateUrl: 'app/examples/extras/blank.tmpl.html',
-            data: {
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.extra-timeline', {
-            url: '/extras/timeline',
-            templateUrl: 'app/examples/extras/timeline.tmpl.html',
-            controller: 'TimelineController',
-            controllerAs: 'vm'
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Extras',
-            icon: 'zmdi zmdi-view-list-alt',
-            type: 'dropdown',
-            priority: 8.1,
-            children: [{
-                name: 'Gallery',
-                state: 'triangular.extra-gallery',
-                type: 'link'
-            },{
-                name: 'Avatars',
-                state: 'triangular.extra-avatars',
-                type: 'link'
-            },{
-                name: '404 Page',
-                state: '404',
-                type: 'link'
-            },{
-                name: '500 Page',
-                state: '500',
-                type: 'link'
-            },{
-                name: 'Blank Page',
-                state: 'triangular.extra-blank',
-                type: 'link'
-            },{
-                name: 'Timeline',
-                state: 'triangular.extra-timeline',
-                type: 'link'
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.extras')
-        .controller('AvatarsController', AvatarsController);
-
-    /* @ngInject */
-    function AvatarsController() {
-        var vm = this;
-        vm.avatars = [{
-            title: 'Carl Barnes',
-            subtitle:'Designer',
-            image: 'assets/images/avatars/hair-black-eyes-blue-green-skin-tanned.png',
-            color: 'blue',
-            hue: '500',
-            rowspan: 2,
-            colspan: 2
-        },{
-            title: 'Dorothy Lewis',
-            subtitle:'Designer',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned.png',
-            color: 'pink',
-            hue: '500',
-            rowspan: 1,
-            colspan: 1
-        },{
-            title: 'Harris Kwnst',
-            subtitle:'Developer',
-            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-light.png',
-            color: 'blue',
-            hue: '200',
-            rowspan: 1,
-            colspan: 1
-        },{
-            title: 'Sue Ross',
-            subtitle:'Marketing',
-            image: 'assets/images/avatars/hair-black-eyes-dark-skin-dark.png',
-            color: 'green',
-            hue: '500',
-            rowspan: 2,
-            colspan: 2
-        },{
-            title: 'Joe Ross',
-            subtitle:'Finance',
-            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
-            color: 'red',
-            hue: '500',
-            rowspan: 2,
-            colspan: 2
-        },{
-            title: 'Shirley King',
-            subtitle:'Designer',
-            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-tanned.png',
-            color: 'blue',
-            hue: '200',
-            rowspan: 2,
-            colspan: 2
-        },{
-            title: 'John King',
-            subtitle:'Developer',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-dark.png',
-            color: 'yellow',
-            hue: '900',
-            rowspan: 1,
-            colspan: 1
-        },{
-            title: 'Mary Rose',
-            subtitle:'Advertising',
-            image: 'assets/images/avatars/hair-grey-eyes-dark-skin-tanned.png',
-            color: 'pink',
-            hue: '800',
-            rowspan: 1,
-            colspan: 1
-        },{
-            title: 'Morris Onions',
-            subtitle:'Finance',
-            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned-2.png',
-            color: 'orange',
-            hue: '800',
-            rowspan: 1,
-            colspan: 1
-        }];
-    }
-})();
-
-(function() {
-    'use strict';
-
-    animateElements.$inject = ["$interval"];
-    angular
-        .module('app.examples.extras')
-        .directive('animateElements', animateElements);
-
-    /* @ngInject */
-    function animateElements($interval) {
-        // Usage:
-        //
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'A'
-        };
-        return directive;
-
-        function link($scope, $element) {
-            var $widgets  = [];
-            var $dividers = [];
-
-
-            function isLoaded(widget) {
-                return widget.clientHeight > 1;
-            }
-
-            // using interval checking since window load event does not work on some machines
-            var widgetsLoaded = $interval(function() {
-                $widgets = $element.find('.timeline-widget');
-                if($widgets.length > 0 && $widgets.toArray().every(isLoaded)) {
-                    $dividers = $element.find('.timeline-x-axis');
-                    onScrollCallback();
-                    $interval.cancel(widgetsLoaded);
-                }
-            }, 1000);
-
-            var onScrollCallback =  function() {
-                for(var i = 0; i < $widgets.length; i++) {
-                    if(angular.element($widgets[i]).offset().top <= angular.element(window).scrollTop() + angular.element(window).height() * 0.80 && angular.element($widgets[i]).height() > 1) {
-                        var dir = ( i % 2 === 0 ) ? 'left':'right';
-                        angular.element($dividers[i]).addClass('timeline-content-animated '+ dir);
-                        angular.element($widgets[i]).addClass('timeline-content-animated '+ dir);
-                    }
-                }
-            };
-
-            angular.element('md-content').bind('scroll', onScrollCallback).scroll();
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    ProgressController.$inject = ["$interval"];
-    angular
-        .module('app.examples.elements')
-        .controller('ProgressController', ProgressController);
-
-    /* @ngInject */
-    function ProgressController($interval) {
-        var vm = this;
-        vm.determinateValue = 0;
-        vm.bufferValue = 0;
-
-        $interval(intervalCall, 100, 0, true);
-
-        ////////////////
-
-        function intervalCall() {
-            vm.determinateValue += 1;
-            vm.bufferValue += 1.5;
-            if(vm.determinateValue > 100) {
-                vm.determinateValue = 0;
-                vm.bufferValue = 0;
-            }
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    IconsController.$inject = ["icons", "fa"];
-    angular
-        .module('app.examples.elements')
-        .controller('IconsController', IconsController);
-
-    /* @ngInject */
-    function IconsController(icons, fa) {
-        var vm = this;
-        vm.icons = [];
-        vm.families = ['Material Icon Font', 'Font Awesome'];
-        vm.selectedIcon = null;
-
-        // create filterable data structure for icons
-        angular.forEach(icons.data, function(icon) {
-            vm.icons.push({
-                name: icon.name,
-                family: 'Material Icon Font',
-                className: icon.class
-            });
-        });
-
-        angular.forEach(fa.data, function(name, className) {
-            vm.icons.push({
-                name: name,
-                family: 'Font Awesome',
-                className: className
-            });
-        });
-
-        vm.selectIcon = function(icon) {
-            vm.selectedIcon = icon;
-        };
-    }
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.elements')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.elements-buttons', {
-            url: '/elements/buttons',
-            templateUrl: 'app/examples/elements/buttons.tmpl.html',
-            controller: 'ButtonsController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-icons', {
-            url: '/elements/icons',
-            templateUrl: 'app/examples/elements/icons.tmpl.html',
-            controller: 'IconsController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            },
-            resolve: {
-                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'elements/icons'
-                    });
-                }],
-                fa: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'elements/icons-fa'
-                    });
-                }]
-            }
-        })
-        .state('triangular.elements-checkboxes', {
-            url: '/elements/checkboxes',
-            templateUrl: 'app/examples/elements/checkboxes.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-radios', {
-            url: '/elements/radios',
-            templateUrl: 'app/examples/elements/radios.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-toolbars', {
-            url: '/elements/toolbars',
-            templateUrl: 'app/examples/elements/toolbars.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-tooltips', {
-            url: '/elements/tooltips',
-            templateUrl: 'app/examples/elements/tooltips.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-whiteframes', {
-            url: '/elements/whiteframes',
-            templateUrl: 'app/examples/elements/whiteframes.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-sliders', {
-            url: '/elements/sliders',
-            templateUrl: 'app/examples/elements/sliders.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-toasts', {
-            url: '/elements/toasts',
-            templateUrl: 'app/examples/elements/toasts.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-progress', {
-            url: '/elements/progress',
-            templateUrl: 'app/examples/elements/progress.tmpl.html',
-            controller: 'ProgressController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-switches', {
-            url: '/elements/switches',
-            templateUrl: 'app/examples/elements/switches.tmpl.html',
-            controller: function() {
-                this.toggleAll = function(data, value) {
-                    for(var x in data) {
-                        data[x] = value;
-                    }
-                };
-            },
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-dialogs', {
-            url: '/elements/dialogs',
-            templateUrl: 'app/examples/elements/dialogs.tmpl.html',
-            controller: 'DialogsController',
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.menus', {
-            url: '/elements/menus',
-            templateUrl: 'app/examples/elements/menus.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-tabs', {
-            url: '/elements/tabs',
-            templateUrl: 'app/examples/elements/tabs.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-sidebars', {
-            url: '/elements/sidebars',
-            templateUrl: 'app/examples/elements/sidebars.tmpl.html',
-            controller: ["$mdSidenav", function($mdSidenav) {
-                this.openSidebar = function(id) {
-                    $mdSidenav(id).toggle();
-                };
-            }],
-            controllerAs: 'vm',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-grids', {
-            url: '/elements/grids',
-            templateUrl: 'app/examples/elements/grids.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.fab-speed', {
-            url: '/elements/fab-speed',
-            templateUrl: 'app/examples/elements/fab-speed.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.fab-toolbar', {
-            url: '/elements/fab-toolbar',
-            templateUrl: 'app/examples/elements/fab-toolbar.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-selects', {
-            url: '/elements/selects',
-            templateUrl: 'app/examples/elements/selects.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-tables', {
-            url: '/elements/tables',
-            templateUrl: 'app/examples/elements/tables.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-textangular', {
-            url: '/elements/textangular',
-            templateUrl: 'app/examples/elements/textangular.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-lists', {
-            url: '/elements/lists',
-            templateUrl: 'app/examples/elements/lists.tmpl.html',
-            controller: ["emails", function(emails) {
-                this.emails = emails.data.splice(0, 5);
-            }],
-            controllerAs: 'vm',
-            resolve: {
-                emails: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'email/inbox'
-                    });
-                }]
-            },
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-chips', {
-            url: '/elements/chips',
-            templateUrl: 'app/examples/elements/chips.tmpl.html',
-            controller: 'ChipsController',
-            controllerAs: 'vm',
-            resolve: {
-                contacts: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                    return $http({
-                        method: 'GET',
-                        url: API_CONFIG.url + 'email/contacts'
-                    });
-                }]
-            },
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-cards', {
-            url: '/elements/cards',
-            templateUrl: 'app/examples/elements/cards.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-upload', {
-            url: '/elements/upload',
-            templateUrl: 'app/examples/elements/upload.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-loader', {
-            url: '/elements/loader',
-            templateUrl: 'app/examples/elements/loader.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.elements-datepicker', {
-            url: '/elements/datepicker',
-            templateUrl: 'app/examples/elements/datepicker.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewElements']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Elements',
-            icon: 'zmdi zmdi-graduation-cap',
-            type: 'dropdown',
-            priority: 3.1,
-            permission: 'viewElements',
-            children: [{
-                name: 'Buttons',
-                type: 'link',
-                state: 'triangular.elements-buttons'
-            },{
-                name: 'Cards',
-                type: 'link',
-                state: 'triangular.elements-cards'
-            },{
-                name: 'Checkboxes',
-                type: 'link',
-                state: 'triangular.elements-checkboxes'
-            },{
-                name: 'Chips',
-                type: 'link',
-                state: 'triangular.elements-chips'
-            },{
-                name: 'Datepicker',
-                type: 'link',
-                state: 'triangular.elements-datepicker'
-            },{
-                name: 'Dialogs',
-                type: 'link',
-                state: 'triangular.elements-dialogs'
-            },{
-                name: 'FAB Speed Dial',
-                type: 'link',
-                state: 'triangular.fab-speed'
-            },{
-                name: 'FAB Toolbar',
-                type: 'link',
-                state: 'triangular.fab-toolbar'
-            },{
-                name: 'Grids',
-                type: 'link',
-                state: 'triangular.elements-grids'
-            },{
-                name: 'Icons',
-                type: 'link',
-                state: 'triangular.elements-icons'
-            },{
-                name: 'Lists',
-                type: 'link',
-                state: 'triangular.elements-lists'
-            },{
-                name: 'Loader',
-                type: 'link',
-                state: 'triangular.elements-loader'
-            },{
-                name: 'Menus',
-                type: 'link',
-                state: 'triangular.menus'
-            },{
-                name: 'Progress',
-                type: 'link',
-                state: 'triangular.elements-progress'
-            },{
-                name: 'Radios',
-                type: 'link',
-                state: 'triangular.elements-radios'
-            },{
-                name: 'Selects',
-                type: 'link',
-                state: 'triangular.elements-selects'
-            },{
-                name: 'Sidebars',
-                type: 'link',
-                state: 'triangular.elements-sidebars'
-            },{
-                name: 'Sliders',
-                type: 'link',
-                state: 'triangular.elements-sliders'
-            },{
-                name: 'Switches',
-                type: 'link',
-                state: 'triangular.elements-switches'
-            },{
-                name: 'Tables',
-                type: 'link',
-                state: 'triangular.elements-tables'
-            },{
-                name: 'Tabs',
-                type: 'link',
-                state: 'triangular.elements-tabs'
-            },{
-                name: 'Textangular',
-                type: 'link',
-                state: 'triangular.elements-textangular'
-            },{
-                name: 'Toasts',
-                type: 'link',
-                state: 'triangular.elements-toasts'
-            },{
-                name: 'Toolbars',
-                type: 'link',
-                state: 'triangular.elements-toolbars'
-            },{
-                name: 'Tooltips',
-                type: 'link',
-                state: 'triangular.elements-tooltips'
-            },{
-                name: 'Whiteframes',
-                type: 'link',
-                state: 'triangular.elements-whiteframes'
-            },{
-                name: 'Upload',
-                type: 'link',
-                state: 'triangular.elements-upload'
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    ButtonsController.$inject = ["$interval"];
-    angular
-        .module('app.examples.elements')
-        .controller('ButtonsController', ButtonsController);
-
-    /* @ngInject */
-    function ButtonsController($interval) {
-        var vm = this;
-        vm.buttonClass1 = 'md-primary';
-        vm.buttonHue1 = 'md-default';
-
-        vm.buttonClass2 = 'md-primary';
-        vm.buttonHue2 = 'md-default';
-
-        vm.buttonClass3 = 'md-primary';
-        vm.buttonHue3 = 'md-default';
-
-        vm.buttonDisabled = false;
-        vm.determinateValue = 30;
-        vm.determinateValue2 = 30;
-        $interval(intervalTriggered, 100, 0, true);
-
-        ////////////////
-
-        function intervalTriggered() {
-            vm.determinateValue += 1;
-            vm.determinateValue2 += 1.5;
-            if(vm.determinateValue > 100) {
-                vm.determinateValue = 30;
-                vm.determinateValue2 = 30;
-            }
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    InboxController.$inject = ["$scope", "$filter", "$location", "$state", "$mdMedia", "$mdBottomSheet", "$stateParams", "$mdDialog", "$mdToast", "emails", "contacts"];
-    angular
-        .module('app.examples.email')
-        .controller('InboxController', InboxController);
-
-    /* @ngInject */
-    function InboxController($scope, $filter, $location, $state, $mdMedia, $mdBottomSheet, $stateParams, $mdDialog, $mdToast, emails, contacts) {
-        var vm = this;
-        // store the base state of where we are /inbox or /trash or /sent
-        // this can be then used if we close / delete email to return to
-        vm.baseState = $state.current;
-        vm.composeClick = composeClick;
-        vm.inboxBasePath = $location.path();
-        vm.openMail = openMail;
-        // store selected email if we have one
-        vm.selectedMail = null;
-        // variable to store backup of emailGroups for search filtering
-        var emailGroupsBackup = null;
-
-        ////////////////////
-
-        function createEmailGroups() {
-            // create email groups using the emails from the resolve
-            if(emails.status === 200) {
-                vm.emails = emails.data;
-
-                vm.emailGroups = [{
-                    name: $filter('triTranslate')('Today'),
-                    from: moment().startOf('day'),
-                    to: moment().endOf('day')
-                },{
-                    name: $filter('triTranslate')('Yesterday'),
-                    from: moment().subtract(1, 'days').startOf('day'),
-                    to: moment().subtract(1, 'days').endOf('day')
-                },{
-                    name: $filter('triTranslate')('Older'),
-                    from: moment().subtract(100, 'years').endOf('day'),
-                    to: moment().subtract(2, 'days').startOf('day')
-                }];
-
-                angular.forEach(vm.emailGroups, function(group) {
-                    group.emails = $filter('emailGroup')(vm.emails, group);
-                });
-
-                // create backup of emailGroups for search filtering
-                emailGroupsBackup = angular.copy(vm.emailGroups);
-            }
-        }
-
-        // opens an email
-        function openMail(email) {
-            $state.go(vm.baseState.name + '.email', {
-                emailID: email.id
-            });
-            email.unread = false;
-            vm.selectedMail = email.id;
-        }
-
-        // returns back to email list
-        function openlist() {
-            $state.go(vm.baseState.name);
-        }
-
-        // opens the compose dialog
-        function composeClick($event) {
-            $mdDialog.show({
-                controller: 'EmailDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/examples/email/email-dialog.tmpl.html',
-                targetEvent: $event,
-                locals: {
-                    title: $filter('triTranslate')('Compose'),
-                    email: {
-                        to: [],
-                        cc: [],
-                        bcc:[],
-                        subject: '',
-                        content: ''
-                    },
-                    contacts: contacts,
-                    getFocus: false
-                }
-            })
-            .then(function(email) {
-                sendEmail(null, email);
-            }, emailCancel);
-
-            function emailCancel() {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content($filter('triTranslate')('Email canceled'))
-                    .position('bottom right')
-                    .hideDelay(3000)
-                );
-            }
-        }
-
-        function sendEmail($event, email) {
-            // make list of users that have been sent to
-            var sentTo = [];
-            angular.forEach(email.to, function(to) {
-                sentTo.push(to.name);
-            });
-            $mdToast.show(
-                $mdToast.simple()
-                .content($filter('triTranslate')('Email to {{to}} sent.', {to: sentTo.join(', ')}))
-                .position('bottom right')
-                .hideDelay(3000)
-            );
-        }
-
-        function checkEmailList() {
-            vm.showEmailList = !($mdMedia('xs') && angular.isDefined($state.current.resolve.email));
-        }
-
-        // watches
-
-        $scope.$on('emailSearch', function(event, emailSearch) {
-            for(var g in emailGroupsBackup) {
-                vm.emailGroups[g].emails = $filter('emailSearchFilter')(emailGroupsBackup[g].emails, emailSearch);
-            }
-        });
-
-        // add a watch for when the url location changes
-        $scope.$on('$locationChangeSuccess', checkEmailList);
-
-        // handle delete email event sent from email menu in email view
-        $scope.$on('deleteEmail', function($event, deleteEmail) {
-            angular.forEach(vm.emailGroups, function(group) {
-                var removeEmailIndex = null;
-                angular.forEach(group.emails, function(email, index) {
-                    if(deleteEmail.id === email.id) {
-                        removeEmailIndex = index;
-                    }
-                });
-                if(null !== removeEmailIndex) {
-                    group.emails.splice(removeEmailIndex, 1);
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .content($filter('triTranslate')('DeleteD'))
-                        .position('bottom right')
-                        .hideDelay(3000)
-                    );
-                }
-            });
-
-            openlist();
-        });
-
-        // handle close email event sent from email menu in email view
-        $scope.$on('closeEmail', openlist);
-
-        // handle close email event sent from email controller
-        $scope.$on('sendEmail', sendEmail);
-
-        // init
-
-        checkEmailList();
-
-        createEmailGroups();
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.email')
-        .filter('emailGroup', emailGroup);
-
-    function emailGroup() {
-        return filterFilter;
-
-        ////////////////
-
-        function filterFilter(emails, emailGroup) {
-            return emails.filter(function(email) {
-                var emailDate = moment(email.date, moment.ISO_8601);
-
-                if(emailDate.isAfter(emailGroup.from) && emailDate.isBefore(emailGroup.to)) {
-                    return email;
-                }
-            });
-        }
-    }
-
-})();
-(function() {
-    'use strict';
-
-    EmailController.$inject = ["$scope", "$stateParams", "$mdDialog", "$mdToast", "$filter", "emails", "email", "contacts"];
-    angular
-        .module('app.examples.email')
-        .controller('EmailController', EmailController);
-
-    /* @ngInject */
-    function EmailController($scope, $stateParams, $mdDialog, $mdToast, $filter, emails, email, contacts) {
-        var vm = this;
-        vm.closeEmail = closeEmail;
-        vm.deleteEmail = deleteEmail;
-        vm.email = email;
-        vm.emailAction = emailAction;
-
-        /////////////////
-
-        function closeEmail() {
-            $scope.$emit('closeEmail');
-        }
-
-        function deleteEmail(email) {
-            $scope.$emit('deleteEmail', email);
-        }
-
-        function emailAction($event, title) {
-            var replyEmail = {
-                to: [],
-                cc: [],
-                bcc: [],
-                // add r.e to subject if there is one
-                subject: email.subject === '' ? '' : $filter('triTranslate')('R.e: ') + email.subject,
-                // wrap previous content in blockquote and add new line
-                content: '<br><br><blockquote>' + email.content + '</blockquote>'
-            };
-
-            // get contact and add it to to if replying
-            angular.forEach(contacts.data, function(contact) {
-                if(contact.email === email.from.email) {
-                    replyEmail.to.push(contact);
-                }
-            });
-
-            openEmail($event, replyEmail, $filter('triTranslate')(title));
-        }
-
-        function openEmail($event, email, title) {
-            $mdDialog.show({
-                controller: 'EmailDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/examples/email/email-dialog.tmpl.html',
-                targetEvent: $event,
-                locals: {
-                    title: title,
-                    email: email,
-                    contacts: contacts,
-                    getFocus: true
-                },
-                focusOnOpen: false
-            })
-            .then(function(email) {
-                // send email sent event
-                $scope.$emit('sendEmail', email);
-            }, cancelEmail);
-
-            function cancelEmail() {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content($filter('triTranslate')('Email canceled'))
-                    .position('bottom right')
-                    .hideDelay(3000)
-                );
-            }
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$provide"];
-    angular
-        .module('app.examples.email')
-        .config(moduleConfig);
-
-    function moduleConfig($provide) {
-        /***
-        * Setup Editor Toolbar here
-        ***/
-        $provide.decorator('taOptions', ['taRegisterTool', 'taTranslations', '$delegate', function(taRegisterTool, taTranslations, taOptions){
-            taOptions.toolbar = [['bold', 'italics', 'underline', 'insertLink']];
-
-            taOptions.classes = {
-                focussed: 'focussed',
-                toolbar: 'editor-toolbar',
-                toolbarGroup: 'editor-group',
-                toolbarButton: 'md-button',
-                toolbarButtonActive: '',
-                disabled: '',
-                textEditor: 'form-control',
-                htmlEditor: 'form-control'
-            };
-            return taOptions;
-        }]);
-
-        $provide.decorator('taTools', ['$delegate', function(taTools){
-            taTools.bold.iconclass = 'zmdi zmdi-format-bold';
-            taTools.italics.iconclass = 'zmdi zmdi-format-italic';
-            taTools.underline.iconclass = 'zmdi zmdi-format-underlined';
-            taTools.insertLink.iconclass = 'zmdi zmdi-link';
-            return taTools;
-        }]);
-    }
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider", "EMAIL_ROUTES"];
-    angular
-        .module('app.examples.email')
-        .config(moduleConfig)
-        .constant('EMAIL_ROUTES', [{
-            state: 'triangular.email.inbox',
-            name: 'Inbox',
-            url: '/email/inbox'
-        },{
-            state: 'triangular.email.trash',
-            name: 'Trash',
-            url: '/email/trash'
-        },{
-            state: 'triangular.email.sent',
-            name: 'Sent',
-            url: '/email/sent'
-        }]);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider, EMAIL_ROUTES) {
-
-        $stateProvider
-        .state('triangular.email',  {
-            abstract: true,
-            views: {
-                'toolbar@triangular': {
-                    templateUrl: 'app/examples/email/layout/toolbar/toolbar.tmpl.html',
-                    controller: 'EmailToolbarController',
-                    controllerAs: 'vm'
-                }
-            },
-            data: {
-                layout: {
-                    footer: false,
-                    contentClass: 'triangular-non-scrolling'
-                },
-                permissions: {
-                    only: ['viewEmail']
-                }
-            }
-        });
-
-        angular.forEach(EMAIL_ROUTES, function(route) {
-            $stateProvider
-            .state(route.state, {
-                url: route.url,
-                views: {
-                    '@triangular': {
-                        templateUrl: 'app/examples/email/inbox.tmpl.html',
-                        controller: 'InboxController',
-                        controllerAs: 'vm'
-                    }
-                },
-                resolve: {
-                    emails: ["$http", "$q", "API_CONFIG", function($http, $q, API_CONFIG) {
-                        return $http({
-                            method: 'GET',
-                            url: API_CONFIG.url + 'email/inbox'
-                        });
-                    }],
-                    contacts: ["$http", "API_CONFIG", function($http, API_CONFIG) {
-                        return $http({
-                            method: 'GET',
-                            url: API_CONFIG.url + 'email/contacts'
-                        });
-                    }]
-                }
-            });
-        });
-
-        angular.forEach(EMAIL_ROUTES, function(route) {
-            $stateProvider
-            .state(route.state + '.email', {
-                url: '/mail/:emailID',
-                templateUrl: 'app/examples/email/email.tmpl.html',
-                controller: 'EmailController',
-                controllerAs: 'vm',
-                resolve: {
-                    email: ["$stateParams", "emails", function($stateParams, emails) {
-                        emails = emails.data;
-                        var foundEmail = false;
-                        for(var i = 0; i < emails.length; i++) {
-                            if(emails[i].id === $stateParams.emailID) {
-                                foundEmail = emails[i];
-                                break;
-                            }
-                        }
-                        return foundEmail;
-                    }]
-                },
-                onEnter: ["$state", "email", function($state, email){
-                    if (false === email) {
-                        $state.go(route.state);
-                    }
-                }]
-            });
-        });
-
-        var emailMenu = {
-            name: 'Email',
-            icon: 'zmdi zmdi-email',
-            type: 'dropdown',
-            priority: 2.1,
-            permission: 'viewEmail',
-            children: []
-        };
-
-        angular.forEach(EMAIL_ROUTES, function(route) {
-            emailMenu.children.push({
-                name: route.name,
-                state: route.state,
-                type: 'link',
-                badge: Math.round(Math.random() * (20 - 1) + 1)
-            });
-        });
-
-        triMenuProvider.addMenu(emailMenu);
-
-        triMenuProvider.addMenu({
-            type: 'divider',
-            priority: 2.3
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.email')
-        .filter('emailSearchFilter', emailSearchFilter);
-
-    function emailSearchFilter() {
-        return filterFilter;
-
-        ////////////////
-
-        function filterFilter(emails, emailSearch) {
-            return emails.filter(function(email) {
-                if(email.from.name.indexOf(emailSearch) > -1) {
-                    return email;
-                }
-                if(email.subject.indexOf(emailSearch) > -1) {
-                    return email;
-                }
-            });
-        }
-    }
-
-})();
-(function() {
-    'use strict';
-
-    EmailDialogController.$inject = ["$timeout", "$mdDialog", "$filter", "triSkins", "textAngularManager", "title", "email", "contacts", "getFocus"];
-    angular
-        .module('app.examples.email')
-        .controller('EmailDialogController', EmailDialogController);
-
-    /* @ngInject */
-    function EmailDialogController($timeout, $mdDialog, $filter, triSkins, textAngularManager, title, email, contacts, getFocus) {
-        var contactsData = contacts.data;
-
-        var vm = this;
-        vm.cancel = cancel;
-        vm.email = email;
-        vm.title = title;
-        vm.send = send;
-        vm.showCCSIcon = 'zmdi zmdi-account-add';
-        vm.showCCS = false;
-        vm.toggleCCS = toggleCCS;
-        vm.triSkin = triSkins.getCurrent();
-        vm.queryContacts = queryContacts;
 
         ///////////////
 
-        function cancel() {
-            $mdDialog.cancel();
+        function getModules() {
+            return $http.get('app/global/data/diff.json');
         }
 
-        function toggleCCS() {
-            vm.showCCS = !vm.showCCS;
-            vm.showCCSIcon = vm.showCCS ? 'zmdi zmdi-account' : 'zmdi zmdi-account-add';
-        }
-
-        function send() {
-            $mdDialog.hide(vm.email);
-        }
-
-        function queryContacts($query) {
-            var lowercaseQuery = angular.lowercase($query);
-            return contactsData.filter(function(contact) {
-                var lowercaseName = angular.lowercase(contact.name);
-                if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
-                    return contact;
-                }
-            });
-        }
-
-        ////////////////
-        if(getFocus) {
-            $timeout(function() {
-                // Retrieve the scope and trigger focus
-                var editorScope = textAngularManager.retrieveEditor('emailBody').scope;
-                editorScope.displayElements.text.trigger('focus');
-            }, 500);
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.email')
-        .filter('cut', cut);
-
-    function cut() {
-        return filterFunction;
-
-        ////////////////
-
-        function filterFunction(value, wordwise, max, tail) {
-            if (!value) {
-                return '';
-            }
-
-            max = parseInt(max, 10);
-            if (!max) {
-                return value;
-            }
-            if (value.length <= max) {
-                return value;
-            }
-
-            value = value.substr(0, max);
-            if (wordwise) {
-                var lastspace = value.lastIndexOf(' ');
-                if (lastspace !== -1) {
-                    value = value.substr(0, lastspace);
-                }
-            }
-
-            return value + (tail || ' …');
-        }
-    }
-
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.dashboards')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.sales-layout', {
-            abstract: true,
-            views: {
-                sidebarLeft: {
-                    templateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
-                    controller: 'MenuController',
-                    controllerAs: 'vm'
-                },
-                content: {
-                    template: '<div id="admin-panel-content-view" flex ui-view></div>'
-                },
-                belowContent: {
-                    template: '<div ui-view="belowContent"></div>'
-                }
-            }
-        })
-        .state('triangular.dashboard-general', {
-            url: '/dashboards/general',
-            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html'
-        })
-        .state('triangular.dashboard-analytics', {
-            url: '/dashboards/analytics',
-            views: {
-                '': {
-                    templateUrl: 'app/examples/dashboards/analytics/analytics.tmpl.html',
-                    controller: 'DashboardAnalyticsController',
-                    controllerAs: 'vm'
-                },
-                'belowContent': {
-                    templateUrl: 'app/examples/dashboards/analytics/fab-button.tmpl.html',
-                    controller: 'DashboardAnalyticsFabButtonController',
-                    controllerAs: 'vm'
-                }
-            },
-            data: {
-                layout: {
-                    contentClass: 'analytics-dashboard'
-                }
-            }
-        })
-        .state('triangular.dashboard-classic', {
-            url: '/dashboards/classic',
-            templateUrl: 'app/examples/dashboards/classic/classic.tmpl.html',
-            controller: 'DashboardClassicController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.dashboard-server', {
-            url: '/dashboards/server',
-            templateUrl: 'app/examples/dashboards/server/dashboard-server.tmpl.html',
-            controller: 'DashboardServerController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.dashboard-widgets', {
-            url: '/dashboards/widgets',
-            templateUrl: 'app/examples/dashboards/widgets.tmpl.html'
-        })
-        .state('triangular.dashboard-social', {
-            url: '/dashboards/social',
-            templateUrl: 'app/examples/dashboards/social/dashboard-social.tmpl.html',
-            controller: 'DashboardSocialController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.dashboard-sales', {
-            url: '/dashboards/sales',
-            data: {
-                layout: {
-                    showToolbar: false
-                }
-            },
-            views: {
-                '': {
-                    templateUrl: 'app/examples/dashboards/sales/dashboard-sales.tmpl.html',
-                    controller: 'DashboardSalesController',
-                    controllerAs: 'vm'
-                },
-                'belowContent': {
-                    templateUrl: 'app/examples/dashboards/sales/fab-button.tmpl.html',
-                    controller: 'SalesFabController',
-                    controllerAs: 'vm'
-                }
-            }
-        })
-        .state('triangular.dashboard-draggable', {
-            url: '/dashboards/draggable-widgets',
-            templateUrl: 'app/examples/dashboards/dashboard-draggable.tmpl.html',
-            controller: 'DashboardDraggableController',
-            controllerAs: 'vm'
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Dashboards',
-            icon: 'zmdi zmdi-home',
-            type: 'dropdown',
-            priority: 1.1,
-            children: [{
-                name: 'Analytics',
-                state: 'triangular.dashboard-analytics',
-                type: 'link'
-            },{
-                name: 'General',
-                state: 'triangular.dashboard-general',
-                type: 'link'
-            },{
-                name: 'Sales',
-                state: 'triangular.dashboard-sales',
-                type: 'link'
-            },{
-                name: 'Classic',
-                state: 'triangular.dashboard-classic',
-                type: 'link'
-            },{
-                name: 'Server',
-                state: 'triangular.dashboard-server',
-                type: 'link'
-            },{
-                name: 'Social',
-                state: 'triangular.dashboard-social',
-                type: 'link'
-            },{
-                name: 'Widgets',
-                state: 'triangular.dashboard-widgets',
-                type: 'link'
-            },{
-                name: 'Draggable',
-                state: 'triangular.dashboard-draggable',
-                type: 'link'
-            }]
-        });
-
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.dashboards')
-        .controller('DashboardDraggableController', DashboardDraggableController);
-
-    /* @ngInject */
-    function DashboardDraggableController() {
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.charts')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.charts-google-bar', {
-            url: '/charts/google/bar',
-            templateUrl: 'app/examples/charts/google-bar.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-google-scatter', {
-            url: '/charts/google/scatter',
-            templateUrl: 'app/examples/charts/google-scatter.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-google-line', {
-            url: '/charts/google/line',
-            templateUrl: 'app/examples/charts/google-line.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-chartjs-bar', {
-            url: '/charts/chartjs/bar',
-            templateUrl: 'app/examples/charts/chartjs-bar.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-chartjs-pie', {
-            url: '/charts/chartjs/pie',
-            templateUrl: 'app/examples/charts/chartjs-pie.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-chartjs-ticker', {
-            url: '/charts/chartjs/ticker',
-            templateUrl: 'app/examples/charts/chartjs-ticker.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-chartjs-line', {
-            url: '/charts/chartjs/line',
-            templateUrl: 'app/examples/charts/chartjs-line.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-d3-scatter', {
-            url: '/charts/d3/scatter',
-            templateUrl: 'app/examples/charts/d3-scatter.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-d3-bar', {
-            url: '/charts/d3/bar',
-            templateUrl: 'app/examples/charts/d3-bar.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        })
-        .state('triangular.charts-d3-multiline', {
-            url: '/charts/d3/multiline',
-            templateUrl: 'app/examples/charts/d3-multiline.tmpl.html',
-            data: {
-                permissions: {
-                    only: ['viewCharts']
-                },
-                layout: {
-                    contentClass: 'layout-column'
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Charts',
-            icon: 'zmdi zmdi-chart',
-            type: 'dropdown',
-            priority: 5.1,
-            permission: 'viewCharts',
-            children: [{
-                name: 'Google',
-                type: 'dropdown',
-                children: [{
-                    name: 'Bar',
-                    state: 'triangular.charts-google-bar',
-                    type: 'link'
-                },{
-                    name: 'Scatter',
-                    state: 'triangular.charts-google-scatter',
-                    type: 'link'
-                },{
-                    name: 'Line',
-                    state: 'triangular.charts-google-line',
-                    type: 'link'
-                }]
-            },{
-                name: 'Chart.js',
-                type: 'dropdown',
-                children: [{
-                    name: 'Bar',
-                    state: 'triangular.charts-chartjs-bar',
-                    type: 'link'
-                },{
-                    name: 'Line',
-                    state: 'triangular.charts-chartjs-line',
-                    type: 'link'
-                },{
-                    name: 'Pie',
-                    state: 'triangular.charts-chartjs-pie',
-                    type: 'link'
-                },{
-                    name: 'Ticker',
-                    state: 'triangular.charts-chartjs-ticker',
-                    type: 'link'
-                }]
-            },{
-                name: 'D3 Charts',
-                type: 'dropdown',
-                children: [{
-                    name: 'Scatter',
-                    state: 'triangular.charts-d3-scatter',
-                    type: 'link'
-                },{
-                    name: 'OHCL Bar',
-                    state: 'triangular.charts-d3-bar',
-                    type: 'link'
-                },{
-                    name: 'Multiline',
-                    state: 'triangular.charts-d3-multiline',
-                    type: 'link'
-                }]
-            }]
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.examples.calendar')
-        .filter('padding', padding);
-
-    function padding() {
-        return paddingFilter;
-
-        ////////////////
-
-        function paddingFilter(n, len) {
-            var num = parseInt(n, 10);
-            len = parseInt(len, 10);
-            if (isNaN(num) || isNaN(len)) {
-                return n;
-            }
-            num = ''+num;
-            while (num.length < len) {
-                num = '0'+num;
-            }
-            return num;
-        }
-    }
-
-})();
-(function() {
-    'use strict';
-
-    EventDialogController.$inject = ["$scope", "$mdDialog", "$filter", "triTheming", "dialogData", "event", "edit"];
-    angular
-        .module('app.examples.calendar')
-        .controller('EventDialogController', EventDialogController);
-
-    /* @ngInject */
-    function EventDialogController($scope, $mdDialog, $filter, triTheming, dialogData, event, edit) {
-
-        var vm = this;
-        vm.cancelClick = cancelClick;
-        vm.colors = [];
-        vm.colorChanged = colorChanged;
-        vm.deleteClick = deleteClick;
-        vm.allDayChanged = allDayChanged;
-        vm.dialogData = dialogData;
-        vm.edit = edit;
-        vm.event = event;
-        vm.okClick = okClick;
-        vm.selectedColor = null;
-        // create start and end date of event
-        vm.start = event.start.toDate();
-        vm.startTime = convertMomentToTime(event.start);
-
-        if(event.end !== null) {
-            vm.end = event.end.toDate();
-            vm.endTime = convertMomentToTime(event.end);
-        }
-
-        ////////////////
-
-        function colorChanged() {
-            vm.event.backgroundColor = vm.selectedColor.backgroundColor;
-            vm.event.borderColor = vm.selectedColor.backgroundColor;
-            vm.event.textColor = vm.selectedColor.textColor;
-            vm.event.palette = vm.selectedColor.palette;
-        }
-
-        function okClick() {
-            vm.event.start = updateEventDateTime(vm.start, vm.startTime);
-            if(vm.event.end !== null) {
-                vm.event.end = updateEventDateTime(vm.end, vm.endTime);
-            }
-            $mdDialog.hide(vm.event);
-        }
-
-        function cancelClick() {
-            $mdDialog.cancel();
-        }
-
-        function deleteClick() {
-            vm.event.deleteMe = true;
-            $mdDialog.hide(vm.event);
-        }
-
-        function allDayChanged() {
-            // if all day turned on and event already saved we need to create a new date
-            if(vm.event.allDay === false && vm.event.end === null) {
-                vm.event.end = moment(vm.event.start);
-                vm.event.end.endOf('day');
-                vm.end = vm.event.end.toDate();
-                vm.endTime = convertMomentToTime(vm.event.end);
-            }
-        }
-
-        function convertMomentToTime(moment) {
-            return {
-                hour: moment.hour(),
-                minute: moment.minute()
-            };
-        }
-
-        function updateEventDateTime(date, time) {
-            var newDate = moment(date);
-            newDate.hour(time.hour);
-            newDate.minute(time.minute);
-            return newDate;
-        }
-
-        function createDateSelectOptions() {
-            // create options for time select boxes (this will be removed in favor of mdDatetime picker when it becomes available)
-            vm.dateSelectOptions = {
-                hours: [],
-                minutes: []
-            };
-            // hours
-            for(var hour = 0; hour <= 23; hour++) {
-                vm.dateSelectOptions.hours.push(hour);
-            }
-            // minutes
-            for(var minute = 0; minute <= 59; minute++) {
-                vm.dateSelectOptions.minutes.push(minute);
-            }
-        }
-
-        // init
-        createDateSelectOptions();
-
-        // create colors
-        angular.forEach(triTheming.palettes, function(palette, index) {
-            var color = {
-                name: index.replace(/-/g, ' '),
-                palette: index,
-                backgroundColor: triTheming.rgba(palette['500'].value),
-                textColor: triTheming.rgba(palette['500'].contrast)
-            };
-
-            vm.colors.push(color);
-
-            if(index === vm.event.palette) {
-                vm.selectedColor = color;
-                vm.colorChanged();
-            }
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    CalendarController.$inject = ["$scope", "$rootScope", "$mdDialog", "$mdToast", "$filter", "$element", "triTheming", "triLayout", "uiCalendarConfig"];
-    angular
-        .module('app.examples.calendar')
-        .controller('CalendarController', CalendarController);
-
-    /* @ngInject */
-    function CalendarController($scope, $rootScope, $mdDialog, $mdToast, $filter, $element, triTheming, triLayout, uiCalendarConfig) {
-        var vm = this;
-        vm.addEvent = addEvent;
-        vm.calendarOptions = {
-            contentHeight: 'auto',
-            selectable: true,
-            editable: true,
-            header: false,
-            viewRender: function(view) {
-                // change day
-                vm.currentDay = view.calendar.getDate();
-                vm.currentView = view.name;
-                // update toolbar with new day for month name
-                $rootScope.$broadcast('calendar-changeday', vm.currentDay);
-                // update background image for month
-                triLayout.layout.contentClass = 'calendar-background-image background-overlay-static overlay-gradient-10 calendar-background-month-' + vm.currentDay.month();
-            },
-            dayClick: function(date, jsEvent, view) { //eslint-disable-line
-                vm.currentDay = date;
-            },
-            eventClick: function(calEvent, jsEvent, view) { //eslint-disable-line
-                $mdDialog.show({
-                    controller: 'EventDialogController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
-                    targetEvent: jsEvent,
-                    focusOnOpen: false,
-                    locals: {
-                        dialogData: {
-                            title: 'Edit Event',
-                            confirmButtonText: 'Save'
-                        },
-                        event: calEvent,
-                        edit: true
-                    }
-                })
-                .then(function(event) {
-                    var toastMessage = 'Event Updated';
-                    if(angular.isDefined(event.deleteMe) && event.deleteMe === true) {
-                        // remove the event from the calendar
-                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('removeEvents', event._id);
-                        // change toast message
-                        toastMessage = 'Event Deleted';
-                    }
-                    else {
-                        // update event
-                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
-                    }
-
-                    // pop a toast
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .content($filter('triTranslate')(toastMessage))
-                        .position('bottom right')
-                        .hideDelay(2000)
-                    );
-                });
-            }
-        };
-
-        vm.viewFormats = {
-            'month': 'MMMM YYYY',
-            'agendaWeek': 'w',
-            'agendaDay': 'Do MMMM YYYY'
-        };
-
-        vm.eventSources = [{
-            events: []
-        }];
-
-        function addEvent(event, $event) {
-            var inAnHour = moment(vm.currentDay).add(1, 'h');
-            $mdDialog.show({
-                controller: 'EventDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
-                targetEvent: $event,
-                focusOnOpen: false,
-                locals: {
-                    dialogData: {
-                        title: 'Add Event',
-                        confirmButtonText: 'Add'
-                    },
-                    event: {
-                        title: $filter('triTranslate')('New Event'),
-                        allDay: false,
-                        start: vm.currentDay,
-                        end: inAnHour,
-                        palette: 'cyan',
-                        stick: true
-                    },
-                    edit: false
-                }
-            })
-            .then(function(event) {
-                vm.eventSources[0].events.push(event);
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content($filter('triTranslate')('Event Created'))
-                    .position('bottom right')
-                    .hideDelay(2000)
-                );
-            });
-        }
-
-        function createRandomEvents(number, startDate, endDate) {
-            var eventNames = ['Pick up the kids', 'Remember the milk', 'Meeting with Morris', 'Car service',  'Go Surfing', 'Party at Christos house', 'Beer Oclock', 'Festival tickets', 'Laundry!', 'Haircut appointment', 'Walk the dog', 'Dentist :(', 'Board meeting', 'Go fishing'];
-            var locationNames = ['London', 'New York', 'Paris', 'Burnley'];
-            for(var x = 0; x < number; x++) {
-                var randomMonthDate = randomDate(startDate, endDate);
-                var inAnHour = moment(randomMonthDate).add(1, 'h');
-                var randomEvent = Math.floor(Math.random() * (eventNames.length - 0));
-                var randomLocation = Math.floor(Math.random() * (locationNames.length - 0));
-                var randomPalette = pickRandomProperty(triTheming.palettes);
-
-                vm.eventSources[0].events.push({
-                    title: eventNames[randomEvent],
-                    allDay: false,
-                    start: randomMonthDate,
-                    end: inAnHour,
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
-                    location: locationNames[randomLocation],
-                    backgroundColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
-                    borderColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
-                    textColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].contrast),
-                    palette: randomPalette
-                });
-            }
-        }
-
-        // listeners
-
-        $scope.$on('addEvent', addEvent);
-
-        // create 10 random events for the month
-        createRandomEvents(100, moment().startOf('year'), moment().endOf('year'));
-
-        function randomDate(start, end) {
-            var startNumber = start.toDate().getTime();
-            var endNumber = end.toDate().getTime();
-            var randomTime = Math.random() * (endNumber - startNumber) + startNumber;
-            return moment(randomTime);
-        }
-
-        function pickRandomProperty(obj) {
-            var result;
-            var count = 0;
-            for (var prop in obj) {
-                if (Math.random() < 1/++count) {
-                    result = prop;
-                }
-            }
-            return result;
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.calendar')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('triangular.calendar', {
-            // set the url of this page
-            url: '/calendar',
-            views: {
-                '@triangular': {
-                    // set the html template to show on this page
-                    templateUrl: 'app/examples/calendar/calendar.tmpl.html',
-                    // set the controller to load for this page
-                    controller: 'CalendarController',
-                    controllerAs: 'vm'
-                },
-                'toolbar@triangular': {
-                    templateUrl: 'app/examples/calendar/layouts/toolbar/toolbar.tmpl.html',
-                    controller: 'CalendarToolbarController',
-                    controllerAs: 'vm'
-                },
-                'belowContent@triangular': {
-                    templateUrl: 'app/examples/calendar/calendar-fabs.tmpl.html',
-                    controller: 'CalendarFabController',
-                    controllerAs: 'vm'
-                }
-            },
-            data: {
-                layout: {
-                    contentClass: 'triangular-non-scrolling layout-column',
-                    footer: false
-                },
-                permissions: {
-                    only: ['viewCalendar']
-                }
-            }
-        });
-
-        triMenuProvider.addMenu({
-            // give the menu a name to show (should be translatable and in the il8n folder json)
-            name: 'Calendar',
-            // point this menu to the state we created in the $stateProvider above
-            state: 'triangular.calendar',
-            // set the menu type to a link
-            type: 'link',
-            // set an icon for this menu
-            icon: 'zmdi zmdi-calendar-alt',
-            // set a proirity for this menu item, menu is sorted by priority
-            priority: 2.3,
-            permission: 'viewCalendar'
-        });
-    }
-})();
-
-(function() {
-    'use strict';
-
-    CalendarFabController.$inject = ["$rootScope"];
-    angular
-        .module('app.examples.calendar')
-        .controller('CalendarFabController', CalendarFabController);
-
-    /* @ngInject */
-    function CalendarFabController($rootScope) {
-        var vm = this;
-        vm.addEvent = addEvent;
-
-        ////////////////
-
-        function addEvent($event) {
-            $rootScope.$broadcast('addEvent', $event);
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
-    angular
-        .module('app.examples.authentication')
-        .config(moduleConfig);
-
-    /* @ngInject */
-    function moduleConfig($stateProvider, triMenuProvider) {
-
-        $stateProvider
-        .state('authentication', {
-            abstract: true,
-            views: {
-                'root': {
-                    templateUrl: 'app/examples/authentication/layouts/authentication.tmpl.html'
-                }
-            },
-            data: {
-                permissions: {
-                    only: ['viewAuthentication']
-                }
-            }
-        })
-        .state('authentication.login', {
-            url: '/login',
-            templateUrl: 'app/examples/authentication/login/login.tmpl.html',
-            controller: 'LoginController',
-            controllerAs: 'vm'
-        })
-        .state('authentication.signup', {
-            url: '/signup',
-            templateUrl: 'app/examples/authentication/signup/signup.tmpl.html',
-            controller: 'SignupController',
-            controllerAs: 'vm'
-        })
-        .state('authentication.lock', {
-            url: '/lock',
-            templateUrl: 'app/examples/authentication/lock/lock.tmpl.html',
-            controller: 'LockController',
-            controllerAs: 'vm'
-        })
-        .state('authentication.forgot', {
-            url: '/forgot',
-            templateUrl: 'app/examples/authentication/forgot/forgot.tmpl.html',
-            controller: 'ForgotController',
-            controllerAs: 'vm'
-        })
-        .state('triangular.profile', {
-            url: '/profile',
-            templateUrl: 'app/examples/authentication/profile/profile.tmpl.html',
-            controller: 'ProfileController',
-            controllerAs: 'vm'
-        });
-
-        triMenuProvider.addMenu({
-            name: 'Authentication',
-            icon: 'zmdi zmdi-account',
-            type: 'dropdown',
-            priority: 4.1,
-            permission: 'viewAuthentication',
-            children: [{
-                name: 'Login',
-                state: 'authentication.login',
-                type: 'link'
-            },{
-                name: 'Sign Up',
-                state: 'authentication.signup',
-                type: 'link'
-            },{
-                name: 'Forgot Password',
-                state: 'authentication.forgot',
-                type: 'link'
-            },{
-                name: 'Lock Page',
-                state: 'authentication.lock',
-                type: 'link'
-            },{
-                name: 'Profile',
-                state: 'triangular.profile',
-                type: 'link'
-            }]
-        });
     }
 })();
 
@@ -16000,6 +11506,4500 @@
 (function() {
     'use strict';
 
+    webfontLoader.$inject = ["$rootScope", "$window"];
+    angular
+        .module('webfont-loader', [])
+        .directive('webfontLoader', webfontLoader);
+
+    /* @ngInject */
+    function webfontLoader($rootScope, $window) {
+        var directive = {
+            link: link
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+            function onActive() {
+                $rootScope.$broadcast('webfontLoader.loaded');
+            }
+
+            function onInactive() {
+                $rootScope.$broadcast('webfontLoader.error');
+            }
+
+            $window.WebFont.load({
+                google: {
+                    families: [attrs.webfontLoader]
+                },
+                active: onActive,
+                inactive: onInactive
+            });
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.ui', [
+            'ngCookies', 'webfont-loader'
+        ])
+        .constant('UI_FONTS', [{
+            name: 'Roboto Draft',
+            family: 'RobotoDraft',
+            google: 'RobotoDraft:300,400,500,700,400italic'
+        },{
+            name: 'Noto Sans',
+            family: 'Noto Sans',
+            google: 'Noto+Sans:400,700,400italic'
+        },{
+            name: 'Open Sans',
+            family: 'Open Sans',
+            google: 'Open+Sans:300,400,500,700,400italic'
+        },{
+            name: 'Lato',
+            family: 'Lato',
+            google: 'Lato:300,400,500,700,400italic'
+        },{
+            name: 'Ubuntu',
+            family: 'Ubuntu',
+            google: 'Ubuntu:300,400,500,700,400italic'
+        },{
+            name: 'Source Sans Pro',
+            family: 'Source Sans Pro',
+            google: 'Source+Sans+Pro:300,400,500,700,400italic'
+        }]);
+})();
+(function() {
+    'use strict';
+
+    WeatherIconsController.$inject = ["$mdDialog", "$document"];
+    angular
+        .module('app.examples.ui')
+        .controller('WeatherIconsController', WeatherIconsController);
+
+    /* @ngInject */
+    function WeatherIconsController($mdDialog, $document) {
+        var vm = this;
+        vm.icons = [{
+            'className': 'wi wi-day-cloudy-gusts',
+            'name': 'Day Cloudy Gusts'
+        },{
+            'className': 'wi wi-day-cloudy-windy',
+            'name': 'Day Cloudy Windy'
+        },{
+            'className': 'wi wi-day-cloudy',
+            'name': 'Day Cloudy'
+        },{
+            'className': 'wi wi-day-fog',
+            'name': 'Day Fog'
+        },{
+            'className': 'wi wi-day-hail',
+            'name': 'Day Hail'
+        },{
+            'className': 'wi wi-day-lightning',
+            'name': 'Day Lightning'
+        },{
+            'className': 'wi wi-day-rain-mix',
+            'name': 'Day Rain Mix'
+        },{
+            'className': 'wi wi-day-rain-wind',
+            'name': 'Day Rain Wind'
+        },{
+            'className': 'wi wi-day-rain',
+            'name': 'Day Rain'
+        },{
+            'className': 'wi wi-day-showers',
+            'name': 'Day Showers'
+        },{
+            'className': 'wi wi-day-snow',
+            'name': 'Day Snow'
+        },{
+            'className': 'wi wi-day-sprinkle',
+            'name': 'Day Sprinkle'
+        },{
+            'className': 'wi wi-day-sunny-overcast',
+            'name': 'Day Sunny Overcast'
+        },{
+            'className': 'wi wi-day-sunny',
+            'name': 'Day Sunny'
+        },{
+            'className': 'wi wi-day-storm-showers',
+            'name': 'Day Storm Showers'
+        },{
+            'className': 'wi wi-day-thunderstorm',
+            'name': 'Day Thunderstorm'
+        },{
+            'className': 'wi wi-cloudy-gusts',
+            'name': 'Cloudy Gusts'
+        },{
+            'className': 'wi wi-cloudy-windy',
+            'name': 'Cloudy Windy'
+        },{
+            'className': 'wi wi-cloudy',
+            'name': 'Cloudy'
+        },{
+            'className': 'wi wi-fog',
+            'name': 'Fog'
+        },{
+            'className': 'wi wi-hail',
+            'name': 'Hail'
+        },{
+            'className': 'wi wi-lightning',
+            'name': 'Lightning'
+        },{
+            'className': 'wi wi-rain-mix',
+            'name': 'Rain Mix'
+        },{
+            'className': 'wi wi-rain-wind',
+            'name': 'Rain Wind'
+        },{
+            'className': 'wi wi-rain',
+            'name': 'Rain'
+        },{
+            'className': 'wi wi-showers',
+            'name': 'Showers'
+        },{
+            'className': 'wi wi-snow',
+            'name': 'Snow'
+        },{
+            'className': 'wi wi-sprinkle',
+            'name': 'Sprinkle'
+        },{
+            'className': 'wi wi-storm-showers',
+            'name': 'Storm Showers'
+        },{
+            'className': 'wi wi-thunderstorm',
+            'name': 'Thunderstorm'
+        },{
+            'className': 'wi wi-windy',
+            'name': 'Windy'
+        },{
+            'className': 'wi wi-night-alt-cloudy-gusts',
+            'name': 'Night Alt Cloudy Gusts'
+        },{
+            'className': 'wi wi-night-alt-cloudy-windy',
+            'name': 'Night Alt Cloudy Windy'
+        },{
+            'className': 'wi wi-night-alt-hail',
+            'name': 'Night Alt Hail'
+        },{
+            'className': 'wi wi-night-alt-lightning',
+            'name': 'Night Alt Lightning'
+        },{
+            'className': 'wi wi-night-alt-rain-mix',
+            'name': 'Night Alt Rain Mix'
+        },{
+            'className': 'wi wi-night-alt-rain-wind',
+            'name': 'Night Alt Rain Wind'
+        },{
+            'className': 'wi wi-night-alt-rain',
+            'name': 'Night Alt Rain'
+        },{
+            'className': 'wi wi-night-alt-showers',
+            'name': 'Night Alt Showers'
+        },{
+            'className': 'wi wi-night-alt-snow',
+            'name': 'Night Alt Snow'
+        },{
+            'className': 'wi wi-night-alt-sprinkle',
+            'name': 'Night Alt Sprinkle'
+        },{
+            'className': 'wi wi-night-alt-storm-showers',
+            'name': 'Night Alt Storm Showers'
+        },{
+            'className': 'wi wi-night-alt-thunderstorm',
+            'name': 'Night Alt Thunderstorm'
+        },{
+            'className': 'wi wi-night-clear',
+            'name': 'Night Clear'
+        },{
+            'className': 'wi wi-night-cloudy-gusts',
+            'name': 'Night Cloudy Gusts'
+        },{
+            'className': 'wi wi-night-cloudy-windy',
+            'name': 'Night Cloudy Windy'
+        },{
+            'className': 'wi wi-night-cloudy',
+            'name': 'Night Cloudy'
+        },{
+            'className': 'wi wi-night-hail',
+            'name': 'Night Hail'
+        },{
+            'className': 'wi wi-night-lightning',
+            'name': 'Night Lightning'
+        },{
+            'className': 'wi wi-night-rain-mix',
+            'name': 'Night Rain Mix'
+        },{
+            'className': 'wi wi-night-rain-wind',
+            'name': 'Night Rain Wind'
+        },{
+            'className': 'wi wi-night-rain',
+            'name': 'Night Rain'
+        },{
+            'className': 'wi wi-night-showers',
+            'name': 'Night Showers'
+        },{
+            'className': 'wi wi-night-snow',
+            'name': 'Night Snow'
+        },{
+            'className': 'wi wi-night-sprinkle',
+            'name': 'Night Sprinkle'
+        },{
+            'className': 'wi wi-night-storm-showers',
+            'name': 'Night Storm Showers'
+        },{
+            'className': 'wi wi-night-thunderstorm',
+            'name': 'Night Thunderstorm'
+        },{
+            'className': 'wi wi-celsius',
+            'name': 'Celsius'
+        },{
+            'className': 'wi wi-cloud-down',
+            'name': 'Cloud Down'
+        },{
+            'className': 'wi wi-cloud-refresh',
+            'name': 'Cloud Refresh'
+        },{
+            'className': 'wi wi-cloud-up',
+            'name': 'Cloud Up'
+        },{
+            'className': 'wi wi-cloud',
+            'name': 'Cloud'
+        },{
+            'className': 'wi wi-degrees',
+            'name': 'Degrees'
+        },{
+            'className': 'wi wi-down-left',
+            'name': 'Down Left'
+        },{
+            'className': 'wi wi-down',
+            'name': 'Down'
+        },{
+            'className': 'wi wi-fahrenheit',
+            'name': 'Fahrenheit'
+        },{
+            'className': 'wi wi-horizon-alt',
+            'name': 'Horizon Alt'
+        },{
+            'className': 'wi wi-horizon',
+            'name': 'Horizon'
+        },{
+            'className': 'wi wi-left',
+            'name': 'Left'
+        },{
+            'className': 'wi wi-lightning',
+            'name': 'Lightning'
+        },{
+            'className': 'wi wi-night-fog',
+            'name': 'Night Fog'
+        },{
+            'className': 'wi wi-refresh-alt',
+            'name': 'Refresh Alt'
+        },{
+            'className': 'wi wi-refresh',
+            'name': 'Refresh'
+        },{
+            'className': 'wi wi-right',
+            'name': 'Right'
+        },{
+            'className': 'wi wi-sprinkles',
+            'name': 'Sprinkles'
+        },{
+            'className': 'wi wi-strong-wind',
+            'name': 'Strong Wind'
+        },{
+            'className': 'wi wi-sunrise',
+            'name': 'Sunrise'
+        },{
+            'className': 'wi wi-sunset',
+            'name': 'Sunset'
+        },{
+            'className': 'wi wi-thermometer-exterior',
+            'name': 'Thermometer Exterior'
+        },{
+            'className': 'wi wi-thermometer-internal',
+            'name': 'Thermometer Internal'
+        },{
+            'className': 'wi wi-thermometer',
+            'name': 'Thermometer'
+        },{
+            'className': 'wi wi-tornado',
+            'name': 'Tornado'
+        },{
+            'className': 'wi wi-up-right',
+            'name': 'Up Right'
+        },{
+            'className': 'wi wi-up',
+            'name': 'Up'
+        },{
+            'className': 'wi wi-wind-west',
+            'name': 'Wind West'
+        },{
+            'className': 'wi wi-wind-south-west',
+            'name': 'Wind South West'
+        },{
+            'className': 'wi wi-wind-south-east',
+            'name': 'Wind South East'
+        },{
+            'className': 'wi wi-wind-south',
+            'name': 'Wind South'
+        },{
+            'className': 'wi wi-wind-north-west',
+            'name': 'Wind North West'
+        },{
+            'className': 'wi wi-wind-north-east',
+            'name': 'Wind North East'
+        },{
+            'className': 'wi wi-wind-north',
+            'name': 'Wind North'
+        },{
+            'className': 'wi wi-wind-east',
+            'name': 'Wind East'
+        },{
+            'className': 'wi wi-smoke',
+            'name': 'Smoke'
+        },{
+            'className': 'wi wi-dust',
+            'name': 'Dust'
+        },{
+            'className': 'wi wi-snow-wind',
+            'name': 'Snow Wind'
+        },{
+            'className': 'wi wi-day-snow-wind',
+            'name': 'Day Snow Wind'
+        },{
+            'className': 'wi wi-night-snow-wind',
+            'name': 'Night Snow Wind'
+        },{
+            'className': 'wi wi-night-alt-snow-wind',
+            'name': 'Night Alt Snow Wind'
+        },{
+            'className': 'wi wi-day-sleet-storm',
+            'name': 'Day Sleet Storm'
+        },{
+            'className': 'wi wi-night-sleet-storm',
+            'name': 'Night Sleet Storm'
+        },{
+            'className': 'wi wi-night-alt-sleet-storm',
+            'name': 'Night Alt Sleet Storm'
+        },{
+            'className': 'wi wi-day-snow-thunderstorm',
+            'name': 'Day Snow Thunderstorm'
+        },{
+            'className': 'wi wi-night-snow-thunderstorm',
+            'name': 'Night Snow Thunderstorm'
+        },{
+            'className': 'wi wi-night-alt-snow-thunderstorm',
+            'name': 'Night Alt Snow Thunderstorm'
+        },{
+            'className': 'wi wi-solar-eclipse',
+            'name': 'Solar Eclipse'
+        },{
+            'className': 'wi wi-lunar-eclipse',
+            'name': 'Lunar Eclipse'
+        },{
+            'className': 'wi wi-meteor',
+            'name': 'Meteor'
+        },{
+            'className': 'wi wi-hot',
+            'name': 'Hot'
+        },{
+            'className': 'wi wi-hurricane',
+            'name': 'Hurricane'
+        },{
+            'className': 'wi wi-smog',
+            'name': 'Smog'
+        },{
+            'className': 'wi wi-alien',
+            'name': 'Alien'
+        },{
+            'className': 'wi wi-snowflake-cold',
+            'name': 'Snowflake Cold'
+        },{
+            'className': 'wi wi-stars',
+            'name': 'Stars'
+        },{
+            'className': 'wi wi-night-partly-cloudy',
+            'name': 'Night Partly Cloudy'
+        },{
+            'className': 'wi wi-umbrella',
+            'name': 'Umbrella'
+        },{
+            'className': 'wi wi-day-windy',
+            'name': 'Day Windy'
+        },{
+            'className': 'wi wi-night-alt-cloudy',
+            'name': 'Night Alt Cloudy'
+        },{
+            'className': 'wi wi-up-left',
+            'name': 'Up Left'
+        },{
+            'className': 'wi wi-down-right',
+            'name': 'Down Right'
+        },{
+            'className': 'wi wi-time-12',
+            'name': 'Time 12'
+        },{
+            'className': 'wi wi-time-1',
+            'name': 'Time 1'
+        },{
+            'className': 'wi wi-time-2',
+            'name': 'Time 2'
+        },{
+            'className': 'wi wi-time-3',
+            'name': 'Time 3'
+        },{
+            'className': 'wi wi-time-4',
+            'name': 'Time 4'
+        },{
+            'className': 'wi wi-time-5',
+            'name': 'Time 5'
+        },{
+            'className': 'wi wi-time-6',
+            'name': 'Time 6'
+        },{
+            'className': 'wi wi-time-7',
+            'name': 'Time 7'
+        },{
+            'className': 'wi wi-time-8',
+            'name': 'Time 8'
+        },{
+            'className': 'wi wi-time-9',
+            'name': 'Time 9'
+        },{
+            'className': 'wi wi-time-10',
+            'name': 'Time 10'
+        },{
+            'className': 'wi wi-time-11',
+            'name': 'Time 11'
+        },{
+            'className': 'wi wi-day-sleet',
+            'name': 'Day Sleet'
+        },{
+            'className': 'wi wi-night-sleet',
+            'name': 'Night Sleet'
+        },{
+            'className': 'wi wi-night-alt-sleet',
+            'name': 'Night Alt Sleet'
+        },{
+            'className': 'wi wi-sleet',
+            'name': 'Sleet'
+        },{
+            'className': 'wi wi-day-haze',
+            'name': 'Day Haze'
+        },{
+            'className': 'wi wi-beafort-0',
+            'name': 'Beafort 0'
+        },{
+            'className': 'wi wi-beafort-1',
+            'name': 'Beafort 1'
+        },{
+            'className': 'wi wi-beafort-2',
+            'name': 'Beafort 2'
+        },{
+            'className': 'wi wi-beafort-3',
+            'name': 'Beafort 3'
+        },{
+            'className': 'wi wi-beafort-4',
+            'name': 'Beafort 4'
+        },{
+            'className': 'wi wi-beafort-5',
+            'name': 'Beafort 5'
+        },{
+            'className': 'wi wi-beafort-6',
+            'name': 'Beafort 6'
+        },{
+            'className': 'wi wi-beafort-7',
+            'name': 'Beafort 7'
+        },{
+            'className': 'wi wi-beafort-8',
+            'name': 'Beafort 8'
+        },{
+            'className': 'wi wi-beafort-9',
+            'name': 'Beafort 9'
+        },{
+            'className': 'wi wi-beafort-10',
+            'name': 'Beafort 10'
+        },{
+            'className': 'wi wi-beafort-11',
+            'name': 'Beafort 11'
+        },{
+            'className': 'wi wi-beafort-12',
+            'name': 'Beafort 12'
+        },{
+            'className': 'wi wi-wind-default',
+            'name': 'Wind Default'
+        },{
+            'className': 'wi wi-moon-new',
+            'name': 'Moon New'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-1',
+            'name': 'Moon Waxing Cresent 1'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-2',
+            'name': 'Moon Waxing Cresent 2'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-3',
+            'name': 'Moon Waxing Cresent 3'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-4',
+            'name': 'Moon Waxing Cresent 4'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-5',
+            'name': 'Moon Waxing Cresent 5'
+        },{
+            'className': 'wi wi-moon-waxing-cresent-6',
+            'name': 'Moon Waxing Cresent 6'
+        },{
+            'className': 'wi wi-moon-first-quarter',
+            'name': 'Moon First Quarter'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-1',
+            'name': 'Moon Waxing Gibbous 1'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-2',
+            'name': 'Moon Waxing Gibbous 2'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-3',
+            'name': 'Moon Waxing Gibbous 3'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-4',
+            'name': 'Moon Waxing Gibbous 4'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-5',
+            'name': 'Moon Waxing Gibbous 5'
+        },{
+            'className': 'wi wi-moon-waxing-gibbous-6',
+            'name': 'Moon Waxing Gibbous 6'
+        },{
+            'className': 'wi wi-moon-full',
+            'name': 'Moon Full'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-1',
+            'name': 'Moon Waning Gibbous 1'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-2',
+            'name': 'Moon Waning Gibbous 2'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-3',
+            'name': 'Moon Waning Gibbous 3'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-4',
+            'name': 'Moon Waning Gibbous 4'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-5',
+            'name': 'Moon Waning Gibbous 5'
+        },{
+            'className': 'wi wi-moon-waning-gibbous-6',
+            'name': 'Moon Waning Gibbous 6'
+        },{
+            'className': 'wi wi-moon-3rd-quarter',
+            'name': 'Moon 3rd Quarter'
+        },{
+            'className': 'wi wi-moon-waning-crescent-1',
+            'name': 'Moon Waning Crescent 1'
+        },{
+            'className': 'wi wi-moon-waning-crescent-2',
+            'name': 'Moon Waning Crescent 2'
+        },{
+            'className': 'wi wi-moon-waning-crescent-3',
+            'name': 'Moon Waning Crescent 3'
+        },{
+            'className': 'wi wi-moon-waning-crescent-4',
+            'name': 'Moon Waning Crescent 4'
+        },{
+            'className': 'wi wi-moon-waning-crescent-5',
+            'name': 'Moon Waning Crescent 5'
+        },{
+            'className': 'wi wi-moon-waning-crescent-6',
+            'name': 'Moon Waning Crescent 6'
+        }];
+        vm.iconSource = 'Select icon below to see HTML';
+        vm.selectIcon = selectIcon;
+
+        function selectIcon($event, icon) {
+            $mdDialog.show({
+                title: '',
+                template:
+                    '<md-dialog>' +
+                    '  <md-toolbar>' +
+                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
+                    '  </md-toolbar>' +
+                    '  <md-dialog-content>' +
+                    '    <div hljs language="html"><md-icon md-font-icon="' + icon.className + '"></md-icon></div>' +
+                    '  </md-dialog-content>' +
+                    '  <md-dialog-actions>' +
+                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
+                    '      Close' +
+                    '    </md-button>' +
+                    '  </md-dialog-actions>' +
+                    '</md-dialog>',
+                targetEvent: $event,
+                parent: angular.element($document.body),
+                controller: 'IconDialogController',
+                controllerAs: 'vm'
+            });
+        }
+    }
+})();
+
+(function(jQuery) {
+    'use strict';
+
+    moduleRun.$inject = ["TypographySwitcherService"];
+    angular
+        .module('app.examples.ui')
+        .run(moduleRun);
+
+    /* @ngInject */
+    function moduleRun(TypographySwitcherService) {
+        // load up the webfont loader to allow loading google fonts in the demo
+        jQuery.ajax({
+            url: '//ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js',
+            dataType: 'script',
+            async: true,
+            success: function() {
+                // initialise typography switcher (make sure correct font is loaded if one has been selected)
+                TypographySwitcherService.init();
+            }
+        });
+    }
+})(jQuery);
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.ui')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.ui-typography', {
+            url: '/ui/typography',
+            controller: 'TypographyController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/typography.tmpl.html'
+        })
+        .state('triangular.ui-colors', {
+            url: '/ui/colors',
+            controller: 'ColorsController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/colors.tmpl.html'
+        })
+        .state('triangular.ui-material-icons', {
+            url: '/ui/material-icons',
+            controller: 'MaterialIconsController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/material-icons.tmpl.html',
+            resolve: {
+                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'elements/icons'
+                    });
+                }]
+            }
+        })
+        .state('triangular.ui-weather-icons', {
+            url: '/ui/weather-icons',
+            controller: 'WeatherIconsController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/weather-icons.tmpl.html'
+        })
+        .state('triangular.ui-fa-icons', {
+            url: '/ui/fa-icons',
+            controller: 'FaIconsController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/fa-icons.tmpl.html',
+            resolve: {
+                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'elements/icons-fa'
+                    });
+                }]
+            }
+        })
+
+        .state('triangular.ui-toolbar', {
+            url: '/ui/toolbars/:extraClass/:background/:shrink',
+            controller: 'ToolbarsUIController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/toolbars.tmpl.html'
+        })
+
+        .state('triangular.ui-skins', {
+            url: '/ui/skins',
+            controller: 'SkinsUIController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/ui/skins.tmpl.html'
+        });
+
+        triMenuProvider.addMenu({
+            name: 'UI',
+            icon: 'zmdi zmdi-ruler',
+            type: 'dropdown',
+            priority: 3.2,
+            children: [{
+                name: 'Colors',
+                state: 'triangular.ui-colors',
+                type: 'link'
+            },{
+                name: 'Font Awesome',
+                state: 'triangular.ui-fa-icons',
+                type: 'link'
+            },{
+                name: 'Material Icons',
+                state: 'triangular.ui-material-icons',
+                type: 'link'
+            },{
+                name: 'Skins',
+                state: 'triangular.ui-skins',
+                type: 'link'
+            },{
+                name: 'Typography',
+                state: 'triangular.ui-typography',
+                type: 'link'
+            },{
+                name: 'Weather Icons',
+                state: 'triangular.ui-weather-icons',
+                type: 'link'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    TypographyController.$inject = ["TypographySwitcherService", "UI_FONTS"];
+    angular
+        .module('app.examples.ui')
+        .controller('TypographyController', TypographyController);
+
+    /* @ngInject */
+    function TypographyController(TypographySwitcherService, UI_FONTS) {
+        var vm = this;
+        vm.fonts = UI_FONTS;
+        vm.changeFont = changeFont;
+        vm.currentFont = TypographySwitcherService.getCurrentFont();
+
+        //////////////////
+
+        function changeFont() {
+            TypographySwitcherService.changeFont(vm.currentFont);
+        }
+
+        // init
+
+        angular.forEach(vm.fonts, function(font) {
+            if(vm.currentFont.name === font.name) {
+                vm.currentFont = font;
+            }
+        });
+    }
+})();
+(function() {
+    'use strict';
+
+    TypographySwitcher.$inject = ["$window", "$cookies", "$log", "UI_FONTS"];
+    angular
+        .module('app.examples.ui')
+        .factory('TypographySwitcherService', TypographySwitcher);
+
+    /* @ngInject */
+    function TypographySwitcher($window, $cookies, $log, UI_FONTS) {
+        return {
+            changeFont: changeFont,
+            getCurrentFont: getCurrentFont,
+            init: init
+        };
+
+        //////////////////
+
+        function init() {
+            // if we arent using the default font then change it
+            var currentFont = getCurrentFont();
+            if(currentFont.name !== 'Roboto Draft') {
+                changeFont(currentFont);
+            }
+        }
+
+        function getCurrentFont() {
+            // if we have no current font set, set it to first font (Roboto)
+            var fontCookie = $cookies.get('tri-typography-font');
+            if(angular.isUndefined(fontCookie)) {
+                $cookies.put('tri-typography-font', angular.toJson(UI_FONTS[0]));
+            }
+
+            return angular.fromJson($cookies.get('tri-typography-font'));
+        }
+
+        function changeFont(font) {
+            $window.WebFont.load({
+                google: {
+                    families: [font.google]
+                },
+                active: function() {
+                    angular.element('button,select,html,textarea,input').css({'font-family': font.family});
+                    $cookies.put('tri-typography-font', angular.toJson(font));
+                },
+                inactive: function() {
+                    $log.error('Font ' + font.name + ' could not be loaded');
+                }
+            });
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    SkinsUIController.$inject = ["$cookies", "$window", "triSkins", "triTheming"];
+    angular
+        .module('app.examples.ui')
+        .controller('SkinsUIController', SkinsUIController);
+
+    /* @ngInject */
+    function SkinsUIController($cookies, $window, triSkins, triTheming) {
+        var vm = this;
+        vm.elementColors = {
+            logo: '',
+            sidebar: '',
+            content: '',
+            toolbar: ''
+        };
+        vm.skins = triSkins.getSkins();
+        vm.selectedSkin = triSkins.getCurrent();
+        vm.trySkin = trySkin;
+        vm.updatePreview = updatePreview;
+
+        //////////////////////
+
+        function trySkin() {
+            if(vm.selectedSkin !== triSkins.getCurrent()) {
+                $cookies.put('triangular-skin',angular.toJson({
+                    skin: vm.selectedSkin.id
+                }));
+                $window.location.reload();
+            }
+        }
+
+
+        function updatePreview() {
+            for(var element in vm.elementColors) {
+                var theme = triTheming.getTheme(vm.selectedSkin.elements[element]);
+                var hue = angular.isUndefined(theme.colors.primary.hues.default) ? '500' : theme.colors.primary.hues.default;
+                var color = triTheming.getPaletteColor(theme.colors.primary.name, hue);
+                vm.elementColors[element] = triTheming.rgba(color.value);
+            }
+        }
+
+        // init
+
+        updatePreview();
+    }
+})();
+(function() {
+    'use strict';
+
+    MaterialIconsController.$inject = ["$mdDialog", "$document", "$compile", "$scope", "icons"];
+    angular
+        .module('app.examples.ui')
+        .controller('MaterialIconsController', MaterialIconsController);
+
+    /* @ngInject */
+    function MaterialIconsController($mdDialog, $document, $compile, $scope, icons) {
+        var vm = this;
+        vm.groups = [];
+        vm.icons = [];
+        vm.iconSource = 'Select icon below to see HTML';
+        vm.selectIcon = selectIcon;
+        vm.icons = icons.data;
+
+        function selectIcon($event, className) {
+            $mdDialog.show({
+                title: '',
+                template:
+                    '<md-dialog>' +
+                    '  <md-toolbar>' +
+                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
+                    '  </md-toolbar>' +
+                    '  <md-dialog-content>' +
+                    '    <div hljs language="html"><md-icon md-font-icon="' + className + '"></md-icon></div>' +
+                    '  </md-dialog-content>' +
+                    '  <md-dialog-actions>' +
+                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
+                    '      Close' +
+                    '    </md-button>' +
+                    '  </md-dialog-actions>' +
+                    '</md-dialog>',
+                targetEvent: $event,
+                parent: angular.element($document.body),
+                controller: 'IconDialogController',
+                controllerAs: 'vm'
+            });
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    IconDialogController.$inject = ["$mdDialog"];
+    angular
+        .module('app.examples.ui')
+        .controller('IconDialogController', IconDialogController);
+
+    /* @ngInject */
+    function IconDialogController($mdDialog) {
+        var vm = this;
+        vm.closeDialog = closeDialog;
+
+        function closeDialog() {
+            $mdDialog.hide();
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    FaIconsController.$inject = ["$mdDialog", "$document", "$scope", "$compile", "icons"];
+    angular
+        .module('app.examples.ui')
+        .controller('FaIconsController', FaIconsController);
+
+    /* @ngInject */
+    function FaIconsController($mdDialog, $document, $scope, $compile, icons) {
+        var vm = this;
+        vm.icons = loadIcons();
+        vm.iconSource = 'Select icon below to see HTML';
+        vm.selectIcon = selectIcon;
+
+        function loadIcons() {
+            var allIcons = [];
+            for(var className in icons.data) {
+                allIcons.push({
+                    className: className,
+                    name: icons.data[className]
+                });
+            }
+            return allIcons;
+        }
+
+        function selectIcon($event, icon) {
+            $mdDialog.show({
+                title: '',
+                template:
+                    '<md-dialog>' +
+                    '  <md-toolbar>' +
+                    '    <h2 class="md-toolbar-tools">Here\'s the code for that icon</h2>' +
+                    '  </md-toolbar>' +
+                    '  <md-dialog-content>' +
+                    '    <div hljs language="html"><md-icon md-font-icon="' + icon.className + '"></md-icon></div>' +
+                    '  </md-dialog-content>' +
+                    '  <md-dialog-actions>' +
+                    '    <md-button ng-click="vm.closeDialog()" class="md-primary">' +
+                    '      Close' +
+                    '    </md-button>' +
+                    '  </md-dialog-actions>' +
+                    '</md-dialog>',
+                targetEvent: $event,
+                parent: angular.element($document.body),
+                controller: 'IconDialogController',
+                controllerAs: 'vm'
+            });
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    ColorsController.$inject = ["$mdDialog", "triTheming"];
+    angular
+        .module('app.examples.ui')
+        .controller('ColorsController', ColorsController);
+
+    /* @ngInject */
+    function ColorsController($mdDialog, triTheming) {
+        var vm = this;
+        vm.colourRGBA = colourRGBA;
+        vm.palettes = triTheming.palettes;
+        vm.selectPalette = selectPalette;
+
+        function colourRGBA(value) {
+            var rgba = triTheming.rgba(value);
+            return {
+                'background-color': rgba
+            };
+        }
+
+        function selectPalette($event, name, palette) {
+            $mdDialog.show({
+                controller: 'ColorDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/ui/color-dialog.tmpl.html',
+                targetEvent: $event,
+                locals: {
+                    name: name,
+                    palette: palette
+                },
+                clickOutsideToClose: true
+            })
+            .then(function(answer) {
+                vm.alert = 'You said the information was "' + answer + '".';
+            }, cancelDialog);
+
+            function cancelDialog() {
+                vm.alert = 'You cancelled the dialog.';
+            }
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    ColorDialogController.$inject = ["$scope", "name", "palette", "triTheming"];
+    angular
+        .module('app.examples.ui')
+        .controller('ColorDialogController', ColorDialogController);
+
+    /* @ngInject */
+    function ColorDialogController($scope, name, palette, triTheming) {
+        var vm = this;
+        vm.itemStyle = itemStyle;
+        vm.name = name;
+        vm.palette = [];
+
+        ///////////
+
+        function itemStyle(palette) {
+            return {
+                'background-color': triTheming.rgba(palette.value),
+                'color': triTheming.rgba(palette.contrast)
+            };
+        }
+
+        // init
+
+        for(var code in palette) {
+            vm.palette.push({
+                code: code,
+                palette: palette[code]
+            });
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.todo', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    runFunction.$inject = ["TodoService"];
+    angular
+        .module('app.examples.todo')
+        .run(runFunction);
+
+    /* @ngInject */
+    function runFunction(TodoService) {
+        // Update todo badge when app first runs.
+
+        TodoService.updateMenuBadge();
+    }
+})();
+
+(function() {
+    'use strict';
+
+    TodoService.$inject = ["triMenu"];
+    angular
+        .module('app.examples.todo')
+        .factory('TodoService', TodoService);
+
+
+    /* @ngInject */
+    function TodoService(triMenu) {
+        var todos = [
+            {description: 'Material Design', priority: 'high', selected: true},
+            {description: 'Install espresso machine', priority: 'high', selected: false},
+            {description: 'Deploy to Server', priority: 'medium', selected: true},
+            {description: 'Cloud Sync', priority: 'medium', selected: false},
+            {description: 'Test Configurations', priority: 'low', selected: false},
+            {description: 'Validate markup', priority: 'low', selected: false},
+            {description: 'Debug javascript', priority: 'low', selected: true},
+            {description: 'Arrange meeting', priority: 'low', selected: true}
+        ];
+        var todoMenu = triMenu.getMenu('todo');
+
+        var service = {
+            addTodo: addTodo,
+            getTodos: getTodos,
+            removeTodo: removeTodo,
+            todoCount: todoCount,
+            updateMenuBadge: updateMenuBadge
+        };
+        return service;
+
+        ////////////////
+
+        function addTodo(todo) {
+            todos.push(todo);
+            updateMenuBadge();
+        }
+
+        function getTodos() {
+            return todos;
+        }
+
+        function removeTodo(todo) {
+            for(var i = todos.length - 1; i >= 0; i--) {
+                if(todos[i] === todo) {
+                    todos.splice(i, 1);
+                }
+            }
+            updateMenuBadge();
+        }
+
+        function todoCount() {
+            var count = 0;
+            for(var i = todos.length - 1; i >= 0; i--) {
+                if(todos[i].selected === false) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        function updateMenuBadge() {
+            todoMenu.badge = todoCount();
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    TodoController.$inject = ["$scope", "$state", "$mdDialog", "TodoService"];
+    angular
+        .module('app.examples.todo')
+        .controller('TodoController', TodoController);
+
+    /* @ngInject */
+    function TodoController($scope, $state, $mdDialog, TodoService) {
+        var vm = this;
+
+        vm.orderTodos = orderTodos;
+        vm.removeTodo = removeTodo;
+        vm.todoSelected = todoSelected;
+
+        //////////////////////////
+
+        function init() {
+            vm.todos = TodoService.getTodos();
+            TodoService.updateMenuBadge();
+        }
+
+        function orderTodos(task) {
+            switch(task.priority){
+                case 'high':
+                    return 1;
+                case 'medium':
+                    return 2;
+                case 'low':
+                    return 3;
+                default: // no priority set
+                    return 4;
+            }
+        }
+
+        function removeTodo(todo){
+            TodoService.removeTodo(todo);
+        }
+
+        function todoSelected() {
+            TodoService.updateMenuBadge();
+        }
+
+        // init
+
+        init();
+
+        // watches
+
+        $scope.$on('addTodo', function( ev ){
+            $mdDialog.show({
+                templateUrl: 'app/examples/todo/add-todo-dialog.tmpl.html',
+                targetEvent: ev,
+                controller: 'DialogController',
+                controllerAs: 'vm'
+            })
+            .then(function(newTodo) {
+                TodoService.addTodo(newTodo);
+            });
+        });
+    }
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.todo')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.todo', {
+            url: '/todo',
+            views: {
+                '': {
+                    templateUrl: 'app/examples/todo/todo.tmpl.html',
+                    controller: 'TodoController',
+                    controllerAs: 'vm'
+                },
+                'belowContent': {
+                    templateUrl: 'app/examples/todo/fab-button.tmpl.html',
+                    controller: 'TodoFabController',
+                    controllerAs: 'vm'
+                }
+            },
+            data: {
+                layout: {
+                    contentClass: 'layout-column full-image-background mb-bg-fb-08 background-overlay-static',
+                    innerContentClass: 'overlay-gradient-20'
+                },
+                permissions: {
+                    only: ['viewTodo']
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            id: 'todo',
+            name: 'To do',
+            icon: 'zmdi zmdi-check',
+            state: 'triangular.todo',
+            type: 'link',
+            permission: 'viewTodo',
+            badge: '',
+            priority: 2.4
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    TodoFabController.$inject = ["$rootScope"];
+    angular
+        .module('app.examples.todo')
+        .controller('TodoFabController', TodoFabController);
+
+    /* @ngInject */
+    function TodoFabController($rootScope) {
+        var vm = this;
+        vm.addTodo = addTodo;
+
+        ////////////////
+
+        function addTodo($event) {
+            $rootScope.$broadcast('addTodo', $event);
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    DialogController.$inject = ["$state", "$mdDialog"];
+    angular
+        .module('app.examples.todo')
+        .controller('DialogController', DialogController);
+
+    /* @ngInject */
+    function DialogController($state, $mdDialog) {
+        var vm = this;
+        vm.cancel = cancel;
+        vm.hide = hide;
+        vm.item = {
+            description: '',
+            priority: '',
+            selected: false
+        };
+
+        /////////////////////////
+
+        function hide() {
+            $mdDialog.hide(vm.item);
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    ProgressController.$inject = ["$interval"];
+    angular
+        .module('app.examples.elements')
+        .controller('ProgressController', ProgressController);
+
+    /* @ngInject */
+    function ProgressController($interval) {
+        var vm = this;
+        vm.determinateValue = 0;
+        vm.bufferValue = 0;
+
+        $interval(intervalCall, 100, 0, true);
+
+        ////////////////
+
+        function intervalCall() {
+            vm.determinateValue += 1;
+            vm.bufferValue += 1.5;
+            if(vm.determinateValue > 100) {
+                vm.determinateValue = 0;
+                vm.bufferValue = 0;
+            }
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    IconsController.$inject = ["icons", "fa"];
+    angular
+        .module('app.examples.elements')
+        .controller('IconsController', IconsController);
+
+    /* @ngInject */
+    function IconsController(icons, fa) {
+        var vm = this;
+        vm.icons = [];
+        vm.families = ['Material Icon Font', 'Font Awesome'];
+        vm.selectedIcon = null;
+
+        // create filterable data structure for icons
+        angular.forEach(icons.data, function(icon) {
+            vm.icons.push({
+                name: icon.name,
+                family: 'Material Icon Font',
+                className: icon.class
+            });
+        });
+
+        angular.forEach(fa.data, function(name, className) {
+            vm.icons.push({
+                name: name,
+                family: 'Font Awesome',
+                className: className
+            });
+        });
+
+        vm.selectIcon = function(icon) {
+            vm.selectedIcon = icon;
+        };
+    }
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.elements')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.elements-buttons', {
+            url: '/elements/buttons',
+            templateUrl: 'app/examples/elements/buttons.tmpl.html',
+            controller: 'ButtonsController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-icons', {
+            url: '/elements/icons',
+            templateUrl: 'app/examples/elements/icons.tmpl.html',
+            controller: 'IconsController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            },
+            resolve: {
+                icons: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'elements/icons'
+                    });
+                }],
+                fa: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'elements/icons-fa'
+                    });
+                }]
+            }
+        })
+        .state('triangular.elements-checkboxes', {
+            url: '/elements/checkboxes',
+            templateUrl: 'app/examples/elements/checkboxes.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-radios', {
+            url: '/elements/radios',
+            templateUrl: 'app/examples/elements/radios.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-toolbars', {
+            url: '/elements/toolbars',
+            templateUrl: 'app/examples/elements/toolbars.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-tooltips', {
+            url: '/elements/tooltips',
+            templateUrl: 'app/examples/elements/tooltips.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-whiteframes', {
+            url: '/elements/whiteframes',
+            templateUrl: 'app/examples/elements/whiteframes.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-sliders', {
+            url: '/elements/sliders',
+            templateUrl: 'app/examples/elements/sliders.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-toasts', {
+            url: '/elements/toasts',
+            templateUrl: 'app/examples/elements/toasts.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-progress', {
+            url: '/elements/progress',
+            templateUrl: 'app/examples/elements/progress.tmpl.html',
+            controller: 'ProgressController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-switches', {
+            url: '/elements/switches',
+            templateUrl: 'app/examples/elements/switches.tmpl.html',
+            controller: function() {
+                this.toggleAll = function(data, value) {
+                    for(var x in data) {
+                        data[x] = value;
+                    }
+                };
+            },
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-dialogs', {
+            url: '/elements/dialogs',
+            templateUrl: 'app/examples/elements/dialogs.tmpl.html',
+            controller: 'DialogsController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.menus', {
+            url: '/elements/menus',
+            templateUrl: 'app/examples/elements/menus.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-tabs', {
+            url: '/elements/tabs',
+            templateUrl: 'app/examples/elements/tabs.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-sidebars', {
+            url: '/elements/sidebars',
+            templateUrl: 'app/examples/elements/sidebars.tmpl.html',
+            controller: ["$mdSidenav", function($mdSidenav) {
+                this.openSidebar = function(id) {
+                    $mdSidenav(id).toggle();
+                };
+            }],
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-grids', {
+            url: '/elements/grids',
+            templateUrl: 'app/examples/elements/grids.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.fab-speed', {
+            url: '/elements/fab-speed',
+            templateUrl: 'app/examples/elements/fab-speed.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.fab-toolbar', {
+            url: '/elements/fab-toolbar',
+            templateUrl: 'app/examples/elements/fab-toolbar.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-selects', {
+            url: '/elements/selects',
+            templateUrl: 'app/examples/elements/selects.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-tables', {
+            url: '/elements/tables',
+            templateUrl: 'app/examples/elements/tables.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-textangular', {
+            url: '/elements/textangular',
+            templateUrl: 'app/examples/elements/textangular.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-lists', {
+            url: '/elements/lists',
+            templateUrl: 'app/examples/elements/lists.tmpl.html',
+            controller: ["emails", function(emails) {
+                this.emails = emails.data.splice(0, 5);
+            }],
+            controllerAs: 'vm',
+            resolve: {
+                emails: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'email/inbox'
+                    });
+                }]
+            },
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-chips', {
+            url: '/elements/chips',
+            templateUrl: 'app/examples/elements/chips.tmpl.html',
+            controller: 'ChipsController',
+            controllerAs: 'vm',
+            resolve: {
+                contacts: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                    return $http({
+                        method: 'GET',
+                        url: API_CONFIG.url + 'email/contacts'
+                    });
+                }]
+            },
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-cards', {
+            url: '/elements/cards',
+            templateUrl: 'app/examples/elements/cards.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-upload', {
+            url: '/elements/upload',
+            templateUrl: 'app/examples/elements/upload.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-loader', {
+            url: '/elements/loader',
+            templateUrl: 'app/examples/elements/loader.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.elements-datepicker', {
+            url: '/elements/datepicker',
+            templateUrl: 'app/examples/elements/datepicker.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewElements']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Elements',
+            icon: 'zmdi zmdi-graduation-cap',
+            type: 'dropdown',
+            priority: 3.1,
+            permission: 'viewElements',
+            children: [{
+                name: 'Buttons',
+                type: 'link',
+                state: 'triangular.elements-buttons'
+            },{
+                name: 'Cards',
+                type: 'link',
+                state: 'triangular.elements-cards'
+            },{
+                name: 'Checkboxes',
+                type: 'link',
+                state: 'triangular.elements-checkboxes'
+            },{
+                name: 'Chips',
+                type: 'link',
+                state: 'triangular.elements-chips'
+            },{
+                name: 'Datepicker',
+                type: 'link',
+                state: 'triangular.elements-datepicker'
+            },{
+                name: 'Dialogs',
+                type: 'link',
+                state: 'triangular.elements-dialogs'
+            },{
+                name: 'FAB Speed Dial',
+                type: 'link',
+                state: 'triangular.fab-speed'
+            },{
+                name: 'FAB Toolbar',
+                type: 'link',
+                state: 'triangular.fab-toolbar'
+            },{
+                name: 'Grids',
+                type: 'link',
+                state: 'triangular.elements-grids'
+            },{
+                name: 'Icons',
+                type: 'link',
+                state: 'triangular.elements-icons'
+            },{
+                name: 'Lists',
+                type: 'link',
+                state: 'triangular.elements-lists'
+            },{
+                name: 'Loader',
+                type: 'link',
+                state: 'triangular.elements-loader'
+            },{
+                name: 'Menus',
+                type: 'link',
+                state: 'triangular.menus'
+            },{
+                name: 'Progress',
+                type: 'link',
+                state: 'triangular.elements-progress'
+            },{
+                name: 'Radios',
+                type: 'link',
+                state: 'triangular.elements-radios'
+            },{
+                name: 'Selects',
+                type: 'link',
+                state: 'triangular.elements-selects'
+            },{
+                name: 'Sidebars',
+                type: 'link',
+                state: 'triangular.elements-sidebars'
+            },{
+                name: 'Sliders',
+                type: 'link',
+                state: 'triangular.elements-sliders'
+            },{
+                name: 'Switches',
+                type: 'link',
+                state: 'triangular.elements-switches'
+            },{
+                name: 'Tables',
+                type: 'link',
+                state: 'triangular.elements-tables'
+            },{
+                name: 'Tabs',
+                type: 'link',
+                state: 'triangular.elements-tabs'
+            },{
+                name: 'Textangular',
+                type: 'link',
+                state: 'triangular.elements-textangular'
+            },{
+                name: 'Toasts',
+                type: 'link',
+                state: 'triangular.elements-toasts'
+            },{
+                name: 'Toolbars',
+                type: 'link',
+                state: 'triangular.elements-toolbars'
+            },{
+                name: 'Tooltips',
+                type: 'link',
+                state: 'triangular.elements-tooltips'
+            },{
+                name: 'Whiteframes',
+                type: 'link',
+                state: 'triangular.elements-whiteframes'
+            },{
+                name: 'Upload',
+                type: 'link',
+                state: 'triangular.elements-upload'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    ButtonsController.$inject = ["$interval"];
+    angular
+        .module('app.examples.elements')
+        .controller('ButtonsController', ButtonsController);
+
+    /* @ngInject */
+    function ButtonsController($interval) {
+        var vm = this;
+        vm.buttonClass1 = 'md-primary';
+        vm.buttonHue1 = 'md-default';
+
+        vm.buttonClass2 = 'md-primary';
+        vm.buttonHue2 = 'md-default';
+
+        vm.buttonClass3 = 'md-primary';
+        vm.buttonHue3 = 'md-default';
+
+        vm.buttonDisabled = false;
+        vm.determinateValue = 30;
+        vm.determinateValue2 = 30;
+        $interval(intervalTriggered, 100, 0, true);
+
+        ////////////////
+
+        function intervalTriggered() {
+            vm.determinateValue += 1;
+            vm.determinateValue2 += 1.5;
+            if(vm.determinateValue > 100) {
+                vm.determinateValue = 30;
+                vm.determinateValue2 = 30;
+            }
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.menu')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.menu-levels', {
+            url: '/menu-levels/:level',
+            controller: 'LevelController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/menu/level.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.menu-dynamic', {
+            url: '/menu/dynamic',
+            controller: 'MenuDynamicController',
+            controllerAs: 'vm',
+            templateUrl: 'app/examples/menu/dynamic.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.menu-dynamic-dummy-page', {
+            url: '/menu/dynamic-page',
+            templateUrl: 'app/examples/menu/dynamic-page.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Menu',
+            icon: 'zmdi zmdi-receipt',
+            type: 'dropdown',
+            priority: 6.1,
+            children: [{
+                name: 'Dynamic Menu',
+                type: 'link',
+                state: 'triangular.menu-dynamic'
+            },{
+                name: 'On Click Menu',
+                type: 'link',
+                click: ['$mdDialog', function($mdDialog) {
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Menu Item Clicked')
+                        .htmlContent('You can now set menu item click events when you configure your menu as well as routes!.  See <code>app/examples/menu/menu.config.js</code> to learn how.')
+                        .ok('Got it Thanks.')
+                    );
+                }]
+            },{
+                name: 'Open in new tab',
+                type: 'link',
+                state: 'triangular.dashboard-general',
+                openInNewTab: true
+            },{
+                name: 'Unlimited Levels',
+                type: 'dropdown',
+                children: [{
+                    name: 'Level 2-1',
+                    type: 'dropdown',
+                    children: [{
+                        name: 'Level 3-1',
+                        type: 'dropdown',
+                        children: [{
+                            name: 'Level 4-1',
+                            type: 'link',
+                            state: 'triangular.menu-levels',
+                            params: {
+                                level: 'Item1-1-1-1'
+                            }
+                        },{
+                            name: 'Level 4-2',
+                            type: 'link',
+                            state: 'triangular.menu-levels',
+                            params: {
+                                level: 'Item1-1-1-2'
+                            }
+                        },{
+                            name: 'Level 4-3',
+                            type: 'link',
+                            state: 'triangular.menu-levels',
+                            params: {
+                                level: 'Item1-1-1-3'
+                            }
+                        }]
+                    }]
+                }]
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    LevelController.$inject = ["$stateParams"];
+    angular
+        .module('app.examples.menu')
+        .controller('LevelController', LevelController);
+
+    /* @ngInject */
+    function LevelController($stateParams) {
+        var vm = this;
+        vm.level = $stateParams.level;
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.menu')
+        .factory('dynamicMenuService', dynamicMenuService);
+
+    /* @ngInject */
+    function dynamicMenuService() {
+        return {
+            dynamicMenu: {
+                showDynamicMenu: false
+            }
+        };
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "uiGmapGoogleMapApiProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.maps')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, uiGmapGoogleMapApiProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.maps-fullwidth', {
+            url: '/maps/fullwidth',
+            templateUrl: 'app/examples/maps/maps-fullwidth.tmpl.html',
+            controller: 'MapController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewMaps']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.maps-demos', {
+            url: '/maps/demos',
+            templateUrl: 'app/examples/maps/maps-demo.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewMaps']
+                }
+            }
+        });
+
+        uiGmapGoogleMapApiProvider.configure({
+            v: '3.17',
+            libraries: 'weather,geometry,visualization'
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Maps',
+            icon: 'zmdi zmdi-pin',
+            type: 'dropdown',
+            priority: 7.1,
+            permission: 'viewMaps',
+            children: [{
+                name: 'Fullwidth',
+                state: 'triangular.maps-fullwidth',
+                type: 'link'
+            },{
+                name: 'Demos',
+                state: 'triangular.maps-demos',
+                type: 'link'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    MapController.$inject = ["uiGmapGoogleMapApi"];
+    angular
+        .module('app.examples.maps')
+        .controller('MapController', MapController);
+
+    /* @ngInject */
+    function MapController(uiGmapGoogleMapApi) {
+        var vm = this;
+
+        uiGmapGoogleMapApi.then(function(maps) {
+            vm.map = {
+                center: {
+                    latitude: 35.027469,
+                    longitude: -111.022753
+                },
+                zoom: 4,
+                marker: {
+                    id:0,
+                    coords: {
+                        latitude: 35.027469,
+                        longitude: -111.022753
+                    },
+                    options: {
+                        icon: {
+                            anchor: new maps.Point(36,36),
+                            origin: new maps.Point(0,0),
+                            url: 'assets/images/maps/blue_marker.png'
+                        }
+                    }
+                }
+            };
+        });
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.layouts', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.layouts')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.standard-page',  {
+            url: '/layouts/standard-page',
+            templateUrl: 'app/examples/layouts/standard-page.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                },
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        })
+        .state('triangular.no-scroll-page',  {
+            url: '/layouts/no-scroll-page',
+            templateUrl: 'app/examples/layouts/no-scroll-page.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'triangular-non-scrolling'
+                },
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        })
+        .state('triangular.layouts-composer', {
+            url: '/layouts/composer',
+            templateUrl: 'app/examples/layouts/composer.tmpl.html',
+            controller: 'LayoutsComposerController',
+            controllerAs: 'vm',
+            data: {
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        })
+        .state('triangular.layouts-example-full-width', {
+            url: '/layouts/full-width',
+            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
+            data: {
+                layout: {
+                    sideMenuSize: 'hidden'
+                },
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        })
+        .state('triangular.layouts-example-tall-toolbar', {
+            url: '/layouts/tall-toolbar',
+            templateUrl: 'app/examples/dashboards/server/dashboard-server.tmpl.html',
+            controller: 'DashboardServerController',
+            controllerAs: 'vm',
+            data: {
+                layout: {
+                    toolbarSize: 'md-tall',
+                    toolbarClass: 'md-warn'
+                },
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        })
+        .state('triangular.layouts-example-icon-menu', {
+            url: '/layouts/icon-menu',
+            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html',
+            data: {
+                layout: {
+                    sideMenuSize: 'icon'
+                },
+                permissions: {
+                    only: ['viewLayouts']
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Layouts',
+            icon: 'zmdi zmdi-view-module',
+            type: 'dropdown',
+            priority: 2.4,
+            permission: 'viewLayouts',
+            children: [{
+                name: 'Standard Page',
+                type: 'link',
+                state: 'triangular.standard-page'
+            },{
+                name: 'Non Scrolling Page',
+                type: 'link',
+                state: 'triangular.no-scroll-page'
+            },{
+                name: 'Full Width Layout',
+                type: 'link',
+                state: 'triangular.layouts-example-full-width'
+            },{
+                name: 'Icon Menu',
+                type: 'link',
+                state: 'triangular.layouts-example-icon-menu'
+            },{
+                name: 'Tall Toolbar with background',
+                type: 'link',
+                state: 'triangular.layouts-example-tall-toolbar'
+            },{
+                name: 'Composer',
+                type: 'link',
+                state: 'triangular.layouts-composer'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    LayoutsComposerController.$inject = ["$rootScope", "$filter", "$document", "triTheming", "triLayout"];
+    angular
+        .module('app.examples.layouts')
+        .controller('LayoutsComposerController', LayoutsComposerController);
+
+    /* @ngInject */
+    function LayoutsComposerController($rootScope, $filter, $document, triTheming, triLayout) {
+        var vm = this;
+        vm.allPagesCode = '';
+        vm.updateOption = updateOption;
+        vm.layout = triLayout.layout;
+        vm.onePageCode = '';
+        vm.options = {
+            toolbarSizes: {
+                'default': 'Default',
+                'md-medium-tall': 'Medium',
+                'md-tall': 'Tall'
+            },
+            toolbarBackgrounds: {
+            },
+            sideMenuSizes: {
+                'off': 'Off',
+                'hidden': 'Hidden',
+                'icon': 'Icons',
+                'full': 'Full Size'
+            }
+        };
+
+        ////////////////
+
+        function createCodeSnippets() {
+            vm.allPagesCode =
+                'triLayoutProvider.setDefaultOption(\'toolbarSize\', \'' + vm.layout.toolbarSize + '\');\n' +
+                'triLayoutProvider.setDefaultOption(\'toolbarShrink\', ' + vm.layout.toolbarShrink + ');\n' +
+                'triLayoutProvider.setDefaultOption(\'toolbarClass\', \'' + vm.layout.toolbarClass + '\');\n' +
+                'triLayoutProvider.setDefaultOption(\'contentClass\', \'' + vm.layout.contentClass + '\');\n' +
+                'triLayoutProvider.setDefaultOption(\'sideMenuSize\', \'' + vm.layout.sideMenuSize + '\');\n' +
+                'triLayoutProvider.setDefaultOption(\'footer\', ' + vm.layout.footer + ');\n';
+
+            vm.onePageCode =
+                '.state(\'triangular.my-state\', {' + '\n' +
+                '    // set the url of this page' + '\n' +
+                '    url: \'/my-route\',' + '\n' +
+                '    // set the html template to show on this page' + '\n' +
+                '    templateUrl: \'app/examples/my-module/my-page.tmpl.html\',' + '\n' +
+                '    // set the controller to load for this page' + '\n' +
+                '    controller: \'MyController\',' + '\n' +
+                '    controllerAs: \'vm\'' + '\n' +
+                '    data: {' + '\n' +
+                '        layout: {' + '\n' +
+                '            toolbarSize: \'' + vm.layout.toolbarSize + '\',' + '\n' +
+                '            toolbarShrink: ' + vm.layout.toolbarShrink + ',' + '\n' +
+                '            toolbarClass: \'' + vm.layout.toolbarClass + '\',' + '\n' +
+                '            contentClass: \'' + vm.layout.contentClass + '\',' + '\n' +
+                '            sideMenuSize: \'' + vm.layout.sideMenuSize + '\',' + '\n' +
+                '            footer: ' + vm.layout.footer + '\n' +
+                '        }' + '\n' +
+                '    }' + '\n' +
+                '});';
+        }
+
+        function updateOption(optionName) {
+            switch(optionName) {
+                case 'footer':
+                    var style = vm.layout.footer ? 'block' : 'none';
+                    $document[0].getElementById('footer').style.display = style;
+                    break;
+                case 'toolbarShrink':
+                    // update toolbar shrink
+                    // needs some work
+                    var mdContent = angular.element('#admin-panel md-content');
+                    $rootScope.$broadcast('$mdContentLoaded', angular.element(mdContent[0]));
+                    break;
+            }
+            // update the snippets
+            createCodeSnippets();
+        }
+
+        function createBackgroundOptions() {
+            vm.options.toolbarBackgrounds['none'] = 'No Background ';
+            var x, paddedNumber;
+            for(x = 1; x < 40 ; x++) {
+                paddedNumber = $filter('padding')(x, 2);
+                vm.options.toolbarBackgrounds['full-image-background mb-bg-' + paddedNumber] = 'Background ' + x;
+            }
+            for(x = 1; x < 30 ; x++) {
+                paddedNumber = $filter('padding')(x, 2);
+                vm.options.toolbarBackgrounds['full-image-background mb-bg-fb-' + paddedNumber] = 'Extra Background ' + x;
+            }
+        }
+
+        // init
+        createBackgroundOptions();
+        createCodeSnippets();
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.github', [
+        ]);
+})();
+(function() {
+    'use strict';
+
+    GithubController.$inject = ["$http", "$mdToast", "triLoaderService"];
+    angular
+        .module('app.examples.github')
+        .controller('GithubController', GithubController);
+
+    /* @ngInject */
+    function GithubController($http, $mdToast, triLoaderService) {
+        var oxygennaAPIUrl = 'http://api.oxygenna.com';
+        var vm = this;
+        vm.data = {
+            id: '11711437',
+            purchaseCode: '',
+            githubUser: ''
+        };
+        vm.register = register;
+        vm.userSearch = userSearch;
+
+        clearForm();
+
+        ////////////////
+
+        function register() {
+            triLoaderService.setLoaderActive(true);
+
+            $http.put(oxygennaAPIUrl + '/register-github-access', vm.data).
+            then(function() {
+                // everything went ok
+                triLoaderService.setLoaderActive(false);
+                popAToast('Success!  Check your GitHub email for your invite.');
+            }, registerError);
+
+            function registerError(response) {
+                // something went wrong
+                triLoaderService.setLoaderActive(false);
+                if(angular.isDefined(response.data.error)) {
+                    popAToast(response.data.error);
+                }
+            }
+        }
+
+        function userSearch (query) {
+            return $http.get('https://api.github.com/search/users?q=' + query + '+type:user+in:login').
+            then(function(response) {
+                // get the items
+                return response.data.items;
+            });
+        }
+
+        function clearForm() {
+            vm.data.purchaseCode = '';
+            vm.data.githubUser = '';
+        }
+
+        function popAToast(message) {
+            var toast = $mdToast.simple({
+                hideDelay: false
+            })
+            .content(message)
+            .action('OK')
+            .highlightAction(false)
+            .position('bottom right');
+
+            return $mdToast.show(toast);
+        }
+
+    }
+})();
+(function() {
+    'use strict';
+
+    config.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.github')
+        .config(config);
+
+    /* @ngInject */
+    function config($stateProvider, triMenuProvider) {
+        $stateProvider
+        .state('triangular.github', {
+            url: '/github',
+            templateUrl: 'app/examples/github/github.tmpl.html',
+            controller: 'GithubController',
+            controllerAs: 'vm',
+            data: {
+                layout: {
+                    contentClass: 'layout-column full-image-background mb-bg-fb-16 background-overlay-static',
+                    innerContentClass: 'overlay-gradient-20'
+                },
+                permissions: {
+                    only: ['viewGitHub']
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'GitHub',
+            state: 'triangular.github',
+            type: 'link',
+            icon: 'fa fa-github',
+            priority: 2.2,
+            permission: 'viewGitHub'
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.forms')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.forms-inputs', {
+            url: '/forms/inputs',
+            templateUrl: 'app/examples/forms/inputs.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.forms-binding', {
+            url: '/forms/binding',
+            templateUrl: 'app/examples/forms/binding.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.forms-autocomplete', {
+            url: '/forms/autocomplete',
+            templateUrl: 'app/examples/forms/autocomplete.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.forms-wizard', {
+            url: '/forms/wizard',
+            templateUrl: 'app/examples/forms/wizard.tmpl.html',
+            controller: 'FormWizardController',
+            controllerAs: 'wizardController',
+            data: {
+                layout: {
+                    contentClass: 'layout-column full-image-background mb-bg-fb-02 background-overlay-static',
+                    innerContentClass: 'overlay-gradient-20'
+                }
+            }
+        })
+        .state('triangular.forms-validation', {
+            url: '/forms/validation',
+            templateUrl: 'app/examples/forms/validation.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Forms',
+            icon: 'zmdi zmdi-calendar-check',
+            type: 'dropdown',
+            priority: 3.3,
+            children: [{
+                name: 'Autocomplete',
+                type: 'link',
+                state: 'triangular.forms-autocomplete'
+            },{
+                name: 'Data Binding',
+                type: 'link',
+                state: 'triangular.forms-binding'
+            },{
+                name: 'Inputs',
+                type: 'link',
+                state: 'triangular.forms-inputs'
+            },{
+                name: 'Wizard',
+                type: 'link',
+                state: 'triangular.forms-wizard'
+            },{
+                name: 'Validation',
+                type: 'link',
+                state: 'triangular.forms-validation'
+            }]
+        });
+        triMenuProvider.addMenu({
+            type: 'divider',
+            priority: 3.4
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.forms')
+        .controller('FormWizardController', FormWizardController);
+
+    /* @ngInject */
+    function FormWizardController() {
+        var vm = this;
+        vm.data = {
+            account: {
+                username: 'Oxygenna'
+            }
+        };
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.extras', [
+
+        ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.extras')
+        .controller('TimelineController', TimelineController);
+
+    /* @ngInject */
+    function TimelineController() {
+        var vm = this;
+        vm.events = [{
+            title: 'Material Design',
+            subtitle: 'We challenged ourselves to create a visual language for our users that synthesizes the classic principles of good design with the innovation and possibility of technology and science.',
+            date:'27/6/2015',
+            image: 'assets/images/avatars/hair-black-eyes-blue-green-skin-tanned.png',
+            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-01.jpg"/>',
+            palette: ''
+        },{
+            title: 'Dorothy Lewis',
+            subtitle: 'Design Magazine',
+            date:'27/6/2015',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned.png',
+            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">This spec is a living document that will be updated as we continue to develop the tenets and specifics of material design.</p>',
+            palette: 'cyan:500'
+        },{
+            title: 'Goals',
+            subtitle: 'Create a visual language that synthesizes classic principles of good design with the innovation and possibility of technology and science.',
+            date:'26/6/2015',
+            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-light.png',
+            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg"/>',
+            palette: 'cyan:500',
+            classes: 'widget-overlay-title'
+        },{
+            title: 'Principles',
+            subtitle: 'A material metaphor is the unifying theory of a rationalized space and a system of motion. ',
+            date:'24/6/2015',
+            image: 'assets/images/avatars/hair-black-eyes-dark-skin-dark.png',
+            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-03.jpg"/>'
+        },{
+            title: 'Joe Ross',
+            subtitle: 'CEO Google',
+            date:'23/6/2015',
+            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
+            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">Surfaces and edges of the material provide visual cues that are grounded in reality. The use of familiar tactile attributes helps users quickly understand affordances.</p> ',
+            palette: 'purple:500'
+        },{
+            title: 'Sam Ross',
+            subtitle: 'CEO Facebook',
+            date:'23/6/2015',
+            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
+            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">The color palette starts with primary colors and fills in the spectrum to create a complete and usable palette for Android, Web, and iOS.</p> ',
+            palette: 'deep-orange:700'
+        },{
+            title: 'John King',
+            subtitle: 'Limit your selection of colors by choosing three hues from the primary palette and one accent color from the secondary palette.',
+            date:'17/6/2015',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-dark.png',
+            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-04.jpg"/>',
+            palette: 'cyan:500',
+            classes: 'widget-overlay-title'
+        },{
+            title: 'Christos Pantazis',
+            subtitle: 'CEO Facebook',
+            date:'23/6/2015',
+            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
+            content: '<p class="padding-10 font-size-3 font-weight-200 line-height-big">For white or black text on colored backgrounds, see these tables of color palettes for the appropriate contrast ratios and hex values.</p> ',
+            palette: 'red:50'
+        },{
+            title: 'Accent color',
+            subtitle: 'Use the accent color for your primary action button and components like switches or sliders.',
+            date:'12/6/2015',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned-2.png',
+            content: '<img src="assets/images/backgrounds/material-backgrounds/mb-bg-05.jpg"/>',
+            palette: 'cyan:500',
+            classes: 'widget-overlay-title'
+        }];
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.extras')
+        .directive('replaceWith', replaceWith);
+
+    /* @ngInject */
+    function replaceWith() {
+        // Usage:
+        //
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'A'
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+            attrs.$observe('replaceWith', function(value) {
+                if (value) {
+                    element.replaceWith(angular.isUndefined(value) ? '' : value);
+                }
+            });
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    GalleryController.$inject = ["$mdDialog"];
+    angular
+        .module('app.examples.extras')
+        .controller('GalleryController', GalleryController);
+
+    /* @ngInject */
+    function GalleryController($mdDialog) {
+        var vm = this;
+        vm.feed = [];
+        vm.openImage = openImage;
+
+        ////////////////
+
+        // number of days of dummy data to show
+        var numberOfFeedDays = 5;
+        var loremPixelCategories = ['abstract', 'city', 'people', 'nature', 'food', 'fashion', 'nightlife'];
+
+        function randomImage(title) {
+            var randImage = Math.floor((Math.random() * 10) + 1);
+            var randomCategory = loremPixelCategories[Math.floor((Math.random() * (loremPixelCategories.length-1)) + 1)];
+
+            var width = [300, 640];
+            var height = [225, 480];
+
+            var image = {
+                url: 'http://lorempixel.com/',
+                urlFull: 'http://lorempixel.com/',
+                title: title
+            };
+
+
+            if(Math.random() < 0.7) {
+                image.url += width[0] + '/' + height[0];
+                image.urlFull += width[1] + '/' + height[1];
+                image.rowspan = 2;
+                image.colspan = 2;
+            }
+            else {
+                image.url += height[0] + '/' + width[0];
+                image.urlFull += height[1] + '/' + width[1];
+                image.rowspan = 2;
+                image.colspan = 1;
+            }
+
+            image.url += '/' + randomCategory + '/' + randImage;
+            image.urlFull += '/' + randomCategory + '/' + randImage;
+
+            return image;
+        }
+
+        function createDayOfImages(day) {
+            var dayFeed = {
+                date: moment().subtract(day, 'days'),
+                images: []
+            };
+
+            var numberOfImages = Math.floor((Math.random() * 4) + 6);
+            for(var i = 0; i < numberOfImages; i++) {
+                dayFeed.images.push(randomImage('Photo ' + (i+1)));
+            }
+
+            return dayFeed;
+        }
+
+        function openImage(day, image, $event) {
+            $mdDialog.show({
+                controller: 'GalleryDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/extras/gallery-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                focusOnOpen: false,
+                targetEvent: $event,
+                locals: {
+                    day: day,
+                    image: image
+                }
+            });
+        }
+
+        function createFeed() {
+            for(var day = 0; day < numberOfFeedDays; day++) {
+                vm.feed.push(createDayOfImages(day));
+            }
+        }
+
+        // init
+
+        createFeed();
+    }
+})();
+(function() {
+    'use strict';
+
+    GalleryDialogController.$inject = ["$mdDialog", "day", "image"];
+    angular
+        .module('app.examples.extras')
+        .controller('GalleryDialogController', GalleryDialogController);
+
+    /* @ngInject */
+    function GalleryDialogController($mdDialog, day, image) {
+        var vm = this;
+        vm.currentImage = image;
+        vm.next = next;
+        vm.prev = prev;
+
+        function next() {
+            var index = day.images.indexOf(vm.currentImage);
+            index = index + 1 < day.images.length ? index + 1 : 0;
+            vm.currentImage = day.images[index];
+        }
+
+        function prev() {
+            var index = day.images.indexOf(vm.currentImage);
+            index = index - 1 < 0 ? day.images.length -1 : index - 1;
+            vm.currentImage = day.images[index];
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.extras')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.extra-gallery', {
+            url: '/extras/gallery',
+            templateUrl: 'app/examples/extras/gallery.tmpl.html',
+            controller: 'GalleryController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.extra-avatars', {
+            url: '/extras/avatars',
+            templateUrl: 'app/examples/extras/avatars.tmpl.html',
+            controller: 'AvatarsController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.extra-blank', {
+            url: '/extras/blank',
+            templateUrl: 'app/examples/extras/blank.tmpl.html',
+            data: {
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.extra-timeline', {
+            url: '/extras/timeline',
+            templateUrl: 'app/examples/extras/timeline.tmpl.html',
+            controller: 'TimelineController',
+            controllerAs: 'vm'
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Extras',
+            icon: 'zmdi zmdi-view-list-alt',
+            type: 'dropdown',
+            priority: 8.1,
+            children: [{
+                name: 'Gallery',
+                state: 'triangular.extra-gallery',
+                type: 'link'
+            },{
+                name: 'Avatars',
+                state: 'triangular.extra-avatars',
+                type: 'link'
+            },{
+                name: '404 Page',
+                state: '404',
+                type: 'link'
+            },{
+                name: '500 Page',
+                state: '500',
+                type: 'link'
+            },{
+                name: 'Blank Page',
+                state: 'triangular.extra-blank',
+                type: 'link'
+            },{
+                name: 'Timeline',
+                state: 'triangular.extra-timeline',
+                type: 'link'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.extras')
+        .controller('AvatarsController', AvatarsController);
+
+    /* @ngInject */
+    function AvatarsController() {
+        var vm = this;
+        vm.avatars = [{
+            title: 'Carl Barnes',
+            subtitle:'Designer',
+            image: 'assets/images/avatars/hair-black-eyes-blue-green-skin-tanned.png',
+            color: 'blue',
+            hue: '500',
+            rowspan: 2,
+            colspan: 2
+        },{
+            title: 'Dorothy Lewis',
+            subtitle:'Designer',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned.png',
+            color: 'pink',
+            hue: '500',
+            rowspan: 1,
+            colspan: 1
+        },{
+            title: 'Harris Kwnst',
+            subtitle:'Developer',
+            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-light.png',
+            color: 'blue',
+            hue: '200',
+            rowspan: 1,
+            colspan: 1
+        },{
+            title: 'Sue Ross',
+            subtitle:'Marketing',
+            image: 'assets/images/avatars/hair-black-eyes-dark-skin-dark.png',
+            color: 'green',
+            hue: '500',
+            rowspan: 2,
+            colspan: 2
+        },{
+            title: 'Joe Ross',
+            subtitle:'Finance',
+            image: 'assets/images/avatars/hair-blonde-eyes-blue-green-skin-light.png',
+            color: 'red',
+            hue: '500',
+            rowspan: 2,
+            colspan: 2
+        },{
+            title: 'Shirley King',
+            subtitle:'Designer',
+            image: 'assets/images/avatars/hair-blonde-eyes-brown-skin-tanned.png',
+            color: 'blue',
+            hue: '200',
+            rowspan: 2,
+            colspan: 2
+        },{
+            title: 'John King',
+            subtitle:'Developer',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-dark.png',
+            color: 'yellow',
+            hue: '900',
+            rowspan: 1,
+            colspan: 1
+        },{
+            title: 'Mary Rose',
+            subtitle:'Advertising',
+            image: 'assets/images/avatars/hair-grey-eyes-dark-skin-tanned.png',
+            color: 'pink',
+            hue: '800',
+            rowspan: 1,
+            colspan: 1
+        },{
+            title: 'Morris Onions',
+            subtitle:'Finance',
+            image: 'assets/images/avatars/hair-black-eyes-brown-skin-tanned-2.png',
+            color: 'orange',
+            hue: '800',
+            rowspan: 1,
+            colspan: 1
+        }];
+    }
+})();
+
+(function() {
+    'use strict';
+
+    animateElements.$inject = ["$interval"];
+    angular
+        .module('app.examples.extras')
+        .directive('animateElements', animateElements);
+
+    /* @ngInject */
+    function animateElements($interval) {
+        // Usage:
+        //
+        // Creates:
+        //
+        var directive = {
+            link: link,
+            restrict: 'A'
+        };
+        return directive;
+
+        function link($scope, $element) {
+            var $widgets  = [];
+            var $dividers = [];
+
+
+            function isLoaded(widget) {
+                return widget.clientHeight > 1;
+            }
+
+            // using interval checking since window load event does not work on some machines
+            var widgetsLoaded = $interval(function() {
+                $widgets = $element.find('.timeline-widget');
+                if($widgets.length > 0 && $widgets.toArray().every(isLoaded)) {
+                    $dividers = $element.find('.timeline-x-axis');
+                    onScrollCallback();
+                    $interval.cancel(widgetsLoaded);
+                }
+            }, 1000);
+
+            var onScrollCallback =  function() {
+                for(var i = 0; i < $widgets.length; i++) {
+                    if(angular.element($widgets[i]).offset().top <= angular.element(window).scrollTop() + angular.element(window).height() * 0.80 && angular.element($widgets[i]).height() > 1) {
+                        var dir = ( i % 2 === 0 ) ? 'left':'right';
+                        angular.element($dividers[i]).addClass('timeline-content-animated '+ dir);
+                        angular.element($widgets[i]).addClass('timeline-content-animated '+ dir);
+                    }
+                }
+            };
+
+            angular.element('md-content').bind('scroll', onScrollCallback).scroll();
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    InboxController.$inject = ["$scope", "$filter", "$location", "$state", "$mdMedia", "$mdBottomSheet", "$stateParams", "$mdDialog", "$mdToast", "emails", "contacts"];
+    angular
+        .module('app.examples.email')
+        .controller('InboxController', InboxController);
+
+    /* @ngInject */
+    function InboxController($scope, $filter, $location, $state, $mdMedia, $mdBottomSheet, $stateParams, $mdDialog, $mdToast, emails, contacts) {
+        var vm = this;
+        // store the base state of where we are /inbox or /trash or /sent
+        // this can be then used if we close / delete email to return to
+        vm.baseState = $state.current;
+        vm.composeClick = composeClick;
+        vm.inboxBasePath = $location.path();
+        vm.openMail = openMail;
+        // store selected email if we have one
+        vm.selectedMail = null;
+        // variable to store backup of emailGroups for search filtering
+        var emailGroupsBackup = null;
+
+        ////////////////////
+
+        function createEmailGroups() {
+            // create email groups using the emails from the resolve
+            if(emails.status === 200) {
+                vm.emails = emails.data;
+
+                vm.emailGroups = [{
+                    name: $filter('triTranslate')('Today'),
+                    from: moment().startOf('day'),
+                    to: moment().endOf('day')
+                },{
+                    name: $filter('triTranslate')('Yesterday'),
+                    from: moment().subtract(1, 'days').startOf('day'),
+                    to: moment().subtract(1, 'days').endOf('day')
+                },{
+                    name: $filter('triTranslate')('Older'),
+                    from: moment().subtract(100, 'years').endOf('day'),
+                    to: moment().subtract(2, 'days').startOf('day')
+                }];
+
+                angular.forEach(vm.emailGroups, function(group) {
+                    group.emails = $filter('emailGroup')(vm.emails, group);
+                });
+
+                // create backup of emailGroups for search filtering
+                emailGroupsBackup = angular.copy(vm.emailGroups);
+            }
+        }
+
+        // opens an email
+        function openMail(email) {
+            $state.go(vm.baseState.name + '.email', {
+                emailID: email.id
+            });
+            email.unread = false;
+            vm.selectedMail = email.id;
+        }
+
+        // returns back to email list
+        function openlist() {
+            $state.go(vm.baseState.name);
+        }
+
+        // opens the compose dialog
+        function composeClick($event) {
+            $mdDialog.show({
+                controller: 'EmailDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/email/email-dialog.tmpl.html',
+                targetEvent: $event,
+                locals: {
+                    title: $filter('triTranslate')('Compose'),
+                    email: {
+                        to: [],
+                        cc: [],
+                        bcc:[],
+                        subject: '',
+                        content: ''
+                    },
+                    contacts: contacts,
+                    getFocus: false
+                }
+            })
+            .then(function(email) {
+                sendEmail(null, email);
+            }, emailCancel);
+
+            function emailCancel() {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content($filter('triTranslate')('Email canceled'))
+                    .position('bottom right')
+                    .hideDelay(3000)
+                );
+            }
+        }
+
+        function sendEmail($event, email) {
+            // make list of users that have been sent to
+            var sentTo = [];
+            angular.forEach(email.to, function(to) {
+                sentTo.push(to.name);
+            });
+            $mdToast.show(
+                $mdToast.simple()
+                .content($filter('triTranslate')('Email to {{to}} sent.', {to: sentTo.join(', ')}))
+                .position('bottom right')
+                .hideDelay(3000)
+            );
+        }
+
+        function checkEmailList() {
+            vm.showEmailList = !($mdMedia('xs') && angular.isDefined($state.current.resolve.email));
+        }
+
+        // watches
+
+        $scope.$on('emailSearch', function(event, emailSearch) {
+            for(var g in emailGroupsBackup) {
+                vm.emailGroups[g].emails = $filter('emailSearchFilter')(emailGroupsBackup[g].emails, emailSearch);
+            }
+        });
+
+        // add a watch for when the url location changes
+        $scope.$on('$locationChangeSuccess', checkEmailList);
+
+        // handle delete email event sent from email menu in email view
+        $scope.$on('deleteEmail', function($event, deleteEmail) {
+            angular.forEach(vm.emailGroups, function(group) {
+                var removeEmailIndex = null;
+                angular.forEach(group.emails, function(email, index) {
+                    if(deleteEmail.id === email.id) {
+                        removeEmailIndex = index;
+                    }
+                });
+                if(null !== removeEmailIndex) {
+                    group.emails.splice(removeEmailIndex, 1);
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content($filter('triTranslate')('DeleteD'))
+                        .position('bottom right')
+                        .hideDelay(3000)
+                    );
+                }
+            });
+
+            openlist();
+        });
+
+        // handle close email event sent from email menu in email view
+        $scope.$on('closeEmail', openlist);
+
+        // handle close email event sent from email controller
+        $scope.$on('sendEmail', sendEmail);
+
+        // init
+
+        checkEmailList();
+
+        createEmailGroups();
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.email')
+        .filter('emailGroup', emailGroup);
+
+    function emailGroup() {
+        return filterFilter;
+
+        ////////////////
+
+        function filterFilter(emails, emailGroup) {
+            return emails.filter(function(email) {
+                var emailDate = moment(email.date, moment.ISO_8601);
+
+                if(emailDate.isAfter(emailGroup.from) && emailDate.isBefore(emailGroup.to)) {
+                    return email;
+                }
+            });
+        }
+    }
+
+})();
+(function() {
+    'use strict';
+
+    EmailController.$inject = ["$scope", "$stateParams", "$mdDialog", "$mdToast", "$filter", "emails", "email", "contacts"];
+    angular
+        .module('app.examples.email')
+        .controller('EmailController', EmailController);
+
+    /* @ngInject */
+    function EmailController($scope, $stateParams, $mdDialog, $mdToast, $filter, emails, email, contacts) {
+        var vm = this;
+        vm.closeEmail = closeEmail;
+        vm.deleteEmail = deleteEmail;
+        vm.email = email;
+        vm.emailAction = emailAction;
+
+        /////////////////
+
+        function closeEmail() {
+            $scope.$emit('closeEmail');
+        }
+
+        function deleteEmail(email) {
+            $scope.$emit('deleteEmail', email);
+        }
+
+        function emailAction($event, title) {
+            var replyEmail = {
+                to: [],
+                cc: [],
+                bcc: [],
+                // add r.e to subject if there is one
+                subject: email.subject === '' ? '' : $filter('triTranslate')('R.e: ') + email.subject,
+                // wrap previous content in blockquote and add new line
+                content: '<br><br><blockquote>' + email.content + '</blockquote>'
+            };
+
+            // get contact and add it to to if replying
+            angular.forEach(contacts.data, function(contact) {
+                if(contact.email === email.from.email) {
+                    replyEmail.to.push(contact);
+                }
+            });
+
+            openEmail($event, replyEmail, $filter('triTranslate')(title));
+        }
+
+        function openEmail($event, email, title) {
+            $mdDialog.show({
+                controller: 'EmailDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/email/email-dialog.tmpl.html',
+                targetEvent: $event,
+                locals: {
+                    title: title,
+                    email: email,
+                    contacts: contacts,
+                    getFocus: true
+                },
+                focusOnOpen: false
+            })
+            .then(function(email) {
+                // send email sent event
+                $scope.$emit('sendEmail', email);
+            }, cancelEmail);
+
+            function cancelEmail() {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content($filter('triTranslate')('Email canceled'))
+                    .position('bottom right')
+                    .hideDelay(3000)
+                );
+            }
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$provide"];
+    angular
+        .module('app.examples.email')
+        .config(moduleConfig);
+
+    function moduleConfig($provide) {
+        /***
+        * Setup Editor Toolbar here
+        ***/
+        $provide.decorator('taOptions', ['taRegisterTool', 'taTranslations', '$delegate', function(taRegisterTool, taTranslations, taOptions){
+            taOptions.toolbar = [['bold', 'italics', 'underline', 'insertLink']];
+
+            taOptions.classes = {
+                focussed: 'focussed',
+                toolbar: 'editor-toolbar',
+                toolbarGroup: 'editor-group',
+                toolbarButton: 'md-button',
+                toolbarButtonActive: '',
+                disabled: '',
+                textEditor: 'form-control',
+                htmlEditor: 'form-control'
+            };
+            return taOptions;
+        }]);
+
+        $provide.decorator('taTools', ['$delegate', function(taTools){
+            taTools.bold.iconclass = 'zmdi zmdi-format-bold';
+            taTools.italics.iconclass = 'zmdi zmdi-format-italic';
+            taTools.underline.iconclass = 'zmdi zmdi-format-underlined';
+            taTools.insertLink.iconclass = 'zmdi zmdi-link';
+            return taTools;
+        }]);
+    }
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider", "EMAIL_ROUTES"];
+    angular
+        .module('app.examples.email')
+        .config(moduleConfig)
+        .constant('EMAIL_ROUTES', [{
+            state: 'triangular.email.inbox',
+            name: 'Inbox',
+            url: '/email/inbox'
+        },{
+            state: 'triangular.email.trash',
+            name: 'Trash',
+            url: '/email/trash'
+        },{
+            state: 'triangular.email.sent',
+            name: 'Sent',
+            url: '/email/sent'
+        }]);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider, EMAIL_ROUTES) {
+
+        $stateProvider
+        .state('triangular.email',  {
+            abstract: true,
+            views: {
+                'toolbar@triangular': {
+                    templateUrl: 'app/examples/email/layout/toolbar/toolbar.tmpl.html',
+                    controller: 'EmailToolbarController',
+                    controllerAs: 'vm'
+                }
+            },
+            data: {
+                layout: {
+                    footer: false,
+                    contentClass: 'triangular-non-scrolling'
+                },
+                permissions: {
+                    only: ['viewEmail']
+                }
+            }
+        });
+
+        angular.forEach(EMAIL_ROUTES, function(route) {
+            $stateProvider
+            .state(route.state, {
+                url: route.url,
+                views: {
+                    '@triangular': {
+                        templateUrl: 'app/examples/email/inbox.tmpl.html',
+                        controller: 'InboxController',
+                        controllerAs: 'vm'
+                    }
+                },
+                resolve: {
+                    emails: ["$http", "$q", "API_CONFIG", function($http, $q, API_CONFIG) {
+                        return $http({
+                            method: 'GET',
+                            url: API_CONFIG.url + 'email/inbox'
+                        });
+                    }],
+                    contacts: ["$http", "API_CONFIG", function($http, API_CONFIG) {
+                        return $http({
+                            method: 'GET',
+                            url: API_CONFIG.url + 'email/contacts'
+                        });
+                    }]
+                }
+            });
+        });
+
+        angular.forEach(EMAIL_ROUTES, function(route) {
+            $stateProvider
+            .state(route.state + '.email', {
+                url: '/mail/:emailID',
+                templateUrl: 'app/examples/email/email.tmpl.html',
+                controller: 'EmailController',
+                controllerAs: 'vm',
+                resolve: {
+                    email: ["$stateParams", "emails", function($stateParams, emails) {
+                        emails = emails.data;
+                        var foundEmail = false;
+                        for(var i = 0; i < emails.length; i++) {
+                            if(emails[i].id === $stateParams.emailID) {
+                                foundEmail = emails[i];
+                                break;
+                            }
+                        }
+                        return foundEmail;
+                    }]
+                },
+                onEnter: ["$state", "email", function($state, email){
+                    if (false === email) {
+                        $state.go(route.state);
+                    }
+                }]
+            });
+        });
+
+        var emailMenu = {
+            name: 'Email',
+            icon: 'zmdi zmdi-email',
+            type: 'dropdown',
+            priority: 2.1,
+            permission: 'viewEmail',
+            children: []
+        };
+
+        angular.forEach(EMAIL_ROUTES, function(route) {
+            emailMenu.children.push({
+                name: route.name,
+                state: route.state,
+                type: 'link',
+                badge: Math.round(Math.random() * (20 - 1) + 1)
+            });
+        });
+
+        triMenuProvider.addMenu(emailMenu);
+
+        triMenuProvider.addMenu({
+            type: 'divider',
+            priority: 2.3
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.email')
+        .filter('emailSearchFilter', emailSearchFilter);
+
+    function emailSearchFilter() {
+        return filterFilter;
+
+        ////////////////
+
+        function filterFilter(emails, emailSearch) {
+            return emails.filter(function(email) {
+                if(email.from.name.indexOf(emailSearch) > -1) {
+                    return email;
+                }
+                if(email.subject.indexOf(emailSearch) > -1) {
+                    return email;
+                }
+            });
+        }
+    }
+
+})();
+(function() {
+    'use strict';
+
+    EmailDialogController.$inject = ["$timeout", "$mdDialog", "$filter", "triSkins", "textAngularManager", "title", "email", "contacts", "getFocus"];
+    angular
+        .module('app.examples.email')
+        .controller('EmailDialogController', EmailDialogController);
+
+    /* @ngInject */
+    function EmailDialogController($timeout, $mdDialog, $filter, triSkins, textAngularManager, title, email, contacts, getFocus) {
+        var contactsData = contacts.data;
+
+        var vm = this;
+        vm.cancel = cancel;
+        vm.email = email;
+        vm.title = title;
+        vm.send = send;
+        vm.showCCSIcon = 'zmdi zmdi-account-add';
+        vm.showCCS = false;
+        vm.toggleCCS = toggleCCS;
+        vm.triSkin = triSkins.getCurrent();
+        vm.queryContacts = queryContacts;
+
+        ///////////////
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+
+        function toggleCCS() {
+            vm.showCCS = !vm.showCCS;
+            vm.showCCSIcon = vm.showCCS ? 'zmdi zmdi-account' : 'zmdi zmdi-account-add';
+        }
+
+        function send() {
+            $mdDialog.hide(vm.email);
+        }
+
+        function queryContacts($query) {
+            var lowercaseQuery = angular.lowercase($query);
+            return contactsData.filter(function(contact) {
+                var lowercaseName = angular.lowercase(contact.name);
+                if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
+                    return contact;
+                }
+            });
+        }
+
+        ////////////////
+        if(getFocus) {
+            $timeout(function() {
+                // Retrieve the scope and trigger focus
+                var editorScope = textAngularManager.retrieveEditor('emailBody').scope;
+                editorScope.displayElements.text.trigger('focus');
+            }, 500);
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.email')
+        .filter('cut', cut);
+
+    function cut() {
+        return filterFunction;
+
+        ////////////////
+
+        function filterFunction(value, wordwise, max, tail) {
+            if (!value) {
+                return '';
+            }
+
+            max = parseInt(max, 10);
+            if (!max) {
+                return value;
+            }
+            if (value.length <= max) {
+                return value;
+            }
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace !== -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+
+            return value + (tail || ' …');
+        }
+    }
+
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.dashboards')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.sales-layout', {
+            abstract: true,
+            views: {
+                sidebarLeft: {
+                    templateUrl: 'app/layouts/leftsidenav/leftsidenav.tmpl.html',
+                    controller: 'MenuController',
+                    controllerAs: 'vm'
+                },
+                content: {
+                    template: '<div id="admin-panel-content-view" flex ui-view></div>'
+                },
+                belowContent: {
+                    template: '<div ui-view="belowContent"></div>'
+                }
+            }
+        })
+        .state('triangular.dashboard-general', {
+            url: '/dashboards/general',
+            templateUrl: 'app/examples/dashboards/general/dashboard-general.tmpl.html'
+        })
+        .state('triangular.dashboard-analytics', {
+            url: '/dashboards/analytics',
+            views: {
+                '': {
+                    templateUrl: 'app/examples/dashboards/analytics/analytics.tmpl.html',
+                    controller: 'DashboardAnalyticsController',
+                    controllerAs: 'vm'
+                },
+                'belowContent': {
+                    templateUrl: 'app/examples/dashboards/analytics/fab-button.tmpl.html',
+                    controller: 'DashboardAnalyticsFabButtonController',
+                    controllerAs: 'vm'
+                }
+            },
+            data: {
+                layout: {
+                    contentClass: 'analytics-dashboard'
+                }
+            }
+        })
+        .state('triangular.dashboard-classic', {
+            url: '/dashboards/classic',
+            templateUrl: 'app/examples/dashboards/classic/classic.tmpl.html',
+            controller: 'DashboardClassicController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.dashboard-server', {
+            url: '/dashboards/server',
+            templateUrl: 'app/examples/dashboards/server/dashboard-server.tmpl.html',
+            controller: 'DashboardServerController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.dashboard-widgets', {
+            url: '/dashboards/widgets',
+            templateUrl: 'app/examples/dashboards/widgets.tmpl.html'
+        })
+        .state('triangular.dashboard-social', {
+            url: '/dashboards/social',
+            templateUrl: 'app/examples/dashboards/social/dashboard-social.tmpl.html',
+            controller: 'DashboardSocialController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.dashboard-sales', {
+            url: '/dashboards/sales',
+            data: {
+                layout: {
+                    showToolbar: false
+                }
+            },
+            views: {
+                '': {
+                    templateUrl: 'app/examples/dashboards/sales/dashboard-sales.tmpl.html',
+                    controller: 'DashboardSalesController',
+                    controllerAs: 'vm'
+                },
+                'belowContent': {
+                    templateUrl: 'app/examples/dashboards/sales/fab-button.tmpl.html',
+                    controller: 'SalesFabController',
+                    controllerAs: 'vm'
+                }
+            }
+        })
+        .state('triangular.dashboard-draggable', {
+            url: '/dashboards/draggable-widgets',
+            templateUrl: 'app/examples/dashboards/dashboard-draggable.tmpl.html',
+            controller: 'DashboardDraggableController',
+            controllerAs: 'vm'
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Dashboards',
+            icon: 'zmdi zmdi-home',
+            type: 'dropdown',
+            priority: 1.1,
+            children: [{
+                name: 'Analytics',
+                state: 'triangular.dashboard-analytics',
+                type: 'link'
+            },{
+                name: 'General',
+                state: 'triangular.dashboard-general',
+                type: 'link'
+            },{
+                name: 'Sales',
+                state: 'triangular.dashboard-sales',
+                type: 'link'
+            },{
+                name: 'Classic',
+                state: 'triangular.dashboard-classic',
+                type: 'link'
+            },{
+                name: 'Server',
+                state: 'triangular.dashboard-server',
+                type: 'link'
+            },{
+                name: 'Social',
+                state: 'triangular.dashboard-social',
+                type: 'link'
+            },{
+                name: 'Widgets',
+                state: 'triangular.dashboard-widgets',
+                type: 'link'
+            },{
+                name: 'Draggable',
+                state: 'triangular.dashboard-draggable',
+                type: 'link'
+            }]
+        });
+
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.dashboards')
+        .controller('DashboardDraggableController', DashboardDraggableController);
+
+    /* @ngInject */
+    function DashboardDraggableController() {
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.charts')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.charts-google-bar', {
+            url: '/charts/google/bar',
+            templateUrl: 'app/examples/charts/google-bar.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-google-scatter', {
+            url: '/charts/google/scatter',
+            templateUrl: 'app/examples/charts/google-scatter.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-google-line', {
+            url: '/charts/google/line',
+            templateUrl: 'app/examples/charts/google-line.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-chartjs-bar', {
+            url: '/charts/chartjs/bar',
+            templateUrl: 'app/examples/charts/chartjs-bar.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-chartjs-pie', {
+            url: '/charts/chartjs/pie',
+            templateUrl: 'app/examples/charts/chartjs-pie.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-chartjs-ticker', {
+            url: '/charts/chartjs/ticker',
+            templateUrl: 'app/examples/charts/chartjs-ticker.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-chartjs-line', {
+            url: '/charts/chartjs/line',
+            templateUrl: 'app/examples/charts/chartjs-line.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-d3-scatter', {
+            url: '/charts/d3/scatter',
+            templateUrl: 'app/examples/charts/d3-scatter.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-d3-bar', {
+            url: '/charts/d3/bar',
+            templateUrl: 'app/examples/charts/d3-bar.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        })
+        .state('triangular.charts-d3-multiline', {
+            url: '/charts/d3/multiline',
+            templateUrl: 'app/examples/charts/d3-multiline.tmpl.html',
+            data: {
+                permissions: {
+                    only: ['viewCharts']
+                },
+                layout: {
+                    contentClass: 'layout-column'
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Charts',
+            icon: 'zmdi zmdi-chart',
+            type: 'dropdown',
+            priority: 5.1,
+            permission: 'viewCharts',
+            children: [{
+                name: 'Google',
+                type: 'dropdown',
+                children: [{
+                    name: 'Bar',
+                    state: 'triangular.charts-google-bar',
+                    type: 'link'
+                },{
+                    name: 'Scatter',
+                    state: 'triangular.charts-google-scatter',
+                    type: 'link'
+                },{
+                    name: 'Line',
+                    state: 'triangular.charts-google-line',
+                    type: 'link'
+                }]
+            },{
+                name: 'Chart.js',
+                type: 'dropdown',
+                children: [{
+                    name: 'Bar',
+                    state: 'triangular.charts-chartjs-bar',
+                    type: 'link'
+                },{
+                    name: 'Line',
+                    state: 'triangular.charts-chartjs-line',
+                    type: 'link'
+                },{
+                    name: 'Pie',
+                    state: 'triangular.charts-chartjs-pie',
+                    type: 'link'
+                },{
+                    name: 'Ticker',
+                    state: 'triangular.charts-chartjs-ticker',
+                    type: 'link'
+                }]
+            },{
+                name: 'D3 Charts',
+                type: 'dropdown',
+                children: [{
+                    name: 'Scatter',
+                    state: 'triangular.charts-d3-scatter',
+                    type: 'link'
+                },{
+                    name: 'OHCL Bar',
+                    state: 'triangular.charts-d3-bar',
+                    type: 'link'
+                },{
+                    name: 'Multiline',
+                    state: 'triangular.charts-d3-multiline',
+                    type: 'link'
+                }]
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples.calendar')
+        .filter('padding', padding);
+
+    function padding() {
+        return paddingFilter;
+
+        ////////////////
+
+        function paddingFilter(n, len) {
+            var num = parseInt(n, 10);
+            len = parseInt(len, 10);
+            if (isNaN(num) || isNaN(len)) {
+                return n;
+            }
+            num = ''+num;
+            while (num.length < len) {
+                num = '0'+num;
+            }
+            return num;
+        }
+    }
+
+})();
+(function() {
+    'use strict';
+
+    EventDialogController.$inject = ["$scope", "$mdDialog", "$filter", "triTheming", "dialogData", "event", "edit"];
+    angular
+        .module('app.examples.calendar')
+        .controller('EventDialogController', EventDialogController);
+
+    /* @ngInject */
+    function EventDialogController($scope, $mdDialog, $filter, triTheming, dialogData, event, edit) {
+
+        var vm = this;
+        vm.cancelClick = cancelClick;
+        vm.colors = [];
+        vm.colorChanged = colorChanged;
+        vm.deleteClick = deleteClick;
+        vm.allDayChanged = allDayChanged;
+        vm.dialogData = dialogData;
+        vm.edit = edit;
+        vm.event = event;
+        vm.okClick = okClick;
+        vm.selectedColor = null;
+        // create start and end date of event
+        vm.start = event.start.toDate();
+        vm.startTime = convertMomentToTime(event.start);
+
+        if(event.end !== null) {
+            vm.end = event.end.toDate();
+            vm.endTime = convertMomentToTime(event.end);
+        }
+
+        ////////////////
+
+        function colorChanged() {
+            vm.event.backgroundColor = vm.selectedColor.backgroundColor;
+            vm.event.borderColor = vm.selectedColor.backgroundColor;
+            vm.event.textColor = vm.selectedColor.textColor;
+            vm.event.palette = vm.selectedColor.palette;
+        }
+
+        function okClick() {
+            vm.event.start = updateEventDateTime(vm.start, vm.startTime);
+            if(vm.event.end !== null) {
+                vm.event.end = updateEventDateTime(vm.end, vm.endTime);
+            }
+            $mdDialog.hide(vm.event);
+        }
+
+        function cancelClick() {
+            $mdDialog.cancel();
+        }
+
+        function deleteClick() {
+            vm.event.deleteMe = true;
+            $mdDialog.hide(vm.event);
+        }
+
+        function allDayChanged() {
+            // if all day turned on and event already saved we need to create a new date
+            if(vm.event.allDay === false && vm.event.end === null) {
+                vm.event.end = moment(vm.event.start);
+                vm.event.end.endOf('day');
+                vm.end = vm.event.end.toDate();
+                vm.endTime = convertMomentToTime(vm.event.end);
+            }
+        }
+
+        function convertMomentToTime(moment) {
+            return {
+                hour: moment.hour(),
+                minute: moment.minute()
+            };
+        }
+
+        function updateEventDateTime(date, time) {
+            var newDate = moment(date);
+            newDate.hour(time.hour);
+            newDate.minute(time.minute);
+            return newDate;
+        }
+
+        function createDateSelectOptions() {
+            // create options for time select boxes (this will be removed in favor of mdDatetime picker when it becomes available)
+            vm.dateSelectOptions = {
+                hours: [],
+                minutes: []
+            };
+            // hours
+            for(var hour = 0; hour <= 23; hour++) {
+                vm.dateSelectOptions.hours.push(hour);
+            }
+            // minutes
+            for(var minute = 0; minute <= 59; minute++) {
+                vm.dateSelectOptions.minutes.push(minute);
+            }
+        }
+
+        // init
+        createDateSelectOptions();
+
+        // create colors
+        angular.forEach(triTheming.palettes, function(palette, index) {
+            var color = {
+                name: index.replace(/-/g, ' '),
+                palette: index,
+                backgroundColor: triTheming.rgba(palette['500'].value),
+                textColor: triTheming.rgba(palette['500'].contrast)
+            };
+
+            vm.colors.push(color);
+
+            if(index === vm.event.palette) {
+                vm.selectedColor = color;
+                vm.colorChanged();
+            }
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    CalendarController.$inject = ["$scope", "$rootScope", "$mdDialog", "$mdToast", "$filter", "$element", "triTheming", "triLayout", "uiCalendarConfig"];
+    angular
+        .module('app.examples.calendar')
+        .controller('CalendarController', CalendarController);
+
+    /* @ngInject */
+    function CalendarController($scope, $rootScope, $mdDialog, $mdToast, $filter, $element, triTheming, triLayout, uiCalendarConfig) {
+        var vm = this;
+        vm.addEvent = addEvent;
+        vm.calendarOptions = {
+            contentHeight: 'auto',
+            selectable: true,
+            editable: true,
+            header: false,
+            viewRender: function(view) {
+                // change day
+                vm.currentDay = view.calendar.getDate();
+                vm.currentView = view.name;
+                // update toolbar with new day for month name
+                $rootScope.$broadcast('calendar-changeday', vm.currentDay);
+                // update background image for month
+                triLayout.layout.contentClass = 'calendar-background-image background-overlay-static overlay-gradient-10 calendar-background-month-' + vm.currentDay.month();
+            },
+            dayClick: function(date, jsEvent, view) { //eslint-disable-line
+                vm.currentDay = date;
+            },
+            eventClick: function(calEvent, jsEvent, view) { //eslint-disable-line
+                $mdDialog.show({
+                    controller: 'EventDialogController',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
+                    targetEvent: jsEvent,
+                    focusOnOpen: false,
+                    locals: {
+                        dialogData: {
+                            title: 'Edit Event',
+                            confirmButtonText: 'Save'
+                        },
+                        event: calEvent,
+                        edit: true
+                    }
+                })
+                .then(function(event) {
+                    var toastMessage = 'Event Updated';
+                    if(angular.isDefined(event.deleteMe) && event.deleteMe === true) {
+                        // remove the event from the calendar
+                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('removeEvents', event._id);
+                        // change toast message
+                        toastMessage = 'Event Deleted';
+                    }
+                    else {
+                        // update event
+                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
+                    }
+
+                    // pop a toast
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content($filter('triTranslate')(toastMessage))
+                        .position('bottom right')
+                        .hideDelay(2000)
+                    );
+                });
+            }
+        };
+
+        vm.viewFormats = {
+            'month': 'MMMM YYYY',
+            'agendaWeek': 'w',
+            'agendaDay': 'Do MMMM YYYY'
+        };
+
+        vm.eventSources = [{
+            events: []
+        }];
+
+        function addEvent(event, $event) {
+            var inAnHour = moment(vm.currentDay).add(1, 'h');
+            $mdDialog.show({
+                controller: 'EventDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
+                targetEvent: $event,
+                focusOnOpen: false,
+                locals: {
+                    dialogData: {
+                        title: 'Add Event',
+                        confirmButtonText: 'Add'
+                    },
+                    event: {
+                        title: $filter('triTranslate')('New Event'),
+                        allDay: false,
+                        start: vm.currentDay,
+                        end: inAnHour,
+                        palette: 'cyan',
+                        stick: true
+                    },
+                    edit: false
+                }
+            })
+            .then(function(event) {
+                vm.eventSources[0].events.push(event);
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content($filter('triTranslate')('Event Created'))
+                    .position('bottom right')
+                    .hideDelay(2000)
+                );
+            });
+        }
+
+        function createRandomEvents(number, startDate, endDate) {
+            var eventNames = ['Pick up the kids', 'Remember the milk', 'Meeting with Morris', 'Car service',  'Go Surfing', 'Party at Christos house', 'Beer Oclock', 'Festival tickets', 'Laundry!', 'Haircut appointment', 'Walk the dog', 'Dentist :(', 'Board meeting', 'Go fishing'];
+            var locationNames = ['London', 'New York', 'Paris', 'Burnley'];
+            for(var x = 0; x < number; x++) {
+                var randomMonthDate = randomDate(startDate, endDate);
+                var inAnHour = moment(randomMonthDate).add(1, 'h');
+                var randomEvent = Math.floor(Math.random() * (eventNames.length - 0));
+                var randomLocation = Math.floor(Math.random() * (locationNames.length - 0));
+                var randomPalette = pickRandomProperty(triTheming.palettes);
+
+                vm.eventSources[0].events.push({
+                    title: eventNames[randomEvent],
+                    allDay: false,
+                    start: randomMonthDate,
+                    end: inAnHour,
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
+                    location: locationNames[randomLocation],
+                    backgroundColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
+                    borderColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
+                    textColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].contrast),
+                    palette: randomPalette
+                });
+            }
+        }
+
+        // listeners
+
+        $scope.$on('addEvent', addEvent);
+
+        // create 10 random events for the month
+        createRandomEvents(100, moment().startOf('year'), moment().endOf('year'));
+
+        function randomDate(start, end) {
+            var startNumber = start.toDate().getTime();
+            var endNumber = end.toDate().getTime();
+            var randomTime = Math.random() * (endNumber - startNumber) + startNumber;
+            return moment(randomTime);
+        }
+
+        function pickRandomProperty(obj) {
+            var result;
+            var count = 0;
+            for (var prop in obj) {
+                if (Math.random() < 1/++count) {
+                    result = prop;
+                }
+            }
+            return result;
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.calendar')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('triangular.calendar', {
+            // set the url of this page
+            url: '/calendar',
+            views: {
+                '@triangular': {
+                    // set the html template to show on this page
+                    templateUrl: 'app/examples/calendar/calendar.tmpl.html',
+                    // set the controller to load for this page
+                    controller: 'CalendarController',
+                    controllerAs: 'vm'
+                },
+                'toolbar@triangular': {
+                    templateUrl: 'app/examples/calendar/layouts/toolbar/toolbar.tmpl.html',
+                    controller: 'CalendarToolbarController',
+                    controllerAs: 'vm'
+                },
+                'belowContent@triangular': {
+                    templateUrl: 'app/examples/calendar/calendar-fabs.tmpl.html',
+                    controller: 'CalendarFabController',
+                    controllerAs: 'vm'
+                }
+            },
+            data: {
+                layout: {
+                    contentClass: 'triangular-non-scrolling layout-column',
+                    footer: false
+                },
+                permissions: {
+                    only: ['viewCalendar']
+                }
+            }
+        });
+
+        triMenuProvider.addMenu({
+            // give the menu a name to show (should be translatable and in the il8n folder json)
+            name: 'Calendar',
+            // point this menu to the state we created in the $stateProvider above
+            state: 'triangular.calendar',
+            // set the menu type to a link
+            type: 'link',
+            // set an icon for this menu
+            icon: 'zmdi zmdi-calendar-alt',
+            // set a proirity for this menu item, menu is sorted by priority
+            priority: 2.3,
+            permission: 'viewCalendar'
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
+    CalendarFabController.$inject = ["$rootScope"];
+    angular
+        .module('app.examples.calendar')
+        .controller('CalendarFabController', CalendarFabController);
+
+    /* @ngInject */
+    function CalendarFabController($rootScope) {
+        var vm = this;
+        vm.addEvent = addEvent;
+
+        ////////////////
+
+        function addEvent($event) {
+            $rootScope.$broadcast('addEvent', $event);
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
+    angular
+        .module('app.examples.authentication')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+        .state('authentication', {
+            abstract: true,
+            views: {
+                'root': {
+                    templateUrl: 'app/examples/authentication/layouts/authentication.tmpl.html'
+                }
+            },
+            data: {
+                permissions: {
+                    only: ['viewAuthentication']
+                }
+            }
+        })
+        .state('authentication.login', {
+            url: '/login',
+            templateUrl: 'app/examples/authentication/login/login.tmpl.html',
+            controller: 'LoginController',
+            controllerAs: 'vm'
+        })
+        .state('authentication.signup', {
+            url: '/signup',
+            templateUrl: 'app/examples/authentication/signup/signup.tmpl.html',
+            controller: 'SignupController',
+            controllerAs: 'vm'
+        })
+        .state('authentication.lock', {
+            url: '/lock',
+            templateUrl: 'app/examples/authentication/lock/lock.tmpl.html',
+            controller: 'LockController',
+            controllerAs: 'vm'
+        })
+        .state('authentication.forgot', {
+            url: '/forgot',
+            templateUrl: 'app/examples/authentication/forgot/forgot.tmpl.html',
+            controller: 'ForgotController',
+            controllerAs: 'vm'
+        })
+        .state('triangular.profile', {
+            url: '/profile',
+            templateUrl: 'app/examples/authentication/profile/profile.tmpl.html',
+            controller: 'ProfileController',
+            controllerAs: 'vm'
+        });
+
+        triMenuProvider.addMenu({
+            name: 'Authentication',
+            icon: 'zmdi zmdi-account',
+            type: 'dropdown',
+            priority: 4.1,
+            permission: 'viewAuthentication',
+            children: [{
+                name: 'Login',
+                state: 'authentication.login',
+                type: 'link'
+            },{
+                name: 'Sign Up',
+                state: 'authentication.signup',
+                type: 'link'
+            },{
+                name: 'Forgot Password',
+                state: 'authentication.forgot',
+                type: 'link'
+            },{
+                name: 'Lock Page',
+                state: 'authentication.lock',
+                type: 'link'
+            },{
+                name: 'Profile',
+                state: 'triangular.profile',
+                type: 'link'
+            }]
+        });
+    }
+})();
+
+(function() {
+    'use strict';
+
     angular
         .module('app.authentication', [
             'permission', 'permission.ui'
@@ -16100,31 +16100,37 @@
 (function() {
     'use strict';
 
-    LockController.$inject = ["$state", "triSettings"];
+    ForgotController.$inject = ["$scope", "$state", "$mdToast", "$filter", "$http", "triSettings"];
     angular
         .module('app.authentication')
-        .controller('LockController', LockController);
+        .controller('ForgotController', ForgotController);
 
     /* @ngInject */
-    function LockController($state, triSettings) {
+    function ForgotController($scope, $state, $mdToast, $filter, $http, triSettings) {
         var vm = this;
-        vm.loginClick = loginClick;
-        vm.user = {
-            name: 'Morris Onions',
-            email: 'info@oxygenna.com',
-            password: ''
-        };
         vm.triSettings = triSettings;
+        vm.user = {
+            email: ''
+        };
+        vm.resetClick = resetClick;
 
         ////////////////
 
-        // controller to handle login check
-        function loginClick() {
-            // user logged in ok so goto the dashboard
-            $state.go('triangular.dashboard-general');
+        function resetClick() {
+            $mdToast.show(
+                $mdToast.simple()
+                .content($filter('triTranslate')('Your new password has been mailed'))
+                .position('bottom right')
+                .action($filter('triTranslate')('Login'))
+                .highlightAction(true)
+                .hideDelay(0)
+            ).then(function() {
+                $state.go('authentication.login');
+            });
         }
     }
 })();
+
 (function() {
     'use strict';
 
@@ -16159,37 +16165,31 @@
 (function() {
     'use strict';
 
-    ForgotController.$inject = ["$scope", "$state", "$mdToast", "$filter", "$http", "triSettings"];
+    LockController.$inject = ["$state", "triSettings"];
     angular
         .module('app.authentication')
-        .controller('ForgotController', ForgotController);
+        .controller('LockController', LockController);
 
     /* @ngInject */
-    function ForgotController($scope, $state, $mdToast, $filter, $http, triSettings) {
+    function LockController($state, triSettings) {
         var vm = this;
-        vm.triSettings = triSettings;
+        vm.loginClick = loginClick;
         vm.user = {
-            email: ''
+            name: 'Morris Onions',
+            email: 'info@oxygenna.com',
+            password: ''
         };
-        vm.resetClick = resetClick;
+        vm.triSettings = triSettings;
 
         ////////////////
 
-        function resetClick() {
-            $mdToast.show(
-                $mdToast.simple()
-                .content($filter('triTranslate')('Your new password has been mailed'))
-                .position('bottom right')
-                .action($filter('triTranslate')('Login'))
-                .highlightAction(true)
-                .hideDelay(0)
-            ).then(function() {
-                $state.go('authentication.login');
-            });
+        // controller to handle login check
+        function loginClick() {
+            // user logged in ok so goto the dashboard
+            $state.go('triangular.dashboard-general');
         }
     }
 })();
-
 (function() {
     'use strict';
 
@@ -17255,11 +17255,12 @@
         }
 
         function getActiveGroup() {
+            //TODO: 
             var defer = $q.defer();
 
             if (activeGroup === null) {
                 allowedGroups().then(function(response) {
-                    if (response[0].isRestangularized()) {
+                    if (response[0].fromServer) {
                         activeGroup = response[0];
                         defer.resolve(activeGroup);
                     } else {
@@ -17273,7 +17274,7 @@
 
                 });
             } else {
-                if (activeGroup.isRestangularized()) {
+                if (activeGroup.fromServer()) {
                     defer.resolve(activeGroup);
                 } else {
                     GroupService.one(activeGroup.id).get()
@@ -17662,27 +17663,6 @@
 (function() {
     'use strict';
 
-    angular
-        .module('app.examples', [
-            'app.examples.authentication',
-            'app.examples.calendar',
-            'app.examples.charts',
-            'app.examples.dashboards',
-            'app.examples.elements',
-            'app.examples.email',
-            'app.examples.extras',
-            'app.examples.forms',
-            'app.examples.github',
-            'app.examples.layouts',
-            'app.examples.maps',
-            'app.examples.menu',
-            'app.examples.todo',
-            'app.examples.ui'
-        ]);
-})();
-(function() {
-    'use strict';
-
     moduleConfig.$inject = ["$stateProvider", "triMenuProvider"];
     angular
         .module('app.dashboards')
@@ -17842,6 +17822,27 @@
     }
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('app.examples', [
+            'app.examples.authentication',
+            'app.examples.calendar',
+            'app.examples.charts',
+            'app.examples.dashboards',
+            'app.examples.elements',
+            'app.examples.email',
+            'app.examples.extras',
+            'app.examples.forms',
+            'app.examples.github',
+            'app.examples.layouts',
+            'app.examples.maps',
+            'app.examples.menu',
+            'app.examples.todo',
+            'app.examples.ui'
+        ]);
+})();
 (function() {
     'use strict';
 
@@ -19018,6 +19019,19 @@ $templateCache.put("app/examples/charts/google-line.tmpl.html","<div class=\"pad
 $templateCache.put("app/examples/charts/google-scatter.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Google Chart Tools Directive Module to bring you all the chart types available from Google Charts.</p>\n\n    <p class=\"md-subhead\">Material Scatter Charts have many small improvements over Classic Scatter Charts, including variable opacity for legibility of overlapping points, an improved color palette, clearer label formatting, tighter default spacing, softer gridlines and titles (and the addition of subtitles).</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Google Material Scatter Chart Example</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-controller=\"GoogleChartsScatterController as vm\" ng-include=\"\'app/examples/charts/examples/google-scatter.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/charts/examples/google-scatter.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/charts/examples/google-scatter.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
 $templateCache.put("app/examples/dashboards/dashboard-draggable.tmpl.html","<div layout=\"column\" class=\"padded-content-page\">\n    <h2>Creating containers with draggable elements</h2>\n    <p>Triangular allows you to easily build amazing containers with draggable elements. The examples below display such a functionality by creating simple containers with draggable widgets. Drag them around in order to re-order them. More examples can be found in analytics and server pages under the dashboard menu.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Horizontal dragging</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-draggable.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-draggable.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>Example Column container. More complex layouts are also allowed, offering two degrees of freedom in movement.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Vertical dragging</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-draggable-vertical.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-draggable-vertical.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
 $templateCache.put("app/examples/dashboards/widgets.tmpl.html","<div layout=\"column\" class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular allows you to build stunning dashbords easily using widgets.  Each widget has many different options you can find out how to use some of them below.</p>\n\n\n    <p>Titles & subtitles can be placed above and below the widget content.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Title above and below the content</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-title-above.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-title-above.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n\n    <p>Titles & subtitles can also be be placed to the side of the widget content.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Title on the side of the content</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-title-side.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-title-side.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can also use any of <a ui-sref=\"admin-panel.default.ui-colors\">triangulars palette colors</a> for your widgets.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Using palette colours</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-colors.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-colors.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n\n    <p>You can also use an image for your widget backgrounds.</p>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Using palette colours</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content\" ng-include=\"\'app/examples/dashboards/examples/widget-backgrounds.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/dashboards/examples/widget-backgrounds.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
+$templateCache.put("app/examples/email/email-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog\">\n    <md-toolbar class=\"toolbar-default\" md-theme=\"{{vm.triSkin.elements.toolbar}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n              <span>{{vm.title}}</span>\n            </h2>\n            <span flex></span>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"email-dialog md-padding\">\n        <form name=\"emailForm\" novalidate>\n            <div layout=\"row\">\n                <div layout=\"column\" flex>\n                    <md-contact-chips\n                        flex\n                        ng-model=\"vm.email.to\"\n                        md-contacts=\"vm.queryContacts($query)\"\n                        md-contact-name=\"name\"\n                        md-contact-image=\"image\"\n                        md-contact-email=\"email\"\n                        md-require-match\n                        filter-selected=\"true\"\n                        placeholder=\"{{\'To\' | triTranslate}}\"\n                        secondary-placeholder=\"{{\'To\' | triTranslate}}\">\n                    </md-contact-chips>\n                    <div class=\"email-dialog-ccs ng-hide\" layout=\"column\" ng-show=\"vm.showCCS\" >\n                        <md-contact-chips\n                            ng-model=\"vm.email.cc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'CC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'CC\' | triTranslate}}\">\n                        </md-contact-chips>\n                        <md-contact-chips\n                            ng-model=\"vm.email.bcc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'BCC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'BCC\' | triTranslate}}\">\n                        </md-contact-chips>\n                    </div>\n                </div>\n                <md-button class=\"md-icon-button\" ng-click=\"vm.toggleCCS($event)\" aria-label=\"toggle ccs\">\n                    <md-icon md-font-icon ng-class=\"vm.showCCSIcon\"></md-icon>\n                </md-button>\n            </div>\n\n            <md-input-container class=\"email-subject md-block\">\n                <label for=\"subject\" translate>Subject</label>\n                <input ng-model=\"vm.email.subject\" name=\"subject\" required>\n                <div ng-messages=\"emailForm.subject.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a subject for the email.</span>\n                    </div>\n                </div>\n            </md-input-container>\n\n            <text-angular class=\"email-content\" name=\"emailBody\" ng-model=\"vm.email.content\" ta-target-toolbars=\"editor-toolbar\"></text-angular>\n        </form>\n    </md-dialog-content>\n\n    <md-dialog-actions layout=\"row\">\n        <text-angular-toolbar name=\"editor-toolbar\" class=\"email-dialog-editor-toolbar\" ta-toolbar-active-button-class=\"active\"></text-angular-toolbar>\n        <span flex></span>\n        <md-button ng-click=\"vm.send()\" class=\"md-primary\" ng-disabled=\"emailForm.$invalid\" aria-label=\"send\" translate=\"Send\"></md-button>\n    </md-dialog-actions>\n</md-dialog>");
+$templateCache.put("app/examples/email/email.tmpl.html","<md-content class=\"md-padding full-width\">\n    <md-card>\n        <md-card-header>\n            <md-card-avatar>\n                <img class=\"md-user-avatar\" ng-src=\"{{::vm.email.from.image}}\"/>\n            </md-card-avatar>\n            <md-card-header-text>\n                <span class=\"md-title\">{{::vm.email.from.name}}</span>\n                <span class=\"md-subhead\">{{::vm.email.subject}}</span>\n            </md-card-header-text>\n            <md-card-icon-actions>\n                <md-button class=\"md-icon-button\" aria-label=\"close\" ng-click=\"vm.closeEmail()\">\n                    <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n                </md-button>\n            </md-card-icon-actions>\n        </md-card-header>\n        <md-divider></md-divider>\n        <md-card-content>\n            <p ng-repeat=\"paragraph in vm.email.content\">{{paragraph}}</p>\n        </md-card-content>\n        <md-divider></md-divider>\n        <md-card-actions layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply\')\" aria-label=\"Reply\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply_ALL\')\" aria-label=\"Reply All\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply-all\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Forward\')\" aria-label=\"Forward\">\n                <md-icon md-font-icon=\"zmdi zmdi-forward\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.deleteEmail(vm.email)\" aria-label=\"Delete\">\n                <md-icon md-font-icon=\"zmdi zmdi-delete\"></md-icon>\n            </md-button>\n        </md-card-actions>\n    </md-card>\n</md-content>\n");
+$templateCache.put("app/examples/email/inbox.tmpl.html","<div flex layout=\"row\">\n    <md-content flex=\"100\" flex-gt-xs=\"50\" flex-gt-lg=\"40\" ng-show=\"vm.showEmailList\">\n        <md-list class=\"inbox-list\">\n            <div ng-repeat=\"group in vm.emailGroups\">\n                <md-subheader class=\"md-primary\" ng-show=\"group.emails.length > 0\">{{::group.name}}</md-subheader>\n                <md-list-item class=\"inbox-list__email inbox-list__email--animated md-3-line md-long-text\" ng-repeat=\"email in group.emails | orderBy:\'-date\'\" ng-click=\"vm.openMail(email)\" ng-class=\"{ \'inbox-list__email--active\': vm.selectedMail === email.id, \'inbox-list__email--unread\': email.unread }\">\n                    <img class=\"md-avatar\" ng-src=\"{{::email.from.image}}\" alt=\"{{::email.from.name}}\">\n                    <div class=\"md-list-item-text\" layout=\"column\">\n                        <h3><span class=\"md-caption\" am-time-ago=\"email.date\"></span>{{::email.from.name}}</h3>\n                        <h4>{{::email.subject}}</h4>\n                        <p>{{::email.content[0] | cut:true:80:\' ...\'}}</p>\n                    </div>\n                    <md-divider ng-if=\"!$last\"></md-divider>\n                </md-list-item>\n            </div>\n        </md-list>\n    </md-content>\n    <div class=\"md-whiteframe-z1 animate-wrapper\" layout=\"column\" layout-align=\"start center\" flex>\n        <div flex id=\"ui-admin-email\" ui-view layout=\"column\" layout-align=\"start center\" class=\"overflow-auto full-width\">\n            <div flex class=\"inbox-no-email-selected\" layout=\"column\" layout-align=\"center\">\n                <h2 hide-xs translate>No email selected</h2>\n            </div>\n        </div>\n    </div>\n</div>\n<md-button ng-click=\"vm.composeClick($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'EMAIL.COMPOSE_EMAIL\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-edit\"></md-icon>\n</md-button>\n");
+$templateCache.put("app/examples/extras/avatars.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular includes an enormous set of Material Design Avatars. Amazing details and 1000s of combinations. Includes original Adobe Illustrator file as well as 1440 exported images</p>\n\n    <md-grid-list md-cols=\"6\" md-cols-xs=\"4\" md-row-height=\"1:1\" md-gutter=\"4px\">\n        <md-grid-tile md-rowspan=\"{{::avatar.rowspan}}\" md-colspan=\"{{::avatar.colspan}}\" ng-repeat=\"avatar in ::vm.avatars\" ng-style=\"::{ \'background-image\': \'url(\' + avatar.image + \')\', \'background-size\' : \'cover\' }\" palette-background=\"{{::avatar.color}}:{{::avatar.hue}}\">\n            <md-grid-tile-footer>\n                <h3>{{::avatar.title}}</h3>\n            </md-grid-tile-footer>\n        </md-grid-tile>\n    </md-grid-list>\n</md-content>");
+$templateCache.put("app/examples/extras/blank.tmpl.html","<div class=\"padded-content-page\">\n    <div layout=\"row\" layout-align=\"center center\">\n        <p>Your content here</p>\n    </div>\n</div>");
+$templateCache.put("app/examples/extras/gallery-dialog.tmpl.html","<md-dialog aria-label=\"{{vm.currentImage.title}}\">\n    <md-dialog-content class=\"md-dialog-content extras-image-dialog\">\n        <img ng-src=\"{{vm.currentImage.urlFull}}\" alt=\"{{vm.currentImage.title}}\">\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        {{vm.currentImage.title}}\n        <span flex></span>\n        <md-button ng-click=\"vm.prev()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-left\"></md-icon>\n        </md-button>\n        <md-button ng-click=\"vm.next()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon>\n        </md-button>\n    </md-dialog-actions>\n</md-dialog>");
+$templateCache.put("app/examples/extras/gallery.tmpl.html","<md-content class=\"extras-gallery-container\">\n    <md-list>\n        <div ng-repeat=\"day in ::vm.feed\">\n            <md-subheader>{{day.date | amCalendar}}</md-subheader>\n            <md-list-item>\n                <md-grid-list flex md-cols=\"6\" md-cols-xs=\"4\" md-row-height=\"4:3\" md-gutter=\"4px\">\n                    <md-grid-tile ng-click=\"vm.openImage(day, image, $event)\" md-rowspan=\"{{::image.rowspan}}\" md-colspan=\"{{::image.colspan}}\" ng-repeat=\"image in ::day.images\" ng-style=\"::{ \'background-image\': \'url(\' + image.url + \')\', \'background-size\' : \'cover\' }\">\n                        <md-grid-tile-footer>\n                            <h3>{{::image.title}}</h3>\n                        </md-grid-tile-footer>\n                    </md-grid-tile>\n                </md-grid-list>\n            </md-list-item>\n        </div>\n    </md-list>\n</md-content>\n");
+$templateCache.put("app/examples/extras/timeline.tmpl.html","<div class=\"overlay-5 padded-content-page\" animate-elements>\n    <div class=\"timeline\" layout=\"row\" ng-repeat=\"event in ::vm.events\" ng-attr-layout-align=\"{{$odd? \'end end\':\'start start\'}}\">\n        <div layout=\"row\" flex=\"50\" flex-xs=\"100\" ng-attr-layout-align=\"{{$odd? \'end\':\'start\'}} center\">\n            <div class=\"timeline-point md-whiteframe-z1\" theme-background=\"primary\" md-theme=\"{{triSkin.elements.content}}\">\n                <img ng-src=\"{{::event.image}}\" class=\"timeline-point-avatar\"/>\n                <span class=\"timeline-point-date\">{{::event.date}}</span>\n            </div>\n            <md-divider class=\"timeline-x-axis\" class=\"margin-0\" flex flex-order=\"2\"></md-divider>\n            <tri-widget class=\"timeline-widget margin-0 flex-70 flex-xs-100 {{::event.classes}}\" title=\"{{::event.title}}\" subtitle=\"{{::event.subtitle}}\" title-position=\"bottom\" ng-attr-flex-order=\"{{$odd? 2:1}}\" palette-background=\"{{::event.palette}}\" >\n                <div replace-with=\'{{event.content}}\'></div>\n            </tri-widget>\n            <md-divider class=\"timeline-y-axis\"></md-divider>\n        </div>\n    </div>\n</div>\n");
+$templateCache.put("app/examples/forms/autocomplete.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">You can use autocomplete to search for matches from local or remote data sources.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Autocomplete example</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-controller=\"Autocomplete1Controller as vm\" ng-include=\"\'app/examples/forms/examples/autocomplete-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/autocomplete-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/forms/examples/autocomplete-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
+$templateCache.put("app/examples/forms/binding.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Data-binding in Angular apps is the automatic synchronization of data between the model and view components. The way that Angular implements data-binding lets you treat the model as the single-source-of-truth in your application. The view is a projection of the model at all times. When the model changes, the view reflects the change, and vice versa.</p>\n\n    <p class=\"md-caption\">Try filling in the form below to see what happens to the user data structure in the second panel.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Binding a form to data</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <div ng-controller=\"Binding1Controller\" ng-include=\"\'app/examples/forms/examples/binding-1.tmpl.html\'\" layout=\"row\" layout-xs=\"column\" layout-align=\"center center\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/binding-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/forms/examples/binding-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
+$templateCache.put("app/examples/forms/inputs.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Text fields allow the user to input text. They can be single line, with or without scrolling, or multi-line, and can have an icon.</p>\n\n    <p>Touching a text field places the cursor and automatically displays the keyboard. In addition to typing, text fields allow for a variety of other tasks, such as text selection (cut, copy, paste) and data lookup via auto-completion. See Patterns > Selection for text selection design.</p>\n\n    <p>With floating inline labels, when the user engages with the text input field, the labels move to float above the field.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Floating labels</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-float.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-float.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can also add informative icons to your input fields.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Forms with icons</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-icons.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-icons.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can use a character counter in fields where a character restriction is in place.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Inputs with counter</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-counter.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-counter.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n\n    </div>\n\n    <p>You can also toggle the state of inputs by setting <code>ng-disabled</code></p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Input state</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-align=\"space-around center\" ng-include=\"\'app/examples/forms/examples/inputs-states.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-states.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-tab>");
+$templateCache.put("app/examples/forms/validation.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">Inform users about the state of the form as they fill it in. Disable form buttons until form reaches a valid state.</p>\n    <p>Note the example below.  The input field is required and also needs a valid email address or a warning message will appear.  Also the Create button will only be enabled when the form is valid.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Form Validation</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/validation-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/validation-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
+$templateCache.put("app/examples/forms/wizard.tmpl.html","<div>\n\n    <div layout=\"row\" layout-align=\"center center\">\n        <p flex=\"70\"  flex-xs=\"90\" class=\"md-headline font-weight-300 text-center text-light\" translate>We have combined material tabs and form inputs to create an interactive form wizardController.  We have also added validation messages to all fields and prevented the user from completing a step in the wizard until it is valid.</p>\n    </div>\n\n    <div flex layout=\"row\" layout-align=\"center center\" layout-fill>\n        <md-card flex=\"90\" class=\"tri-wizard-card md-whiteframe-z1 margin-bottom-100\" tri-wizard>\n            <md-toolbar class=\"md-primary\">\n                <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n                    <h2>Form Wizard</h2><h2> {{triWizard.progress}}% <span translate>Complete</span></h2>\n                </div>\n                <md-progress-linear class=\"md-accent padding-bottom-10\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n            </md-toolbar>\n            <md-card-content>\n                <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n                    <md-tab id=\"account\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">1</span>\n                            <span translate>Account details</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"accountForm\" tri-wizard-form novalidate>\n                                    <div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Username</label>\n                                            <input name=\"username\" ng-model=\"wizardController.data.account.username\" required>\n                                            <div ng-messages=\"accountForm.username.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.username.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label>Email</label>\n                                            <input type=\"email\" name=\"email\" ng-model=\"wizardController.data.account.email\" required>\n                                            <div ng-messages=\"accountForm.email.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.email.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"email\">\n                                                    <span translate>Please enter a valid email</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Password</label>\n                                                <input type=\"password\" name=\"password\" ng-model=\"wizardController.data.account.password\" required>\n                                                <div ng-messages=\"accountForm.password.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.password.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Password-CONFIRM</label>\n                                                <input type=\"password\" name=\"passwordConfirm\" ng-model=\"wizardController.data.account.passwordConfirm\" required>\n                                                <div ng-messages=\"accountForm.passwordConfirm.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.passwordConfirm.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"address\" ng-disabled=\"accountForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">2</span>\n                            <span translate>Your address</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"addressForm\" tri-wizard-form>\n                                    <div>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>First name</label>\n                                                <input name=\"firstName\" ng-model=\"wizardController.data.address.firstName\" required>\n                                                <div ng-messages=\"addressForm.firstName.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.firstName.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Last name</label>\n                                                <input name=\"lastName\" ng-model=\"wizardController.data.address.lastName\" required>\n                                                <div ng-messages=\"addressForm.lastName.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.lastName.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Address Line 1</label>\n                                            <input name=\"address1\" ng-model=\"wizardController.data.address.line1\" required>\n                                            <div ng-messages=\"addressForm.address1.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.address1.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Address Line 1-2</label>\n                                            <input ng-model=\"wizardController.data.address.line2\">\n                                        </md-input-container>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Town</label>\n                                                <input ng-model=\"wizardController.data.address.town\">\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>State</label>\n                                                <input ng-model=\"wizardController.data.address.state\">\n                                            </md-input-container>\n                                        </div>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Zip</label>\n                                                <input name=\"zip\" ng-model=\"wizardController.data.address.zip\" required>\n                                                <div ng-messages=\"addressForm.zip.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.zip.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Country</label>\n                                                <md-select ng-change=\"triWizard.updateProgress()\" name=\"country\" ng-model=\"wizardController.data.address.country\" required>\n                                                    <md-option value=\"US\" translate>United States</md-option>\n                                                </md-select>\n                                                <div ng-messages=\"addressForm.country.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.country.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"billing\" ng-disabled=\"addressForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">3</span>\n                            <span translate>Billing details</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"billingForm\" tri-wizard-form>\n                                    <div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Credit card number</label>\n                                            <input name=\"cardNumber\" ng-model=\"wizardController.data.billing.number\" required>\n                                            <div ng-messages=\"billingForm.cardNumber.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardNumber.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Name on card</label>\n                                            <input name=\"cardName\" ng-model=\"wizardController.data.billing.name\" required>\n                                            <div ng-messages=\"billingForm.cardName.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardName.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                    </div>\n                                    <div layout layout-xs=\"column\" flex>\n                                        <md-input-container flex>\n                                            <label translate>Expiry date (MM)</label>\n                                            <input name=\"cardMonth\" ng-model=\"wizardController.data.billing.cardMonth\" ng-minlength=\"2\" ng-maxlength=\"2\" ng-pattern=\"/^(0?[1-9]|1[012])$/\" required>\n                                            <div ng-messages=\"billingForm.cardMonth.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardMonth.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"maxlength\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                                <div ng-message when=\"minlength\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                                <div ng-message when=\"pattern\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container flex>\n                                            <label translate>Expiry date (YYYY)</label>\n                                            <input name=\"cardYear\" ng-model=\"wizardController.data.billing.cardYear\" ng-minlength=\"4\" ng-maxlength=\"4\" ng-pattern=\"/^[0-9]+$/\" required>\n                                            <div ng-messages=\"billingForm.cardYear.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardYear.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"maxlength\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                                <div ng-message when=\"minlength\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                                <div ng-message when=\"pattern\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"confirm\" ng-disabled=\"billingForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">4</span>\n                            <span translate>Confirmation</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <div class=\"padding-40\" flex layout=\"column\" layout-align=\"center center\">\n                                    <md-icon class=\"big-icon\" md-font-icon=\"zmdi zmdi-cake\"></md-icon>\n                                    <h2 class=\"md-display-2\" translate>Congratulations - we will be in touch</h2>\n                                </div>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                </md-tabs>\n            </md-card-content>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep > 2\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Previous\"></md-button>\n                <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.progress == 100 && triWizard.currentStep > 1\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Next\"></md-button>\n                <md-button class=\"md-accent md-raised\" ng-click=\"triWizard.currentStep = 3\" ng-show=\"triWizard.progress == 100 && triWizard.currentStep < 3\" translate=\"Send\"></md-button>\n            </md-card-actions>\n        </div>\n    </md-card>\n</div>\n");
 $templateCache.put("app/examples/elements/buttons.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Button Examples</h2>\n    <p class=\"md-subhead\">A button consists of text and/or an image that clearly communicates what action will occur when the user touches it.  Triangular provides all the button types recommended in the <a href=\"http://www.google.com/design/spec/components/buttons.html\">material design specification</a></p>\n\n    <h3>Button Types</h3>\n    <p>There are three types of main buttons: </p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Raised Button</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" ng-include=\"\'app/examples/elements/examples/button-raised.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-raised.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Flat Button</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" ng-include=\"\'app/examples/elements/examples/button-flat.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-flat.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Floating action button (FAB)</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-xs=\"column\" layout-padding layout-align=\"space-around center\" ng-include=\"\'app/examples/elements/examples/button-fab.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-fab.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <h3>Example Usage</h2>\n\n    <p>Choosing a button style depends on the primacy of the button, the number of containers on screen, and the overall layout of the screen.</p>\n    <p>First, look at the button’s function: is it important and ubiquitous enough to be a floating action button?</p>\n    <p>Next, choose raised or flat dimensionality depending on the container it will be in and how many z-space layers you have on screen. There should not be layers upon layers upon layers of objects on the screen.</p>\n    <p>Finally, look at your specific layout. You should primarily use one type of button per container. Only mix button types when you have a good reason to, such as emphasizing an important function.</p>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Raised Button Example</h3>\n            <p>Raised buttons emphasize functions that would otherwise get lost on a busy or wide space. They add dimension to mostly flat layouts.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n\n        <div flex flex-xs=\"100\" class=\"elements-buttons-raised-usage md-whiteframe-z1\" layout=\"column\">\n            <md-toolbar>\n                <h2 class=\"md-toolbar-tools\">\n                    <span>Raised Button</span>\n                </h2>\n            </md-toolbar>\n            <div class=\"elements-raised-content\">\n                <h3>Uploading</h3>\n                <h1>{{vm.determinateValue}}%</h1>\n                <md-progress-linear class=\"md-warn\" md-mode=\"buffer\" value=\"{{vm.determinateValue}}\" md-buffer-value=\"{{vm.determinateValue2}}\"></md-progress-linear>\n            </div>\n            <div class=\"elements-raised-buttons\" layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" aria-label=\"pause\">Pause</md-button>\n                <md-button class=\"md-raised md-warn\" aria-label=\"cancel\">Cancel</md-button>\n            </div>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Floating Action Button (FAB)</h3>\n            <p>Floating action buttons are used for a special type of promoted action. They are distinguished by a circled icon floating above the UI and have special motion behaviors related to morphing, launching, and the transferring anchor point.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n        <div flex flex-xs=\"100\" class=\"elements-buttons-fab-usage md-whiteframe-z3\" layout=\"column\">\n            <img src=\"assets/images/dashboards/tweet.jpg\" alt=\"\">\n            <md-toolbar>\n                <h2 class=\"md-toolbar-tools\">\n                    <span>Fab Button</span>\n                </h2>\n            </md-toolbar>\n            <md-button class=\"md-fab md-accent\" aria-label=\"fab button\">\n                <md-icon md-font-icon=\"zmdi zmdi-plus\"></md-icon>\n            </md-button>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around start\">\n        <div flex=\"40\" flex-xs=\"100\" layout=\"column\">\n            <h3 class=\"md-title\">Flat button</h3>\n            <p>Use flat buttons for contexts such as toolbars and dialogs to avoid gratuitous layering.</p>\n            <p><strong>Thats not an image, try it out <md-icon hide-xs md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon></strong></p>\n        </div>\n        <div flex flex-xs=\"100\" class=\"elements-buttons-flat-usage md-whiteframe-z3\" layout=\"column\">\n            <div class=\"md-padding\">\n                <h2>Would you like to use our location service?</h2>\n                <p>Let us monitor your location to keep you up to date with everything that is happening in your current area.</p>\n            </div>\n            <md-divider></md-divider>\n            <div class=\"md-padding\" layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-primary\">Disagree</md-button>\n                <md-button class=\"md-primary\">Agree</md-button>\n            </div>\n        </div>\n    </div>\n\n    <md-divider class=\"margin-top-20 margin-bottom-20\"></md-divider>\n\n    <h3>Button Ripple Options</h2>\n    <p>You can also change the style of ripple effects using the <code>md-ripple-size</code> and <code>md-no-ink</code> attribute</p>\n    <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom >\n        <md-tab label=\"example\">\n            <div class=\"padding-40 md-tabs-content\">\n                <md-card>\n                    <md-card-content ng-include=\"\'app/examples/elements/examples/button-ripple.tmpl.html\'\"></md-card-content>\n                </md-card>\n            </div>\n        </md-tab>\n        <md-tab label=\"HTML\">\n            <div class=\"md-tabs-content\">\n                <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-ripple.tmpl.html\'\"></div>\n            </div>\n        </md-tab>\n    </md-tabs>\n\n    <h3>Button States</h3>\n    <p>You can also change the style of ripple effects using the <code>md-ripple-size</code> attribute</p>\n    <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom >\n        <md-tab label=\"example\">\n            <div class=\"padding-40 md-tabs-content\">\n                <md-card>\n                    <md-card-content ng-include=\"\'app/examples/elements/examples/button-disabled.tmpl.html\'\"></md-card-content>\n                </md-card>\n            </div>\n        </md-tab>\n        <md-tab label=\"HTML\">\n            <div class=\"md-tabs-content\">\n                <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/button-disabled.tmpl.html\'\"></div>\n            </div>\n        </md-tab>\n    </md-tabs>\n</div>\n");
 $templateCache.put("app/examples/elements/cards.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Card Examples</h2>\n    <p class=\"md-subhead\">A card is a piece of paper that contains unique related data; for example, a photo, text, and link all about a single subject. Cards are typically an entry point to more complex and detailed information.</p>\n\n    <p>Cards have a constant width and variable height. The maximum height is limited to what can fit within a single view on a platform, but it can temporarily expand as needed (for example, to display a comment field).  Cards do not flip to reveal information on their back.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Simple Card - with top image</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-1.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Card - with media</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-2.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-2.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Card - action buttons and titles</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs elements-cards-example1 margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\" ng-include=\"\'app/examples/elements/examples/cards-3.tmpl.html\'\"></div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/cards-3.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/checkboxes.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Material Checkbox Examples</h2>\n    <p class=\"md-subhead\">Checkboxes allow the user to select multiple options from a set.  If you have multiple on/off options appearing in a list, checkboxes are a good way to preserve space.</p>\n\n    <p>Checkboxes use animation to communicate focused and pressed states.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Simple Checkbox</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card ng-init=\"checkboxes = { primary: true, default: true, warn: true }\">\n                        <md-card-content class=\"padding-40\" layout-padding layout-align=\"space-around start\" ng-include=\"\'app/examples/elements/examples/checkboxes-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/checkboxes-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
@@ -19045,28 +19059,15 @@ $templateCache.put("app/examples/elements/toolbars.tmpl.html","<div class=\"padd
 $templateCache.put("app/examples/elements/tooltips.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Tooltip Examples</h2>\n    <p class=\"md-subhead\">Tooltips are labels that appear on hover and focus when the user hovers over an element with the cursor, focuses on an element using a keyboard (usually through the tab key), or, in a touch UI, upon touch (without releasing). They contain textual identification for the element in question. They may also contain brief helper text regarding the function of the element. Nothing within the label can take focus.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Example tooltips</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-align=\"center center\" ng-include=\"\'app/examples/elements/examples/tooltip-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/tooltip-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/upload.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">File Upload Examples</h2>\n    <p class=\"md-subhead\">Triangular includes the <a href=\"https://github.com/danialfarid/ng-file-upload\">ng-file-upload directive</a> to allow easy upload form creation.</p>\n\n    <p>Here are some examples</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Simple upload button (allow multiple)</h3>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-controller=\"ElementsUpload1Controller as vm\" ng-include=\"\'app/examples/elements/examples/upload-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/upload-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/elements/examples/upload-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Upload button with animation</h3>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-controller=\"ElementsUploadAnimateController as vm\" ng-include=\"\'app/examples/elements/examples/upload-animate.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/upload-animate.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/elements/examples/upload-animate.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/whiteframes.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-display-1\">Whiteframe Examples</h2>\n    <p class=\"md-subhead\">Whiteframes provide a variety of layout structures using a consistent approach to surfaces, layering, and shadows.</p>\n\n    <div class=\"example-code md-whiteframe-z1\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h3>Whiteframe examples</h3>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content elements-whiteframe-example padding-40\">\n                    <div layout=\"column\" layout-align=\"center center\" layout-padding ng-include=\"\'app/examples/elements/examples/whiteframe-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/elements/examples/whiteframe-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>\n");
-$templateCache.put("app/examples/email/email-dialog.tmpl.html","<md-dialog class=\"mobile-fullwidth-dialog\">\n    <md-toolbar class=\"toolbar-default\" md-theme=\"{{vm.triSkin.elements.toolbar}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n              <span>{{vm.title}}</span>\n            </h2>\n            <span flex></span>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.cancel()\" aria-label=\"cancel\">\n                <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"email-dialog md-padding\">\n        <form name=\"emailForm\" novalidate>\n            <div layout=\"row\">\n                <div layout=\"column\" flex>\n                    <md-contact-chips\n                        flex\n                        ng-model=\"vm.email.to\"\n                        md-contacts=\"vm.queryContacts($query)\"\n                        md-contact-name=\"name\"\n                        md-contact-image=\"image\"\n                        md-contact-email=\"email\"\n                        md-require-match\n                        filter-selected=\"true\"\n                        placeholder=\"{{\'To\' | triTranslate}}\"\n                        secondary-placeholder=\"{{\'To\' | triTranslate}}\">\n                    </md-contact-chips>\n                    <div class=\"email-dialog-ccs ng-hide\" layout=\"column\" ng-show=\"vm.showCCS\" >\n                        <md-contact-chips\n                            ng-model=\"vm.email.cc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'CC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'CC\' | triTranslate}}\">\n                        </md-contact-chips>\n                        <md-contact-chips\n                            ng-model=\"vm.email.bcc\"\n                            md-contacts=\"vm.queryContacts($query)\"\n                            md-contact-name=\"name\"\n                            md-contact-image=\"image\"\n                            md-contact-email=\"email\"\n                            md-require-match\n                            filter-selected=\"true\"\n                            placeholder=\"{{\'BCC\' | triTranslate}}\"\n                            secondary-placeholder=\"{{\'BCC\' | triTranslate}}\">\n                        </md-contact-chips>\n                    </div>\n                </div>\n                <md-button class=\"md-icon-button\" ng-click=\"vm.toggleCCS($event)\" aria-label=\"toggle ccs\">\n                    <md-icon md-font-icon ng-class=\"vm.showCCSIcon\"></md-icon>\n                </md-button>\n            </div>\n\n            <md-input-container class=\"email-subject md-block\">\n                <label for=\"subject\" translate>Subject</label>\n                <input ng-model=\"vm.email.subject\" name=\"subject\" required>\n                <div ng-messages=\"emailForm.subject.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a subject for the email.</span>\n                    </div>\n                </div>\n            </md-input-container>\n\n            <text-angular class=\"email-content\" name=\"emailBody\" ng-model=\"vm.email.content\" ta-target-toolbars=\"editor-toolbar\"></text-angular>\n        </form>\n    </md-dialog-content>\n\n    <md-dialog-actions layout=\"row\">\n        <text-angular-toolbar name=\"editor-toolbar\" class=\"email-dialog-editor-toolbar\" ta-toolbar-active-button-class=\"active\"></text-angular-toolbar>\n        <span flex></span>\n        <md-button ng-click=\"vm.send()\" class=\"md-primary\" ng-disabled=\"emailForm.$invalid\" aria-label=\"send\" translate=\"Send\"></md-button>\n    </md-dialog-actions>\n</md-dialog>");
-$templateCache.put("app/examples/email/email.tmpl.html","<md-content class=\"md-padding full-width\">\n    <md-card>\n        <md-card-header>\n            <md-card-avatar>\n                <img class=\"md-user-avatar\" ng-src=\"{{::vm.email.from.image}}\"/>\n            </md-card-avatar>\n            <md-card-header-text>\n                <span class=\"md-title\">{{::vm.email.from.name}}</span>\n                <span class=\"md-subhead\">{{::vm.email.subject}}</span>\n            </md-card-header-text>\n            <md-card-icon-actions>\n                <md-button class=\"md-icon-button\" aria-label=\"close\" ng-click=\"vm.closeEmail()\">\n                    <md-icon md-font-icon=\"zmdi zmdi-close\"></md-icon>\n                </md-button>\n            </md-card-icon-actions>\n        </md-card-header>\n        <md-divider></md-divider>\n        <md-card-content>\n            <p ng-repeat=\"paragraph in vm.email.content\">{{paragraph}}</p>\n        </md-card-content>\n        <md-divider></md-divider>\n        <md-card-actions layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply\')\" aria-label=\"Reply\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Reply_ALL\')\" aria-label=\"Reply All\">\n                <md-icon md-font-icon=\"zmdi zmdi-mail-reply-all\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.emailAction($event, \'Forward\')\" aria-label=\"Forward\">\n                <md-icon md-font-icon=\"zmdi zmdi-forward\"></md-icon>\n            </md-button>\n            <md-button class=\"md-icon-button\" ng-click=\"vm.deleteEmail(vm.email)\" aria-label=\"Delete\">\n                <md-icon md-font-icon=\"zmdi zmdi-delete\"></md-icon>\n            </md-button>\n        </md-card-actions>\n    </md-card>\n</md-content>\n");
-$templateCache.put("app/examples/email/inbox.tmpl.html","<div flex layout=\"row\">\n    <md-content flex=\"100\" flex-gt-xs=\"50\" flex-gt-lg=\"40\" ng-show=\"vm.showEmailList\">\n        <md-list class=\"inbox-list\">\n            <div ng-repeat=\"group in vm.emailGroups\">\n                <md-subheader class=\"md-primary\" ng-show=\"group.emails.length > 0\">{{::group.name}}</md-subheader>\n                <md-list-item class=\"inbox-list__email inbox-list__email--animated md-3-line md-long-text\" ng-repeat=\"email in group.emails | orderBy:\'-date\'\" ng-click=\"vm.openMail(email)\" ng-class=\"{ \'inbox-list__email--active\': vm.selectedMail === email.id, \'inbox-list__email--unread\': email.unread }\">\n                    <img class=\"md-avatar\" ng-src=\"{{::email.from.image}}\" alt=\"{{::email.from.name}}\">\n                    <div class=\"md-list-item-text\" layout=\"column\">\n                        <h3><span class=\"md-caption\" am-time-ago=\"email.date\"></span>{{::email.from.name}}</h3>\n                        <h4>{{::email.subject}}</h4>\n                        <p>{{::email.content[0] | cut:true:80:\' ...\'}}</p>\n                    </div>\n                    <md-divider ng-if=\"!$last\"></md-divider>\n                </md-list-item>\n            </div>\n        </md-list>\n    </md-content>\n    <div class=\"md-whiteframe-z1 animate-wrapper\" layout=\"column\" layout-align=\"start center\" flex>\n        <div flex id=\"ui-admin-email\" ui-view layout=\"column\" layout-align=\"start center\" class=\"overflow-auto full-width\">\n            <div flex class=\"inbox-no-email-selected\" layout=\"column\" layout-align=\"center\">\n                <h2 hide-xs translate>No email selected</h2>\n            </div>\n        </div>\n    </div>\n</div>\n<md-button ng-click=\"vm.composeClick($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'EMAIL.COMPOSE_EMAIL\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-edit\"></md-icon>\n</md-button>\n");
-$templateCache.put("app/examples/extras/avatars.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular includes an enormous set of Material Design Avatars. Amazing details and 1000s of combinations. Includes original Adobe Illustrator file as well as 1440 exported images</p>\n\n    <md-grid-list md-cols=\"6\" md-cols-xs=\"4\" md-row-height=\"1:1\" md-gutter=\"4px\">\n        <md-grid-tile md-rowspan=\"{{::avatar.rowspan}}\" md-colspan=\"{{::avatar.colspan}}\" ng-repeat=\"avatar in ::vm.avatars\" ng-style=\"::{ \'background-image\': \'url(\' + avatar.image + \')\', \'background-size\' : \'cover\' }\" palette-background=\"{{::avatar.color}}:{{::avatar.hue}}\">\n            <md-grid-tile-footer>\n                <h3>{{::avatar.title}}</h3>\n            </md-grid-tile-footer>\n        </md-grid-tile>\n    </md-grid-list>\n</md-content>");
-$templateCache.put("app/examples/extras/blank.tmpl.html","<div class=\"padded-content-page\">\n    <div layout=\"row\" layout-align=\"center center\">\n        <p>Your content here</p>\n    </div>\n</div>");
-$templateCache.put("app/examples/extras/gallery-dialog.tmpl.html","<md-dialog aria-label=\"{{vm.currentImage.title}}\">\n    <md-dialog-content class=\"md-dialog-content extras-image-dialog\">\n        <img ng-src=\"{{vm.currentImage.urlFull}}\" alt=\"{{vm.currentImage.title}}\">\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        {{vm.currentImage.title}}\n        <span flex></span>\n        <md-button ng-click=\"vm.prev()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-left\"></md-icon>\n        </md-button>\n        <md-button ng-click=\"vm.next()\" class=\"md-icon-button\" aria-label=\"Close\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon>\n        </md-button>\n    </md-dialog-actions>\n</md-dialog>");
-$templateCache.put("app/examples/extras/gallery.tmpl.html","<md-content class=\"extras-gallery-container\">\n    <md-list>\n        <div ng-repeat=\"day in ::vm.feed\">\n            <md-subheader>{{day.date | amCalendar}}</md-subheader>\n            <md-list-item>\n                <md-grid-list flex md-cols=\"6\" md-cols-xs=\"4\" md-row-height=\"4:3\" md-gutter=\"4px\">\n                    <md-grid-tile ng-click=\"vm.openImage(day, image, $event)\" md-rowspan=\"{{::image.rowspan}}\" md-colspan=\"{{::image.colspan}}\" ng-repeat=\"image in ::day.images\" ng-style=\"::{ \'background-image\': \'url(\' + image.url + \')\', \'background-size\' : \'cover\' }\">\n                        <md-grid-tile-footer>\n                            <h3>{{::image.title}}</h3>\n                        </md-grid-tile-footer>\n                    </md-grid-tile>\n                </md-grid-list>\n            </md-list-item>\n        </div>\n    </md-list>\n</md-content>\n");
-$templateCache.put("app/examples/extras/timeline.tmpl.html","<div class=\"overlay-5 padded-content-page\" animate-elements>\n    <div class=\"timeline\" layout=\"row\" ng-repeat=\"event in ::vm.events\" ng-attr-layout-align=\"{{$odd? \'end end\':\'start start\'}}\">\n        <div layout=\"row\" flex=\"50\" flex-xs=\"100\" ng-attr-layout-align=\"{{$odd? \'end\':\'start\'}} center\">\n            <div class=\"timeline-point md-whiteframe-z1\" theme-background=\"primary\" md-theme=\"{{triSkin.elements.content}}\">\n                <img ng-src=\"{{::event.image}}\" class=\"timeline-point-avatar\"/>\n                <span class=\"timeline-point-date\">{{::event.date}}</span>\n            </div>\n            <md-divider class=\"timeline-x-axis\" class=\"margin-0\" flex flex-order=\"2\"></md-divider>\n            <tri-widget class=\"timeline-widget margin-0 flex-70 flex-xs-100 {{::event.classes}}\" title=\"{{::event.title}}\" subtitle=\"{{::event.subtitle}}\" title-position=\"bottom\" ng-attr-flex-order=\"{{$odd? 2:1}}\" palette-background=\"{{::event.palette}}\" >\n                <div replace-with=\'{{event.content}}\'></div>\n            </tri-widget>\n            <md-divider class=\"timeline-y-axis\"></md-divider>\n        </div>\n    </div>\n</div>\n");
-$templateCache.put("app/examples/forms/autocomplete.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">You can use autocomplete to search for matches from local or remote data sources.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Autocomplete example</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-controller=\"Autocomplete1Controller as vm\" ng-include=\"\'app/examples/forms/examples/autocomplete-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/autocomplete-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/forms/examples/autocomplete-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
-$templateCache.put("app/examples/forms/binding.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Data-binding in Angular apps is the automatic synchronization of data between the model and view components. The way that Angular implements data-binding lets you treat the model as the single-source-of-truth in your application. The view is a projection of the model at all times. When the model changes, the view reflects the change, and vice versa.</p>\n\n    <p class=\"md-caption\">Try filling in the form below to see what happens to the user data structure in the second panel.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Binding a form to data</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <div ng-controller=\"Binding1Controller\" ng-include=\"\'app/examples/forms/examples/binding-1.tmpl.html\'\" layout=\"row\" layout-xs=\"column\" layout-align=\"center center\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/binding-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/forms/examples/binding-1.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
-$templateCache.put("app/examples/forms/inputs.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Text fields allow the user to input text. They can be single line, with or without scrolling, or multi-line, and can have an icon.</p>\n\n    <p>Touching a text field places the cursor and automatically displays the keyboard. In addition to typing, text fields allow for a variety of other tasks, such as text selection (cut, copy, paste) and data lookup via auto-completion. See Patterns > Selection for text selection design.</p>\n\n    <p>With floating inline labels, when the user engages with the text input field, the labels move to float above the field.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Floating labels</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-float.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-float.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can also add informative icons to your input fields.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Forms with icons</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-icons.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-icons.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <p>You can use a character counter in fields where a character restriction is in place.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Inputs with counter</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/inputs-counter.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-counter.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n\n    </div>\n\n    <p>You can also toggle the state of inputs by setting <code>ng-disabled</code></p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Input state</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-align=\"space-around center\" ng-include=\"\'app/examples/forms/examples/inputs-states.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/inputs-states.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-tab>");
-$templateCache.put("app/examples/forms/validation.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">Inform users about the state of the form as they fill it in. Disable form buttons until form reaches a valid state.</p>\n    <p>Note the example below.  The input field is required and also needs a valid email address or a warning message will appear.  Also the Create button will only be enabled when the form is valid.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Form Validation</h2>\n            </div>\n        </md-toolbar>\n\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"padding-40 md-tabs-content\">\n                    <md-card>\n                        <md-card-content ng-include=\"\'app/examples/forms/examples/validation-1.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/forms/examples/validation-1.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n    </div>\n</div>");
-$templateCache.put("app/examples/forms/wizard.tmpl.html","<div>\n\n    <div layout=\"row\" layout-align=\"center center\">\n        <p flex=\"70\"  flex-xs=\"90\" class=\"md-headline font-weight-300 text-center text-light\" translate>We have combined material tabs and form inputs to create an interactive form wizardController.  We have also added validation messages to all fields and prevented the user from completing a step in the wizard until it is valid.</p>\n    </div>\n\n    <div flex layout=\"row\" layout-align=\"center center\" layout-fill>\n        <md-card flex=\"90\" class=\"tri-wizard-card md-whiteframe-z1 margin-bottom-100\" tri-wizard>\n            <md-toolbar class=\"md-primary\">\n                <div class=\"md-toolbar-tools\" layout=\"row\" layout-align=\"space-between center\">\n                    <h2>Form Wizard</h2><h2> {{triWizard.progress}}% <span translate>Complete</span></h2>\n                </div>\n                <md-progress-linear class=\"md-accent padding-bottom-10\" md-mode=\"determinate\" ng-value=\"triWizard.progress\"></md-progress-linear>\n            </md-toolbar>\n            <md-card-content>\n                <md-tabs class=\"md-primary\" layout-fill md-selected=\"triWizard.currentStep\" md-dynamic-height>\n                    <md-tab id=\"account\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">1</span>\n                            <span translate>Account details</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"accountForm\" tri-wizard-form novalidate>\n                                    <div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Username</label>\n                                            <input name=\"username\" ng-model=\"wizardController.data.account.username\" required>\n                                            <div ng-messages=\"accountForm.username.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.username.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label>Email</label>\n                                            <input type=\"email\" name=\"email\" ng-model=\"wizardController.data.account.email\" required>\n                                            <div ng-messages=\"accountForm.email.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.email.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"email\">\n                                                    <span translate>Please enter a valid email</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Password</label>\n                                                <input type=\"password\" name=\"password\" ng-model=\"wizardController.data.account.password\" required>\n                                                <div ng-messages=\"accountForm.password.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.password.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Password-CONFIRM</label>\n                                                <input type=\"password\" name=\"passwordConfirm\" ng-model=\"wizardController.data.account.passwordConfirm\" required>\n                                                <div ng-messages=\"accountForm.passwordConfirm.$error\" md-auto-hide=\"false\" ng-show=\"accountForm.passwordConfirm.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"address\" ng-disabled=\"accountForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">2</span>\n                            <span translate>Your address</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"addressForm\" tri-wizard-form>\n                                    <div>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>First name</label>\n                                                <input name=\"firstName\" ng-model=\"wizardController.data.address.firstName\" required>\n                                                <div ng-messages=\"addressForm.firstName.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.firstName.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Last name</label>\n                                                <input name=\"lastName\" ng-model=\"wizardController.data.address.lastName\" required>\n                                                <div ng-messages=\"addressForm.lastName.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.lastName.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Address Line 1</label>\n                                            <input name=\"address1\" ng-model=\"wizardController.data.address.line1\" required>\n                                            <div ng-messages=\"addressForm.address1.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.address1.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Address Line 1-2</label>\n                                            <input ng-model=\"wizardController.data.address.line2\">\n                                        </md-input-container>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Town</label>\n                                                <input ng-model=\"wizardController.data.address.town\">\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>State</label>\n                                                <input ng-model=\"wizardController.data.address.state\">\n                                            </md-input-container>\n                                        </div>\n                                        <div layout layout-xs=\"column\" flex>\n                                            <md-input-container flex>\n                                                <label translate>Zip</label>\n                                                <input name=\"zip\" ng-model=\"wizardController.data.address.zip\" required>\n                                                <div ng-messages=\"addressForm.zip.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.zip.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                            <md-input-container flex>\n                                                <label translate>Country</label>\n                                                <md-select ng-change=\"triWizard.updateProgress()\" name=\"country\" ng-model=\"wizardController.data.address.country\" required>\n                                                    <md-option value=\"US\" translate>United States</md-option>\n                                                </md-select>\n                                                <div ng-messages=\"addressForm.country.$error\" md-auto-hide=\"false\" ng-show=\"addressForm.country.$touched\">\n                                                    <div ng-message when=\"required\">\n                                                        <span translate>This field is required</span>\n                                                    </div>\n                                                </div>\n                                            </md-input-container>\n                                        </div>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"billing\" ng-disabled=\"addressForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">3</span>\n                            <span translate>Billing details</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <form name=\"billingForm\" tri-wizard-form>\n                                    <div>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Credit card number</label>\n                                            <input name=\"cardNumber\" ng-model=\"wizardController.data.billing.number\" required>\n                                            <div ng-messages=\"billingForm.cardNumber.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardNumber.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container class=\"md-block\">\n                                            <label translate>Name on card</label>\n                                            <input name=\"cardName\" ng-model=\"wizardController.data.billing.name\" required>\n                                            <div ng-messages=\"billingForm.cardName.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardName.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                    </div>\n                                    <div layout layout-xs=\"column\" flex>\n                                        <md-input-container flex>\n                                            <label translate>Expiry date (MM)</label>\n                                            <input name=\"cardMonth\" ng-model=\"wizardController.data.billing.cardMonth\" ng-minlength=\"2\" ng-maxlength=\"2\" ng-pattern=\"/^(0?[1-9]|1[012])$/\" required>\n                                            <div ng-messages=\"billingForm.cardMonth.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardMonth.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"maxlength\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                                <div ng-message when=\"minlength\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                                <div ng-message when=\"pattern\">\n                                                    <span translate>Month must be in the format MM</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                        <md-input-container flex>\n                                            <label translate>Expiry date (YYYY)</label>\n                                            <input name=\"cardYear\" ng-model=\"wizardController.data.billing.cardYear\" ng-minlength=\"4\" ng-maxlength=\"4\" ng-pattern=\"/^[0-9]+$/\" required>\n                                            <div ng-messages=\"billingForm.cardYear.$error\" md-auto-hide=\"false\" ng-show=\"billingForm.cardYear.$touched\">\n                                                <div ng-message when=\"required\">\n                                                    <span translate>This field is required</span>\n                                                </div>\n                                                <div ng-message when=\"maxlength\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                                <div ng-message when=\"minlength\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                                <div ng-message when=\"pattern\">\n                                                    <span translate>Year must be in the format YYYY</span>\n                                                </div>\n                                            </div>\n                                        </md-input-container>\n                                    </div>\n                                </form>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                    <md-tab id=\"confirm\" ng-disabled=\"billingForm.$invalid\">\n                        <md-tab-label>\n                            <span class=\"oxy-step-label\">4</span>\n                            <span translate>Confirmation</span>\n                        </md-tab-label>\n                        <md-tab-body>\n                            <md-content class=\"md-padding\">\n                                <div class=\"padding-40\" flex layout=\"column\" layout-align=\"center center\">\n                                    <md-icon class=\"big-icon\" md-font-icon=\"zmdi zmdi-cake\"></md-icon>\n                                    <h2 class=\"md-display-2\" translate>Congratulations - we will be in touch</h2>\n                                </div>\n                            </md-content>\n                        </md-tab-body>\n                    </md-tab>\n                </md-tabs>\n            </md-card-content>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.prevStep()\" ng-hide=\"triWizard.currentStep > 2\" ng-disabled=\"triWizard.prevStepDisabled()\" translate=\"Previous\"></md-button>\n                <md-button class=\"md-primary md-raised\" ng-click=\"triWizard.nextStep()\" ng-hide=\"triWizard.progress == 100 && triWizard.currentStep > 1\" ng-disabled=\"triWizard.nextStepDisabled()\" translate=\"Next\"></md-button>\n                <md-button class=\"md-accent md-raised\" ng-click=\"triWizard.currentStep = 3\" ng-show=\"triWizard.progress == 100 && triWizard.currentStep < 3\" translate=\"Send\"></md-button>\n            </md-card-actions>\n        </div>\n    </md-card>\n</div>\n");
 $templateCache.put("app/examples/github/github.tmpl.html","<div layout=\"column\" layout-align=\"center center\">\n    <h1 class=\"font-weight-100 font-size-8 margin-top-40 text-light\" translate>Join the team</h1>\n    <div layout=\"row\" layout-align=\"center center\">\n        <p flex=\"70\"  flex-xs=\"90\" class=\"md-headline font-weight-300 text-center text-light\" translate>Anyone who buys triangular can now join the team and see changes as they happen, submit pull requests, create issues and get involved!</p>\n    </div>\n\n    <div flex layout=\"row\" layout-align=\"center center\" layout-fill>\n\n        <md-card class=\"margin-top-40 margin-bottom-200\" flex=\"70\" flex-xs=\"90\">\n            <md-toolbar>\n                <div class=\"md-toolbar-tools\">\n                    <h2 translate>Fill in the form below to join</h2>\n                </div>\n            </md-toolbar>\n            <md-card-content>\n                <form name=\"githubForm\">\n                    <md-input-container class=\"md-block\">\n                        <label translate>Triangular Purchase Code</label>\n                        <input name=\"purchaseCode\" ng-model=\"vm.data.purchaseCode\" required>\n                        <div ng-messages=\"githubForm.purchaseCode.$error\">\n                            <div ng-message when=\"required\"><span translate>Enter a triangular Purchase Code</span></div>\n                        </div>\n                    </md-input-container>\n                    <md-autocomplete\n                        md-input-name=\"githubUser\"\n                        md-floating-label=\"{{\'GitHub Username\' | triTranslate}}\"\n                        md-selected-item=\"vm.data.githubUser\"\n                        md-search-text=\"vm.searchText\"\n                        md-items=\"user in vm.userSearch(vm.searchText)\"\n                        md-item-text=\"user.login\"\n                        md-min-length=\"0\"\n                        md-delay=\"400\"\n                        md-autoselect\n                        md-select-on-match\n                        placeholder=\"Please enter your GitHub username\"\n                        md-menu-class=\"autocomplete-custom-template\"\n                        required>\n                        <md-item-template>\n                            <div class=\"github-user-dropdown\" layout=\"row\" layout-align=\"start center\">\n                                <img class=\"github-user-avatar\" ng-src=\"{{user.avatar_url}}\" alt=\"{{user.login}}\">\n                                <span flex>{{user.login}}</span>\n                            </div>\n                        </md-item-template>\n                        <div ng-messages=\"githubForm.githubUser.$error\">\n                            <div ng-message when=\"required\"><span translate>Enter a GitHub Username</span></div>\n                        </div>\n                    </md-autocomplete>\n                </form>\n\n                <div class=\"margin-top-40\" layout=\"row\" layout-align=\"end center\">\n                    <md-button class=\"md-primary\" ng-disabled=\"githubForm.$invalid\" ng-click=\"vm.register()\" translate=\"Give me access to the repository\" aria-label=\"{{\'Give me access to the repository\' | triTranslate}}\"></md-button>\n                </div>\n\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/layouts/composer.tmpl.html","<div class=\"padded-content-page\">\n    <h2 class=\"md-heading\">Layout Composer</h2>\n    <p class=\"md-subhead\">Use this page to try out the many different page layouts at your disposal when using triangular!</p>\n    <div layout=\"row\" layout-align=\"center center\">\n        <md-card flex>\n            <div layout=\"column\" layout-fill>\n                <md-toolbar>\n                    <div class=\"md-toolbar-tools\">\n                        <h2>Create a page layout</h2>\n                    </div>\n                </md-toolbar>\n            </div>\n            <md-card-content>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Size</label>\n                    <md-select ng-model=\"vm.layout.toolbarSize\" ng-change=\"vm.updateOption(\'toolbarSize\')\" placeholder=\"Select a size\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarSizes\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Background</label>\n                    <md-select ng-model=\"vm.layout.toolbarClass\" ng-change=\"vm.updateOption(\'toolbarClass\')\" placeholder=\"Select a background\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarBackgrounds\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Toolbar Shrink</label>\n                    <md-switch ng-model=\"vm.layout.toolbarShrink\" ng-change=\"vm.updateOption(\'toolbarShrink\')\"></md-switch>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Content Background</label>\n                    <md-select ng-model=\"vm.layout.contentClass\" ng-change=\"vm.updateOption(\'contentClass\')\" placeholder=\"Select a background\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.toolbarBackgrounds\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Side Menu Size</label>\n                    <md-select ng-model=\"vm.layout.sideMenuSize\" ng-change=\"vm.updateOption(\'sideMenuSize\')\" placeholder=\"Select a size\">\n                        <md-option ng-value=\"value\" ng-repeat=\"(value, label) in vm.options.sideMenuSizes\" translate>{{label}}</md-option>\n                    </md-select>\n                </div>\n                <div layout=\"row\" layout-align=\"space-around center\">\n                    <label>Show Footer</label>\n                    <md-switch ng-model=\"vm.layout.footer\" ng-change=\"vm.updateOption(\'footer\')\"></md-switch>\n                </div>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout=\"row\" layout-align=\"center start\">\n        <md-card flex>\n            <md-toolbar>\n                <div class=\"md-toolbar-tools\">\n                    <h2>Apply to all pages</h2>\n                </div>\n            </md-toolbar>\n            <md-card-content>\n                <p>Change your <code>config.triangular.layout.js</code> file to contain the following to set your whole site to use this layout.</p>\n                <div hljs source=\"vm.allPagesCode\" language=\"javascript\"></div>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout=\"row\" layout-align=\"center start\">\n        <md-card flex>\n            <md-toolbar>\n                <div class=\"md-toolbar-tools\">\n                    <h2>Apply to one page</h2>\n                </div>\n            </md-toolbar>\n            <md-card-content>\n                <p>Use a state like this to use this layout on a single page.</p>\n                <div hljs source=\"vm.onePageCode\" language=\"javascript\"></div>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>");
 $templateCache.put("app/examples/layouts/no-scroll-page.tmpl.html","<div flex layout=\"column\">\n    <div flex layout=\"row\" layout-xs=\"column\">\n        <div class=\"md-padding\" flex palette-background=\"green:500\">\n            <p>Here is an example of a non scrolling page.</p>\n        </div>\n        <div class=\"md-padding\" flex palette-background=\"red:500\">\n            <p>This allows you to use the flex box model to create full height layouts.</p>\n        </div>\n    </div>\n    <div flex layout=\"row\" layout-xs=\"column\">\n        <div class=\"md-padding\" flex palette-background=\"blue:500\">\n            <p>Like this one.</p>\n        </div>\n        <div class=\"md-padding\" flex palette-background=\"cyan:500\">\n            <p>Where the page is split into 4 panels.</p>\n        </div>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/layouts/standard-page.tmpl.html","<div class=\"md-padding\">\n    <h2 class=\"md-display-1\">Standard Page Example</h2>\n\n    <p>Here is how to make a simple page in triangular.</p>\n\n    <h3 class=\"md-subheading\">Create a ui state</h3>\n\n    <p>First of all in your module config create a state and url for the page to load on.</p>\n\n    <p>Make sure you add the <code>triangular.</code> to the beginning of your state.  This will make ui router add the triangular toolbar, sidebar, etc.</p>\n\n    <div class=\"md-whiteframe-4dp\" layout=\"column\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                my-module.config.js\n            </div>\n        </md-toolbar>\n        <div hljs language=\"js\">\n    (function() {\n        \'use strict\';\n\n        angular\n            .module(\'app.my-module\')\n            .config(moduleConfig);\n\n        /* @ngInject */\n        function moduleConfig($stateProvider) {\n            $stateProvider\n            .state(\'triangular.my-page\',  {\n                url: \'/my-page\',\n                templateUrl: \'app/my-module/my-page.tmpl.html\'\n            })\n        });\n    })();\n        </div>\n    </div>\n\n    <p>Now when you goto <code>/my-page</code> in your browser you will see the contents of <code>my-page.tmpl.html</code> inside the triangular app layout.</p>\n</div>\n");
+$templateCache.put("app/examples/maps/maps-demo.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Angular Google Maps Directive Module to bring you all the map types available from Google Maps.</p>\n\n    <p class=\"md-subhead\">Angular Google Maps Directive Module is a set of directives written in CoffeeScript and javascript. It is based on the Google Maps javascript API version 3. There are directives for most of the widely-used Google Maps objects, including markers, windows, lines and shapes.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Map with marker</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapLabelDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-label-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Terrain style map</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapTerrainDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-terrain-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
+$templateCache.put("app/examples/maps/maps-fullwidth.tmpl.html","<div id=\"map_canvas\">\n    <ui-gmap-google-map center=\"::vm.map.center\" zoom=\"::vm.map.zoom\">\n        <ui-gmap-marker coords=\"::vm.map.marker.coords\" idkey=\"::vm.map.marker.id\" options=\"::vm.map.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>");
 $templateCache.put("app/examples/menu/dynamic-page.tmpl.html","<div class=\"padded-content-page\">\n    <h3>Dynamic Menu Test Page</h3>\n\n    <p class=\"md-subhead\">This is a dummy page created using the <code>triMenu</code> service.</p>\n\n    <p>Don\'t like this page?  Well go back to the dynamic menu page and remove it!</p>\n\n    <md-button class=\"md-primary md-raised\" href=\"#/menu/dynamic\">Go back to the menu page</md-button>\n</div>");
 $templateCache.put("app/examples/menu/dynamic.tmpl.html","<div class=\"padded-content-page\">\n    <p class=\"md-subhead\">You can use the <code>triMenu</code> service in any controller to add and remove menu items from the side menu</p>\n\n    <p>Here is how you can modify the side menu dynamically</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Add and remove a menu item using triMenu service</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs margin-bottom-40\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <div class=\"md-tabs-content padding-40\">\n                    <md-card>\n                        <md-card-content layout=\"row\" layout-padding layout-align=\"space-around center\" ng-include=\"\'app/examples/menu/examples/dynamic-menu.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </div>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"html\" include=\"\'app/examples/menu/examples/dynamic-menu.tmpl.html\'\"></div>\n                </div>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <div class=\"md-tabs-content\">\n                    <div flex hljs language=\"js\" include=\"\'app/examples/menu/examples/dynamic-menu.controller.js\'\"></div>\n                </div>\n            </md-tab>\n        </md-tabs>\n</div>");
 $templateCache.put("app/examples/menu/level.tmpl.html","<md-content class=\"padded-content-page\">\n    <h1>{{vm.level}}</h1>\n\n    <p>You are now at level {{vm.level}}</p>\n\n    <p>With triangular you can nest menus forever!</p>\n</md-content>");
-$templateCache.put("app/examples/maps/maps-demo.tmpl.html","<md-content class=\"padded-content-page\">\n    <p class=\"md-subhead\">Triangular uses the Angular Google Maps Directive Module to bring you all the map types available from Google Maps.</p>\n\n    <p class=\"md-subhead\">Angular Google Maps Directive Module is a set of directives written in CoffeeScript and javascript. It is based on the Google Maps javascript API version 3. There are directives for most of the widely-used Google Maps objects, including markers, windows, lines and shapes.</p>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Map with marker</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapLabelDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-label-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-label-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n    <div class=\"example-code md-whiteframe-z1 margin-bottom-20\">\n        <md-toolbar>\n            <div class=\"md-toolbar-tools\">\n                <h2>Terrain style map</h2>\n            </div>\n        </md-toolbar>\n        <md-tabs class=\"example-tabs example-tabs-nopadding\" md-dynamic-height md-border-bottom>\n            <md-tab label=\"example\">\n                <md-content>\n                    <md-card>\n                        <md-card-content class=\"maps-example\" ng-controller=\"MapTerrainDemoController as vm\" ng-include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></md-card-content>\n                    </md-card>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"HTML\">\n                <md-content>\n                    <div flex hljs language=\"html\" include=\"\'app/examples/maps/examples/map-terrain-demo.tmpl.html\'\"></div>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"JS\">\n                <md-content>\n                    <div flex hljs language=\"javascript\" include=\"\'app/examples/maps/examples/map-terrain-demo.controller.js\'\"></div>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n</md-content>");
-$templateCache.put("app/examples/maps/maps-fullwidth.tmpl.html","<div id=\"map_canvas\">\n    <ui-gmap-google-map center=\"::vm.map.center\" zoom=\"::vm.map.zoom\">\n        <ui-gmap-marker coords=\"::vm.map.marker.coords\" idkey=\"::vm.map.marker.id\" options=\"::vm.map.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>");
 $templateCache.put("app/examples/todo/add-todo-dialog.tmpl.html","<md-dialog aria-label=\"Mango (Fruit)\" flex=\"30\" flex-xs=\"100\">\n    <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n        <div class=\"md-toolbar-tools\">\n            <h2>\n                <span translate>Add Task</span>\n            </h2>\n        </div>\n    </md-toolbar>\n\n    <md-divider></md-divider>\n\n    <md-dialog-content class=\"md-dialog-content\">\n        <form name=\"taskForm\" novalidate layout=\"column\">\n            <md-input-container>\n                <label translate>Task Name</label>\n                <input ng-model=\"vm.item.description\" class=\"dialog-close\" name=\"task\" required/>\n                <div ng-messages=\"taskForm.task.$error\">\n                    <div ng-message when=\"required\">\n                        <span translate>Please enter a task name</span>\n                    </div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label translate>Priority</label>\n                <md-select placeholder=\"{{\'Priority\' | triTranslate}}\" ng-model=\"vm.item.priority\">\n                    <md-option value=\"high\" translate>High</md-option>\n                    <md-option value=\"medium\" translate>Medium</md-option>\n                    <md-option value=\"low\" translate>Low</md-option>\n                </md-select>\n            </md-input-container>\n        </form>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"vm.cancel()\">Cancel</md-button>\n        <md-button ng-click=\"vm.hide()\" class=\"md-primary\" ng-disabled=\"taskForm.$invalid\">Ok</md-button>\n    </md-dialog-actions>\n</md-dialog>");
 $templateCache.put("app/examples/todo/fab-button.tmpl.html","<md-button ng-click=\"vm.addTodo($event)\" class=\"md-fab md-accent md-fab-bottom-right\" aria-label=\"{{\'TODO.ADD-TODO\' | triTranslate}}\">\n    <md-icon md-font-icon=\"zmdi zmdi-plus\"></md-icon>\n</md-button>\n");
 $templateCache.put("app/examples/todo/todo.tmpl.html","<div class=\"todo-container\">\n    <div layout-fill layout=\"row\" layout-align=\"center center\">\n        <md-card flex=\"70\" flex-xs=\"90\" class=\"margin-top-50 margin-bottom-50 md-whiteframe-z4\">\n            <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n                <h2 class=\"md-toolbar-tools\" translate>To do list</h2>\n            </md-toolbar>\n            <md-card-content class=\"overflow-auto\">\n                <md-list class=\"margin-bottom-10\">\n                    <md-list-item ng-repeat=\"todo in vm.todos | orderBy:vm.orderTodos\" ng-class=\"{\'md-primary\': todo.priority === \'high\', \'md-accent\': todo.priority === \'medium\', \'md-warn\': todo.priority === \'low\'}\" class=\"slide\" md-swipe-right=\"vm.removeTodo(todo)\" md-no-ink>\n                        <md-checkbox ng-model=\"todo.selected\" ng-change=\"vm.todoSelected()\"></md-checkbox>\n                        <p class=\"no-select\">\n                            {{::todo.description}}\n                        </p>\n                        <p flex class=\"md-secondary\">\n                            {{::todo.priority}}\n                        </p>\n                    </md-list-item>\n                </md-list>\n            </md-card-content>\n        </md-card>\n    </div>\n    <div layout-fill layout=\"row\" layout-align=\"center center\">\n        <md-card flex=\"70\" flex-xs=\"90\" class=\"margin-top-20 margin-bottom-20\">\n            <md-toolbar md-theme=\"{{triSkin.elements.content}}\">\n                <h2 class=\"md-toolbar-tools\" translate>Note</h2>\n            </md-toolbar>\n            <md-card-content>\n                <p translate>Remove items from the list by swiping right</p>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n");
@@ -19118,6 +19119,13 @@ $templateCache.put("app/examples/dashboards/examples/widget-draggable-vertical.t
 $templateCache.put("app/examples/dashboards/examples/widget-draggable.tmpl.html","<div class=\"drag-container\" dragula=\'\"drag-container\"\' layout=\"row\" layout-xs=\"row\" layout-align=\"start center\" layout-margin>\n    <tri-widget flex title=\"{{\'Drag Me!\' | triTranslate}}\" subtitle=\"{{\'You only need to specify the container you want to use.\' | triTranslate}}\" title-position=\"top\" palette-background=\"blue-grey:500\" background=\"primary\"></tri-widget>\n    <tri-widget flex title=\"{{\'Drag Me!\' | triTranslate}}\" subtitle=\"{{\'You can re-order these widgets inside the container.\' | triTranslate}}\" title-position=\"top\" palette-background=\"blue-grey:600\" background=\"primary\"></tri-widget>\n    <tri-widget flex title=\"{{\'Drag Me!\' | triTranslate}}\" subtitle=\"{{\'It works for all elements, not only widgets!\' | triTranslate}}\" title-position=\"top\" palette-background=\"blue-grey:700\" background=\"primary\"></tri-widget>\n    <tri-widget flex title=\"{{\'Drag Me!\' | triTranslate}}\" subtitle=\"{{\'Moving them outside their container is not quite possible.\' | triTranslate}}\" title-position=\"top\" palette-background=\"blue-grey:800\" background=\"primary\"></tri-widget>\n</div>\n");
 $templateCache.put("app/examples/dashboards/examples/widget-title-above.tmpl.html","<div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around center\" layout-margin>\n    <tri-widget flex title=\"Some Title\" subtitle=\"Positioned above the image\" title-position=\"top\">\n        <img src=\"assets/images/backgrounds/material-backgrounds/mb-bg-01.jpg\" />\n    </tri-widget>\n    <tri-widget flex title=\"Some Title\" subtitle=\"Positioned above the image\" title-position=\"bottom\" >\n        <img src=\"assets/images/backgrounds/material-backgrounds/mb-bg-01.jpg\" />\n    </tri-widget>\n</div>");
 $templateCache.put("app/examples/dashboards/examples/widget-title-side.tmpl.html","<div layout=\"row\" layout-xs=\"column\" layout-align=\"space-around center\" layout-margin>\n    <tri-widget title=\"Some Title\" subtitle=\"Positioned to the right of the image\" title-position=\"right\">\n        <img src=\"assets/images/backgrounds/material-backgrounds/mb-bg-04.jpg\" />\n    </tri-widget>\n    <tri-widget title=\"Some Title\" subtitle=\"Positioned to the left of the image\" title-position=\"left\">\n        <img src=\"assets/images/backgrounds/material-backgrounds/mb-bg-04.jpg\" />\n    </tri-widget>\n</div>");
+$templateCache.put("app/examples/forms/examples/autocomplete-1.tmpl.html","<md-autocomplete\n    class=\"margin-bottom-20\"\n    ng-disabled=\"vm.isDisabled\"\n    md-no-cache=\"vm.noCache\"\n    md-selected-item=\"selectedItem\"\n    md-search-text-change=\"vm.searchTextChange(vm.searchText)\"\n    md-search-text=\"vm.searchText\"\n    md-selected-item-change=\"vm.selectedItemChange(item)\"\n    md-items=\"item in vm.querySearch(vm.searchText)\"\n    md-item-text=\"item.display\"\n    md-min-length=\"0\"\n    placeholder=\"What is your favorite US state?\">\n    <span md-highlight-text=\"vm.searchText\" md-highlight-flags=\"^i\">{{item.display}}</span>\n</md-autocomplete>\n\n<md-checkbox ng-model=\"vm.simulateQuery\">Simulate query for results?</md-checkbox>\n<md-checkbox ng-model=\"vm.noCache\">Disable caching of queries?</md-checkbox>\n<md-checkbox ng-model=\"vm.isDisabled\">Disable the input?</md-checkbox>\n\n<p style=\"padding-left: 15px;\">By default, <code>&lt;md-autocomplete&gt;</code> will cache results when performing a query.  After the initial call is performed, it will use the cached results to eliminate unnecessary server requests or lookup logic. This can be disabled above.</p>\n");
+$templateCache.put("app/examples/forms/examples/binding-1.tmpl.html","<md-card flex>\n    <md-card-content>\n        <h2>Create User</h2>\n        <md-input-container class=\"md-block\">\n            <label>Username</label>\n            <input type=\"text\" ng-model=\"vm.user.username\">\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Password</label>\n            <input type=\"password\" ng-model=\"vm.user.password\">\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Favoutite Color</label>\n            <md-select ng-model=\"vm.user.favouriteColor\" placeholder=\"Favorite Color\">\n                <md-option ng-value=\"color\" ng-repeat=\"color in [\'red\', \'green\', \'blue\']\">{{color}}</md-option>\n            </md-select>\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Description</label>\n            <textarea ng-model=\"vm.user.description\"></textarea>\n        </md-input-container>\n        <div layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-primary\">Create</md-button>\n            <md-button>Cancel</md-button>\n        </div>\n    </md-card-content>\n</md-card>\n<md-card flex>\n    <md-card-content>\n        <h2>JSON</h2>\n        <pre>{{vm.user | json}}</pre>\n    </md-card-content>\n</md-card>\n");
+$templateCache.put("app/examples/forms/examples/inputs-counter.tmpl.html","<md-input-container class=\"md-block\">\n    <label>Username (max 10 characters)</label>\n    <input type=\"text\" ng-model=\"username\" md-maxlength=\"10\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Tweet (max 140 characters)</label>\n    <textarea ng-model=\"tweet\" md-maxlength=\"140\"></textarea>\n</md-input-container>\n");
+$templateCache.put("app/examples/forms/examples/inputs-float.tmpl.html","<h2>Create User</h2>\n<md-input-container class=\"md-block\">\n    <label>Username</label>\n    <input type=\"text\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Password</label>\n    <input type=\"password\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Description</label>\n    <textarea></textarea>\n</md-input-container>\n<div layout=\"row\" layout-align=\"end center\">\n    <md-button class=\"md-primary\">Create</md-button>\n    <md-button>Cancel</md-button>\n</div>\n");
+$templateCache.put("app/examples/forms/examples/inputs-icons.tmpl.html","<h2>Create User</h2>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n    <input type=\"text\" placeholder=\"Name\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-phone\"></md-icon>\n    <input type=\"text\" placeholder=\"Phone Number\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n    <input type=\"email\" placeholder=\"Email (required)\" ng-required=\"true\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-pin\"></md-icon>\n    <input type=\"text\" placeholder=\"Address\">\n</md-input-container>\n");
+$templateCache.put("app/examples/forms/examples/inputs-states.tmpl.html","<md-input-container>\n    <label>Enable or Disable me</label>\n    <input type=\"text\" ng-model=\"username\" ng-disabled=\"inputDisabled\">\n</md-input-container>\n<md-switch ng-model=\"inputDisabled\">\n    Disable Input\n</md-switch>\n");
+$templateCache.put("app/examples/forms/examples/validation-1.tmpl.html","<h2>Enter your email</h2>\n<form name=\"login\" novalidate>\n    <md-input-container class=\"md-block\">\n        <label for=\"email\">email</label>\n        <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"user.email\" required/>\n        <div ng-messages=\"login.email.$error\" md-auto-hide=\"false\" ng-show=\"login.email.$touched\">\n            <div ng-message=\"required\">\n                Please enter your email address.\n            </div>\n            <div ng-message=\"email\">\n                Please enter a valid email address.\n            </div>\n        </div>\n    </md-input-container>\n\n    <div class=\"button-toolbar\" layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-primary\" ng-disabled=\"login.$invalid\">Create</md-button>\n        <md-button>Cancel</md-button>\n    </div>\n</form>\n");
 $templateCache.put("app/examples/elements/examples/button-disabled.tmpl.html","<div class=\"elements-button-colors\" layout=\"row\" layout-xs=\"column\" layout-align=\"space-around center\">\n    <div layout=\"column\" layout-align=\"center center\">\n        <md-switch ng-model=\"vm.buttonDisabled\" aria-label=\"Switch 2\" class=\"md-primary\">\n            Toggle Button Disabled\n        </md-switch>\n    </div>\n    <div layout=\"column\" layout-align=\"center center\">\n        <md-button class=\"md-primary md-raised\" ng-disabled=\"vm.buttonDisabled\" aria-label=\"disabled button\">Disabled</md-button>\n        <h3>Disabled: {{vm.buttonDisabled}}</h3>\n    </div>\n</div>\n");
 $templateCache.put("app/examples/elements/examples/button-fab.tmpl.html","<div layout=\"column\" layout-align=\"center center\" flex>\n    <md-button class=\"md-fab\" ng-class=\"[vm.buttonClass3, vm.buttonHue3]\" aria-label=\"fab button\">\n        <md-icon md-font-icon=\"zmdi zmdi-plus\"></md-icon>\n    </md-button>\n</div>\n<div layout=\"column\" layout-align=\"center space-around\" flex>\n    <md-input-container>\n        <label>Button Style</label>\n        <md-select placeholder=\"Choose a style\" ng-model=\"vm.buttonClass3\">\n            <md-option value=\"md-primary\">Primary</md-option>\n            <md-option value=\"md-accent\">Accent</md-option>\n            <md-option value=\"md-warn\">Warn</md-option>\n        </md-select>\n    </md-input-container>\n    <md-input-container>\n        <label>Button Hue</label>\n        <md-select placeholder=\"Choose a hue\" ng-model=\"vm.buttonHue3\">\n            <md-option value=\"md-default\">Default Hue</md-option>\n            <md-option value=\"md-hue-1\">Hue 1</md-option>\n            <md-option value=\"md-hue-2\">Hue 2</md-option>\n            <md-option value=\"md-hue-3\">Hue 3</md-option>\n        </md-select>\n    </md-input-container>\n</div>\n");
 $templateCache.put("app/examples/elements/examples/button-flat.tmpl.html","<div layout=\"column\" layout-align=\"center center\" flex>\n    <md-button ng-class=\"[vm.buttonClass1, vm.buttonHue1]\" aria-label=\"flat button\">Button</md-button>\n</div>\n<div layout=\"column\" layout-align=\"center space-around\" flex>\n    <md-input-container>\n        <label>Button Style</label>\n        <md-select placeholder=\"Choose a style\" ng-model=\"vm.buttonClass1\">\n            <md-option value=\"md-primary\">Primary</md-option>\n            <md-option value=\"md-accent\">Accent</md-option>\n            <md-option value=\"md-warn\">Warn</md-option>\n        </md-select>\n    </md-input-container>\n    <md-input-container>\n        <label>Button Hue</label>\n        <md-select placeholder=\"Choose a hue\" ng-model=\"vm.buttonHue1\">\n            <md-option value=\"md-default\">Default Hue</md-option>\n            <md-option value=\"md-hue-1\">Hue 1</md-option>\n            <md-option value=\"md-hue-2\">Hue 2</md-option>\n            <md-option value=\"md-hue-3\">Hue 3</md-option>\n        </md-select>\n    </md-input-container>\n</div>\n");
@@ -19157,20 +19165,13 @@ $templateCache.put("app/examples/elements/examples/tooltip-1.tmpl.html","<md-but
 $templateCache.put("app/examples/elements/examples/upload-1.tmpl.html","<div layout=\"row\" layout-align=\"space-around center\">\n    <md-button class=\"md-primary md-raised\" ngf-select=\"vm.upload($files)\" ngf-multiple=\"true\" aria-label=\"upload\">Upload</md-button>\n    <md-button class=\"md-primary md-raised md-fab\" ngf-select=\"vm.upload($files)\" ngf-multiple=\"true\" aria-label=\"upload\">\n        <md-icon md-font-icon=\"zmdi zmdi-cloud-upload\"></md-icon>\n    </md-button>\n</div>\n");
 $templateCache.put("app/examples/elements/examples/upload-animate.tmpl.html","<div layout=\"row\" layout-align=\"space-around center\">\n    <md-button class=\"md-primary md-raised md-fab\" ngf-select=\"vm.upload($files)\" ng-disabled=\"vm.status != \'idle\'\" ngf-multiple=\"true\" aria-label=\"upload\">\n        <md-icon md-font-icon ng-class=\"{ \'zmdi zmdi-cloud-upload\': vm.status == \'idle\', \'fa fa-spinner fa-pulse\': vm.status == \'uploading\', \'zmdi zmdi-check\': vm.status == \'complete\'}\"></md-icon>\n    </md-button>\n</div>\n");
 $templateCache.put("app/examples/elements/examples/whiteframe-1.tmpl.html","<md-whiteframe class=\"md-whiteframe-z1 margin-20 text-center\">\n    <h3>.md-whiteframe-z1</h3>\n</md-whiteframe>\n<md-whiteframe class=\"md-whiteframe-z2 margin-20 text-center\">\n    <h3>.md-whiteframe-z2</h3>\n</md-whiteframe>\n<md-whiteframe class=\"md-whiteframe-z3 margin-20 text-center\">\n    <h3>.md-whiteframe-z3</h3>\n</md-whiteframe>\n<md-whiteframe class=\"md-whiteframe-z4 margin-20 text-center\">\n    <h3>.md-whiteframe-z4</h3>\n</md-whiteframe>\n<md-whiteframe class=\"md-whiteframe-z5 margin-20 text-center\">\n    <h3>.md-whiteframe-z5</h3>\n</md-whiteframe>");
-$templateCache.put("app/examples/forms/examples/autocomplete-1.tmpl.html","<md-autocomplete\n    class=\"margin-bottom-20\"\n    ng-disabled=\"vm.isDisabled\"\n    md-no-cache=\"vm.noCache\"\n    md-selected-item=\"selectedItem\"\n    md-search-text-change=\"vm.searchTextChange(vm.searchText)\"\n    md-search-text=\"vm.searchText\"\n    md-selected-item-change=\"vm.selectedItemChange(item)\"\n    md-items=\"item in vm.querySearch(vm.searchText)\"\n    md-item-text=\"item.display\"\n    md-min-length=\"0\"\n    placeholder=\"What is your favorite US state?\">\n    <span md-highlight-text=\"vm.searchText\" md-highlight-flags=\"^i\">{{item.display}}</span>\n</md-autocomplete>\n\n<md-checkbox ng-model=\"vm.simulateQuery\">Simulate query for results?</md-checkbox>\n<md-checkbox ng-model=\"vm.noCache\">Disable caching of queries?</md-checkbox>\n<md-checkbox ng-model=\"vm.isDisabled\">Disable the input?</md-checkbox>\n\n<p style=\"padding-left: 15px;\">By default, <code>&lt;md-autocomplete&gt;</code> will cache results when performing a query.  After the initial call is performed, it will use the cached results to eliminate unnecessary server requests or lookup logic. This can be disabled above.</p>\n");
-$templateCache.put("app/examples/forms/examples/binding-1.tmpl.html","<md-card flex>\n    <md-card-content>\n        <h2>Create User</h2>\n        <md-input-container class=\"md-block\">\n            <label>Username</label>\n            <input type=\"text\" ng-model=\"vm.user.username\">\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Password</label>\n            <input type=\"password\" ng-model=\"vm.user.password\">\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Favoutite Color</label>\n            <md-select ng-model=\"vm.user.favouriteColor\" placeholder=\"Favorite Color\">\n                <md-option ng-value=\"color\" ng-repeat=\"color in [\'red\', \'green\', \'blue\']\">{{color}}</md-option>\n            </md-select>\n        </md-input-container>\n        <md-input-container class=\"md-block\">\n            <label>Description</label>\n            <textarea ng-model=\"vm.user.description\"></textarea>\n        </md-input-container>\n        <div layout=\"row\" layout-align=\"end center\">\n            <md-button class=\"md-primary\">Create</md-button>\n            <md-button>Cancel</md-button>\n        </div>\n    </md-card-content>\n</md-card>\n<md-card flex>\n    <md-card-content>\n        <h2>JSON</h2>\n        <pre>{{vm.user | json}}</pre>\n    </md-card-content>\n</md-card>\n");
-$templateCache.put("app/examples/forms/examples/inputs-counter.tmpl.html","<md-input-container class=\"md-block\">\n    <label>Username (max 10 characters)</label>\n    <input type=\"text\" ng-model=\"username\" md-maxlength=\"10\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Tweet (max 140 characters)</label>\n    <textarea ng-model=\"tweet\" md-maxlength=\"140\"></textarea>\n</md-input-container>\n");
-$templateCache.put("app/examples/forms/examples/inputs-float.tmpl.html","<h2>Create User</h2>\n<md-input-container class=\"md-block\">\n    <label>Username</label>\n    <input type=\"text\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Password</label>\n    <input type=\"password\">\n</md-input-container>\n<md-input-container class=\"md-block\">\n    <label>Description</label>\n    <textarea></textarea>\n</md-input-container>\n<div layout=\"row\" layout-align=\"end center\">\n    <md-button class=\"md-primary\">Create</md-button>\n    <md-button>Cancel</md-button>\n</div>\n");
-$templateCache.put("app/examples/forms/examples/inputs-icons.tmpl.html","<h2>Create User</h2>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n    <input type=\"text\" placeholder=\"Name\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-phone\"></md-icon>\n    <input type=\"text\" placeholder=\"Phone Number\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n    <input type=\"email\" placeholder=\"Email (required)\" ng-required=\"true\">\n</md-input-container>\n<md-input-container md-no-float class=\"md-block\">\n    <md-icon md-font-icon=\"zmdi zmdi-pin\"></md-icon>\n    <input type=\"text\" placeholder=\"Address\">\n</md-input-container>\n");
-$templateCache.put("app/examples/forms/examples/inputs-states.tmpl.html","<md-input-container>\n    <label>Enable or Disable me</label>\n    <input type=\"text\" ng-model=\"username\" ng-disabled=\"inputDisabled\">\n</md-input-container>\n<md-switch ng-model=\"inputDisabled\">\n    Disable Input\n</md-switch>\n");
-$templateCache.put("app/examples/forms/examples/validation-1.tmpl.html","<h2>Enter your email</h2>\n<form name=\"login\" novalidate>\n    <md-input-container class=\"md-block\">\n        <label for=\"email\">email</label>\n        <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"user.email\" required/>\n        <div ng-messages=\"login.email.$error\" md-auto-hide=\"false\" ng-show=\"login.email.$touched\">\n            <div ng-message=\"required\">\n                Please enter your email address.\n            </div>\n            <div ng-message=\"email\">\n                Please enter a valid email address.\n            </div>\n        </div>\n    </md-input-container>\n\n    <div class=\"button-toolbar\" layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-primary\" ng-disabled=\"login.$invalid\">Create</md-button>\n        <md-button>Cancel</md-button>\n    </div>\n</form>\n");
-$templateCache.put("app/examples/menu/examples/dynamic-menu.tmpl.html","<div ng-controller=\"MenuDynamicController as vm\" layout=\"column\">\n    <div layout=\"row\">\n         <md-switch ng-model=\"vm.dynamicMenu.showDynamicMenu\" aria-label=\"Show extra menu\" ng-change=\"vm.toggleExtraMenu(vm.dynamicMenu.showDynamicMenu)\">\n            Show extra menu\n        </md-switch>\n    </div>\n</div>");
 $templateCache.put("app/examples/maps/examples/map-label-demo.tmpl.html","<ui-gmap-google-map center=\"vm.labeledMap.center\" zoom=\"vm.labeledMap.zoom\" options=\"vm.labeledMap.options\">\n    <ui-gmap-marker coords=\"vm.labeledMap.marker.coords\" idkey=\"vm.labeledMap.marker.id\" options=\"vm.labeledMap.marker.options\">\n    	<ui-gmap-window show=\"\'true\'\">\n            <div>{{vm.labelTitle}}</div>\n        </ui-gmap-window>\n    </ui-gmap-marker>\n</ui-gmap-google-map>\n");
 $templateCache.put("app/examples/maps/examples/map-terrain-demo.tmpl.html","<div id=\"map_terrain_canvas\">\n    <ui-gmap-google-map center=\"vm.terrainMap.center\" zoom=\"vm.terrainMap.zoom\" options=\"vm.terrainMap.options\">\n    	<ui-gmap-marker coords=\"vm.terrainMap.marker.coords\" idkey=\"vm.terrainMap.marker.id\" options=\"vm.terrainMap.marker.options\"></ui-gmap-marker>\n    </ui-gmap-google-map>\n</div>\n");
+$templateCache.put("app/examples/menu/examples/dynamic-menu.tmpl.html","<div ng-controller=\"MenuDynamicController as vm\" layout=\"column\">\n    <div layout=\"row\">\n         <md-switch ng-model=\"vm.dynamicMenu.showDynamicMenu\" aria-label=\"Show extra menu\" ng-change=\"vm.toggleExtraMenu(vm.dynamicMenu.showDynamicMenu)\">\n            Show extra menu\n        </md-switch>\n    </div>\n</div>");
 $templateCache.put("app/care/layout/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\">\n        </span>\n    </h2>\n    \n    <md-button class=\"md-icon-button\" ng-click=\"vm.toggleSearch()\" aria-label=\"{{\'Toggle Menu\' | triTranslate}}\">\n        <md-icon md-font-icon=\"zmdi zmdi-search\"></md-icon>\n    </md-button>\n\n    <input class=\"toolbar-search\" ng-show=\"vm.showSearch\" ng-model=\"studentSearch\" ng-change=\"vm.filterStudentList(studentSearch)\" type=\"text\" placeholder=\"{{\'Zoeken\' | triTranslate}}\" flex>\n\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleFullScreen()\" aria-label=\"toggle fullscreen\">\n        <md-icon md-font-icon ng-class=\"vm.fullScreenIcon\"></md-icon>\n    </md-button>\n\n    <select-groups reload-state=\"vm.baseState\" only-owned=\"true\"></select-groups>\n\n     <md-menu>\n        <md-button aria-label=\"Open user menu\" ng-click=\"$mdOpenMenu()\" aria-label=\"side navigation\">\n            <img class=\"toolbar-user-avatar\" ng-src=\"{{vm.user.picture}}\">\n            {{vm.user.given_name}}\n        </md-button>\n        <md-menu-content width=\"4\">\n            <md-menu-item>\n                <md-button ng-click=\"vm.toggleNotificationsTab(2)\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-settings\"></md-icon>\n                    <span translate=\"Instellingen\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-item>\n                <md-button href=\"#\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-account\"></md-icon>\n                    <span translate=\"Profiel\"></span>\n                </md-button>\n            </md-menu-item>\n            <md-menu-divider></md-menu-divider>\n            <md-menu-item>\n                <md-button href=\"#/login\" aria-label=\"side navigation\">\n                    <md-icon md-font-icon=\"zmdi zmdi-sign-in\"></md-icon>\n                    <span translate=\"Afmelden\"></span>\n                </md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n\n<!--\n    <md-button class=\"md-icon-button toolbar-button animated\" ng-click=\"vm.toggleNotificationsTab(0)\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-email\"></md-icon>\n        <span class=\"toolbar-button-badge animated\" theme-background=\"accent\" ng-class=\"{ \'toolbar-button-badge-new\' : vm.emailNew }\">5</span>\n    </md-button>\n\n    <md-button class=\"md-icon-button toolbar-button\" ng-click=\"vm.toggleNotificationsTab(1)\">\n        <md-icon md-font-icon=\"fa fa-bell-o\"></md-icon>\n        <span class=\"toolbar-button-badge\" theme-background=\"accent\">2</span>\n    </md-button>\n-->\n\n</div>\n");
 $templateCache.put("app/examples/authentication/forgot/forgot.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\" translate>Forgot your password?</h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <p translate>Please enter your email below</p>\n        <form name=\"forgot\">\n            <md-input-container class=\"md-block\">\n                <label for=\"email\" translate>email</label>\n                <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                <div ng-messages=\"forgot.email.$error\" md-auto-hide=\"false\" ng-show=\"forgot.email.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your email address.</span></div>\n                    <div ng-message when=\"email\"><span translate>Please enter a valid email address.</span></div>\n                </div>\n            </md-input-container>\n\n            <md-button class=\"md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" ng-click=\"vm.resetClick()\" ng-disabled=\"forgot.$invalid\" translate=\"Reset\" aria-label=\"{{\'Reset\' | triTranslate}}\"></md-button>\n\n            <md-button class=\"md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" href=\"#/login\" translate=\"Remembered it? Login in here\" aria-label=\"{{\'Remembered it? Login in here\' | triTranslate}}\"></md-button>\n        </form>\n    </md-content>\n</md-card>\n");
-$templateCache.put("app/examples/authentication/lock/lock.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\">\n            <span translate>Welcome back</span> {{vm.user.name}}\n        </h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <p class=\"margin-top-20 margin-bottom-20\" translate>You have been logged out due to idleness. Enter your password to log back in.</p>\n\n        <form name=\"lock\">\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" required/>\n                <div ng-messages for=\"lock.password.$error\" md-auto-hide=\"false\" ng-show=\"lock.password.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your password.</span></div>\n                </div>\n            </md-input-container>\n\n            <div layout=\"row\">\n                <md-button flex href=\"#/login\" translate=\"Log out\"></md-button>\n                <md-button flex class=\"md-primary\" ng-click=\"vm.loginClick()\" ng-disabled=\"lock.$invalid\" translate=\"Log in\"></md-button>\n            </div>\n        </form>\n    </md-content>\n</md-card>\n");
 $templateCache.put("app/examples/authentication/layouts/authentication.tmpl.html","<div class=\"full-image-background mb-bg-fb-05\" layout=\"row\" layout-fill>\n    <div class=\"animate-wrapper\" flex layout=\"column\">\n        <div id=\"ui-login\" class=\"login-frame\" ui-view flex layout=\"column\" layout-align=\"center center\"></div>\n    </div>\n</div>\n");
+$templateCache.put("app/examples/authentication/lock/lock.tmpl.html","<md-card>\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\">\n            <span translate>Welcome back</span> {{vm.user.name}}\n        </h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <p class=\"margin-top-20 margin-bottom-20\" translate>You have been logged out due to idleness. Enter your password to log back in.</p>\n\n        <form name=\"lock\">\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" required/>\n                <div ng-messages for=\"lock.password.$error\" md-auto-hide=\"false\" ng-show=\"lock.password.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your password.</span></div>\n                </div>\n            </md-input-container>\n\n            <div layout=\"row\">\n                <md-button flex href=\"#/login\" translate=\"Log out\"></md-button>\n                <md-button flex class=\"md-primary\" ng-click=\"vm.loginClick()\" ng-disabled=\"lock.$invalid\" translate=\"Log in\"></md-button>\n            </div>\n        </form>\n    </md-content>\n</md-card>\n");
 $templateCache.put("app/examples/authentication/login/login.tmpl.html","<md-card >\n    <md-toolbar class=\"padding-20 text-center\">\n        <img ng-src=\"{{::vm.triSettings.logo}}\" alt=\"{{vm.triSettings.name}}\">\n        <h1 class=\"md-headline\" translate>Login</h1>\n    </md-toolbar>\n\n    <md-content class=\"md-padding\">\n        <form name=\"login\">\n            <md-input-container class=\"md-block\">\n                <label for=\"email\" translate>email</label>\n                <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                <div ng-messages=\"login.email.$error\" md-auto-hide=\"false\" ng-show=\"login.email.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your email address.</span></div>\n                    <div ng-message when=\"email\"><span translate>Please enter a valid email address.</span></div>\n                </div>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label for=\"password\" translate>password</label>\n                <input  id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" required/>\n                <div ng-messages for=\"login.password.$error\" md-auto-hide=\"false\" ng-show=\"login.password.$touched\">\n                    <div ng-message when=\"required\"><span translate>Please enter your password.</span></div>\n                </div>\n            </md-input-container>\n\n            <div layout=\"row\" layout-align=\"space-between center\">\n                <md-input-container>\n                    <md-checkbox ng-model=\"vm.user.rememberMe\">\n                        <span translate>Remember Me</span>\n                    </md-checkbox>\n                </md-input-container>\n\n                <md-input-container>\n                    <md-button flex class=\"md-primary\" href=\"#/forgot\" translate=\"Forgot password?\" aria-label=\"{{\'Forgot password?\' | triTranslate}}\"></md-button>\n                </md-input-container>\n            </div>\n\n            <md-button class=\"md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\"  ng-click=\"vm.loginClick()\" ng-disabled=\"login.$invalid\" translate=\"Log in\" aria-label=\"{{\'Log in\' | triTranslate}}\"></md-button>\n\n            <md-button class=\"md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10\" href=\"#/signup\" translate=\"Don\'t have an account? Create one now\" aria-label=\"{{\'Don\\\'t have an account? Create one now\' | triTranslate}}\"></md-button>\n\n            <div class=\"social-login\">\n                <md-divider></md-divider>\n\n                <div class=\"text-center margin-20\" translate>or login with</div>\n\n                <div layout=\"row\" layout-align=\"space-between center\"  layout-margin>\n                    <md-button href=\"#\" ng-repeat=\"social in ::vm.socialLogins\" class=\"md-icon-button\" ng-style=\"{ \'background-color\': social.color }\" aria-label=\"{{social.icon}}\">\n                        <md-icon md-font-icon=\"{{::social.icon}}\"></md-icon>\n                    </md-button>\n                </div>\n            </div>\n        </form>\n    </md-content>\n</md-card>\n");
 $templateCache.put("app/examples/authentication/profile/profile.tmpl.html","<div class=\"full-image-background mb-bg-01 padding-20 padding-top-200 overlay-gradient-30\" layout=\"row\" layout-align=\"center start\">\n    <div class=\"margin-right-20\">\n        <img src=\"assets/images/avatars/avatar-5.png\" alt=\"girl-avatar\" class=\"make-round\" width=\"100\"/>\n    </div>\n    <div class=\"text-light\">\n        <h3 class=\"font-weight-600 margin-bottom-0 text-light\">Christos / Profile</h3>\n        <p class=\"font-weight-300 margin-top-0\">Edit your name, avatar etc</p>\n     </div>\n</div>\n\n<div layout=\"row\" class=\"profile\" layout-wrap>\n    <div flex=\"100\" flex-gt-md=\"100\">\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"Profile\">\n                <md-content class=\"md-padding\">\n                    <form name=\"profile\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"name\" translate>name</label>\n                            <input id=\"name\" label=\"name\" name=\"name\" type=\"text\" ng-model=\"vm.user.name\" required/>\n                            <div ng-messages=\"profile.name.$error\" md-auto-hide=\"false\" ng-show=\"profile.name.$touched\">\n                                <div ng-message when=\"required\"><span translate>Please enter your name</span></div>\n                            </div>\n                        </md-input-container>\n                        <md-input-container class=\"md-block\">\n                            <label for=\"email\" translate>email</label>\n                            <input id=\"email\" label=\"email\" name=\"email\" type=\"email\" ng-model=\"vm.user.email\" required/>\n                            <div ng-messages=\"profile.email.$error\" md-auto-hide=\"false\" ng-show=\"profile.email.$touched\">\n                                <div ng-message when=\"required\">\n                                    <span translate>Please enter your email address</span>\n                                </div>\n                                <div ng-message when=\"email\">\n                                    <span translate>Please enter a valid email address</span>\n                                </div>\n                            </div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"location\" translate>location</label>\n                            <input id=\"location\" label=\"location\" name=\"location\" type=\"text\" ng-model=\"vm.user.location\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"website\" translate>website</label>\n                            <input id=\"website\" label=\"website\" name=\"website\" type=\"text\" ng-model=\"vm.user.website\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"twitter\" translate>twitter</label>\n                            <input id=\"twitter\" label=\"twitter\" name=\"twitter\" type=\"text\" ng-model=\"vm.user.twitter\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"bio\" translate>bio</label>\n                            <textarea id=\"bio\" label=\"bio\" name=\"bio\" ng-model=\"vm.user.bio\"/>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Password\">\n                <md-content class=\"md-padding\">\n                    <form name=\"password\">\n                        <md-input-container class=\"md-block\">\n                            <label for=\"old-password\" translate>current</label>\n                            <input id=\"old-password\" label=\"old-password\" name=\"old-password\" type=\"text\" ng-model=\"vm.user.current\"/>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"password\" translate>new password</label>\n                            <input id=\"password\" label=\"password\" name=\"password\" type=\"password\" ng-model=\"vm.user.password\" tri-same-password=\"password.confirm\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.password.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.password.$touched\"></div>\n                        </md-input-container>\n\n                        <md-input-container class=\"md-block\">\n                            <label for=\"confirm\" translate>confirm password</label>\n                            <input id=\"confirm\" label=\"confirm\" name=\"confirm\" type=\"password\" ng-model=\"vm.user.confirm\" tri-same-password=\"password.password\" ng-minlength=\"8\" required/>\n                            <div ng-messages=\"password.confirm.$error\" ng-include=\"\'app/examples/authentication/signup/password.messages.html\'\" md-auto-hide=\"false\" ng-show=\"password.confirm.$touched\"></div>\n                        </md-input-container>\n\n                        <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n\n                    </form>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"Notifications\">\n                <md-content class=\"md-padding\">\n                    <md-list>\n                        <div ng-repeat=\"group in ::vm.settingsGroups\">\n                            <md-subheader class=\"md-accent\" translate=\"{{::group.name}}\"></md-subheader>\n                            <md-list-item ng-repeat=\"setting in ::group.settings\" layout=\"row\" layout-align=\"space-around center\">\n                                <md-icon md-font-icon=\"{{::setting.icon}}\"></md-icon>\n                                <p translate>{{::setting.title}}</p>\n                                <md-switch class=\"md-secondary\" ng-model=\"setting.enabled\"></md-switch>\n                            </md-list-item>\n                        </div>\n                    </md-list>\n                    <md-button class=\"md-raised md-primary margin-left-0\" ng-disabled=\"profile.$invalid\" translate=\"Update Settings\"></md-button>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </div>\n\n</div>\n");
 $templateCache.put("app/examples/authentication/signup/password.messages.html","\n");
@@ -19207,18 +19208,18 @@ $templateCache.put("app/triangular/components/widget/widget.tmpl.html","<div cla
 $templateCache.put("app/triangular/layouts/default/default-content.tmpl.html","<div id=\"admin-panel-content-view\" class=\"{{layout.innerContentClass}}\" flex ui-view></div>");
 $templateCache.put("app/triangular/layouts/default/default-no-scroll.tmpl.html","<div layout=\"row\" class=\"full-height\">\n    <!-- left sidebar -->\n\n    <md-sidenav class=\"admin-sidebar-left md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"layout.sideMenuSize !== \'hidden\' && $mdMedia(\'gt-sm\')\" ui-view=\"sidebarLeft\" ng-class=\"{ \'admin-sidebar-collapsed\': layout.sideMenuSize == \'icon\' }\" ng-mouseover=\"layoutController.activateHover()\" ng-mouseleave=\"layoutController.removeHover()\"></md-sidenav>\n\n    <!-- main content -->\n    <div id=\"admin-panel\" layout=\"column\" flex>\n        <!-- loading animation -->\n        <tri-loader></tri-loader>\n\n        <!-- top toolbar -->\n        <md-toolbar class=\"admin-toolbar\" md-theme=\"{{triSkin.elements.toolbar}}\" ui-view=\"toolbar\" ng-class=\"[layout.toolbarSize,layout.toolbarClass]\"></md-toolbar>\n\n        <!-- scrollable content -->\n        <div ui-view=\"content\" layout=\"column\" flex class=\"overflow-hidden\"></div>\n\n        <div ui-view=\"belowContent\"></div>\n    </div>\n\n    <!-- right sidebar -->\n    <md-sidenav layout layout-fill class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=\"notifications\" ui-view=\"sidebarRight\"></md-sidenav>\n</div>");
 $templateCache.put("app/triangular/layouts/default/default.tmpl.html","<div layout=\"row\" class=\"full-height\">\n    <!-- left sidebar -->\n\n    <md-sidenav class=\"admin-sidebar-left md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"layout.sideMenuSize !== \'hidden\' && $mdMedia(\'gt-sm\')\" ui-view=\"sidebarLeft\" ng-class=\"{ \'admin-sidebar-collapsed\': layout.sideMenuSize == \'icon\' }\" ng-mouseover=\"layoutController.activateHover()\" ng-mouseleave=\"layoutController.removeHover()\"></md-sidenav>\n\n    <!-- main content -->\n    <div id=\"admin-panel\" layout=\"column\" flex>\n        <!-- loading animation -->\n        <tri-loader></tri-loader>\n\n        <!-- top toolbar -->\n        <md-toolbar class=\"admin-toolbar\" ng-if=\"layout.showToolbar\" md-theme=\"{{triSkin.elements.toolbar}}\" ui-view=\"toolbar\" ng-class=\"[layout.toolbarSize,layout.toolbarClass]\"></md-toolbar>\n\n        <!-- scrollable content -->\n        <md-content ng-class=\"layout.contentClass\" flex tri-default-content ui-view=\"content\"></md-content>\n\n        <div ui-view=\"belowContent\"></div>\n    </div>\n\n    <!-- right sidebar -->\n    <md-sidenav layout layout-fill class=\"md-sidenav-right md-whiteframe-z2\" md-component-id=\"notifications\" ui-view=\"sidebarRight\"></md-sidenav>\n</div>\n");
-$templateCache.put("app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html","<md-card class=\"tri-counter-widget\" flex md-colors=\"::{ background: vm.background, color: vm.color }\">\n    <md-card-content layout=\"row\" layout-align=\"space-between center\">\n        <md-icon class=\"font-size-5 margin-left-10 inherit-color\" md-font-icon=\"{{vm.icon}}\"></md-icon>\n        <div layout=\"column\">\n            <p class=\"md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis\" countupto=\"vm.count\" decimals=\"0\"></p>\n            <p class=\"md-body-2 margin-top-0 margin-bottom-0\" translate>{{vm.title}}</p>\n        </div>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.tmpl.html","<md-card>\n    <md-card-header>\n        <md-card-header-text>\n            <span class=\"md-title\">Overview</span>\n            <span class=\"md-subhead\">{{vm.start.toDate() | date:\'fullDate\'}} - {{vm.end.toDate() | date:\'fullDate\'}}</span>\n        </md-card-header-text>\n        <md-menu>\n            <md-button aria-label=\"Change timespan\" class=\"md-icon-button\" ng-click=\"$mdOpenMenu($event)\">\n                <md-icon md-menu-origin md-font-icon=\"zmdi zmdi-more-vert\"></md-icon>\n            </md-button>\n            <md-menu-content>\n                <md-menu-item ng-repeat=\"span in vm.timeSpans\">\n                    <md-button ng-click=\"vm.onTimeChange({ span: span })\">\n                        {{span.name}}\n                    </md-button>\n                </md-menu-item>\n            </md-menu-content>\n        </md-menu>\n    </md-card-header>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
-$templateCache.put("app/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
+$templateCache.put("app/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html","<md-card class=\"tri-counter-widget\" flex md-colors=\"::{ background: vm.background, color: vm.color }\">\n    <md-card-content layout=\"row\" layout-align=\"space-between center\">\n        <md-icon class=\"font-size-5 margin-left-10 inherit-color\" md-font-icon=\"{{vm.icon}}\"></md-icon>\n        <div layout=\"column\">\n            <p class=\"md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis\" countupto=\"vm.count\" decimals=\"0\"></p>\n            <p class=\"md-body-2 margin-top-0 margin-bottom-0\" translate>{{vm.title}}</p>\n        </div>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/map-widget/map-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <ui-gmap-google-map class=\"map-widget\" center=\"vm.map.center\" zoom=\"vm.map.zoom\" options=\"vm.map.options\">\n            <ui-gmap-markers models=\"vm.randomMarkers\" coords=\"\'self\'\" icon=\"\'icon\'\"></ui-gmap-markers>\n        </ui-gmap-google-map>\n    </md-card-content>\n</md-card>\n");
+$templateCache.put("app/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/stat-chart-widget/stat-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <h3 class=\"md-subhead margin-bottom-0\">{{vm.name}}</h3>\n        <h3 class=\"md-headline margin-top-0\">{{vm.statistic}}</h4>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/dashboards/analytics/widgets/tabs-widget/tabs-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"language\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.languages.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"language in vm.languages | orderBy: vm.tableQueries.languages.order | limitTo: vm.tableQueries.languages.limit : (vm.tableQueries.languages.page -1) * vm.tableQueries.languages.limit\">\n                                    <td md-cell>{{::language.language}}</td>\n                                    <td md-cell>{{::language.sessions | number}}</td>\n                                    <td md-cell>{{::language.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.languages.limit\" md-page=\"vm.tableQueries.languages.page\" md-total=\"{{vm.languages.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"country\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.countries.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"country in vm.countries | orderBy: vm.tableQueries.countries.order | limitTo: vm.tableQueries.countries.limit : (vm.tableQueries.countries.page -1) * vm.tableQueries.countries.limit\">\n                                    <td md-cell>{{::country.country}}</td>\n                                    <td md-cell>{{::country.sessions}}</td>\n                                    <td md-cell>{{::country.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.countries.limit\" md-page=\"vm.tableQueries.countries.page\" md-total=\"{{vm.countries.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/calendar/layouts/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" hide-gt-md ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n    <h2 flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\">\n        </span>\n    </h2>\n\n    <div class=\"widget-buttons\">\n        <md-button class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'prev\')\" aria-label=\"previous month\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-left\"></md-icon>\n        </md-button>\n        <md-button hide show-gt-lg class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'today\')\" aria-label=\"today\">\n            <md-icon md-font-icon=\"zmdi zmdi-calendar-alt\"></md-icon>\n        </md-button>\n        <md-button class=\"widget-button md-icon-button\" ng-click=\"vm.changeMonth(\'next\')\" aria-label=\"next month\">\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\"></md-icon>\n        </md-button>\n    </div>\n\n    <md-menu>\n        <md-button class=\"md-icon-button\" aria-label=\"{{\'Change View\' | triTranslate}}\" ng-click=\"$mdOpenMenu()\">\n            <md-icon md-font-icon=\"{{vm.currentView.icon}}\" ng-class=\"vm.currentView.icon\"></md-icon>\n        </md-button>\n        <md-menu-content width=\"2\">\n            <md-menu-item ng-repeat=\"view in vm.views\">\n                <md-button ng-click=\"vm.changeView(view)\" translate=\"{{::view.name}}\" aria-label=\"{{::view.name}}\"></md-button>\n            </md-menu-item>\n        </md-menu-content>\n    </md-menu>\n</div>\n\n");
 $templateCache.put("app/examples/email/layout/toolbar/toolbar.tmpl.html","<div class=\"md-toolbar-tools\">\n    <md-button class=\"md-icon-button\" ng-if=\"!vm.hideMenuButton()\" ng-click=\"vm.openSideNav(\'left\')\" aria-label=\"side navigation\">\n        <md-icon md-font-icon=\"zmdi zmdi-menu\"></md-icon>\n    </md-button>\n\n    <h2 hide-xs flex>\n        <span ng-repeat=\"crumb in vm.breadcrumbs.crumbs\">\n            <span translate>{{crumb.name}}</span>\n            <md-icon md-font-icon=\"zmdi zmdi-chevron-right\" ng-if=\"!$last\">\n        </span>\n    </h2>\n\n    <md-button class=\"md-icon-button\" ng-click=\"vm.toggleSearch()\" aria-label=\"{{\'Toggle Menu\' | triTranslate}}\">\n        <md-icon md-font-icon=\"zmdi zmdi-search\"></md-icon>\n    </md-button>\n\n    <input class=\"toolbar-search\" ng-show=\"vm.showSearch\" ng-model=\"emailSearch\" ng-change=\"vm.filterEmailList(emailSearch)\" type=\"text\" placeholder=\"{{\'Search\' | triTranslate}}\">\n\n    <md-button class=\"md-icon-button\" ng-repeat=\"menu in ::vm.toolbarMenu\" ui-sref=\"{{::menu.state}}\" aria-label=\"{{::menu.name}}\">\n        <md-icon md-font-icon=\"{{::menu.icon}}\"></md-icon>\n        <md-tooltip>{{::menu.name}}</md-tooltip>\n    </md-button>\n</div>\n\n");
 $templateCache.put("app/triangular/layouts/states/triangular/triangular.tmpl.html","<!-- left sidebar -->\n<md-sidenav md-colors=\"{ background: \'primary\' }\" class=\"triangular-sidenav-left md-sidenav-left md-whiteframe-z2\" ng-if=\"layout.sideMenuSize !== \'off\'\" md-component-id=\"left\" md-is-locked-open=\"layout.sideMenuSize !== \'hidden\' && $mdMedia(\'gt-sm\')\" ui-view=\"sidebarLeft\" ng-class=\"{ \'admin-sidebar-collapsed\': layout.sideMenuSize == \'icon\' }\" ng-mouseover=\"stateController.activateHover()\" ng-mouseleave=\"stateController.removeHover()\"></md-sidenav>\n\n<!-- main content -->\n<div class=\"triangular-toolbar-and-content\" layout=\"column\" flex>\n    <!-- loading animation -->\n    <!-- <tri-loader></tri-loader> -->\n\n    <!-- top toolbar -->\n    <md-toolbar class=\"triangular-toolbar md-whiteframe-z1\" ng-if=\"layout.showToolbar\" ng-class=\"[layout.toolbarSize,layout.toolbarClass]\" md-theme=\"{{triSkin.elements.toolbar}}\" ui-view=\"toolbar\"></md-toolbar>\n\n    <!-- scrollable content -->\n    <md-content class=\"triangular-content\" ng-class=\"layout.contentClass\" flex ui-view></md-content>\n\n    <div ui-view=\"belowContent\"></div>\n\n    <div class=\"triangular-loader\" ng-show=\"stateController.showLoader\" layout=\"column\" ui-view=\"loader\"></div>\n</div>\n\n<!-- right sidebar -->\n<md-sidenav layout layout-fill class=\"triangular-sidenav-right md-sidenav-right md-whiteframe-z2\" md-component-id=\"notifications\" ui-view=\"sidebarRight\"></md-sidenav>\n");
-$templateCache.put("app/examples/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.tmpl.html","<md-card>\n    <md-card-header>\n        <md-card-header-text>\n            <span class=\"md-title\">Overview</span>\n            <span class=\"md-subhead\">{{vm.start.toDate() | date:\'fullDate\'}} - {{vm.end.toDate() | date:\'fullDate\'}}</span>\n        </md-card-header-text>\n        <md-menu>\n            <md-button aria-label=\"Change timespan\" class=\"md-icon-button\" ng-click=\"$mdOpenMenu($event)\">\n                <md-icon md-menu-origin md-font-icon=\"zmdi zmdi-more-vert\"></md-icon>\n            </md-button>\n            <md-menu-content>\n                <md-menu-item ng-repeat=\"span in vm.timeSpans\">\n                    <md-button ng-click=\"vm.onTimeChange({ span: span })\">\n                        {{span.name}}\n                    </md-button>\n                </md-menu-item>\n            </md-menu-content>\n        </md-menu>\n    </md-card-header>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/widgets/counter-widget/counter-widget.tmpl.html","<md-card class=\"tri-counter-widget\" flex md-colors=\"::{ background: vm.background, color: vm.color }\">\n    <md-card-content layout=\"row\" layout-align=\"space-between center\">\n        <md-icon class=\"font-size-5 margin-left-10 inherit-color\" md-font-icon=\"{{vm.icon}}\"></md-icon>\n        <div layout=\"column\">\n            <p class=\"md-display-3 font-weight-100 margin-top-0 margin-bottom-0 text-ellipsis\" countupto=\"vm.count\" decimals=\"0\"></p>\n            <p class=\"md-body-2 margin-top-0 margin-bottom-0\" translate>{{vm.title}}</p>\n        </div>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/widgets/map-widget/map-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <ui-gmap-google-map class=\"map-widget\" center=\"vm.map.center\" zoom=\"vm.map.zoom\" options=\"vm.map.options\">\n            <ui-gmap-markers models=\"vm.randomMarkers\" coords=\"\'self\'\" icon=\"\'icon\'\"></ui-gmap-markers>\n        </ui-gmap-google-map>\n    </md-card-content>\n</md-card>\n");
+$templateCache.put("app/examples/dashboards/analytics/widgets/line-chart-widget/line-chart-widget.tmpl.html","<md-card>\n    <md-card-header>\n        <md-card-header-text>\n            <span class=\"md-title\">Overview</span>\n            <span class=\"md-subhead\">{{vm.start.toDate() | date:\'fullDate\'}} - {{vm.end.toDate() | date:\'fullDate\'}}</span>\n        </md-card-header-text>\n        <md-menu>\n            <md-button aria-label=\"Change timespan\" class=\"md-icon-button\" ng-click=\"$mdOpenMenu($event)\">\n                <md-icon md-menu-origin md-font-icon=\"zmdi zmdi-more-vert\"></md-icon>\n            </md-button>\n            <md-menu-content>\n                <md-menu-item ng-repeat=\"span in vm.timeSpans\">\n                    <md-button ng-click=\"vm.onTimeChange({ span: span })\">\n                        {{span.name}}\n                    </md-button>\n                </md-menu-item>\n            </md-menu-content>\n        </md-menu>\n    </md-card-header>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/widgets/pie-chart-widget/pie-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/widgets/stat-chart-widget/stat-chart-widget.tmpl.html","<md-card>\n    <md-card-content>\n        <h3 class=\"md-subhead margin-bottom-0\">{{vm.name}}</h3>\n        <h3 class=\"md-headline margin-top-0\">{{vm.statistic}}</h4>\n        <nvd3 options=\"vm.options\" data=\"vm.data\" api=\"vm.api\"></nvd3>\n    </md-card-content>\n</md-card>\n");
 $templateCache.put("app/examples/dashboards/analytics/widgets/tabs-widget/tabs-widget.tmpl.html","<md-card class=\"no-padding-card\">\n    <md-card-content>\n        <md-tabs md-dynamic-height md-border-bottom>\n            <md-tab label=\"language\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.languages.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"language in vm.languages | orderBy: vm.tableQueries.languages.order | limitTo: vm.tableQueries.languages.limit : (vm.tableQueries.languages.page -1) * vm.tableQueries.languages.limit\">\n                                    <td md-cell>{{::language.language}}</td>\n                                    <td md-cell>{{::language.sessions | number}}</td>\n                                    <td md-cell>{{::language.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.languages.limit\" md-page=\"vm.tableQueries.languages.page\" md-total=\"{{vm.languages.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n            <md-tab label=\"country\">\n                <md-content>\n                    <md-table-container>\n                        <table md-table class=\"md-data-table\">\n                            <thead md-head md-order=\"vm.tableQueries.countries.order\">\n                                <tr md-row>\n                                    <th md-column md-order-by=\"language\">Language</th>\n                                    <th md-column md-numeric md-order-by=\"sessions\">Sessions</th>\n                                    <th md-column md-numeric md-desc md-order-by=\"percent\">% Sessions</th>\n                                </tr>\n                            </thead>\n                            <tbody md-body>\n                                <tr md-row ng-repeat=\"country in vm.countries | orderBy: vm.tableQueries.countries.order | limitTo: vm.tableQueries.countries.limit : (vm.tableQueries.countries.page -1) * vm.tableQueries.countries.limit\">\n                                    <td md-cell>{{::country.country}}</td>\n                                    <td md-cell>{{::country.sessions}}</td>\n                                    <td md-cell>{{::country.percent}}%</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <md-table-pagination md-limit=\"vm.tableQueries.countries.limit\" md-page=\"vm.tableQueries.countries.page\" md-total=\"{{vm.countries.length}}\" md-page-select></md-table-pagination>\n                </md-content>\n            </md-tab>\n        </md-tabs>\n    </md-card-content>\n</md-card>\n");}]);
