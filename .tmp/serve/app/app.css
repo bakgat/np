@@ -29115,6 +29115,154 @@ md-content.md-cyan-theme {
 .triangular-content.ng-leave {
   opacity: 0; }
 
+.evaluation-list {
+  background: white; }
+
+.evaluation-list__evaluation.md-2-line.md-long-text {
+  margin-top: 0px;
+  margin-bottom: 0px; }
+
+.evaluation-list__evaluation h3 .md-caption {
+  float: right;
+  color: rgba(0, 0, 0, 0.54) !important; }
+
+.evaluation-list__evaluation .md-list-item-text h4 {
+  color: rgba(0, 0, 0, 0.54) !important; }
+
+.evaluation-list__evaluation--active {
+  background: rgba(0, 0, 0, 0.05); }
+  .evaluation-list__evaluation--active .md-avatar {
+    display: block;
+    -webkit-animation: swing 1s;
+            animation: swing 1s; }
+
+.evaluation-list__evaluation--unread h3 {
+  font-weight: 700 !important; }
+
+.evaluation-no-evaluation-selected {
+  text-align: center;
+  opacity: 0.5; }
+  .evaluation-no-evaluation-selected h2 {
+    font-weight: lighter; }
+
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter,
+.evaluation-list__evaluation--animated.ng-leave {
+  -webkit-transition: all linear 0.8s;
+  transition: all linear 0.8s;
+  width: 100%;
+  position: relative; }
+
+.evaluation-list__evaluation--animated.ng-leave.ng-leave-active,
+.evaluation-list__evaluation--animated.ng-move,
+.evaluation-list__evaluation--animated.ng-enter {
+  opacity: 0;
+  max-height: 0; }
+
+.evaluation-list__evaluation--animated.ng-leave,
+.evaluation-list__evaluation--animated.ng-move.ng-move-active,
+.evaluation-list__evaluation--animated.ng-enter.ng-enter-active {
+  opacity: 1;
+  max-height: 500px; }
+
+#ui-reporting-evaluation.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+#ui-reporting-evaluation.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+md-card md-card-header md-card-header-text .md-title {
+  font-size: 30px;
+  text-transform: capitalize; }
+
+md-card md-card-content {
+  padding: 0; }
+
+.md-toolbar-tools .md-title {
+  text-transform: capitalize; }
+
+.score {
+  font-size: 1.8rem; }
+
+.notos.diff-icon {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 20px;
+  margin: 4px; }
+
+.doughnut-legend li {
+  font-size: 10px; }
+
+.evaluation-wizard md-tabs md-tabs-wrapper {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: 48px;
+  width: 100%;
+  z-index: 900; }
+
+.evaluation-wizard md-tabs md-tab-content {
+  padding-top: 44px; }
+
+.evaluation-dialog, .feedback-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .evaluation-dialog .md-title, .feedback-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .evaluation-dialog .md-button-group.super-narrow, .feedback-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .evaluation-dialog .md-button-group.super-narrow > .md-button, .feedback-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .evaluation-dialog .md-button-group.super-narrow > .md-button.active, .feedback-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-icon.pf-placeholder {
+  float: right;
+  width: 12px;
+  height: 12px;
+  margin: 0px; }
+  md-icon.pf-placeholder.is-permanent {
+    color: #009688; }
+  md-icon.pf-placeholder.is-final {
+    color: #ff5722; }
+
+md-switch[disabled] .md-label {
+  opacity: .54;
+  color: rgba(0, 0, 0, 0.54); }
+
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29326,154 +29474,6 @@ md-content.md-cyan-theme {
 .notos-SF:before {
   content: ""; }
 
-.evaluation-list {
-  background: white; }
-
-.evaluation-list__evaluation.md-2-line.md-long-text {
-  margin-top: 0px;
-  margin-bottom: 0px; }
-
-.evaluation-list__evaluation h3 .md-caption {
-  float: right;
-  color: rgba(0, 0, 0, 0.54) !important; }
-
-.evaluation-list__evaluation .md-list-item-text h4 {
-  color: rgba(0, 0, 0, 0.54) !important; }
-
-.evaluation-list__evaluation--active {
-  background: rgba(0, 0, 0, 0.05); }
-  .evaluation-list__evaluation--active .md-avatar {
-    display: block;
-    -webkit-animation: swing 1s;
-            animation: swing 1s; }
-
-.evaluation-list__evaluation--unread h3 {
-  font-weight: 700 !important; }
-
-.evaluation-no-evaluation-selected {
-  text-align: center;
-  opacity: 0.5; }
-  .evaluation-no-evaluation-selected h2 {
-    font-weight: lighter; }
-
-.evaluation-list__evaluation--animated.ng-move,
-.evaluation-list__evaluation--animated.ng-enter,
-.evaluation-list__evaluation--animated.ng-leave {
-  -webkit-transition: all linear 0.8s;
-  transition: all linear 0.8s;
-  width: 100%;
-  position: relative; }
-
-.evaluation-list__evaluation--animated.ng-leave.ng-leave-active,
-.evaluation-list__evaluation--animated.ng-move,
-.evaluation-list__evaluation--animated.ng-enter {
-  opacity: 0;
-  max-height: 0; }
-
-.evaluation-list__evaluation--animated.ng-leave,
-.evaluation-list__evaluation--animated.ng-move.ng-move-active,
-.evaluation-list__evaluation--animated.ng-enter.ng-enter-active {
-  opacity: 1;
-  max-height: 500px; }
-
-#ui-reporting-evaluation.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-#ui-reporting-evaluation.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-md-card md-card-header md-card-header-text .md-title {
-  font-size: 30px;
-  text-transform: capitalize; }
-
-md-card md-card-content {
-  padding: 0; }
-
-.md-toolbar-tools .md-title {
-  text-transform: capitalize; }
-
-.score {
-  font-size: 1.8rem; }
-
-.notos.diff-icon {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 20px;
-  margin: 4px; }
-
-.doughnut-legend li {
-  font-size: 10px; }
-
-.evaluation-wizard md-tabs md-tabs-wrapper {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  height: 48px;
-  width: 100%;
-  z-index: 900; }
-
-.evaluation-wizard md-tabs md-tab-content {
-  padding-top: 44px; }
-
-.evaluation-dialog, .feedback-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .evaluation-dialog .md-title, .feedback-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .evaluation-dialog .md-button-group.super-narrow, .feedback-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .evaluation-dialog .md-button-group.super-narrow > .md-button, .feedback-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .evaluation-dialog .md-button-group.super-narrow > .md-button.active, .feedback-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-icon.pf-placeholder {
-  float: right;
-  width: 12px;
-  height: 12px;
-  margin: 0px; }
-  md-icon.pf-placeholder.is-permanent {
-    color: #009688; }
-  md-icon.pf-placeholder.is-final {
-    color: #ff5722; }
-
-md-switch[disabled] .md-label {
-  opacity: .54;
-  color: rgba(0, 0, 0, 0.54); }
-
 .seed-list {
   list-style: lower-greek; }
 
@@ -29544,18 +29544,6 @@ md-switch[disabled] .md-label {
     border: none; }
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
-
-.md-button.md-primary.daterange-button {
-  color: rgba(0, 0, 0, 0.84); }
-
-.daterange-picker {
-  width: 340px;
-  background: #fff; }
-  .daterange-picker .md-calendar-day-header {
-    display: none; }
-  .daterange-picker > .default-list > .picker-item > .md-button {
-    width: 100%;
-    margin: 0; }
 
 #ui-login {
   overflow: auto; }
@@ -29976,6 +29964,20 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .github-user-dropdown span {
   margin-left: 16px; }
 
+.maps-example .angular-google-map-container {
+  height: 550px; }
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px; }
+  #map_canvas .angular-google-map-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; }
+
 .elements-button-examples md-card-content {
   min-height: 100px; }
 
@@ -30051,20 +30053,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .elements-whiteframe-example md-whiteframe {
   min-width: 500px;
   background-color: white; }
-
-.maps-example .angular-google-map-container {
-  height: 550px; }
-
-#map_canvas {
-  height: 100%;
-  width: 100%;
-  margin: 0px; }
-  #map_canvas .angular-google-map-container {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px; }
 
 .todo-container .slide.ng-enter {
   -webkit-animation-name: slideInRight;
@@ -30184,6 +30172,18 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
+
+.md-button.md-primary.daterange-button {
+  color: rgba(0, 0, 0, 0.84); }
+
+.daterange-picker {
+  width: 340px;
+  background: #fff; }
+  .daterange-picker .md-calendar-day-header {
+    display: none; }
+  .daterange-picker > .default-list > .picker-item > .md-button {
+    width: 100%;
+    margin: 0; }
 
 .triangular-loader {
   background: #fff; }
