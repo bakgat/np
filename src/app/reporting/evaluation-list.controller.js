@@ -110,7 +110,7 @@
         }
 
         function openEvaluation(evaluation) {
-            $state.go(vm.baseState + '.evaluation', {
+            $state.go(BaseStateService.baseState + '.evaluation', {
                 evaluationId: evaluation.id
             });
             vm.selectedEvaluation = evaluation.id;
@@ -118,7 +118,7 @@
 
 
         function openList() {
-            $state.go(vm.baseState);
+            $state.go(BaseStateService.baseState);
         }
 
         function makeBranchIcon(branch) {

@@ -22,7 +22,7 @@
         }
 
         function openIAC(iac) {
-            $state.go(vm.baseState + '.iac', {
+            $state.go(BaseStateService.baseState + '.iac', {
                 iacId: iac.id
             });
             vm.selectedIac = iac.id;
