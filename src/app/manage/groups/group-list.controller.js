@@ -10,7 +10,6 @@
         groups, GroupService) {
         var vm = this;
 
-        vm.baseState = 'triangular.manage.groups';
         vm.groups = [];
 
         //actions
@@ -23,6 +22,7 @@
         init();
         ////////////////////
         function init() {
+            BaseStateService.setBaseState('triangular.manage.groups');
             vm.groups = groups;
         }
 

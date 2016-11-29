@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function StudentRecordListController($scope, $filter, $location, $timeout, $state, $mdMedia,
-        $mdBottomSheet, $stateParams, $mdDialog, $mdToast, triLayout,
+        $mdBottomSheet, $stateParams, $mdDialog, $mdToast, triLayout,  BaseStateService,
         students) {
         var vm = this;
         // store the base state of where we are /inbox or /trash or /sent
@@ -24,6 +24,7 @@
         init();
         ////////////////////
         function init() {
+            BaseStateService.setBaseState('triangular.care.records');
             createStudentGroups();
         }
 

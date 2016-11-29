@@ -7,10 +7,10 @@
 
     /* @ngInject */
     function StudentListController($scope, $filter, $location, $state, $mdMedia, $mdBottomSheet,
-        $stateParams, $mdDialog, $mdToast, $rootScope, students, activeGroup, StudentService) {
+        $stateParams, $mdDialog, $mdToast, BaseStateService, students, activeGroup, StudentService) {
         var vm = this;
 
-        vm.baseState = 'triangular.manage.students';
+        
         vm.composeClick = composeClick;
         vm.inboxBasePath = $location.path();
 
@@ -24,6 +24,7 @@
         init();
         ////////////////////
         function init() {
+            BaseStateService.setBaseState('triangular.manage.students');
             createStudentGroups();
         }
 

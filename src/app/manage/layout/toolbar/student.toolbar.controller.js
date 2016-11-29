@@ -12,8 +12,6 @@
 
         var vm = this;
 
-        vm.baseState = 'triangular.manage.students';
-
         vm.user = UserService.getCurrentUser();
         
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;

@@ -17,7 +17,6 @@
         ///////////////////////////////////
 
         function init() {
-            
             BaseStateService.setBaseState('triangular.reporting.iacs');
             createGroups();
         }

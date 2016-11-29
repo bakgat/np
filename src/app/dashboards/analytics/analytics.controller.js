@@ -7,7 +7,7 @@
         .controller('DashboardAnalyticsController', DashboardAnalyticsController);
 
     /* @ngInject */
-    function DashboardAnalyticsController(analytics) {
+    function DashboardAnalyticsController(BaseStateService, analytics) {
         var vm = this;
      
         vm.data = analytics;
@@ -17,7 +17,7 @@
         /////////////////////
 
         function init() {
-          
+          BaseStateService.setBaseState('triangular.dashboard-analytics');
         }
 
     }

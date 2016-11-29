@@ -10,8 +10,6 @@
         $state, triBreadcrumbsService, triLayout, UserService) {
         var vm = this;
 
-        vm.baseState = 'triangular.care.records';
-
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
 
         vm.filterStudentList = filterStudentList;

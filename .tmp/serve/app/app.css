@@ -29000,6 +29000,36 @@ chart-legend ul {
       min-width: 260px;
       max-width: 260px; }
 
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
+md-content.md-cyan-theme {
+  background: #fff; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29034,36 +29064,6 @@ chart-legend ul {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
-md-content.md-cyan-theme {
-  background: #fff; }
 
 .dashboard-container .layout-margin {
   margin: 0px; }
@@ -29948,6 +29948,15 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .os-windows .error-container {
     max-height: 280px; }
 
+.github-user-dropdown img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box; }
+
+.github-user-dropdown span {
+  margin-left: 16px; }
+
 .md-select-form {
   display: inline-block;
   margin-top: 2px;
@@ -29957,15 +29966,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .tri-wizard-card md-card-content {
   padding: 0px; }
-
-.github-user-dropdown img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: content-box; }
-
-.github-user-dropdown span {
-  margin-left: 16px; }
 
 .maps-example .angular-google-map-container {
   height: 550px; }
@@ -30187,35 +30187,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .elements-whiteframe-example md-whiteframe {
   min-width: 500px;
   background-color: white; }
-
-.triangular-loader {
-  background: #fff; }
-
-.app-loader md-progress-linear {
-  width: 80%; }
-
-.triangular-toolbar.ng-enter {
-  -webkit-transition: .5s;
-  transition: .5s; }
-
-.triangular-toolbar.ng-enter {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.triangular-toolbar.ng-leave {
-  display: none; }
 
 .person-list {
   background: white; }
@@ -30466,6 +30437,35 @@ md-card.md-user-card {
 .compose-person-wizard md-tabs md-tab-content {
   padding-top: 44px; }
 
+.triangular-loader {
+  background: #fff; }
+
+.app-loader md-progress-linear {
+  width: 80%; }
+
+.triangular-toolbar.ng-enter {
+  -webkit-transition: .5s;
+  transition: .5s; }
+
+.triangular-toolbar.ng-enter {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.triangular-toolbar.ng-leave {
+  display: none; }
+
 .login-frame md-card {
   max-width: 400px; }
 
@@ -30610,8 +30610,10 @@ table.md-table tr.md-primary {
   margin: auto;
   text-transform: uppercase; }
 
-.tri-counter-widget md-icon {
-  color: inherit; }
+.tri-counter-widget {
+  padding: 5px; }
+  .tri-counter-widget md-icon {
+    color: inherit; }
 
 .tri-counter-widget md-icon {
   color: inherit; }

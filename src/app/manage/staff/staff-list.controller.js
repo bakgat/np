@@ -7,10 +7,9 @@
 
     /* @ngInject */
     function StaffListController($scope, $filter, $location, $state, $mdMedia, $mdBottomSheet,
-        $stateParams, $mdDialog, $mdToast, $rootScope, staff, StaffService) {
+        $stateParams, $mdDialog, $mdToast, BaseStateService, staff, StaffService) {
         var vm = this;
 
-        vm.baseState = 'triangular.manage.staff';
         vm.composeClick = composeClick;
         vm.inboxBasePath = $location.path();
 
@@ -24,7 +23,7 @@
         init();
         ////////////////////
         function init() {
-            //checkEmailList();
+            BaseStateService.setBaseState('triangular.manage.staff');
             vm.staff = staff;
             createMemberGroups();
         }
