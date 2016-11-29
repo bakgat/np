@@ -43,7 +43,7 @@
                         iacs: function(IacService, UserService) {
                             return UserService.getActiveGroup().then(function(response) {
                                 //return Restangular.all('iac').getList({'group': response.id});
-                                return IacService.getList({'group': response.id});
+                                return IacService.getList({ 'group': response.id });
                             });
                         }
                     },
@@ -120,6 +120,23 @@
                             return foundEvaluation.get();
                         }
                     }
+                })
+                .state('triangular.reporting.reports', {
+                    url: '',
+                    views: {
+                        '@triangular': {
+                            templateUrl: 'app/reporting/reports/report-list.tmpl.html',
+                            controller: 'ReportListController',
+                            controllerAs: 'vm'
+                        }
+                    },
+                    resolve: {
+                        pdfAddress: function(UserService, _env) {
+                            return UserService.getActiveGroup().then(function(group) {
+                                return _env.api + '/pdf/report/group/' + group.id;
+                            });
+                        }
+                    }
                 });
 
             triMenuProvider.addMenu({
@@ -129,25 +146,22 @@
                 priority: 2,
                 permission: 'reporting',
                 children: [{
-                        name: 'Evaluaties',
-                        state: 'triangular.reporting.evaluations',
-                        icon: 'zmdi zmdi-keyboard',
-                        type: 'link',
-                        permission: 'reportingEvaluations'
-                    }, {
-                        name: 'Aangepaste leerlijnen',
-                        state: 'triangular.reporting.iacs',
-                        icon: 'zmdi zmdi-arrow-split',
-                        type: 'link'
-                    }
-                    /*, 
-                                        {
-                                            name: 'Rapporten',
-                                            state: 'triangular.reporting.reports',
-                                            icon: 'zmdi zmdi-print',
-                                            type: 'link'
-                                        }*/
-                ]
+                    name: 'Evaluaties',
+                    state: 'triangular.reporting.evaluations',
+                    icon: 'zmdi zmdi-keyboard',
+                    type: 'link',
+                    permission: 'reportingEvaluations'
+                }, {
+                    name: 'Aangepaste leerlijnen',
+                    state: 'triangular.reporting.iacs',
+                    icon: 'zmdi zmdi-arrow-split',
+                    type: 'link'
+                }, {
+                    name: 'Rapporten',
+                    state: 'triangular.reporting.reports',
+                    icon: 'zmdi zmdi-print',
+                    type: 'link'
+                }]
             });
         }
     })();
