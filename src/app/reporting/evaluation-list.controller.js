@@ -6,11 +6,10 @@
         .controller('EvaluationListController', EvaluationListController);
 
     /* @ngInject */
-    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast,
-        evaluations, branches, $rootScope, EvaluationService) {
+    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast, BaseStateService,
+        evaluations, branches, EvaluationService) {
         var vm = this;
 
-        vm.baseState = 'triangular.reporting.evaluations';
         vm.composeClick = composeClick;
 
         vm.openEvaluation = openEvaluation;
@@ -25,6 +24,7 @@
         //////////////////////////////////////
 
         function init() {
+            BaseStateService.setBaseState('triangular.reporting.evaluations');
             createEvaluationGroups();
         }
 

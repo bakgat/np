@@ -23,7 +23,6 @@
         ///////////////
 
         function init() {
-
         }
 
         function cancel() {

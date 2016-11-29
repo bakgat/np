@@ -6,7 +6,7 @@
         .controller('ReportListController', ReportListController);
 
     /* @ngInject */
-    function ReportListController($sce, pdfAddress) {
+    function ReportListController(BaseStateService, $sce, pdfAddress) {
         var vm = this;
 
         vm.pdfAddress = pdfAddress;
@@ -15,7 +15,7 @@
         init();
         //////////////////////////////////////
         function init() {
-
+            BaseStateService.setBaseState('triangular.reporting.reports');
         }
 
         function trustedAddress() {

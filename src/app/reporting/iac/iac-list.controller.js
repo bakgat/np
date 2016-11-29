@@ -6,9 +6,8 @@
         .controller('IacListController', IacListController);
 
     /* @ngInject */
-    function IacListController($state, iacs, $filter) {
+    function IacListController(BaseStateService, $state, iacs, $filter) {
         var vm = this;
-        vm.baseState = 'triangular.reporting.iacs';
         vm.openIAC = openIAC;
 
         vm.iacs = iacs;
@@ -18,6 +17,8 @@
         ///////////////////////////////////
 
         function init() {
+            
+            BaseStateService.setBaseState('triangular.reporting.iacs');
             createGroups();
         }
 

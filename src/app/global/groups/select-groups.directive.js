@@ -6,26 +6,18 @@
         .directive('selectGroups', selectGroups);
 
     /* @ngInject */
-    function selectGroups() {
-        // Usage:
-        //
-        // ```html
-        // <select-groups ng-value="">
-        // ```
-        // Creates:
-        //
+    function selectGroups() {       
         var directive = {
             link: link,
             restrict: 'E',
             scope: {
-                'reloadState': '=',
                 'active': '=',
                 'onlyOwned': '='
             },
             templateUrl: 'app/global/groups/select-groups.tmpl.html',
             controller: SelectGroupsController,
             controllerAs: 'vm',
-            bindToController: true // because the scope is isolated
+            bindToController: true
         };
         return directive;
         ////////////////////////
@@ -34,7 +26,7 @@
     }
 
     /* @ngInject */
-    function SelectGroupsController($state, UserService) {
+    function SelectGroupsController(BaseStateService, $state, UserService) {
         var vm = this;
 
         vm.selectedGroup = null;
@@ -54,7 +46,7 @@
 
         function switchGroup(group) {
             UserService.setActiveGroup(group);
-            $state.go(vm.reloadState, {}, { reload: true });
+            $state.go(BaseStateService.baseState, {}, { reload: true });
         }
     }
 

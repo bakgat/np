@@ -7,12 +7,10 @@
 
     /* @ngInject */
     function ReportingToolbarController($scope, $injector, $rootScope, $mdMedia,
-        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
+        $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, BaseStateService,
         triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache, DateRangeService) {
 
         var vm = this;
-
-        vm.baseState = 'triangular.reporting.evaluations';
 
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
@@ -34,8 +32,9 @@
         function initToolbar() {
             vm.user = UserService.getCurrentUser();
         }
+
         function daterangeChanged() {
-            $state.go(vm.baseState, {}, {reload: true});
+            $state.go(BaseStateService.baseState, {}, { reload: true });
         }
 
 
@@ -82,9 +81,6 @@
                 }
             }
         }
-
-        
-
         $scope.$on('newMailNotification', function() {
             vm.emailNew = true;
         });
