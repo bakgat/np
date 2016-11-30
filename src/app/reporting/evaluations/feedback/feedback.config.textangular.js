@@ -10,6 +10,8 @@
         * Setup Editor Toolbar here
         ***/
         $provide.decorator('taOptions', ['taRegisterTool', 'taTranslations', '$delegate', function(taRegisterTool, taTranslations, taOptions){
+            taOptions.forceTextAngularSanitize = true; 
+            
             taOptions.toolbar = [['bold', 'italics', 'underline']];
 
             taOptions.classes = {
