@@ -28288,44 +28288,6 @@ md-card md-card-footer {
   md-card {
     border: 1px solid #fff; } }
 
-#admin-panel {
-  overflow: hidden;
-  position: relative; }
-  #admin-panel > md-content {
-    z-index: 3; }
-
-#admin-panel-content-view {
-  display: block;
-  position: relative;
-  padding-bottom: 65px;
-  min-height: calc(100vh - 64px);
-  -webkit-backface-visibility: hidden; }
-
-.admin-sidebar-left, .triangular-sidenav-left {
-  overflow-x: hidden; }
-  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
-    min-height: 100%;
-    overflow-x: hidden; }
-
-.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  -ms-overflow-style: none;
-  /* ie fix for removing scrollbars */ }
-  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
-    min-width: 48px;
-    max-width: 48px;
-    -webkit-transition: all .3s;
-    transition: all .3s; }
-    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
-      min-width: 260px;
-      max-width: 260px; }
-
-.admin-toolbar {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  z-index: 4; }
-
 #footer {
   box-shadow: 0 -2px 6px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -28959,6 +28921,44 @@ chart-legend ul {
 [tri-wizard] .wizard-navbar {
   background-color: white; }
 
+#admin-panel {
+  overflow: hidden;
+  position: relative; }
+  #admin-panel > md-content {
+    z-index: 3; }
+
+#admin-panel-content-view {
+  display: block;
+  position: relative;
+  padding-bottom: 65px;
+  min-height: calc(100vh - 64px);
+  -webkit-backface-visibility: hidden; }
+
+.admin-sidebar-left, .triangular-sidenav-left {
+  overflow-x: hidden; }
+  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
+    min-height: 100%;
+    overflow-x: hidden; }
+
+.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  -ms-overflow-style: none;
+  /* ie fix for removing scrollbars */ }
+  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
+    min-width: 48px;
+    max-width: 48px;
+    -webkit-transition: all .3s;
+    transition: all .3s; }
+    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
+      min-width: 260px;
+      max-width: 260px; }
+
+.admin-toolbar {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
+  z-index: 4; }
+
 /* this was added to fix a bug in Safari */
 /* https://github.com/oxygenna/triangular/issues/126 */
 .triangular-content > div {
@@ -29000,6 +29000,36 @@ chart-legend ul {
       min-width: 260px;
       max-width: 260px; }
 
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
+md-content.md-cyan-theme {
+  background: #fff; }
+
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29034,36 +29064,6 @@ chart-legend ul {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
-md-content.md-cyan-theme {
-  background: #fff; }
 
 .dashboard-container .layout-margin {
   margin: 0px; }
@@ -29548,6 +29548,18 @@ md-switch[disabled] .md-label {
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
 
+.md-button.md-primary.daterange-button {
+  color: rgba(0, 0, 0, 0.84); }
+
+.daterange-picker {
+  width: 340px;
+  background: #fff; }
+  .daterange-picker .md-calendar-day-header {
+    display: none; }
+  .daterange-picker > .default-list > .picker-item > .md-button {
+    width: 100%;
+    margin: 0; }
+
 #ui-login {
   overflow: auto; }
   #ui-login.ng-enter {
@@ -29958,15 +29970,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .tri-wizard-card md-card-content {
   padding: 0px; }
 
-.github-user-dropdown img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: content-box; }
-
-.github-user-dropdown span {
-  margin-left: 16px; }
-
 .elements-button-examples md-card-content {
   min-height: 100px; }
 
@@ -30042,6 +30045,15 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 .elements-whiteframe-example md-whiteframe {
   min-width: 500px;
   background-color: white; }
+
+.github-user-dropdown img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box; }
+
+.github-user-dropdown span {
+  margin-left: 16px; }
 
 .maps-example .angular-google-map-container {
   height: 550px; }
@@ -30175,18 +30187,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
-
-.md-button.md-primary.daterange-button {
-  color: rgba(0, 0, 0, 0.84); }
-
-.daterange-picker {
-  width: 340px;
-  background: #fff; }
-  .daterange-picker .md-calendar-day-header {
-    display: none; }
-  .daterange-picker > .default-list > .picker-item > .md-button {
-    width: 100%;
-    margin: 0; }
 
 .triangular-loader {
   background: #fff; }

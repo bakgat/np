@@ -46,4 +46,8 @@
     "id": "TGR",
     "name": "rekentijger",
     "icon": "notos notos-tiger"
+}, {
+    "id": "IAC",
+    "name": "individuele leerlijn",
+    "icon": "notos notos-iac"
 }]
