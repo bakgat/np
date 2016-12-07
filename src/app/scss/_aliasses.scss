@@ -1,8 +1,3 @@
-
-
-
-
-
 .#{$notos-icon-prefix}-philosofy, .#{$notos-icon-prefix}-P {
   &:before {
     content: $notos-var-lamp;
@@ -31,5 +26,10 @@
 .#{$notos-icon-prefix}-SF {
   &:before {
     content: $notos-var-sunflower;
+  }
+}
+.#{$notos-icon-prefix}-IAC {
+  &:before {
+    content: $notos-var-iac;
   }
 }

@@ -14,6 +14,8 @@ $notos-var-curly-arrow-up: '\e010' !default;
 $notos-var-butterfly: '\e00A' !default;
 $notos-var-spoken: '\e00B' !default;
 $notos-var-tiger: '\e00C' !default;
+$notos-var-iac: '\f2ef' !default;
+
 
 .#{$notos-icon-prefix}-monster {
   &:before {
@@ -78,5 +80,10 @@ $notos-var-tiger: '\e00C' !default;
 .#{$notos-icon-prefix}-tiger {
   &:before {
     content: $notos-var-tiger;
+  }
+}
+.#{$notos-icon-prefix}-iac {
+  &:before {
+    content: $notos-var-iac;
   }
 }
