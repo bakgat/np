@@ -135,6 +135,12 @@
                         }
                     }
                     if (!foundRedicodi) {
+                        var module = getFullRedicodiItem(redicodiPeriod);
+                        redicodiPeriod.module = {
+                            id: module.id,
+                            name: module.name,
+                            icon: module.icon
+                        }
                         vm.redicodi.push(redicodiPeriod);
                     }
                 }
