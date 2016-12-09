@@ -52,14 +52,14 @@
 
         // opens an student
         function openStudent(student) {
-            $state.go(vm.baseState + '.student', {
+            $state.go(BaseStateService.baseState + '.student', {
                 studentId: student.id
             });
         }
 
         // returns back to email list
         function openlist() {
-            $state.go(vm.baseState);
+            $state.go(BaseStateService.baseState);
         }
 
         // opens the compose dialog

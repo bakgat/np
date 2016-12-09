@@ -52,14 +52,14 @@
 
         // opens an member
         function openMember(member) {
-            $state.go(vm.baseState + '.member', {
+            $state.go(BaseStateService.baseState + '.member', {
                 memberId: member.id
             });
         }
 
         // returns back to email list
         function openlist() {
-            $state.go(vm.baseState);
+            $state.go(BaseStateService.baseState);
         }
 
 

@@ -59,7 +59,7 @@
 
         // returns back to email list
         function openlist() {
-            $state.go(vm.baseState.name);
+            $state.go(BaseStateService.baseState);
         }
 
         // watches

@@ -146,7 +146,6 @@
                 }
 
                 function cancelAddRedicodi() {
-
                     $mdToast.show(
                         $mdToast.simple()
                         .content('Redicodi toevoegen geannuleerd')

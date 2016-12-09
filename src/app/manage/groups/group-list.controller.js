@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function GroupListController($scope, $filter, $location, $state, $cacheFactory, $mdDialog,
-        groups, GroupService) {
+        groups, GroupService, BaseStateService) {
         var vm = this;
 
         vm.groups = [];
@@ -27,14 +27,14 @@
         }
 
         function openGroup(group) {
-            $state.go(vm.baseState + '.group', {
+            $state.go(BaseStateService.baseState + '.group', {
                 groupId: group.id
             });
 
         }
 
         function openlist() {
-            $state.go(vm.baseState);
+            $state.go(BaseStateService.baseState);
         }
 
         function composeGroup($event) {
