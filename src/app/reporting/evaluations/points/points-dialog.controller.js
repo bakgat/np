@@ -82,6 +82,10 @@
         }
 
         function save() {
+            _.remove(vm.evaluation.pointResults, function(result) {
+                return result.block;
+            });
+            
             vm.selectedStudents = [];
             $mdDialog.hide(vm.evaluation);
         }
