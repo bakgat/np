@@ -27,6 +27,10 @@
     "name": "mini-zonnebloemklas",
     "icon": "notos notos-mini-sunflower"
 }, {
+    "id": "BEE",
+    "name": "bijtjesklas",
+    "icon": "notos notos-bee"
+}, {
     "id": "M",
     "name": "rekenmonster",
     "icon": "notos notos-monster"

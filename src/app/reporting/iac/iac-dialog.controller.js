@@ -43,7 +43,10 @@
                     iacGoal.comment = input.$modelValue;
                 },
                 targetEvent: event,
-                clickOutsideToClose: true
+                clickOutsideToClose: true,
+                ok: 'Opslaan',
+                cancel: 'Annuleren',
+                title: 'Commentaar'
             });
         }
     }
