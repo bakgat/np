@@ -58,8 +58,8 @@
                     <md-content class="md-padding">
                         <form name="goalsForm" tri-wizard-form>
                             <div ng-repeat="major in vm.majors">
-                                <md-list flex ng-repeat="branch in major.branches">
-                                    <md-subheader class="md-no-sticky">{{::branch.name}}</md-subheader>
+                                <md-list flex ng-repeat="branch in major.branches | filter:{id:vm.iac.branch.id} track by branch.id">
+                                    <md-subheader>{{::branch.name}}</md-subheader>
                                     <md-list-item ng-repeat="goal in branch.goals">
                                         <md-checkbox checklist-model="vm.iac.iacGoals" checklist-value="goal" checklist-comparator="vm.compareIacGoal" aria-label="{{goal.text}}"></md-checkbox>
                                         <div class="md-list-item-text">{{::goal.text}}</div>
