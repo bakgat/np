@@ -1,5 +1,5 @@
 <div flex layout="row">
-    <md-content flex="30">
+    <md-content flex="100" flex-gt-xs="30" flex-gt-lg="30" ng-show="vm.showStudentList">
         <md-list id="student-list" class="person-list">
             <div ng-repeat="group in vm.studentGroups">
                 <md-subheader class="md-primary" ng-show="group.students.length > 0">{{::group.name}}</md-subheader>

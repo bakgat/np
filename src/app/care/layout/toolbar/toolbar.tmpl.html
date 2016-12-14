@@ -8,6 +8,8 @@
             <md-icon md-font-icon="zmdi zmdi-chevron-right" ng-if="!$last">
         </span>
     </h2>
+
+    <span show-xs flex></span>
     
     <md-button class="md-icon-button" ng-click="vm.toggleSearch()" aria-label="{{'Toggle Menu' | triTranslate}}">
         <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
@@ -16,7 +18,7 @@
     <input class="toolbar-search" ng-show="vm.showSearch" ng-model="studentSearch" ng-change="vm.filterStudentList(studentSearch)" type="text" placeholder="{{'Zoeken' | triTranslate}}" flex>
 
 
-    <md-button class="md-icon-button toolbar-button" ng-click="vm.toggleFullScreen()" aria-label="toggle fullscreen">
+    <md-button hide-xs class="md-icon-button toolbar-button" ng-click="vm.toggleFullScreen()" aria-label="toggle fullscreen">
         <md-icon md-font-icon ng-class="vm.fullScreenIcon"></md-icon>
     </md-button>
 

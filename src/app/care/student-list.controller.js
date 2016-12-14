@@ -25,6 +25,7 @@
         ////////////////////
         function init() {
             BaseStateService.setBaseState('triangular.care.records');
+            checkStudentList();
             createStudentGroups();
         }
 
@@ -49,6 +50,11 @@
             studentGroupsBackup = angular.copy(vm.studentGroups);
         }
 
+        function checkStudentList() {
+            vm.showStudentList = !($mdMedia('xs') && angular.isDefined($state.current.resolve.student));
+        }
+
+
         // opens an student
         function openStudent(student) {
             $state.go(vm.baseState + '.record', {
@@ -71,6 +77,9 @@
             });
         });
 
+
+        // add a watch for when the url location changes
+        $scope.$on('$locationChangeSuccess', checkStudentList);
 
         // handle close student event sent from student menu in student view
         $scope.$on('closeStudent', function() {

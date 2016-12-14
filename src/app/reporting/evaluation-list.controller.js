@@ -6,7 +6,7 @@
         .controller('EvaluationListController', EvaluationListController);
 
     /* @ngInject */
-    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast, BaseStateService,
+    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast, $mdMedia, BaseStateService,
         evaluations, branches, EvaluationService) {
         var vm = this;
 
@@ -25,6 +25,7 @@
 
         function init() {
             BaseStateService.setBaseState('triangular.reporting.evaluations');
+            checkEvaluationList();
             createEvaluationGroups();
         }
 
@@ -75,6 +76,10 @@
                     .hideDelay(3000)
                 );
             }
+        }
+
+        function checkEvaluationList() {
+            vm.showEvaluationList = !($mdMedia('xs') && angular.isDefined($state.current.resolve.evaluation));
         }
 
         function saveEvaluation(evaluation) {
@@ -176,6 +181,9 @@
             openList();
         }
         //watches
+        // add a watch for when the url location changes
+        $scope.$on('$locationChangeSuccess', checkEvaluationList);
+
         $scope.$on('closeEvaluation', closeEvaluation);
 
         $scope.$on('evaluationSaved', function($event, evaluation) {

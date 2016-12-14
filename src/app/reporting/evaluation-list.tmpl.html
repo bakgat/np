@@ -34,7 +34,7 @@
     </md-fab-speed-dial>
 </div>
 <div flex layout="row">
-    <md-content flex="30">
+    <md-content flex="100" flex-gt-xs="30" flex-gt-lg="30" ng-show="vm.showEvaluationList">
         <md-list class="evaluation-list">
             <div ng-repeat="group in vm.evaluationGroups">
                 <md-subheader class="md-primary" ng-show="group.evaluations.length > 0">

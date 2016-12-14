@@ -8,12 +8,13 @@
             <md-icon md-font-icon="zmdi zmdi-chevron-right" ng-if="!$last"></md-icon>
         </span>
     </h2>
-    <md-daterange range="vm.range" on-daterange-changed="vm.daterangeChanged()"></md-daterange>
+    <span flex show-xs></span>
+    <md-daterange  hide-xs range="vm.range" on-daterange-changed="vm.daterangeChanged()"></md-daterange>
     <select-groups reload-state="vm.baseState" only-owned="true"></select-groups>
-    <md-button class="md-icon-button toolbar-button" ng-click="vm.filterAdvanced()" aria-label="filter">
+    <!--<md-button class="md-icon-button toolbar-button" ng-click="vm.filterAdvanced()" aria-label="filter">
         <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
-    </md-button>
-    <md-button class="md-icon-button toolbar-button" ng-click="vm.toggleFullScreen()" aria-label="toggle fullscreen">
+    </md-button>-->
+    <md-button  hide-xs  class="md-icon-button toolbar-button" ng-click="vm.toggleFullScreen()" aria-label="toggle fullscreen">
         <md-icon md-font-icon ng-class="vm.fullScreenIcon"></md-icon>
     </md-button>
     <!--
