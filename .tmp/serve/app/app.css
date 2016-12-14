@@ -29000,58 +29000,6 @@ chart-legend ul {
       min-width: 260px;
       max-width: 260px; }
 
-.dashboard-container .layout-margin {
-  margin: 0px; }
-
-.dashboard-container .layout-margin > .widget {
-  margin: 8px; }
-
-.dashboard-fullwidth-chart .chart-container {
-  position: relative;
-  left: -5px;
-  bottom: -5px;
-  width: calc(100% + 10px); }
-
-.dashboard-no-bar-tabs md-tabs-wrapper {
-  display: none; }
-
-.google-chart {
-  height: 100%;
-  width: 100%; }
-
-.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
-  height: 72px; }
-
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
-md-content.md-cyan-theme {
-  background: #fff; }
-
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29086,6 +29034,86 @@ md-content.md-cyan-theme {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
+
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
+md-content.md-cyan-theme {
+  background: #fff; }
+
+.dashboard-container .layout-margin {
+  margin: 0px; }
+
+.dashboard-container .layout-margin > .widget {
+  margin: 8px; }
+
+.dashboard-fullwidth-chart .chart-container {
+  position: relative;
+  left: -5px;
+  bottom: -5px;
+  width: calc(100% + 10px); }
+
+.dashboard-no-bar-tabs md-tabs-wrapper {
+  display: none; }
+
+.google-chart {
+  height: 100%;
+  width: 100%; }
+
+.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
+  height: 72px; }
+
+/* view change animation */
+.triangular-content.ng-enter, .triangular-content.ng-leave {
+  position: absolute;
+  top: 64px;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: .5s;
+  transition: .5s; }
+
+.triangular-content.ng-enter {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.triangular-content.ng-leave {
+  opacity: 0; }
 
 .evaluation-list {
   background: white; }
@@ -29237,37 +29265,6 @@ md-switch[disabled] .md-label {
 
 .full-height {
   height: 100%; }
-
-.seed-list {
-  list-style: lower-greek; }
-
-/* view change animation */
-.triangular-content.ng-enter, .triangular-content.ng-leave {
-  position: absolute;
-  top: 64px;
-  width: 100%;
-  height: 100%;
-  -webkit-transition: .5s;
-  transition: .5s; }
-
-.triangular-content.ng-enter {
-  -webkit-animation-name: slideInUp;
-  animation-name: slideInUp;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.triangular-content.ng-leave {
-  opacity: 0; }
 
 @font-face {
   font-family: "Notos Icons";
@@ -29489,6 +29486,31 @@ md-switch[disabled] .md-label {
 .notos-IAC:before {
   content: ""; }
 
+.seed-list {
+  list-style: lower-greek; }
+
+.login-frame md-card {
+  max-width: 400px;
+  margin: auto; }
+
+.login-frame md-checkbox {
+  margin: 0; }
+
+.login-frame img {
+  max-height: 100px;
+  width: auto; }
+
+.login-frame md-toolbar {
+  min-height: 170px; }
+  .login-frame md-toolbar .md-headline {
+    margin: 0; }
+
+#follow {
+  position: absolute;
+  z-index: 999999;
+  background: #FF0000;
+  color: #fff; }
+
 .analytics-dashboard {
   background: #F4F4F4; }
   .analytics-dashboard .map-widget .angular-google-map-container {
@@ -29535,28 +29557,6 @@ md-switch[disabled] .md-label {
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
 
-.login-frame md-card {
-  max-width: 400px;
-  margin: auto; }
-
-.login-frame md-checkbox {
-  margin: 0; }
-
-.login-frame img {
-  max-height: 100px;
-  width: auto; }
-
-.login-frame md-toolbar {
-  min-height: 170px; }
-  .login-frame md-toolbar .md-headline {
-    margin: 0; }
-
-#follow {
-  position: absolute;
-  z-index: 999999;
-  background: #FF0000;
-  color: #fff; }
-
 #ui-login {
   overflow: auto; }
   #ui-login.ng-enter {
@@ -29592,34 +29592,6 @@ md-switch[disabled] .md-label {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
-
-.dashboard-container .layout-margin {
-  margin: 0px; }
-
-.dashboard-container .layout-margin > .widget {
-  margin: 8px; }
-
-.dashboard-fullwidth-chart .chart-container {
-  position: relative;
-  left: -5px;
-  bottom: -5px;
-  width: calc(100% + 10px); }
-
-.dashboard-no-bar-tabs md-tabs-wrapper {
-  display: none; }
-
-.google-chart {
-  height: 100%;
-  width: 100%; }
-
-.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
-  height: 72px; }
-
-.google-example-chart {
-  padding: 24px; }
-
-.chartjs-example-chart {
-  padding: 24px; }
 
 .calendar-page {
   padding: 0px 120px; }
@@ -29713,6 +29685,34 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
 
 .calendar-color-select md-option {
   text-transform: capitalize; }
+
+.google-example-chart {
+  padding: 24px; }
+
+.chartjs-example-chart {
+  padding: 24px; }
+
+.dashboard-container .layout-margin {
+  margin: 0px; }
+
+.dashboard-container .layout-margin > .widget {
+  margin: 8px; }
+
+.dashboard-fullwidth-chart .chart-container {
+  position: relative;
+  left: -5px;
+  bottom: -5px;
+  width: calc(100% + 10px); }
+
+.dashboard-no-bar-tabs md-tabs-wrapper {
+  display: none; }
+
+.google-chart {
+  height: 100%;
+  width: 100%; }
+
+.tabs-tall md-pagination-wrapper, .tabs-tall md-tabs-canvas {
+  height: 72px; }
 
 .email-dialog {
   min-width: 800px;
@@ -29911,25 +29911,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   min-width: 500px;
   background-color: white; }
 
-.md-select-form {
-  display: inline-block;
-  margin-top: 2px;
-  width: 100%; }
-  .md-select-form span {
-    width: 100%; }
-
-.tri-wizard-card md-card-content {
-  padding: 0px; }
-
-.github-user-dropdown img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: content-box; }
-
-.github-user-dropdown span {
-  margin-left: 16px; }
-
 .extras-gallery-container {
   height: 100%; }
 
@@ -30052,6 +30033,25 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   .os-windows .error-container {
     max-height: 280px; }
 
+.md-select-form {
+  display: inline-block;
+  margin-top: 2px;
+  width: 100%; }
+  .md-select-form span {
+    width: 100%; }
+
+.tri-wizard-card md-card-content {
+  padding: 0px; }
+
+.github-user-dropdown img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box; }
+
+.github-user-dropdown span {
+  margin-left: 16px; }
+
 .maps-example .angular-google-map-container {
   height: 550px; }
 
@@ -30066,17 +30066,43 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
     right: 0px;
     left: 0px; }
 
-.md-button.md-primary.daterange-button {
-  color: rgba(0, 0, 0, 0.84); }
+.todo-container .slide.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
 
-.daterange-picker {
-  width: 340px;
-  background: #fff; }
-  .daterange-picker .md-calendar-day-header {
-    display: none; }
-  .daterange-picker > .default-list > .picker-item > .md-button {
-    width: 100%;
-    margin: 0; }
+.todo-container .slide.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+@media (max-width: 600px) {
+  .todo-container {
+    padding: 0px; }
+    .todo-container md-card {
+      margin: 0px; } }
 
 .ui-color-grid md-grid-tile {
   cursor: pointer; }
@@ -30159,9 +30185,31 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   border-radius: 50%;
   z-index: 5; }
 
-.todo-container .slide.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
+.md-button.md-primary.daterange-button {
+  color: rgba(0, 0, 0, 0.84); }
+
+.daterange-picker {
+  width: 340px;
+  background: #fff; }
+  .daterange-picker .md-calendar-day-header {
+    display: none; }
+  .daterange-picker > .default-list > .picker-item > .md-button {
+    width: 100%;
+    margin: 0; }
+
+.triangular-loader {
+  background: #fff; }
+
+.app-loader md-progress-linear {
+  width: 80%; }
+
+.triangular-toolbar.ng-enter {
+  -webkit-transition: .5s;
+  transition: .5s; }
+
+.triangular-toolbar.ng-enter {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
   -webkit-animation-duration: 1s;
@@ -30175,27 +30223,8 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 
-.todo-container .slide.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-@media (max-width: 600px) {
-  .todo-container {
-    padding: 0px; }
-    .todo-container md-card {
-      margin: 0px; } }
+.triangular-toolbar.ng-leave {
+  display: none; }
 
 .person-list {
   background: white; }
@@ -30446,35 +30475,6 @@ md-card.md-user-card {
 .compose-person-wizard md-tabs md-tab-content {
   padding-top: 44px; }
 
-.triangular-loader {
-  background: #fff; }
-
-.app-loader md-progress-linear {
-  width: 80%; }
-
-.triangular-toolbar.ng-enter {
-  -webkit-transition: .5s;
-  transition: .5s; }
-
-.triangular-toolbar.ng-enter {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.triangular-toolbar.ng-leave {
-  display: none; }
-
 .login-frame md-card {
   max-width: 400px; }
 
@@ -30579,18 +30579,6 @@ table.md-table thead tr {
   .md-table-toolbar input:focus {
     outline: none; }
 
-.datepicker h4.md-header {
-  text-transform: uppercase;
-  text-align: center;
-  padding: 15px;
-  margin-top: -8px;
-  background-color: rgba(0, 0, 0, 0.12); }
-
-.datepicker md-menu-item .md-button span {
-  font-weight: 400;
-  margin: auto;
-  text-transform: uppercase; }
-
 .feedback-report,
 .feedback-summary {
   max-height: 50%;
@@ -30618,6 +30606,18 @@ table.md-table tr.md-primary {
   background: #00BCD4; }
   table.md-table tr.md-primary th.md-column {
     color: #FFF; }
+
+.datepicker h4.md-header {
+  text-transform: uppercase;
+  text-align: center;
+  padding: 15px;
+  margin-top: -8px;
+  background-color: rgba(0, 0, 0, 0.12); }
+
+.datepicker md-menu-item .md-button span {
+  font-weight: 400;
+  margin: auto;
+  text-transform: uppercase; }
 
 .tri-counter-widget {
   padding: 5px; }
