@@ -27,6 +27,7 @@
 
         vm.selectStudents = selectStudents;
         vm.prepareInput = prepareInput;
+        vm.selectedStudentsComparator = selectedStudentsComparator;
 
         vm.toggleRedicodi = toggleRedicodi;
 
@@ -53,6 +54,12 @@
                 StudentService.getList({ 'group': profile.id })
                     .then(function(response) {
                         vm.students = response;
+
+                        angular.forEach(vm.students, function(student) {
+                            student.selectedGroup = _.find(student.studentInGroups, function(sig) {
+                                return profile.id == sig.group.id;
+                            });
+                        })
 
                         if (!vm.evaluation.pointResults) {
                             vm.evaluation.pointResults = [];
@@ -85,7 +92,7 @@
             _.remove(vm.evaluation.pointResults, function(result) {
                 return result.block;
             });
-            
+
             vm.selectedStudents = [];
             $mdDialog.hide(vm.evaluation);
         }
@@ -125,15 +132,19 @@
                 => when edit => selection is available results
             */
             angular.forEach(vm.selectedStudents, function(student) {
-                var found = _.findIndex(vm.evaluation.pointResults, function(result) {
+                var resultIndex = _.findIndex(vm.evaluation.pointResults, function(result) {
                     return result.student.id == student.id
-                }) >= 0;
-                if (!found) {
+                });
+
+                if (resultIndex == -1) {
                     vm.evaluation.pointResults.push({
                         student: student,
                         score: null,
                         redicodi: []
                     });
+                } else {
+                    //copy this value for ordering
+                    vm.evaluation.pointResults[resultIndex].student.selectedGroup = student.selectedGroup;
                 }
             });
             angular.forEach(vm.evaluation.pointResults, function(result) {
@@ -163,6 +174,14 @@
             prepareInput();
         }
 
+        function selectedStudentsComparator(s1, s2) {
+            if (s1.value && s2.value) {
+                if (!s1.value.student || !s1.value.student || !s1.value.student.selectedGroup || !s2.value.student.selectedGroup) return 0;
+
+                // If we don't get strings, just compare by index
+                return s1.value.student.selectedGroup.number < s2.value.student.selectedGroup.number ? -1 : 1;
+            }
+        }
 
 
         function average() {

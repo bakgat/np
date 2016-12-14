@@ -78,7 +78,6 @@
                                 <md-list>
                                     <md-list-item ng-repeat="student in vm.students">
                                         <md-checkbox checklist-model="vm.selectedStudents" checklist-value="student"></md-checkbox>
-                                        <!--http://schkt.volglvs.be/PIX/StaelensLaurens07.08.2011.JPG-->
                                         <user-avatar ng-model="student" class="md-avatar"></user-avatar>
                                         <div class="md-list-item-text">
                                             <p>{{::student.displayName}}</p>
@@ -99,7 +98,7 @@
                     <md-content layout="row" layout-align="space-around center">
                         <div class="md-padding">
                             <form name="resultsForm" tri-wizard-form viewport>
-                                <div layout="row" flex ng-repeat="result in vm.evaluation.pointResults" ng-if="!result.block">
+                                <div layout="row" flex ng-repeat="result in vm.evaluation.pointResults | orderBy:result.student:false:vm.selectedStudentsComparator" ng-if="!result.block">
                                     <md-input-container class="md-icon-float md-block" flex>
                                         <label>{{::result.student.displayName}}</label>
                                         <input type="number" ng-model="result.score" name="score_{{$index}}" score enter-as-tab max="vm.evaluation.max">
