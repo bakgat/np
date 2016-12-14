@@ -76,8 +76,8 @@
 
         function setRequestParams() {
             HTTPCache.setDefaultRequestParams({
-                start: vm.range.start.format('YYYY-MM-DD'),
-                end: vm.range.end.format('YYYY-MM-DD')
+                qstart: vm.range.start.format('YYYY-MM-DD'),
+                qend: vm.range.end.format('YYYY-MM-DD')
             });
         }
 

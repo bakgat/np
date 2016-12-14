@@ -8,7 +8,7 @@
     /* @ngInject */
     function StudentToolbarController($scope, $injector, $rootScope, $mdMedia,
         $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,
-        triBreadcrumbsService, triSettings, triLayout, UserService) {
+        triBreadcrumbsService, triSettings, triLayout, UserService, HTTPCache) {
 
         var vm = this;
 
@@ -29,7 +29,7 @@
 
         ////////////////
         function initToolbar() {
-
+            
         }
 
 

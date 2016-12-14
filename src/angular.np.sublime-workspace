@@ -519,6 +519,42 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/reporting/evaluation-list.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 4648,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/reporting/evaluations/points/points-dialog.controller.js",
+			"settings":
+			{
+				"buffer_size": 6463,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/config.triangular.settings.js",
+			"settings":
+			{
+				"buffer_size": 796,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/reporting/evaluations/points/points-dialog.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 10652,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -584,20 +620,33 @@
 	[
 		"/Users/karlvaniseghem/BakGat/np/angular",
 		"/Users/karlvaniseghem/BakGat/np/angular/src",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app"
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/examples/calendar/layouts",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/examples/email/layout",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/examples/email/layout/toolbar",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/points",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar"
 	],
 	"file_history":
 	[
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/config.triangular.settings.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/toolbar/toolbar.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar/toolbar.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/iac-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/scss/_icons.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/config.triangular.settings.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/data/diff.json",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/iac-dialog.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/points/points-dialog.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/env.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/students/student-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/staff/staff-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/groups/group-list.controller.js",
@@ -609,7 +658,6 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/dashboard.module.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/iac-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/widgets/counter-widget/counter-widget.component.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar/staff.toolbar.controller.js",
@@ -617,7 +665,6 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar/student.toolbar.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar/student.toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar/toolbar.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/router/router.provider.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/router/baseState.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar/toolbar.controller.js",
@@ -626,7 +673,6 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/router/router.module.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.config.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/student-iac.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.tmpl.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.module.js",
@@ -668,7 +714,6 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/care/iac.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/toolbar/toolbar.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.tmpl.html",
@@ -714,8 +759,7 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/branches/select-branches.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/permission/permission.run.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/filters/score.directive.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/directives/follow.directive.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/branches/select-majors.tmpl.html"
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/directives/follow.directive.js"
 	],
 	"find":
 	{
@@ -776,6 +820,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"hide-xs",
+			"xs-hide",
+			"checkEma",
 			"loadRedicodi",
 			"text",
 			".tri-counter-widget",
@@ -900,10 +947,7 @@
 			"accent",
 			"md-accent",
 			"nopadding",
-			"no-padding",
-			"50x50",
-			"2",
-			"50x50"
+			"no-padding"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1009,8 +1053,129 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/reporting/evaluation-list.tmpl.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4648,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3607,
+								3607
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/reporting/evaluations/points/points-dialog.controller.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6463,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5309,
+								5310
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2022.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/config.triangular.settings.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 796,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								617,
+								617
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/reporting/evaluations/points/points-dialog.tmpl.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10652,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6966,
+								6966
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1197.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],
