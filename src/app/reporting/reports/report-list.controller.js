@@ -6,11 +6,10 @@
         .controller('ReportListController', ReportListController);
 
     /* @ngInject */
-    function ReportListController(BaseStateService, $sce, pdfAddress) {
+    function ReportListController(BaseStateService, UserService, _env, $window) {
         var vm = this;
 
-        vm.pdfAddress = pdfAddress;
-        vm.trustedAddress = trustedAddress;
+        vm.generateReport = generateReport;
 
         init();
         //////////////////////////////////////
@@ -18,8 +17,10 @@
             BaseStateService.setBaseState('triangular.reporting.reports');
         }
 
-        function trustedAddress() {
-            return $sce.trustAsResourceUrl(vm.pdfAddress);
+        function generateReport() {
+            UserService.getActiveGroup().then(function(group) {
+                $window.open(_env.api + '/pdf/report/group/' + group.id, '_blank');
+            });
         }
     };
 })();

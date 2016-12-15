@@ -1,8 +1,15 @@
-<md-content class="full-width">
-    <md-card class="full-height ">
-        
-        <md-card-content class="full-height full-width">
-           <iframe ng-src="{{vm.trustedAddress()}}" width="100%" height="100%"></iframe>
+<md-content lay-out="column">
+    <md-card class="report-generator">
+        <md-card-header  md-colors="::{backgroundColor: 'light-green-700'}">
+            <md-card-header-text>
+                <span class="md-headline">Rapporten</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
         </md-card-content>
+        <md-divider></md-divider>
+        <md-card-actions layout="row" layout-align="center center">
+            <md-button class="md-primary" ng-click="vm.generateReport()">Maak rapport</md-button>
+        </md-card-actions>
     </md-card>
 </md-content>

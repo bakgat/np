@@ -129,13 +129,6 @@
                             controller: 'ReportListController',
                             controllerAs: 'vm'
                         }
-                    },
-                    resolve: {
-                        pdfAddress: function(UserService, _env) {
-                            return UserService.getActiveGroup().then(function(group) {
-                                return _env.api + '/pdf/report/group/' + group.id;
-                            });
-                        }
                     }
                 });
 
