@@ -29000,36 +29000,6 @@ chart-legend ul {
       min-width: 260px;
       max-width: 260px; }
 
-.iac-dialog {
-  min-width: 700px;
-  max-width: 700px; }
-  .iac-dialog .md-title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; }
-  .iac-dialog .md-button-group.super-narrow {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    height: 36px;
-    margin: auto; }
-    .iac-dialog .md-button-group.super-narrow > .md-button {
-      min-width: 32px;
-      height: 30px;
-      margin: auto; }
-      .iac-dialog .md-button-group.super-narrow > .md-button.active {
-        background-color: rgba(0, 0, 0, 0.12); }
-
-md-settings-item .widget {
-  min-height: 70px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
-
-.diff-modules md-icon {
-  font-size: 2rem; }
-
-md-content.md-cyan-theme {
-  background: #fff; }
-
 #ui-login.ng-enter {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
@@ -29064,6 +29034,36 @@ md-content.md-cyan-theme {
 
 md-input-container ng-messages, md-input-container data-ng-messages {
   display: block; }
+
+.iac-dialog {
+  min-width: 700px;
+  max-width: 700px; }
+  .iac-dialog .md-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .iac-dialog .md-button-group.super-narrow {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 36px;
+    margin: auto; }
+    .iac-dialog .md-button-group.super-narrow > .md-button {
+      min-width: 32px;
+      height: 30px;
+      margin: auto; }
+      .iac-dialog .md-button-group.super-narrow > .md-button.active {
+        background-color: rgba(0, 0, 0, 0.12); }
+
+md-settings-item .widget {
+  min-height: 70px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+
+.diff-modules md-icon {
+  font-size: 2rem; }
+
+md-content.md-cyan-theme {
+  background: #fff; }
 
 .dashboard-container .layout-margin {
   margin: 0px; }
@@ -29561,6 +29561,18 @@ md-switch[disabled] .md-label {
   .order-dialog .md-icon-button, .order-dialog md-dialog-actions {
     display: none; } }
 
+.md-button.md-primary.daterange-button {
+  color: rgba(0, 0, 0, 0.84); }
+
+.daterange-picker {
+  width: 340px;
+  background: #fff; }
+  .daterange-picker .md-calendar-day-header {
+    display: none; }
+  .daterange-picker > .default-list > .picker-item > .md-button {
+    width: 100%;
+    margin: 0; }
+
 #ui-login {
   overflow: auto; }
   #ui-login.ng-enter {
@@ -29794,249 +29806,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   min-width: 500px;
   background-color: white; }
 
-.email-dialog {
-  min-width: 800px;
-  max-width: 800px; }
-
-.email-dialog-ccs {
-  -webkit-transition: all .5s;
-  transition: all .5s; }
-
-.email-dialog-ccs.ng-hide {
-  display: block !important;
-  max-height: 0;
-  opacity: 0; }
-
-.email-subject {
-  margin-bottom: 0px; }
-
-.email-content.focussed > .ta-scroll-window.form-control {
-  box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.12); }
-
-.email-content .ta-editor {
-  border: 1px solid rgba(0, 0, 0, 0.12); }
-
-.email-dialog-editor-toolbar button {
-  font-size: 18px;
-  min-width: 4rem; }
-  .email-dialog-editor-toolbar button i {
-    -webkit-transition: all .2s;
-    transition: all .2s;
-    opacity: 0.5; }
-  .email-dialog-editor-toolbar button.active i, .email-dialog-editor-toolbar button:hover i {
-    opacity: 1; }
-
-.email-single {
-  background: transparent !important; }
-  .email-single md-toolbar {
-    padding: 16px; }
-    .email-single md-toolbar .email-single-title > span {
-      display: block; }
-
-.inbox-list {
-  background: white; }
-
-.inbox-list__email.md-3-line.md-long-text {
-  margin-top: 0px;
-  margin-bottom: 0px; }
-
-.inbox-list__email h3 .md-caption {
-  float: right; }
-
-.inbox-list__email._md-button-wrap > .md-button:first-child ._md-list-item-inner {
-  width: auto; }
-
-.inbox-list__email--active {
-  background: rgba(0, 0, 0, 0.05); }
-  .inbox-list__email--active .md-avatar {
-    display: block;
-    -webkit-animation: swing 1s;
-            animation: swing 1s; }
-
-.inbox-list__email--unread h3 {
-  font-weight: 700 !important; }
-
-.inbox-no-email-selected {
-  text-align: center;
-  opacity: 0.5; }
-  .inbox-no-email-selected h2 {
-    font-weight: lighter; }
-
-.inbox-list__email--animated.ng-move,
-.inbox-list__email--animated.ng-enter,
-.inbox-list__email--animated.ng-leave {
-  -webkit-transition: all linear 0.8s;
-  transition: all linear 0.8s;
-  width: 100%;
-  position: relative; }
-
-.inbox-list__email--animated.ng-leave.ng-leave-active,
-.inbox-list__email--animated.ng-move,
-.inbox-list__email--animated.ng-enter {
-  opacity: 0;
-  max-height: 0; }
-
-.inbox-list__email--animated.ng-leave,
-.inbox-list__email--animated.ng-move.ng-move-active,
-.inbox-list__email--animated.ng-enter.ng-enter-active {
-  opacity: 1;
-  max-height: 500px; }
-
-#ui-admin-email.ng-enter {
-  -webkit-animation-name: slideInRight;
-  animation-name: slideInRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-#ui-admin-email.ng-leave {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-
-.extras-gallery-container {
-  height: 100%; }
-
-.extras-image-dialog img {
-  max-width: 100%;
-  max-height: 480px; }
-
-.timeline {
-  position: relative;
-  overflow: hidden;
-  padding: 10px 0; }
-  .timeline .timeline-widget {
-    z-index: 4;
-    opacity: 0;
-    overflow: hidden; }
-  .timeline .timeline-point {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 100px;
-    height: 100px;
-    -webkit-transform: translate3D(50%, -50%, 0);
-            transform: translate3D(50%, -50%, 0);
-    border-radius: 50%;
-    z-index: 2;
-    overflow: hidden; }
-  .timeline .timeline-point-date {
-    position: absolute;
-    z-index: 3;
-    background: inherit;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    line-height: 100px;
-    overflow: hidden;
-    -webkit-transition: width .5s, height 0.5s;
-    transition: width .5s, height 0.5s;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-            transform: translate3d(-50%, -50%, 0);
-    text-align: center;
-    font-size: 0.8em;
-    border-radius: 50%; }
-  .timeline:hover .timeline-point-date {
-    width: 100%;
-    height: 100%; }
-  .timeline .timeline-y-axis {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-    z-index: 1;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2); }
-  .timeline:first-child .timeline-y-axis {
-    -webkit-transform: rotate(90deg) translateX(50%);
-            transform: rotate(90deg) translateX(50%); }
-  .timeline:last-child .timeline-y-axis {
-    -webkit-transform: rotate(90deg) translateX(-50%);
-            transform: rotate(90deg) translateX(-50%); }
-  .timeline .timeline-x-axis {
-    opacity: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.2); }
-
-.timeline-content-animated {
-  opacity: 1 !important; }
-  .timeline-content-animated.left {
-    -webkit-animation-name: slideInLeft;
-    animation-name: slideInLeft;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-  .timeline-content-animated.right {
-    -webkit-animation-name: slideInRight;
-    animation-name: slideInRight;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-
-@media (max-width: 600px) {
-  .timeline {
-    padding-top: 110px;
-    overflow: visible; }
-    .timeline .timeline-point {
-      top: 0;
-      right: 50%;
-      -webkit-transform: translate3D(50%, 0%, 0);
-              transform: translate3D(50%, 0%, 0); }
-    .timeline .timeline-x-axis {
-      display: none; }
-    .timeline .timeline-y-axis {
-      top: 0;
-      -webkit-transform: rotate(90deg) translateX(0%) !important;
-              transform: rotate(90deg) translateX(0%) !important; } }
-
-.error-container {
-  width: 768px;
-  max-width: 90%; }
-  .os-windows .error-container {
-    max-height: 280px; }
-
 .md-select-form {
   display: inline-block;
   margin-top: 2px;
@@ -30188,18 +29957,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   width: 40px;
   border-radius: 50%;
   z-index: 5; }
-
-.md-button.md-primary.daterange-button {
-  color: rgba(0, 0, 0, 0.84); }
-
-.daterange-picker {
-  width: 340px;
-  background: #fff; }
-  .daterange-picker .md-calendar-day-header {
-    display: none; }
-  .daterange-picker > .default-list > .picker-item > .md-button {
-    width: 100%;
-    margin: 0; }
 
 .triangular-loader {
   background: #fff; }
@@ -30478,6 +30235,249 @@ md-card.md-user-card {
 
 .compose-person-wizard md-tabs md-tab-content {
   padding-top: 44px; }
+
+.email-dialog {
+  min-width: 800px;
+  max-width: 800px; }
+
+.email-dialog-ccs {
+  -webkit-transition: all .5s;
+  transition: all .5s; }
+
+.email-dialog-ccs.ng-hide {
+  display: block !important;
+  max-height: 0;
+  opacity: 0; }
+
+.email-subject {
+  margin-bottom: 0px; }
+
+.email-content.focussed > .ta-scroll-window.form-control {
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.12); }
+
+.email-content .ta-editor {
+  border: 1px solid rgba(0, 0, 0, 0.12); }
+
+.email-dialog-editor-toolbar button {
+  font-size: 18px;
+  min-width: 4rem; }
+  .email-dialog-editor-toolbar button i {
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    opacity: 0.5; }
+  .email-dialog-editor-toolbar button.active i, .email-dialog-editor-toolbar button:hover i {
+    opacity: 1; }
+
+.email-single {
+  background: transparent !important; }
+  .email-single md-toolbar {
+    padding: 16px; }
+    .email-single md-toolbar .email-single-title > span {
+      display: block; }
+
+.inbox-list {
+  background: white; }
+
+.inbox-list__email.md-3-line.md-long-text {
+  margin-top: 0px;
+  margin-bottom: 0px; }
+
+.inbox-list__email h3 .md-caption {
+  float: right; }
+
+.inbox-list__email._md-button-wrap > .md-button:first-child ._md-list-item-inner {
+  width: auto; }
+
+.inbox-list__email--active {
+  background: rgba(0, 0, 0, 0.05); }
+  .inbox-list__email--active .md-avatar {
+    display: block;
+    -webkit-animation: swing 1s;
+            animation: swing 1s; }
+
+.inbox-list__email--unread h3 {
+  font-weight: 700 !important; }
+
+.inbox-no-email-selected {
+  text-align: center;
+  opacity: 0.5; }
+  .inbox-no-email-selected h2 {
+    font-weight: lighter; }
+
+.inbox-list__email--animated.ng-move,
+.inbox-list__email--animated.ng-enter,
+.inbox-list__email--animated.ng-leave {
+  -webkit-transition: all linear 0.8s;
+  transition: all linear 0.8s;
+  width: 100%;
+  position: relative; }
+
+.inbox-list__email--animated.ng-leave.ng-leave-active,
+.inbox-list__email--animated.ng-move,
+.inbox-list__email--animated.ng-enter {
+  opacity: 0;
+  max-height: 0; }
+
+.inbox-list__email--animated.ng-leave,
+.inbox-list__email--animated.ng-move.ng-move-active,
+.inbox-list__email--animated.ng-enter.ng-enter-active {
+  opacity: 1;
+  max-height: 500px; }
+
+#ui-admin-email.ng-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+#ui-admin-email.ng-leave {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.extras-gallery-container {
+  height: 100%; }
+
+.extras-image-dialog img {
+  max-width: 100%;
+  max-height: 480px; }
+
+.timeline {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 0; }
+  .timeline .timeline-widget {
+    z-index: 4;
+    opacity: 0;
+    overflow: hidden; }
+  .timeline .timeline-point {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 100px;
+    height: 100px;
+    -webkit-transform: translate3D(50%, -50%, 0);
+            transform: translate3D(50%, -50%, 0);
+    border-radius: 50%;
+    z-index: 2;
+    overflow: hidden; }
+  .timeline .timeline-point-date {
+    position: absolute;
+    z-index: 3;
+    background: inherit;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    line-height: 100px;
+    overflow: hidden;
+    -webkit-transition: width .5s, height 0.5s;
+    transition: width .5s, height 0.5s;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+    text-align: center;
+    font-size: 0.8em;
+    border-radius: 50%; }
+  .timeline:hover .timeline-point-date {
+    width: 100%;
+    height: 100%; }
+  .timeline .timeline-y-axis {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    z-index: 1;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2); }
+  .timeline:first-child .timeline-y-axis {
+    -webkit-transform: rotate(90deg) translateX(50%);
+            transform: rotate(90deg) translateX(50%); }
+  .timeline:last-child .timeline-y-axis {
+    -webkit-transform: rotate(90deg) translateX(-50%);
+            transform: rotate(90deg) translateX(-50%); }
+  .timeline .timeline-x-axis {
+    opacity: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2); }
+
+.timeline-content-animated {
+  opacity: 1 !important; }
+  .timeline-content-animated.left {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  .timeline-content-animated.right {
+    -webkit-animation-name: slideInRight;
+    animation-name: slideInRight;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+
+@media (max-width: 600px) {
+  .timeline {
+    padding-top: 110px;
+    overflow: visible; }
+    .timeline .timeline-point {
+      top: 0;
+      right: 50%;
+      -webkit-transform: translate3D(50%, 0%, 0);
+              transform: translate3D(50%, 0%, 0); }
+    .timeline .timeline-x-axis {
+      display: none; }
+    .timeline .timeline-y-axis {
+      top: 0;
+      -webkit-transform: rotate(90deg) translateX(0%) !important;
+              transform: rotate(90deg) translateX(0%) !important; } }
+
+.error-container {
+  width: 768px;
+  max-width: 90%; }
+  .os-windows .error-container {
+    max-height: 280px; }
 
 .login-frame md-card {
   max-width: 400px; }

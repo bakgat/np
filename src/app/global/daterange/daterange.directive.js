@@ -42,7 +42,7 @@
 
         function showMenu(ev) {
             var position = $mdPanel.newPanelPosition()
-                .relativeTo('.datepicker-label')
+                .relativeTo(ev.target)
                 .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
 
             var config = {
