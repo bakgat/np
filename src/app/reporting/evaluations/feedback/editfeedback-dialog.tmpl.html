@@ -50,13 +50,14 @@
         <div class="feedback-summary">
             <md-input-container flex class="md-block">
                 <label>Opmerkingen</label>
-                <text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar" aria-label="feedback"></text-angular>
+                <textarea ui-tinymce="vm.fbMceOptions" ng-model="vm.result.summary"></textarea>
+                <!--<text-angular name="feedbackSummary" ng-model="vm.result.summary" ta-target-toolbars="editor-toolbar" aria-label="feedback"></text-angular>-->
             </md-input-container>
         </div>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-        <text-angular-toolbar name="editor-toolbar" class="feedback-dialog-editor-toolbar" ta-toolbar-active-button-class="active"></text-angular-toolbar>
-        <span flex></span>
+    <md-dialog-actions layout="row" layout-align="end">
+        <!--<text-angular-toolbar name="editor-toolbar" class="feedback-dialog-editor-toolbar" ta-toolbar-active-button-class="active"></text-angular-toolbar><span flex></span>-->
+        
         <md-button class="md-default md-raised" ng-click="vm.cancel()" translate="Annuleren" aria-label="annuleren"></md-button>
         <md-button class="md-accent md-raised" ng-click="vm.save()" translate="Opslaan" aria-label="opslaan"></md-button>
     </md-dialog-actions>

@@ -19,6 +19,13 @@
 
         vm.report = {};
 
+        vm.fbMceOptions = {
+            menubar: false,
+            toolbar: 'undo redo | bold italic | code',
+            invalid_elements: "span",
+            elementpath: false
+        };
+
 
         init();
         ///////////////
@@ -34,16 +41,8 @@
         }
 
         function save() {
-            // use precompiled regexp for speed
-            var rsb1 = new RegExp(/<span id="selectionBoundary_\d+_\d+" class="rangySelectionBoundary">[^<>]+?<\/span>/ig);
-            var rsb2 = new RegExp(/<span class="rangySelectionBoundary" id="selectionBoundary_\d+_\d+">[^<>]+?<\/span>/ig);
-            var rsb3 = new RegExp(/<span id="selectionBoundary_\d+_\d+" class="rangySelectionBoundary">[^<>]+?<\/span>/ig);
-            var unsafe = vm.result.summary;
-            unsafe = unsafe.replace(rsb1, '');
-            unsafe = unsafe.replace(rsb2, '');
-            unsafe = unsafe.replace(rsb1, '');
-            unsafe = unsafe.replace(rsb3, '');
-            vm.result.summary = $sanitize(unsafe);
+            
+            //vm.result.summary = $sanitize(unsafe);
 
             $mdDialog.hide(vm.result);
         }
@@ -83,12 +82,12 @@
         }
 
         ////////////////
-        if (focusOnOpen) {
+        /*if (focusOnOpen) {
             $timeout(function() {
                 // Retrieve the scope and trigger focus
                 var editorScope = textAngularManager.retrieveEditor('feedbackSummary').scope;
                 editorScope.displayElements.text.trigger('focus');
             }, 500);
-        }
+        }*/
     }
 })();

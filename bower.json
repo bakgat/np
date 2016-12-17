@@ -39,7 +39,8 @@
     "checklist-model": "^0.10.0",
     "restangular": "^1.5.2",
     "lodash": "^4.16.1",
-    "angular-filter": "^0.5.11"
+    "angular-filter": "^0.5.11",
+    "angular-ui-tinymce": "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"

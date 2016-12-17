@@ -14,7 +14,7 @@
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'angular.filter',
-            'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload', 'nvd3',
+            'ui.tinymce', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload', 'nvd3',
             'checklist-model', 'restangular',
             'app.translate',
             // only need one language?  if you want to turn off translations
