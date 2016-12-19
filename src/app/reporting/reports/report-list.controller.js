@@ -27,6 +27,7 @@
                 var query = [];
                 query.push('qstart=' + vm.range.start.format('YYYY-MM-DD'));
                 query.push('qend=' + vm.range.end.format('YYYY-MM-DD'));
+                query.push('render=' + vm.content);
 
                 request += '?' + query.join('&');
 

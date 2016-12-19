@@ -23,6 +23,7 @@
             menubar: false,
             toolbar: 'undo redo | bold italic | code',
             valid_elements: 'div,p,b,strong,em,i',
+            invalid_elements: 'span',
             valid_classes: '',
             elementpath: false
         };
