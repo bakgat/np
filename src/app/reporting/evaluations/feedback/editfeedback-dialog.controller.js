@@ -22,7 +22,8 @@
         vm.fbMceOptions = {
             menubar: false,
             toolbar: 'undo redo | bold italic | code',
-            invalid_elements: "span",
+            valid_elements: 'div,p,b,strong,em,i',
+            valid_classes: '',
             elementpath: false
         };
 
