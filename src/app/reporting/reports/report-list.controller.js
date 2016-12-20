@@ -6,13 +6,14 @@
         .controller('ReportListController', ReportListController);
 
     /* @ngInject */
-    function ReportListController(BaseStateService, UserService, _env, $window, $filter, DateRangeService, students) {
+    function ReportListController(BaseStateService, UserService, _env, $window, $filter, DateRangeService, students, _) {
         var vm = this;
 
         vm.generateReport = generateReport;
         vm.range = DateRangeService.range();
         vm.queryStudents = queryStudents;
         vm.students = [];
+        vm.byGroup = true;
 
         init();
         //////////////////////////////////////
@@ -32,10 +33,20 @@
         function generateReport() {
             UserService.getActiveGroup().then(function(group) {
                 var request = _env.api;
-                request += '/pdf/report';
-                request += '/group/' + group.id;
-
                 var query = [];
+
+                request += '/pdf/report';
+
+                if (vm.byGroup) {
+                    request += '/group/' + group.id;
+                } else {
+                    request += '/student';
+                    var studIds = _.map(vm.students, function(student) {
+                        return student.id;
+                    });
+                    query.push('id=' + studIds.join(','));
+                }
+
                 query.push('qstart=' + vm.range.start.format('YYYY-MM-DD'));
                 query.push('qend=' + vm.range.end.format('YYYY-MM-DD'));
                 query.push('render=' + vm.content);

@@ -19,13 +19,16 @@
             <div layout="row">
                 <md-daterange range="vm.range"></md-daterange>
             </div>
-            <!--<div layout="row">
-
-                <md-contact-chips flex ng-model="vm.students" md-contacts="vm.queryStudents($query)" 
-                    md-contact-name="displayName" md-contact-image="image" 
-                    md-require-match filter-selected="true" placeholder="Kies leerling" secondary-placeholder="Nog één">
+            <div layout="row">
+                <md-radio-group ng-model="vm.byGroup" layout="row">
+                    <md-radio-button ng-value="true" layout="column">De hele klas</md-radio-button>
+                    <md-radio-button ng-value="false" layout="column">Leerlingen</md-radio-button>
+                </md-radio-group>
+            </div>
+            <div layout="row" ng-if="!vm.byGroup">
+                <md-contact-chips flex ng-model="vm.students" md-contacts="vm.queryStudents($query)" md-contact-name="displayName" md-contact-image="image" md-require-match filter-selected="true" placeholder="Kies leerling" secondary-placeholder="Nog één">
                 </md-contact-chips>
-            </div>-->
+            </div>
         </md-card-content>
         <md-divider></md-divider>
         <md-card-actions layout="row" layout-align="center center">
