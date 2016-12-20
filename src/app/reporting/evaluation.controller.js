@@ -111,6 +111,9 @@
             } else if (vm.evaluation.type == 'MC') {
                 templateUrl = 'app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html';
                 controller = 'MultiplechoiceDialogController';
+            } else if(vm.evaluation.type == 'F') {
+                templateUrl = 'app/reporting/evaluations/feedback/feedback-dialog.tmpl.html';
+                controller = 'FeedbackDialogController';
             }
             $mdDialog.show({
                     controller: controller,

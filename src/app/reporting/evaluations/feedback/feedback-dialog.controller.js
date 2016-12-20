@@ -71,6 +71,7 @@
         }
 
         function save() {
+            prepareInput();
             vm.selectedStudents = [];
             $mdDialog.hide(vm.evaluation);
         }
@@ -78,7 +79,6 @@
 
 
         function prepareInput() {
-
             /*
                 => generate empty results for each student
                 => block students not in selected students (when selection was made)
@@ -91,17 +91,10 @@
                 if (!found) {
                     vm.evaluation.feedbackResults.push({
                         student: student,
+                        summary: ''
                     });
                 }
             });
-            angular.forEach(vm.evaluation.feedbackResults, function(result) {
-                var isBlocked = _.findIndex(vm.selectedStudents, function(ss) {
-                    return result.student.id == ss.id
-                }) == -1;
-
-                result.block = isBlocked;
-            });
-
         }
 
 
@@ -119,7 +112,5 @@
             }
             prepareInput();
         }
-
-
     }
 })();

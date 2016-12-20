@@ -28288,6 +28288,44 @@ md-card md-card-footer {
   md-card {
     border: 1px solid #fff; } }
 
+#admin-panel {
+  overflow: hidden;
+  position: relative; }
+  #admin-panel > md-content {
+    z-index: 3; }
+
+#admin-panel-content-view {
+  display: block;
+  position: relative;
+  padding-bottom: 65px;
+  min-height: calc(100vh - 64px);
+  -webkit-backface-visibility: hidden; }
+
+.admin-sidebar-left, .triangular-sidenav-left {
+  overflow-x: hidden; }
+  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
+    min-height: 100%;
+    overflow-x: hidden; }
+
+.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  -ms-overflow-style: none;
+  /* ie fix for removing scrollbars */ }
+  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
+    min-width: 48px;
+    max-width: 48px;
+    -webkit-transition: all .3s;
+    transition: all .3s; }
+    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
+      min-width: 260px;
+      max-width: 260px; }
+
+.admin-toolbar {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
+  z-index: 4; }
+
 #footer {
   box-shadow: 0 -2px 6px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -28921,44 +28959,6 @@ chart-legend ul {
 [tri-wizard] .wizard-navbar {
   background-color: white; }
 
-#admin-panel {
-  overflow: hidden;
-  position: relative; }
-  #admin-panel > md-content {
-    z-index: 3; }
-
-#admin-panel-content-view {
-  display: block;
-  position: relative;
-  padding-bottom: 65px;
-  min-height: calc(100vh - 64px);
-  -webkit-backface-visibility: hidden; }
-
-.admin-sidebar-left, .triangular-sidenav-left {
-  overflow-x: hidden; }
-  .admin-sidebar-left md-content, .triangular-sidenav-left md-content {
-    min-height: 100%;
-    overflow-x: hidden; }
-
-.admin-sidebar-left.md-locked-open, .triangular-sidenav-left.md-locked-open {
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  -ms-overflow-style: none;
-  /* ie fix for removing scrollbars */ }
-  .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed {
-    min-width: 48px;
-    max-width: 48px;
-    -webkit-transition: all .3s;
-    transition: all .3s; }
-    .admin-sidebar-left.md-locked-open.admin-sidebar-collapsed.hover, .triangular-sidenav-left.md-locked-open.admin-sidebar-collapsed.hover {
-      min-width: 260px;
-      max-width: 260px; }
-
-.admin-toolbar {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.14);
-  z-index: 4; }
-
 /* this was added to fix a bug in Safari */
 /* https://github.com/oxygenna/triangular/issues/126 */
 .triangular-content > div {
@@ -29269,9 +29269,6 @@ md-switch[disabled] .md-label {
 .report-generator {
   margin: 30px auto; }
 
-.seed-list {
-  list-style: lower-greek; }
-
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29491,6 +29488,9 @@ md-switch[disabled] .md-label {
 
 .notos-IAC:before {
   content: ""; }
+
+.seed-list {
+  list-style: lower-greek; }
 
 .login-frame md-card {
   max-width: 400px;
@@ -29793,16 +29793,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   min-width: 500px;
   background-color: white; }
 
-.md-select-form {
-  display: inline-block;
-  margin-top: 2px;
-  width: 100%; }
-  .md-select-form span {
-    width: 100%; }
-
-.tri-wizard-card md-card-content {
-  padding: 0px; }
-
 .email-dialog {
   min-width: 800px;
   max-width: 800px; }
@@ -29923,6 +29913,138 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   animation-fill-mode: both;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
+
+.extras-gallery-container {
+  height: 100%; }
+
+.extras-image-dialog img {
+  max-width: 100%;
+  max-height: 480px; }
+
+.timeline {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 0; }
+  .timeline .timeline-widget {
+    z-index: 4;
+    opacity: 0;
+    overflow: hidden; }
+  .timeline .timeline-point {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 100px;
+    height: 100px;
+    -webkit-transform: translate3D(50%, -50%, 0);
+            transform: translate3D(50%, -50%, 0);
+    border-radius: 50%;
+    z-index: 2;
+    overflow: hidden; }
+  .timeline .timeline-point-date {
+    position: absolute;
+    z-index: 3;
+    background: inherit;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    line-height: 100px;
+    overflow: hidden;
+    -webkit-transition: width .5s, height 0.5s;
+    transition: width .5s, height 0.5s;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+    text-align: center;
+    font-size: 0.8em;
+    border-radius: 50%; }
+  .timeline:hover .timeline-point-date {
+    width: 100%;
+    height: 100%; }
+  .timeline .timeline-y-axis {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    z-index: 1;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2); }
+  .timeline:first-child .timeline-y-axis {
+    -webkit-transform: rotate(90deg) translateX(50%);
+            transform: rotate(90deg) translateX(50%); }
+  .timeline:last-child .timeline-y-axis {
+    -webkit-transform: rotate(90deg) translateX(-50%);
+            transform: rotate(90deg) translateX(-50%); }
+  .timeline .timeline-x-axis {
+    opacity: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2); }
+
+.timeline-content-animated {
+  opacity: 1 !important; }
+  .timeline-content-animated.left {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  .timeline-content-animated.right {
+    -webkit-animation-name: slideInRight;
+    animation-name: slideInRight;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+
+@media (max-width: 600px) {
+  .timeline {
+    padding-top: 110px;
+    overflow: visible; }
+    .timeline .timeline-point {
+      top: 0;
+      right: 50%;
+      -webkit-transform: translate3D(50%, 0%, 0);
+              transform: translate3D(50%, 0%, 0); }
+    .timeline .timeline-x-axis {
+      display: none; }
+    .timeline .timeline-y-axis {
+      top: 0;
+      -webkit-transform: rotate(90deg) translateX(0%) !important;
+              transform: rotate(90deg) translateX(0%) !important; } }
+
+.error-container {
+  width: 768px;
+  max-width: 90%; }
+  .os-windows .error-container {
+    max-height: 280px; }
+
+.md-select-form {
+  display: inline-block;
+  margin-top: 2px;
+  width: 100%; }
+  .md-select-form span {
+    width: 100%; }
+
+.tri-wizard-card md-card-content {
+  padding: 0px; }
 
 .github-user-dropdown img {
   width: 40px;
@@ -30355,128 +30477,6 @@ md-card.md-user-card {
 
 .compose-person-wizard md-tabs md-tab-content {
   padding-top: 44px; }
-
-.extras-gallery-container {
-  height: 100%; }
-
-.extras-image-dialog img {
-  max-width: 100%;
-  max-height: 480px; }
-
-.timeline {
-  position: relative;
-  overflow: hidden;
-  padding: 10px 0; }
-  .timeline .timeline-widget {
-    z-index: 4;
-    opacity: 0;
-    overflow: hidden; }
-  .timeline .timeline-point {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 100px;
-    height: 100px;
-    -webkit-transform: translate3D(50%, -50%, 0);
-            transform: translate3D(50%, -50%, 0);
-    border-radius: 50%;
-    z-index: 2;
-    overflow: hidden; }
-  .timeline .timeline-point-date {
-    position: absolute;
-    z-index: 3;
-    background: inherit;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    line-height: 100px;
-    overflow: hidden;
-    -webkit-transition: width .5s, height 0.5s;
-    transition: width .5s, height 0.5s;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-            transform: translate3d(-50%, -50%, 0);
-    text-align: center;
-    font-size: 0.8em;
-    border-radius: 50%; }
-  .timeline:hover .timeline-point-date {
-    width: 100%;
-    height: 100%; }
-  .timeline .timeline-y-axis {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-    z-index: 1;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2); }
-  .timeline:first-child .timeline-y-axis {
-    -webkit-transform: rotate(90deg) translateX(50%);
-            transform: rotate(90deg) translateX(50%); }
-  .timeline:last-child .timeline-y-axis {
-    -webkit-transform: rotate(90deg) translateX(-50%);
-            transform: rotate(90deg) translateX(-50%); }
-  .timeline .timeline-x-axis {
-    opacity: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.2); }
-
-.timeline-content-animated {
-  opacity: 1 !important; }
-  .timeline-content-animated.left {
-    -webkit-animation-name: slideInLeft;
-    animation-name: slideInLeft;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-  .timeline-content-animated.right {
-    -webkit-animation-name: slideInRight;
-    animation-name: slideInRight;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-
-@media (max-width: 600px) {
-  .timeline {
-    padding-top: 110px;
-    overflow: visible; }
-    .timeline .timeline-point {
-      top: 0;
-      right: 50%;
-      -webkit-transform: translate3D(50%, 0%, 0);
-              transform: translate3D(50%, 0%, 0); }
-    .timeline .timeline-x-axis {
-      display: none; }
-    .timeline .timeline-y-axis {
-      top: 0;
-      -webkit-transform: rotate(90deg) translateX(0%) !important;
-              transform: rotate(90deg) translateX(0%) !important; } }
-
-.error-container {
-  width: 768px;
-  max-width: 90%; }
-  .os-windows .error-container {
-    max-height: 280px; }
 
 .login-frame md-card {
   max-width: 400px; }

@@ -6,16 +6,27 @@
         .controller('ReportListController', ReportListController);
 
     /* @ngInject */
-    function ReportListController(BaseStateService, UserService, _env, $window, DateRangeService) {
+    function ReportListController(BaseStateService, UserService, _env, $window, $filter, DateRangeService, students) {
         var vm = this;
 
         vm.generateReport = generateReport;
         vm.range = DateRangeService.range();
+        vm.queryStudents = queryStudents;
+        vm.students = [];
 
         init();
         //////////////////////////////////////
         function init() {
             BaseStateService.setBaseState('triangular.reporting.reports');
+            angular.forEach(students, function(student) {
+                var source = 'http://schkt.volglvs.be/PIX/';
+                source += student.lastName.removeDiacritics(true).replace(' ', '%20');
+                source += student.firstName.removeDiacritics(true).replace(' ', '%20');
+                source += $filter('date')(student.birthday, 'dd.MM.yyyy');
+                source += '.JPG';
+
+                student.image = source;
+            });
         }
 
         function generateReport() {
@@ -32,6 +43,14 @@
                 request += '?' + query.join('&');
 
                 $window.open(request, '_blank');
+            });
+        }
+
+        function queryStudents($query) {
+            var lowerQuery = $query.toLowerCase();
+            return _.filter(students, function(student) {
+                var lowerStudent = student.displayName.toLowerCase();
+                return lowerStudent.indexOf(lowerQuery) > -1;
             });
         }
     };

@@ -129,6 +129,13 @@
                             controller: 'ReportListController',
                             controllerAs: 'vm'
                         }
+                    },
+                    resolve: {
+                        students: function(StudentService, UserService) {
+                            return UserService.getActiveGroup().then(function(response) {
+                                return StudentService.getList({ 'group': response.id });
+                            });
+                        }
                     }
                 });
 
