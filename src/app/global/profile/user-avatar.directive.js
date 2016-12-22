@@ -34,7 +34,7 @@
     }
 
     /* @ngInject */
-    function UserAvatarController($filter) {
+    function UserAvatarController($filter, _env) {
         var vm = this;
         vm.user = vm.ngModel;
 
@@ -44,11 +44,9 @@
         ////////////////////
 
         function init() {
-            var source = 'http://schkt.volglvs.be/PIX/';
-            source += vm.user.lastName.removeDiacritics(true).replace(' ', '%20');
-            source += vm.user.firstName.removeDiacritics(true).replace(' ', '%20');
-            source += $filter('date')(vm.user.birthday, 'dd.MM.yyyy');
-            source += '.JPG';
+            var source = _env.api;
+            source += '/students/pic/';
+            source += vm.user.id;
 
             vm.style = 'url(' + source + ')';
         }
