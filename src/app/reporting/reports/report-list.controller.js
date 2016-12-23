@@ -20,8 +20,9 @@
         function init() {
             BaseStateService.setBaseState('triangular.reporting.reports');
             angular.forEach(students, function(student) {
-                var source = 'http://api.klimtoren.be/students/pic/';
+                var source = _env.api + '/students/pic/';
                 source += student.id;
+                source += '?sq=1';
 
                 student.image = source;
             });
