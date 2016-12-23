@@ -20,11 +20,8 @@
         function init() {
             BaseStateService.setBaseState('triangular.reporting.reports');
             angular.forEach(students, function(student) {
-                var source = 'http://schkt.volglvs.be/PIX/';
-                source += student.lastName.removeDiacritics(true).replace(' ', '%20');
-                source += student.firstName.removeDiacritics(true).replace(' ', '%20');
-                source += $filter('date')(student.birthday, 'dd.MM.yyyy');
-                source += '.JPG';
+                var source = 'http://api.klimtoren.be/students/pic/';
+                source += student.id;
 
                 student.image = source;
             });
