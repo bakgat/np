@@ -36,6 +36,12 @@
 <div flex layout="row">
     <md-content flex="100" flex-gt-xs="30" flex-gt-lg="30" ng-show="vm.showEvaluationList">
         <md-list class="evaluation-list">
+            <md-list-item>
+                <md-input-container md-no-float class="md-block md-list-search" flex>
+                    <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+                    <input type="text" ng-model="vm.searchQuery">
+                </md-input-container>
+            </md-list-item>
             <div ng-repeat="group in vm.evaluationGroups">
                 <md-subheader class="md-primary" ng-show="group.evaluations.length > 0">
                     {{group.major.name}}

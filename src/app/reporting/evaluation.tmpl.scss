@@ -93,3 +93,11 @@ md-switch[disabled] .md-label {
 .report-generator {
     margin: 30px auto;
 }
+
+md-input-container.md-list-search {
+     margin: 0;
+
+    .md-errors-spacer {
+        display: none;
+    }
+}

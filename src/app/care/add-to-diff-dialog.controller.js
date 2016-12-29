@@ -26,12 +26,7 @@
         function init() { 
             //TODO: stop renaming !!
             vm.diffmodule.redicodi = redicodiPeriod.module;
-            DiffService.getModules()
-                .then(function(modules) {
-                    if (modules.status === 200) {
-                        vm.modules = modules.data;
-                    }
-                });
+            vm.modules =  DiffService.getModules();
         }
 
         function cancel() {

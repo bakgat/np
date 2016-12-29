@@ -15,7 +15,10 @@
         <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
     </md-button>
 
-    <input class="toolbar-search" ng-show="vm.showSearch" ng-model="studentSearch" ng-change="vm.filterStudentList(studentSearch)" type="text" placeholder="{{'Zoeken' | triTranslate}}" flex>
+    <md-input-container class="" flex ng-show="vm.showSearch" >
+        <input class="toolbar-search" ng-model="studentSearch" ng-change="vm.filterStudentList(studentSearch)" type="text" flex>
+    </md-input-container>
+    
 
 
     <md-button hide-xs class="md-icon-button toolbar-button" ng-click="vm.toggleFullScreen()" aria-label="toggle fullscreen">

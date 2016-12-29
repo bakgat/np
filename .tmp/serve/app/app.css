@@ -29269,6 +29269,11 @@ md-switch[disabled] .md-label {
 .report-generator {
   margin: 30px auto; }
 
+md-input-container.md-list-search {
+  margin: 0; }
+  md-input-container.md-list-search .md-errors-spacer {
+    display: none; }
+
 @font-face {
   font-family: "Notos Icons";
   src: url("../fonts/Notos-Icon-Font.woff2?v=0.0.3") format("woff2"), url("../fonts/Notos-Icon-Font.woff?v=0.0.3") format("woff"), url("../fonts/Notos-Icon-Font.ttf?v=0.0.3") format("truetype");
@@ -29914,25 +29919,6 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 
-.md-select-form {
-  display: inline-block;
-  margin-top: 2px;
-  width: 100%; }
-  .md-select-form span {
-    width: 100%; }
-
-.tri-wizard-card md-card-content {
-  padding: 0px; }
-
-.github-user-dropdown img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: content-box; }
-
-.github-user-dropdown span {
-  margin-left: 16px; }
-
 .extras-gallery-container {
   height: 100%; }
 
@@ -30054,6 +30040,25 @@ md-select[md-container-class="calendar-color-select"] md-select-value span {
   max-width: 90%; }
   .os-windows .error-container {
     max-height: 280px; }
+
+.md-select-form {
+  display: inline-block;
+  margin-top: 2px;
+  width: 100%; }
+  .md-select-form span {
+    width: 100%; }
+
+.tri-wizard-card md-card-content {
+  padding: 0px; }
+
+.github-user-dropdown img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box; }
+
+.github-user-dropdown span {
+  margin-left: 16px; }
 
 .maps-example .angular-google-map-container {
   height: 550px; }
