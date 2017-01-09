@@ -89,7 +89,7 @@
             var start, end, now = moment();
             var yearNow = now.year();
             if (now.month() < 8) {
-                start = moment().subtract(-1, 'year').month(8).startOf('month');
+                start = moment().subtract(1, 'year').month(8).startOf('month');
                 end = moment().month(7).endOf('month');
             } else {
                 start = moment().month(8).startOf('month');
