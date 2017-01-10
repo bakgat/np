@@ -6,7 +6,7 @@
         .controller('EvaluationListController', EvaluationListController);
 
     /* @ngInject */
-    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast, $mdMedia, BaseStateService,
+    function EvaluationListController($scope, $filter, $state, $mdDialog, $mdToast, $mdMedia, $timeout, BaseStateService,
         evaluations, branches, EvaluationService) {
         var vm = this;
 
@@ -18,6 +18,8 @@
 
         vm.selectedEvaluation = null;
         var evaluationGroupsBackup = null;
+
+        vm.filtersEvaluationList = filtersEvaluationList;
 
 
         init();
@@ -180,6 +182,15 @@
             vm.selectedEvaluation = null;
             openList();
         }
+
+        function filtersEvaluationList(evaluationSearch) {
+            $timeout(function() {
+                for (var g in evaluationGroupsBackup) {
+                    vm.evaluationGroups[g].evaluations = $filter('evaluationSearchFilter')(evaluationGroupsBackup[g].evaluations, evaluationSearch);
+                }
+            });
+        }
+
         //watches
         // add a watch for when the url location changes
         $scope.$on('$locationChangeSuccess', checkEvaluationList);

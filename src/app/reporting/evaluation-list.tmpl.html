@@ -39,7 +39,7 @@
             <md-list-item>
                 <md-input-container md-no-float class="md-block md-list-search" flex>
                     <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
-                    <input type="text" ng-model="vm.searchQuery">
+                    <input type="text" ng-model="evaluationSearch" ng-change="vm.filtersEvaluationList(evaluationSearch)">
                 </md-input-container>
             </md-list-item>
             <div ng-repeat="group in vm.evaluationGroups">
