@@ -51,7 +51,7 @@
         }
 
         function checkStudentList() {
-            vm.showStudentList = !($mdMedia('xs') && angular.isDefined($state.current.resolve.student));
+            vm.showStudentList = !angular.isDefined($state.current.resolve.student);
         }
 
 

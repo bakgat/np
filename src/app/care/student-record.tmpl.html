@@ -19,8 +19,8 @@
             </md-settings-actions>
         </md-settings-header>
         <md-settings-list>
-            <md-settings-item class="diff-modules readonly" >
-                <md-settings-item-header  layout="row" layout-align="start center">
+            <md-settings-item class="diff-modules readonly">
+                <md-settings-item-header layout="row" layout-align="start center">
                     <span ng-repeat="redicodi in vm.redicodi | unique: 'module.id'" md-padding>
                         <md-icon md-font-icon="{{redicodi.module.icon}}"></md-icon>
                         <md-tooltip>{{redicodi.module.name}} sinds {{redicodi.start | ntDate}}</md-tooltip>
@@ -129,15 +129,72 @@
                     </md-item>
                 </md-settings-item-content>
             </md-settings-item>
-            <md-settings-item ng-if="vm.hasDiff('curr')">
+            <md-settings-item>
                 <md-settings-item-header>
-                    <div class="md-title">Aangepaste leerlijn</div>
-                    <div class="md-subhead">Een leerlijn op maat van {{::vm.student.displayName}} toevoegen of bewerken.</div>
+                    <div class="md-title">KiVa</div>
+                    <div class="md-subhead">KiVa-dossier van {{::vm.student.displayName}} toevoegen of bewerken.</div>
                 </md-settings-item-header>
                 <md-settings-item-content>
                     <md-item-header ng-click="vm.revert()">
-                        <div class="md-title">Aangepaste leerlijn</div>
+                        <div class="md-title">KiVa</div>
                     </md-item-header>
+                    <md-item class="padding-0">
+                        <div layout="row" layout-align="start center" class="padding-10">
+                            <md-button class="md-raised" ng-click="vm.openKiva($event)">KiVa-dossier toevoegen</md-button>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-list>
+                            <md-list-item md-no-ink ng-click="vm.openKivaFile($event, 'item')">
+                                <md-icon md-font-icon="zmdi zmdi-play"></md-icon>
+                                <div layout="column" flex="30">
+                                    29 september 2016
+                                </div>
+                                <div layout="row" class="padding-right-10" flex="60">
+                                    <span layout="column" flex>Pesten</span>
+                                    <span layout="column" layout-align="end center" class="md-caption">(steungroep)</span>
+                                </div>
+                                <md-icon md-font-icon="zmdi zmdi-gps-dot"></md-icon>
+                                <md-button class="md-icon-button" ng-click="vm.openKivaFile($event, 'item')">
+                                    <md-icon md-font-icon="zmdi zmdi-chevron-down"></md-icon>
+                                </md-button>
+                            </md-list-item>
+                            <div ng-if="vm.selectedKiva=='item'" class="padding-20">
+                                <div class="overlay-5 padded-content-page" animate-elements>
+                                    <div class="timeline" layout="row" ng-repeat="event in ::vm.events" ng-attr-layout-align="{{$odd? 'end end':'start start'}}">
+                                        <div layout="row" flex="50" flex-xs="100" ng-attr-layout-align="{{$odd? 'end':'start'}} center">
+                                            <div class="timeline-point md-whiteframe-z1" theme-background="primary" md-theme="{{triSkin.elements.content}}">
+                                                <md-icon md-font-icon="{{::event.icon}}" class="timeline-point-avatar"></md-icon>
+                                                <div class="timeline-point-date" ng-bind-html="::event.date"><span></div>
+                                            </div>
+                                            <md-divider class="timeline-x-axis" class="margin-0" flex flex-order="2"></md-divider>
+                                            <kiva-widget class="timeline-widget margin-0 flex-70 flex-xs-100 {{::event.classes}}" title="{{::event.title}}" subtitle="{{::event.subtitle}}" ng-attr-flex-order="{{$odd? 2:1}}" show-more="{{::event.more}}">
+                                                <div replace-with='{{event.content}}'></div>
+                                            </kiva-widget>
+                                            <md-divider class="timeline-y-axis"></md-divider>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline" layout="row" layout-align="end end">
+                                        <md-button ng-click="vm.addKivaStep($event, vm.selectedKiva)">Stap toevoegen</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <md-list-item md-no-ink ng-click="null">
+                                <md-icon md-font-icon="zmdi zmdi-check"></md-icon>
+                                <div layout="column" flex="30">
+                                    25 september 2016
+                                </div>
+                                <div layout="row" class="padding-right-10" flex="60">
+                                    <span layout="column" flex>Ruzie tussen kinderen</span>
+                                    <span layout="column" layout-align="end center" class="md-caption">(melding)</span>
+                                </div>
+                                <md-icon md-font-icon="zmdi zmdi-mood-bad"></md-icon>
+                                <md-button class="md-icon-button" ng-click="vm.openKivaFile('item')">
+                                    <md-icon md-font-icon="zmdi zmdi-chevron-down"></md-icon>
+                                </md-button>
+                            </md-list-item>
+                        </md-list>
+                    </md-item>
                     <div layout="row" layout-align="end center">
                         <md-button ng-click="vm.revert()">Annuleren</md-button>
                         <md-button ng-click="vm.save()" class="md-primary">Opslaan</md-button>

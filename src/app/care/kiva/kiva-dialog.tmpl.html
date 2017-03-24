@@ -1,0 +1,145 @@
+<md-dialog class="mobile-fullwidth-dialog kiva-wizard">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-title">
+                KiVa
+            </h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+        <md-progress-linear class="" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="kiva-dialog" tri-wizard>
+        <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+            <md-tab id="mention">
+                <md-tab-label>
+                    <span class="oxy-step-label">1</span>
+                    <span translate>Melding</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="mentionForm" tri-wizard-form novalidate>
+                            <md-input-container flex class="md-block">
+                                <label class="md-caption date-label">Datum</label>
+                                <md-datepicker name="date" ng-model="vm.iac.start" md-placeholder="Datum" required flex></md-datepicker>
+                                <div ng-messages="settingsForm.date.$error" md-auto-hide="false" ng-show="settingsForm.date.$touched">
+                                    <div ng-message when="required">
+                                        <span translate>Datum is een verplicht veld</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Aan wie is het pesten als eerste gemeld?</label>
+                                <input type="text" required />
+                            </md-input-container>
+                            <div layout="row">
+                                <md-input-container flex>
+                                    <label>Wie maakte de melding:</label>
+                                    <md-select name="mention_sender" ng-model="vm.kiva.mention.sender" required>
+                                        <md-option value="victim">het slachtoffer zelf</md-option>
+                                        <md-option value="friend">een vriendje van het slachtoffer</md-option>
+                                        <md-option value="parent">een van de ouders van het slachtoffer</md-option>
+                                        <md-option value="teacher">personeel</md-option>
+                                        <md-option value="other">iemand anders</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Naam</label>
+                                    <input type="text" required>
+                                </md-input-container>
+                            </div>
+                            <md-input-container flex class="md-block">
+                                <label>Slachtoffer</label>
+                                <input type="text" required>
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Op welke manier(en) is er gepest. Concrete beschrijving.</label>
+                                <textarea></textarea>
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Hoe vaak is de leerling de afgelopen maanden gepest?</label>
+                                <input type="number">
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label class="md-caption date-label">Wanneer is deze leerling voor het laatst gepest?</label>
+                                <md-datepicker name="date" ng-model="vm.iac.start" md-placeholder="Wanneer is deze leerling voor het laatst gepest?" flex></md-datepicker>
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Hoe lang wordt deze leerling al gepest?</label>
+                                <input type="text">
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Welke leerlingen zijn betrokken bij de pesterijen?</label>
+                                <input type="text" required>
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                <label>Op grond van de verzamelde informatie is er sprake van:</label>
+                                <md-select name="conclusion" ng-model="vm.kiva.conclusion" required>
+                                    <md-option value="fight">een ruzie tussen kinderen</md-option>
+                                    <md-option value="conflict">een op zichzelf staad conflict</md-option>
+                                    <md-option value="insult">een belediging naar aanleiding van een misverstand</md-option>
+                                    <md-option value="tease">plagen</md-option>
+                                    <md-option value="bullying">pesten</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="victim" ng-disabled="mentionForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">2</span>
+                    <span translate>Slachtoffer</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="victimForm" tri-wizard-form>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="intervention" ng-disabled="victimForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">3</span>
+                    <span translate>Interventie</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="interventionForm" tri-wizard-form>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="followup" ng-disabled="interventionForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">4</span>
+                    <span translate>Follow-up</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                        <form name="followupForm" tri-wizard-form>
+                        </form>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="close" ng-disabled="followupForm.$invalid">
+                <md-tab-label>
+                    <span class="oxy-step-label">5</span>
+                    <span translate>Afsluiten</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content class="md-padding">
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep == 0" ng-disabled="triWizard.prevStepDisabled()" translate="Vorige" aria-label="vorige"></md-button>
+        <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep == 4" ng-disabled="triWizard.nextStepDisabled()" translate="Volgende" aria-label="volgende"></md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.save()" translate="Opslaan" aria-label="opslaan"></md-button>
+    </md-dialog-actions>
+</md-dialog>

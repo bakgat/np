@@ -20,6 +20,9 @@
 
         vm.addRedicodi = addRedicodi;
         vm.openIac = openIac;
+        vm.openKivaFile = openKivaFile;
+        vm.addKivaStep = addKivaStep;
+        vm.selectedKiva = '';
 
         init();
         //////////////////////
@@ -225,5 +228,101 @@
             }
 
         }
+
+        function openKivaFile($event, kiva) {
+            if (vm.selectedKiva == kiva) {
+                vm.selectedKiva = null;
+            } else {
+                vm.selectedKiva = kiva;
+            }
+        }
+
+
+        function addKivaStep($event, kivaFile) {
+            $mdDialog.show({
+                    controller: 'KivaDialogController',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/care/kiva/kiva-dialog.tmpl.html',
+                    targetEvent: $event,
+                    focusOnOpen: false,
+                    locals: {
+                        kiva: kivaFile
+                    }
+                })
+                .then(function(iac) {
+                }, cancelIac);
+
+
+
+
+            function cancelIac() {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content('Geannuleerd.')
+                    .position('bottom right')
+                    .hideDelay(3000)
+                );
+            }
+
+        }
+
+        vm.events = [{
+            title: 'Melding',
+            subtitle: '21 september 2016 09:15<br/>door Karl Van Iseghem',
+            date: '21/9/2016<br/>09:15',
+            icon: 'zmdi zmdi-notifications-active',
+            content: '<div class="padding-10"><h5>Betrokken leerlingen:</h5><ul class="list-disc"><li>Leerling 1</li><li>Leerling 2</li></ul></div>',
+            more: false
+        }, {
+            title: 'Gesprek slachtoffer',
+            subtitle: '21 september 2016 10:20<br/>door Karl Van Iseghem',
+            date: '21/9/2016',
+            icon: 'notos notos-spoken',
+            content: '<div class="padding-10"><h5>Actieve pesters:</h5><ul class="list-disc"><li>Leerling 1</li><li>Leerling 2</li></ul><h5>Steuners:</h5><ul class="list-disc"><li>Leerling 3</li><li>Leerling 4</li></ul></div>',
+            more: false
+        }, {
+            title: 'Aanpak',
+            subtitle: '21 september 2016 10:35<br/>door Karl Van Iseghem',
+            date: '21/9/2016',
+            content: '<div class="padding-10"><h5>Steungroep</h5>Kort verslag en zo verder</div>',
+            icon: 'zmdi zmdi-accounts',
+            more: false
+        }, {
+            title: 'Ouders verwittigd',
+            subtitle: '',
+            date: '24/6/2015',
+            icon: 'zmdi zmdi-phone-in-talk',
+            content: '',
+            more: false
+        }, {
+            title: 'Leerkracht verwittigd',
+            subtitle: '',
+            date: '23/6/2015',
+            icon: 'fa fa-graduation-cap',
+            content: ' ',
+            more: false
+        }, {
+            title: 'Opvolggesprek slachtoffer',
+            subtitle: '',
+            date: '23/6/2015',
+            icon: 'notos notos-spoken',
+            content: '',
+            more: false
+        }, {
+            title: 'Opvolggesprek steungroep',
+            subtitle: '',
+            date: '17/6/2015',
+            icon: 'zmdi zmdi-accounts',
+            content: '',
+            palette: 'cyan:500',
+            more: false
+        }, {
+            title: 'Afgesloten',
+            subtitle: '',
+            date: '23/6/2015',
+            icon: 'zmdi zmdi-stop',
+            content: '',
+            more: false
+        }];
     }
 })();

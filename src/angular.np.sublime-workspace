@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"openK",
+				"openKivaFile"
+			],
+			[
+				"foll",
+				"followupForm"
+			],
+			[
+				"inter",
+				"interventionForm"
+			],
+			[
+				"vit",
+				"victimForm"
+			],
+			[
+				"padding",
+				"padding-0"
+			],
+			[
+				"evalu",
+				"evaluation"
+			],
+			[
+				"mod",
+				"module"
+			],
+			[
+				"student",
+				"students"
+			],
+			[
+				"query",
+				"queryStudents"
+			],
+			[
 				"base",
 				"baseState"
 			],
@@ -14,10 +50,6 @@
 			[
 				"bae",
 				"setBaseState"
-			],
-			[
-				"evalu",
-				"evaluations"
 			],
 			[
 				"Analy",
@@ -482,52 +514,11 @@
 			[
 				"createElem",
 				"createElementNS\tmethod"
-			],
-			[
-				"setAtt",
-				"setAttributeNS\tmethod"
-			],
-			[
-				"Prom",
-				"PromiseWrapper\talias"
-			],
-			[
-				"svgS",
-				"svgSrc_\tproperty"
-			],
-			[
-				"sv",
-				"svgIcon_\tproperty"
-			],
-			[
-				"svg",
-				"svgIcon_\tproperty"
-			],
-			[
-				"re",
-				"renderer_\tproperty"
-			],
-			[
-				"icon",
-				"iconCache\tproperty"
-			],
-			[
-				"ic",
-				"iconCache\tproperty"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "app/config.triangular.settings.js",
-			"settings":
-			{
-				"buffer_size": 796,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -592,52 +583,70 @@
 	"expanded_folders":
 	[
 		"/Users/karlvaniseghem/BakGat/np/angular",
-		"/Users/karlvaniseghem/BakGat/np/angular/src",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/students",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/points",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/cache"
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app"
 	],
 	"file_history":
 	[
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.directive.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar/student.toolbar.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/manage.config.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.factory.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/kiva-dialog.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/kiva.scss",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/examples/extras/extras.module.scss",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/kiva-widget.directive.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/kiva-widget.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/kiva-dialog.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/directives/settings-pane/md-settings-pane.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/kiva/replace-with.directive.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/directives/settings-pane/md-settings-pane.scss",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/filters/evaluation-search.filter.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/config.triangular.settings.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.config.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/filters/evaluation-search-filter.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.factory.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.directive.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/care/diff.factory.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/add-to-diff-dialog.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/care.config.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/env.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/utils.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.tmpl.scss",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar/toolbar.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/profile/user-avatar.directive.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/points/points-dialog.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback-dialog.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback-dialog.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/editfeedback-dialog.tmpl.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/editfeedback-dialog.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/gulp/build.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/dist/index.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/index.html",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/app.module.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/bower.json",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/layout/toolbar/student.toolbar.controller.js",
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/manage.config.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/points/points-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-list.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/layout/toolbar/toolbar.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/layout/toolbar/toolbar.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/iac-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/scss/_icons.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/data/diff.json",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/iac-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/env.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/students/student-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/staff/staff-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/groups/group-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/scss/_aliasses.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/add-to-diff-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/editfeedback-dialog.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/.tmp/serve/index.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback.config.textangular.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/dashboard.module.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/iac-list.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/widgets/counter-widget/counter-widget.component.scss",
@@ -651,28 +660,16 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/groups/select-groups.directive.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/router/router.run.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/router/router.module.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.config.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/student-iac.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.tmpl.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reports/report-list.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.module.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/care.module.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/care.config.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/add-to-diff-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/app.module.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/triangular.module.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/config.locale.date.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/index.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/dist/scripts/app-c6cb728c80.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/gulp/build.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/permission/user.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/profile/profile.factory.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/editfeedback-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback-dialog.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/utils.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluation.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/studentgroup.filter.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/manage/students/student.factory.js",
@@ -694,12 +691,9 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/reporting.factory.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/multiplechoice/multiplechoice-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/toolbar/toolbar.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/dashboards/analytics/analytics.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/daterange/daterange.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/dist/rev-manifest.json",
-		"/Users/karlvaniseghem/BakGat/np/angular/dist/index.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/feedback/feedback-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/feedback-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/iac/iac-dialog.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/scss/_dialogs.scss",
@@ -710,7 +704,6 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/triangular/scss/_material-overrides.scss",
 		"/Users/karlvaniseghem/BakGat/np/angular/v0.3.sublime-project",
 		"/Users/karlvaniseghem/BakGat/np/angular/bower_components/angular-filter/dist/angular-filter.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/bower.json",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/config.triangular.layout.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/leftsidenav/leftsidenav.tmpl.html",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/layouts/leftsidenav/leftsidenav.controller.js",
@@ -721,20 +714,7 @@
 		"/Users/karlvaniseghem/BakGat/np/angular/package.json",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/multiplechoice/multiplechoice-dialog.controller.js",
 		"/Users/karlvaniseghem/BakGat/np/angular/src/app/care/student-record.tmpl.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/data/evaluations.json",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/examples/elements/examples/lists-2.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/authentication/login/login.tmpl.scss",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/authentication/login/login.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/mutiplechoice/multiplechoice-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/mutiplechoice/multiplechoice-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/data/mc.json",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/spoken/spoken-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/evaluations/spoken/spoken-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/comprehensive-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/points-dialog.controller.js",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/points-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/comprehensive-dialog.tmpl.html",
-		"/Users/karlvaniseghem/BakGat/np/angular/src/app/global/branches/select-branches.tmpl.html"
+		"/Users/karlvaniseghem/BakGat/np/angular/src/app/reporting/data/evaluations.json"
 	],
 	"find":
 	{
@@ -795,6 +775,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"timeline-widg",
+			"DiffService.getModules",
 			"start:",
 			"hide-xs",
 			"xs-hide",
@@ -920,9 +902,7 @@
 			"md-avatar",
 			"md-default",
 			"default",
-			"accent",
-			"md-accent",
-			"nopadding"
+			"accent"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1028,39 +1008,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app/config.triangular.settings.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 796,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								617,
-								617
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

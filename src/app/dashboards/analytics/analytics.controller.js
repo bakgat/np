@@ -50,7 +50,7 @@
             vm.iacs.push({ value: totalIacOthers, name: 'gewoon curriculum' });
 
             var specGroups = _.filter(vm.data.redicodi, function(r) {
-                return _.indexOf(['BEE', 'MSF', 'SF'], r.redicodi) > -1;
+                return _.indexOf(['BEE', 'MSF', 'SF', 'BF'], r.redicodi) > -1;
             })
             vm.specGroups = _.map(specGroups, function(r) {
                 totalSpecGroupOthers -= r.count;
