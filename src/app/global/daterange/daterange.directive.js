@@ -111,6 +111,8 @@
                 vm.range = DateRangeService.thisMonth();
             } else if (option == 'quarter') {
                 vm.range = DateRangeService.thisQuarter();
+            } else if (option == 'semester') {
+                vm.range = DateRangeService.thisSemester();
             } else if (option == 'schoolyear') {
                 vm.range = DateRangeService.thisSchoolyear();
             }

@@ -13,6 +13,7 @@
             thisWeek: thisWeek,
             thisMonth: thisMonth,
             thisQuarter: thisQuarter,
+            thisSemester: thisSemester,
             thisSchoolyear: thisSchoolyear,
             custom: custom,
             range: range
@@ -25,7 +26,7 @@
 
         function range() {
             if(range === undefined) {
-                range = thisQuarter();
+                range = thisSemester();
             }
             return range;
         }
@@ -63,6 +64,16 @@
             }
         }
 
+        function thisSemester() {
+            var now = moment();
+
+            if(now.month() > 7) {
+                return semester(1);
+            } else {
+                return semester(2);
+            }
+        }
+
         function quarter(q) {
             var start, end;
             //q = 1, 2, 3
@@ -79,6 +90,25 @@
                 end = moment().month(5).endOf('month');
             }
             range = {
+                start: start,
+                end: end
+            };
+            return range;
+        }
+
+        function semester(q) {
+            var start, end;
+            //q = 1, 2
+            if(q === 1) {
+                //First schoolSemester
+                start = moment().month(8).startOf('month');
+                end = moment().month(11).endOf('month');
+            } else {
+                //Second schoolSemester
+                start = moment().startOf('year');
+                end = moment().month(5).endOf('month');
+            }
+            range =  {
                 start: start,
                 end: end
             };
