@@ -49,6 +49,9 @@
                 query.push('qend=' + vm.range.end.format('YYYY-MM-DD'));
                 query.push('render=' + vm.content);
 
+                var auth_token = UserService.getCurrentUser().auth_token;
+                query.push('token=' + auth_token);
+                
                 request += '?' + query.join('&');
 
                 $window.open(request, '_blank');
