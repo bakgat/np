@@ -160,7 +160,28 @@
                         return groups;
                     }
                 }
-            });
+            })
+            .state('triangular.manage.sanitize', {
+                url: '/sanitize',
+                views: {
+                    '@triangular': {
+                        templateUrl: 'app/manage/sanitize/sanitize.tmpl.html',
+                        // set the controller to load for this page
+                        controller: 'SanitizeController',
+                        controllerAs: 'vm',
+                    }
+                },
+                resolve: {
+                    groups: function(GroupService) {
+                        return GroupService.getList();
+                    }
+                },
+                data: {
+                    permissions: {
+                        only: ['manageGroups']
+                    }
+                }
+            })
 
         triMenuProvider.addMenu({
             name: 'Beheer',
@@ -186,6 +207,11 @@
                 icon: 'zmdi zmdi-accounts-alt',
                 type: 'link',
                 permission: 'manageStaff'
+            }, {
+                name: 'Database',
+                state: 'triangular.manage.sanitize',
+                icon: 'zmdi zmdi-storage',
+                type: 'link'
             }]
         });
     }
