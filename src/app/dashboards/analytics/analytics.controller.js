@@ -7,11 +7,14 @@
         .controller('DashboardAnalyticsController', DashboardAnalyticsController);
 
     /* @ngInject */
-    function DashboardAnalyticsController(BaseStateService, analytics, _, DiffService) {
+    function DashboardAnalyticsController(BaseStateService, analytics, _, moment, DiffService) {
         var vm = this;
 
         vm.data = analytics;
         vm.otherWork = [];
+        vm.overviewEvaluations = [];
+        vm.overviewReports = [];
+        vm.overviewLogins = [];
 
         // init
         init();
@@ -48,7 +51,8 @@
 
             });
             vm.iacs.push({ value: totalIacOthers, name: 'gewoon curriculum' });
-
+          
+        
             var specGroups = _.filter(vm.data.redicodi, function(r) {
                 return _.indexOf(['BEE', 'MSF', 'SF', 'BF'], r.redicodi) > -1;
             })
@@ -61,6 +65,47 @@
             });
             vm.specGroups.push({value: totalSpecGroupOthers, name: 'andere'});
 
+
+
+            /*
+             * OVERVIEWS
+             */
+            var lastMonthEI = [];
+            var lastMonthEU = [];
+            var ei = vm.data.dailyReport.evaluation.insert;
+            var eu = vm.data.dailyReport.evaluation.update;
+
+            var lastMonthRS = [];
+            var lastMonthRG = [];
+            var rs = vm.data.dailyReport.report.reportStudent;
+            var rg = vm.data.dailyReport.report.reportGroup;
+
+            var lastMonthLogins = [];
+            var l = vm.data.dailyReport.staff.login;
+
+            for(var i=0;i<30;i++) {
+                var date = moment().subtract(i, 'days');
+                lastMonthEI.push(findByDate(ei, date));
+                lastMonthEU.push(findByDate(eu, date));
+                lastMonthRS.push(findByDate(rs, date));
+                lastMonthRG.push(findByDate(rg, date));
+                lastMonthLogins.push(findByDate(l, date));
+            }
+
+            
+            function findByDate(array, d) {
+                var found = _.find(array, {date: d.format('YYYY-MM-DD')});
+                var count = found ? found.count || 0 : 0;
+                return { count: count, date: d };
+            }
+
+            vm.overviewEvaluations.push({values: lastMonthEI, key: 'Nieuwe evaluaties'});
+            vm.overviewEvaluations.push({values: lastMonthEU, key: 'Bijgewerkte evaluaties'});
+
+            vm.overviewReports.push({values: lastMonthRS, key: 'Leerlingenrapport gemaakt'});
+            vm.overviewReports.push({values: lastMonthRG, key: 'Klasrapport gemaakt'});
+
+            vm.overviewLogins.push({values: lastMonthLogins, key: 'Logins'});
         }
 
         vm.otherWorkOptions = {
@@ -87,6 +132,32 @@
                 }
             }
         };
+
+        vm.overviewLineChartOptions = {
+                chart: {
+                    type: 'lineChart',
+                    y: function(d){
+                        return d.count;
+                        //return d.date;
+                    },
+                    x: function(d){
+                        return d.date;
+                    },
+                    color: ['#82B1FF','#ff7f0e'],
+                    yAxis: {
+                        axisLabel: 'Aantal',
+                        tickFormat: function(d){
+                            return d3.format(',')(d);
+                        },
+                        axisLabelDistance: -10
+                    },
+                    xAxis: { 
+                        tickFormat: function(d) {
+                            return d3.time.format('%d/%m')(new Date(d));
+                        }
+                    }
+                }
+            };
 
     }
 })();

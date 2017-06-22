@@ -16,6 +16,16 @@
             <pie-chart-widget data="vm.specGroups" options="vm.otherWorkOptions"></pie-chart-widget>
         </div>
     </div>
+
+    <div layout="row">
+        <line-chart-widget flex title="Evaluaties" data="vm.overviewEvaluations" options="vm.overviewLineChartOptions"></line-chart-widget>
+    </div>
+    <div layout="row">
+        <line-chart-widget flex title="Rapporten" data="vm.overviewReports" options="vm.overviewLineChartOptions"></line-chart-widget>
+    </div>
+    <div layout="row">
+        <line-chart-widget flex title="Logins" data="vm.overviewLogins" options="vm.overviewLineChartOptions"></line-chart-widget>
+    </div>
     <!--
     <div layout="row">
         <line-chart-widget flex start="vm.start" end="vm.end" time-spans="vm.timeSpans" on-time-change="vm.timeSpanChanged(span)" data="vm.data.sessionsLineChartData" options="vm.overviewLineChartOptions"></line-chart-widget>

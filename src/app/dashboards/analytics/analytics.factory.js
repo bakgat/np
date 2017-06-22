@@ -6,7 +6,7 @@
         .factory('AnalyticsService', AnalyticsService);
 
     /* @ngInject */
-    function AnalyticsService(HTTPCache) {
-        return HTTPCache.all('analytics');
+    function AnalyticsService(Restangular) {
+        return Restangular.all('analytics');
     }
 })();

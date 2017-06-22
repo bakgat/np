@@ -12,7 +12,8 @@
                 timeSpans: '<',
                 onTimeChange: '&',
                 data: '<',
-                options: '<'
+                options: '<',
+                title: '@'
             }
         });
 
