@@ -21,6 +21,7 @@
                             <th md-column style="width:100px;">Permanent</th>
                             <th md-column style="width:100px;">Eind</th>
                             <th md-column style="width:100px;">Totaal</th>
+                            <th md-column style="width:100px;"></th>
                             
                         </tr>
                         <tr md-row>
@@ -28,19 +29,23 @@
                             <th md-column style="width:100px;"><span ng-if="major.permanent">{{major.permanent | number:1}}%</span></th>
                             <th md-column style="width:100px;"><span ng-if="major.final">{{major.final | number:1}}%</span></th>
                             <th md-column style="width:100px;"><span ng-if="major.total">{{major.total | number:1}}%</span></th>
+                            <th md-column style="width:100px;"></th>
                         </tr>
                     </thead>
                     <tbody md-body>
                         <tr md-row ng-repeat="branch in major.branches">
                             <td md-cell ng-bind="branch.name"></td>
                             <td md-cell>
-                                <span ng-if="branch.history[0].permanent"><span class="score">{{branch.history[0].permanent | number:1}}</span>/{{branch.history[0].max}}</span>
+                                <span ng-if="branch.current.permanent"><span class="score">{{branch.current.permanent | number:1}}</span>/{{branch.current.max}}</span>
                             </td>
                             <td md-cell>
-                                <span ng-if="branch.history[0].final"><span class="score" >{{branch.history[0].final | number:1}}</span>/{{branch.history[0].max}}</span>
+                                <span ng-if="branch.current.final"><span class="score" >{{branch.current.final | number:1}}</span>/{{branch.current.max}}</span>
                             </td>
                             <td md-cell>
-                                <span ng-if="branch.history[0].total"><span class="score">{{branch.history[0].total | number:1}}</span>/{{branch.history[0].max}}</span>
+                                <span ng-if="branch.current.total"><span class="score">{{branch.current.total | number:1}}</span>/{{branch.current.max}}</span>
+                            </td>
+                            <td md-cell>
+                                <img ng-if="branch.chartUrl" ng-src="{{branch.chartUrl}}" style="width:auto;height:auto;border-radius:0;" />
                             </td>
                         </tr>
                     </tbody>
