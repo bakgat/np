@@ -41,7 +41,7 @@
             $mdDialog.show({
                     controller: 'ComposeGroupController',
                     controllerAs: 'vm',
-                    templateUrl: 'app/manage/compose-group.tmpl.html',
+                    templateUrl: 'app/manage/groups/compose-group.tmpl.html',
                     targetEvent: $event,
                     locals: {
                         group: {
